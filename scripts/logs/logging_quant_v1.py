@@ -17,24 +17,41 @@ def _configure_logger(logger: logging.Logger) -> None:
     logger.setLevel(_DEFAULT_LEVEL)
 
 def get_logger(name: str = "quant_v1") -> logging.Logger:
+    """
+    Return a configured logger instance.
+    Use this in new code: from logging_quant_v1 import get_logger; logger = get_logger(__name__)
+    """
     logger = logging.getLogger(name)
     _configure_logger(logger)
     return logger
 
+# Backward-compatible module-level `log` object
 class _ModuleLogProxy:
+    """
+    Simple proxy that exposes info/warning/error/debug/exception methods
+    and delegates to a default logger named 'quant_v1'.
+    This preserves older code that does: from logging_quant_v1 import log; log.info(...)
+    """
     def __init__(self, default_name: str = "quant_v1"):
         self._name = default_name
+
     def _logger(self) -> logging.Logger:
         return get_logger(self._name)
+
     def info(self, *args: Any, **kwargs: Any) -> None:
         self._logger().info(*args, **kwargs)
+
     def warning(self, *args: Any, **kwargs: Any) -> None:
         self._logger().warning(*args, **kwargs)
+
     def error(self, *args: Any, **kwargs: Any) -> None:
         self._logger().error(*args, **kwargs)
+
     def debug(self, *args: Any, **kwargs: Any) -> None:
         self._logger().debug(*args, **kwargs)
+
     def exception(self, *args: Any, **kwargs: Any) -> None:
         self._logger().exception(*args, **kwargs)
 
+# Export the proxy instance as `log`
 log = _ModuleLogProxy()
