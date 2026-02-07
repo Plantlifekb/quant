@@ -1,0 +1,30 @@
+﻿name: Nightly Health Check
+on:
+  schedule:
+    - cron: '0 2 * * *'
+jobs:
+  import-test:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+      - name: Install deps
+        run: pip install -r requirements.txt
+      - name: Run import tests
+        run: python -m pytest tests/test_imports.py
+  canonical-dry-run:
+    runs-on: windows-latest
+    needs: import-test
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+      - name: Install deps
+        run: pip install -r requirements.txt
+      - name: Run canonical dry run
+        run: python scripts/canonical/canonical_pipeline_quant_v1.py --dry-run
