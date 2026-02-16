@@ -1,0 +1,20 @@
+[2026-02-02 07:30:33 UTC] [regime_classifier_quant_v1] Starting regime_classifier_quant_v1 run (v1.1).
+[2026-02-02 07:30:33 UTC] [regime_classifier_quant_v1] Loading returns panel from C:\Quant\data\analytics\quant_returns_panel.csv
+[2026-02-02 07:30:33 UTC] [regime_classifier_quant_v1] Loaded 1319 daily return observations.
+[2026-02-02 07:30:33 UTC] [regime_classifier_quant_v1] Loading backtest PnL from C:\Quant\data\analytics\quant_backtest_pnl_v1.csv
+[2026-02-02 07:30:33 UTC] [regime_classifier_quant_v1] Loaded 1301 backtest PnL observations.
+[2026-02-02 07:30:33 UTC] [regime_classifier_quant_v1] Computing regime features (volatility and drawdown).
+[2026-02-02 07:30:33 UTC] [regime_classifier_quant_v1] Classifying regimes.
+[2026-02-02 07:30:33 UTC] [regime_classifier_quant_v1] Built regime states for 1301 dates.
+[2026-02-02 07:30:33 UTC] [regime_classifier_quant_v1] Saving regime states to C:\Quant\data\analytics\quant_regime_states_v1.csv
+[2026-02-02 07:30:33 UTC] [regime_classifier_quant_v1] regime_classifier_quant_v1 run completed successfully.
+[2026-02-02 07:30:34 UTC] [regime_classifier_quant_v1] Starting regime_classifier_quant_v1 run (v1.1).
+[2026-02-02 07:30:34 UTC] [regime_classifier_quant_v1] Loading returns panel from C:\Quant\data\analytics\quant_returns_panel.csv
+[2026-02-02 07:30:34 UTC] [regime_classifier_quant_v1] Loaded 1319 daily return observations.
+[2026-02-02 07:30:34 UTC] [regime_classifier_quant_v1] Loading backtest PnL from C:\Quant\data\analytics\quant_backtest_pnl_v1.csv
+[2026-02-02 07:30:34 UTC] [regime_classifier_quant_v1] Loaded 1301 backtest PnL observations.
+[2026-02-02 07:30:34 UTC] [regime_classifier_quant_v1] Computing regime features (volatility and drawdown).
+[2026-02-02 07:30:34 UTC] [regime_classifier_quant_v1] Classifying regimes.
+[2026-02-02 07:30:34 UTC] [regime_classifier_quant_v1] Built regime states for 1301 dates.
+[2026-02-02 07:30:34 UTC] [regime_classifier_quant_v1] Saving regime states to C:\Quant\data\analytics\quant_regime_states_v1.csv
+[2026-02-02 07:30:34 UTC] [regime_classifier_quant_v1] regime_classifier_quant_v1 run completed successfully.

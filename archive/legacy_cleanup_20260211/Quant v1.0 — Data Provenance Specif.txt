@@ -1,0 +1,253 @@
+Quant v1.0 — Data Provenance Specification
+
+Canonical, governed, non‑drifting
+
+Purpose
+
+Define the complete lineage, origin, transformation chain, and governance rules for every field used in Quant v1.0. This ensures full transparency, auditability, and deterministic data flow from ingestion to final dashboard outputs.
+
+1. Provenance Philosophy
+
+Quant v1.0 enforces:
+
+full lineage for every field
+
+no ambiguous transformations
+
+no undocumented data sources
+
+no external dependencies
+
+deterministic, reproducible transformations
+
+Every field must be traceable back to its original source.
+
+2. Source Data
+
+2.1 Primary Input
+
+File: ingestion_5years.csv
+
+Origin:
+
+Single governed ingestion process
+
+Contains 5 years of OHLCV data
+
+Fields:
+
+date
+
+ticker
+
+open
+
+high
+
+low
+
+close
+
+adj_close
+
+volume
+
+Constraints:
+
+No missing values
+
+ISO‑8601 dates
+
+All tickers uppercase
+
+All numeric fields parseable
+
+3. Enrichment Layer Provenance
+
+3.1 ret_1d
+
+Derived from: close(t), close(t‑1)
+
+Formula: [ ret_1d(t) = \frac{close(t) - close(t-1)}{close(t-1)} ]
+
+Lineage: ingestion → enrichment
+
+3.2 ret_20d
+
+Derived from: close(t), close(t‑20)
+
+Formula: [ ret_{20d}(t) = \frac{close(t) - close(t-20)}{close(t-20)} ]
+
+Lineage: ingestion → enrichment
+
+3.3 vol_20d
+
+Derived from: 20 days of ret_1d
+
+Formula: population standard deviation
+
+Lineage: ingestion → enrichment
+
+3.4 mkt_avg
+
+Derived from: cross‑sectional ret_1d
+
+Lineage: ingestion → enrichment
+
+3.5 mkt_ma200
+
+Derived from: 200‑day moving average of market close
+
+Lineage: ingestion → enrichment
+
+3.6 mkt_trend
+
+Derived from: close(t), mkt_ma200(t)
+
+Classification: bull, bear, neutral
+
+Lineage: ingestion → enrichment
+
+3.7 score
+
+Derived from: ret_20d, vol_20d, ret_1d
+
+Lineage: ingestion → enrichment → scoring
+
+3.8 is_monday
+
+Derived from: date
+
+Lineage: ingestion → enrichment
+
+4. Ranking Layer Provenance
+
+4.1 weekly_top10_quant_v1.csv
+
+Derived from: enriched_daily.csv
+
+Fields:
+
+date
+
+ticker
+
+score
+
+rank
+
+mkt_trend
+
+Lineage: ingestion → enrichment → ranking
+
+5. Backtest Layer Provenance
+
+5.1 weekly_backtest_quant_v1.csv
+
+Derived from: weekly_top10_quant_v1.csv
+
+Fields:
+
+date
+
+ret_1w
+
+cumulative_return
+
+Lineage: ingestion → enrichment → ranking → backtest
+
+6. Dashboard Layer Provenance
+
+6.1 dashboard_top10_quant_v1.csv
+
+Derived from: weekly_top10_quant_v1.csv
+
+Fields:
+
+date
+
+ticker
+
+company_name
+
+market_sector
+
+score
+
+rank
+
+mkt_trend
+
+Lineage: ingestion → enrichment → ranking → dashboard
+
+6.2 dashboard_growth_quant_v1.csv
+
+Derived from: weekly_backtest_quant_v1.csv
+
+Fields:
+
+date
+
+weekly_return
+
+cumulative_return
+
+Lineage: ingestion → enrichment → ranking → backtest → dashboard
+
+7. Transformation Rules
+
+7.1 Allowed Transformations
+
+arithmetic operations
+
+moving averages
+
+standard deviation
+
+cross‑sectional normalization
+
+deterministic classification
+
+7.2 Forbidden Transformations
+
+smoothing
+
+winsorization
+
+clipping
+
+interpolation
+
+random sampling
+
+external data merges
+
+8. Provenance Invariants
+
+Every field must have a single, documented origin
+
+No field may be overwritten without lineage update
+
+No derived field may bypass its parent fields
+
+All transformations must be deterministic
+
+All lineage must be reproducible
+
+No undocumented fields permitted
+
+9. Provenance Validation
+
+9.1 Schema Validator
+
+Ensures all fields match expected lineage.
+
+9.2 Directory Auditor
+
+Ensures no unapproved files exist.
+
+9.3 Compliance Checker
+
+Ensures all provenance rules are followed.
+
+End of Data Provenance Specification

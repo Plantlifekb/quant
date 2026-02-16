@@ -1,0 +1,646 @@
+﻿#!/usr/bin/env python3
+"""
+C:\Quant\scripts\dashboard\dashboard_app.py
+
+Updated Streamlit dashboard:
+- Removes Monthly/Annual portfolio labels from banner
+- Adds a thin blue accent line to the banner
+- Adds explanations for "Risk-On" and the turnover chart
+- Adds short descriptions (captions) under each chart
+- Preserves original layout and calculations
+"""
+
+from __future__ import annotations
+
+import os
+from datetime import datetime
+from typing import Tuple, Dict
+
+import numpy as np
+import pandas as pd
+import streamlit as st
+import matplotlib.pyplot as plt
+import plotly.graph_objects as go
+
+plt.switch_backend("Agg")
+
+def format_cum_return(value):
+    try:
+        if value is None:
+            return ""
+        multiplier = 1.0 + float(value)
+        percent = float(value) * 100.0
+        sign = "+" if percent >= 0 else ""
+        return f"{multiplier:.3f}x ({sign}{percent:.2f}%)"
+    except Exception:
+        return str(value)
+
+# ============================================================
+# PATHS
+# ============================================================
+WEEKLY_SELECTION_PATH = r"C:\Quant\data\signals\weekly_selection_longshort_canonical.csv"
+PRICES_PATH = r"C:\Quant\data\ingestion\prices.parquet"
+TICKER_REF_PATH = r"C:\Quant\config\ticker_reference.csv"
+
+# ============================================================
+# LOAD DATA
+# ============================================================
+@st.cache_data
+def load_data() -> Tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+    df = pd.read_csv(WEEKLY_SELECTION_PATH)
+    df["date"] = pd.to_datetime(df["date"])
+    df["ticker"] = df["ticker"].astype(str).str.upper().str.strip()
+
+    prices = pd.read_parquet(PRICES_PATH)
+    prices["date"] = pd.to_datetime(prices["date"])
+    if "ticker" in prices.columns:
+        prices["ticker"] = prices["ticker"].astype(str).str.upper().str.strip()
+
+    meta = pd.read_csv(TICKER_REF_PATH)
+    meta["ticker"] = meta["ticker"].astype(str).str.upper().str.strip()
+
+    return df, prices, meta
+
+
+df, prices, meta = load_data()
+latest_date = df["date"].max()
+
+# ============================================================
+# CORE METRICS (original logic preserved, robust to price column)
+# ============================================================
+_price_candidates = ["price", "close", "last", "adj_close", "adjusted_close"]
+price_col = next((c for c in _price_candidates if c in prices.columns), None)
+
+if price_col is None and {"open", "high", "low", "close"}.issubset(prices.columns):
+    prices["price"] = prices[["open", "high", "low", "close"]].mean(axis=1)
+    price_col = "price"
+
+if price_col is None:
+    raise RuntimeError(
+        "No price column found in prices data. Expected one of: "
+        "price, close, last, adj_close, or OHLC columns."
+    )
+
+prices["week"] = prices["date"].dt.to_period("W-MON")
+df["week"] = df["date"].dt.to_period("W-MON")
+
+weekly_prices = (
+    prices.sort_values(["ticker", "date"])
+    .groupby(["ticker", "week"], as_index=False)
+    .agg(price=(price_col, "last"))
+)
+weekly_prices["ret"] = weekly_prices.groupby("ticker")["price"].pct_change()
+
+df_perf = df.merge(
+    weekly_prices[["ticker", "week", "ret"]],
+    on=["ticker", "week"],
+    how="left",
+)
+df_perf = df_perf.merge(meta, on="ticker", how="left")
+
+df_perf["signed_weight"] = np.where(df_perf["side"] == "long", df_perf["weight"], -df_perf["weight"])
+df_perf["contribution"] = df_perf["signed_weight"] * df_perf["ret"]
+
+weekly_portfolio = (
+    df_perf.groupby("date", as_index=False)
+    .agg(weekly_return=("contribution", "sum"))
+)
+weekly_portfolio["cum_return"] = (1 + weekly_portfolio["weekly_return"]).cumprod()
+
+long_only = df_perf[df_perf["side"] == "long"]
+long_only_weekly = (
+    long_only.groupby("date", as_index=False)
+    .agg(long_only_return=("contribution", "sum"))
+)
+long_only_weekly["long_only_cum"] = (1 + long_only_weekly["long_only_return"]).cumprod()
+
+long_weekly = (
+    df_perf[df_perf["side"] == "long"]
+    .groupby("date", as_index=False)
+    .agg(long_return=("contribution", "sum"))
+)
+short_weekly = (
+    df_perf[df_perf["side"] == "short"]
+    .groupby("date", as_index=False)
+    .agg(short_return=("contribution", "sum"))
+)
+
+ls = (
+    weekly_portfolio.merge(long_weekly, on="date", how="left")
+    .merge(short_weekly, on="date", how="left")
+)
+ls["long_cum"] = (1 + ls["long_return"]).cumprod()
+ls["short_cum"] = (1 + ls["short_return"]).cumprod()
+
+df_sorted = df.sort_values(["ticker", "date"]).copy()
+df_sorted["prev_weight"] = df_sorted.groupby("ticker")["weight"].shift(1)
+df_sorted["prev_side"] = df_sorted.groupby("ticker")["side"].shift(1)
+side_changed = df_sorted["side"] != df_sorted["prev_side"]
+df_sorted.loc[side_changed, "prev_weight"] = 0.0
+df_sorted["abs_change"] = (df_sorted["weight"] - df_sorted["prev_weight"]).abs()
+
+turnover_weekly = (
+    df_sorted.groupby("date", as_index=False)
+    .agg(turnover=("abs_change", "sum"))
+)
+
+wr = weekly_portfolio["weekly_return"].fillna(0.0)
+weekly_portfolio["rolling_sharpe_26w"] = (
+    wr.rolling(26)
+    .apply(lambda x: (x.mean() / x.std()) * np.sqrt(52) if x.std() != 0 else np.nan)
+)
+
+cum = weekly_portfolio["cum_return"]
+roll_max = cum.cummax()
+weekly_portfolio["drawdown"] = (cum - roll_max) / roll_max
+
+ticker_contrib = (
+    df_perf.groupby("ticker", as_index=False)
+    .agg(contribution=("contribution", "sum"))
+    .sort_values("contribution", ascending=False)
+)
+top10_contrib = ticker_contrib.head(10)
+
+# ============================================================
+# PERIOD RETURNS + REGIME (ensure these run before the banner)
+# ============================================================
+def compute_period_returns(series: pd.Series):
+    if len(series) < 1:
+        return np.nan, np.nan, np.nan
+    weekly = series.iloc[-1] if len(series) >= 1 else np.nan
+    monthly = (1 + series.iloc[-4:]).prod() - 1 if len(series) >= 4 else np.nan
+    annual = (1 + series.iloc[-52:]).prod() - 1 if len(series) >= 52 else np.nan
+    return weekly, monthly, annual
+
+
+ls_week, ls_month, ls_year = compute_period_returns(weekly_portfolio["weekly_return"])
+lo_week, lo_month, lo_year = compute_period_returns(long_only_weekly["long_only_return"])
+
+
+def compute_regime(weekly_portfolio_df: pd.DataFrame):
+    if len(weekly_portfolio_df) < 1:
+        return np.nan, np.nan, np.nan
+    last_week = weekly_portfolio_df["weekly_return"].iloc[-1] if len(weekly_portfolio_df) >= 1 else np.nan
+    last_4 = weekly_portfolio_df["weekly_return"].iloc[-4:]
+    monthly = (1 + last_4).prod() - 1 if len(last_4) == 4 else np.nan
+    last_52 = weekly_portfolio_df["weekly_return"].iloc[-52:]
+    annual = (1 + last_52).prod() - 1 if len(last_52) == 52 else np.nan
+    return last_week, monthly, annual
+
+
+reg_week, reg_month, reg_year = compute_regime(weekly_portfolio)
+
+
+def classify_regime(r, bull_thr, bear_thr):
+    if pd.isna(r):
+        return "N/A"
+    if r > bull_thr:
+        return "Bull"
+    if r < bear_thr:
+        return "Bear"
+    return "Neutral"
+
+
+weekly_regime_label = classify_regime(reg_week, 0.005, -0.005)
+# monthly_regime_label and annual_regime_label are still computed but intentionally not shown in the banner
+monthly_regime_label = classify_regime(reg_month, 0.02, -0.02)
+annual_regime_label = classify_regime(reg_year, 0.10, -0.10)
+
+# ============================================================
+# Data-driven market regime (current-week market regime)
+# ============================================================
+def compute_current_week_regime(prices_df: pd.DataFrame, date_col: str = "date") -> Dict:
+    dfp = prices_df.copy()
+    dfp[date_col] = pd.to_datetime(dfp[date_col])
+
+    price_candidates = ["price", "close", "last", "adj_close", "adjusted_close"]
+    pcol = next((c for c in price_candidates if c in dfp.columns), None)
+    if pcol is None and {"open", "high", "low", "close"}.issubset(dfp.columns):
+        dfp["__price_fallback__"] = dfp[["open", "high", "low", "close"]].mean(axis=1)
+        pcol = "__price_fallback__"
+    if pcol is None:
+        return {"regime": "insufficient data", "reason": "no price column", "as_of": pd.Timestamp.utcnow().isoformat()}
+
+    if "ticker" in dfp.columns:
+        candidates = ["SPX", "SP500", "^GSPC", "SPY", "INDEX"]
+        idx = next((c for c in candidates if c in dfp["ticker"].unique()), None)
+        if idx:
+            series = dfp.loc[dfp["ticker"] == idx, [date_col, pcol]].sort_values(date_col).set_index(date_col)[pcol].astype(float)
+        else:
+            pivot = dfp.pivot_table(index=date_col, columns="ticker", values=pcol)
+            series = pivot.mean(axis=1).sort_index().astype(float)
+    else:
+        series = dfp.sort_values(date_col).set_index(date_col)[pcol].astype(float)
+
+    series = series.dropna().sort_index()
+    if len(series) < 60:
+        return {"regime": "insufficient data", "reason": "not enough history", "as_of": pd.Timestamp.utcnow().isoformat()}
+
+    latest = float(series.iloc[-1])
+    ma50 = float(series.rolling(window=50, min_periods=20).mean().iloc[-1])
+    ma200 = float(series.rolling(window=200, min_periods=50).mean().iloc[-1])
+    daily_ret = series.pct_change().dropna()
+    rv20 = float(daily_ret.rolling(window=20).std().iloc[-1] * np.sqrt(252))
+
+    low_vol_threshold = 0.12
+    high_vol_threshold = 0.25
+
+    if latest > ma50 and ma50 > ma200 and rv20 < low_vol_threshold:
+        regime = "Bull"
+    elif latest > ma50 and rv20 >= low_vol_threshold:
+        regime = "Risk-On"
+    elif latest < ma200 and rv20 > high_vol_threshold:
+        regime = "Bear"
+    else:
+        regime = "Transitional"
+
+    return {"regime": regime, "latest": latest, "ma50": ma50, "ma200": ma200, "rv20": rv20, "as_of": pd.Timestamp.utcnow().isoformat()}
+
+
+regime_info = compute_current_week_regime(prices)
+
+# ============================================================
+# STREAMLIT CONFIG
+# ============================================================
+st.set_page_config(page_title="Quant Dashboard", layout="wide")
+st.sidebar.title("Navigation")
+page = st.sidebar.radio(
+    "Go to",
+    [
+        "Overview",
+        "Weekly Picks",
+        "Long-Only Strategy",
+        "Combined Long/Short Strategy",
+        "Contributors & Turnover",
+        "Risk Metrics",
+    ],
+)
+
+# ============================================================
+# BANNER (three columns, blue accent line added)
+# - Monthly and Annual portfolio labels removed from banner display
+# ============================================================
+st.markdown(
+    """
+    <style>
+      .quant-banner {
+        background: linear-gradient(90deg, #072f6b 0%, #0b3d91 100%);
+        color: #ffffff;
+        padding: 14px 18px;
+        border-radius: 8px;
+        position: relative;
+      }
+      /* thin blue accent line at bottom of banner */
+      .quant-banner:after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: -6px;
+        height: 4px;
+        background: linear-gradient(90deg, #00aaff 0%, #0077cc 100%);
+        border-radius: 2px;
+      }
+      .quant-banner h2 { margin: 0; font-size: 20px; }
+      .quant-banner .meta { color: #dbe9ff; font-size: 12px; margin-top: 6px; }
+      .pill { display:inline-block; background:#ffd966; color:#072f6b; padding:4px 10px; border-radius:999px; font-weight:600; }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
+
+st.markdown('<div class="quant-banner">', unsafe_allow_html=True)
+col1, col2, col3 = st.columns(3)
+
+with col1:
+    st.markdown("### Strategy Performance")
+    try:
+        st.write(f"**L/S Weekly:** {ls_week*100:.2f}%")
+    except Exception:
+        st.write("**L/S Weekly:** N/A")
+    try:
+        st.write(f"**L/S Monthly:** {ls_month*100:.2f}%")
+    except Exception:
+        st.write("**L/S Monthly:** N/A")
+    try:
+        st.write(f"**L/S Annual:** {ls_year*100:.2f}%")
+    except Exception:
+        st.write("**L/S Annual:** N/A")
+
+with col2:
+    st.markdown("### Long‑Only Performance")
+    try:
+        st.write(f"**Weekly:** {lo_week*100:.2f}%")
+    except Exception:
+        st.write("**Weekly:** N/A")
+    try:
+        st.write(f"**Monthly:** {lo_month*100:.2f}%")
+    except Exception:
+        st.write("**Monthly:** N/A")
+    try:
+        st.write(f"**Annual:** {lo_year*100:.2f}%")
+    except Exception:
+        st.write("**Annual:** N/A")
+
+with col3:
+    st.markdown("### Market Regime")
+    st.write(f"**Weekly (portfolio):** {weekly_regime_label}")
+    # monthly and annual portfolio labels intentionally not shown here per request
+    st.markdown(f"**Current-week (market):** <span class='pill'>{regime_info.get('regime','unknown')}</span>", unsafe_allow_html=True)
+    st.caption(f"Market RV20: {regime_info.get('rv20', float('nan')):.2%} • MA50/MA200: {regime_info.get('ma50',0):.2f}/{regime_info.get('ma200',0):.2f}")
+
+st.markdown('</div>', unsafe_allow_html=True)
+st.markdown("")  # spacing
+
+# Short explanation of Risk-On and Turnover (placed under banner)
+st.markdown("**What 'Risk‑On' means**")
+st.markdown(
+    "Risk‑On indicates market conditions where investors are more willing to hold riskier assets. "
+    "It typically coincides with rising prices and higher realized volatility than very calm markets. "
+    "In this dashboard the data‑driven market regime labels the current week as Risk‑On when the market is above short‑term trend (MA50) but realized volatility is elevated."
+)
+
+st.markdown("**What the Turnover chart shows**")
+st.markdown(
+    "Turnover measures the sum of absolute changes in position weights across the universe each week. "
+    "A high value at the left (start) and lower values at the right (end) means the strategy made larger rebalancing moves earlier in the history and has settled into smaller changes more recently. "
+    "High turnover weeks can indicate rebalancing, large signal changes, or portfolio rotation; low turnover indicates stability in positions."
+)
+
+# ============================================================
+# PLOT HELPERS and Plotly functions (captions added after each chart)
+# ============================================================
+def institutional_plot(figsize=(5.6, 2.9)):
+    fig, ax = plt.subplots(figsize=figsize)
+    ax.grid(True, alpha=0.18, linewidth=0.6)
+    ax.tick_params(labelsize=8)
+    ax.spines["top"].set_visible(False)
+    ax.spines["right"].set_visible(False)
+    ax.spines["left"].set_linewidth(0.6)
+    ax.spines["bottom"].set_linewidth(0.6)
+    return fig, ax
+
+
+def plot_price_series_plotly(series_df: pd.DataFrame, date_col: str = "date", price_col: str = "close", title: str = "Index"):
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(x=series_df[date_col], y=series_df[price_col], mode="lines", name="Close", line=dict(color="#00aaff", width=2)))
+    if "ma50" in series_df.columns:
+        fig.add_trace(go.Scatter(x=series_df[date_col], y=series_df["ma50"], mode="lines", name="MA50", line=dict(color="#ffaa00", width=1, dash="dash")))
+    if "ma200" in series_df.columns:
+        fig.add_trace(go.Scatter(x=series_df[date_col], y=series_df["ma200"], mode="lines", name="MA200", line=dict(color="#ff5555", width=1, dash="dot")))
+    fig.update_layout(margin=dict(l=30, r=20, t=40, b=30), height=420, template="plotly_white", legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1))
+    return fig
+
+
+def plot_volatility_plotly(series_df: pd.DataFrame, date_col: str = "date", price_col: str = "close", window: int = 20):
+    s = series_df.set_index(date_col)[price_col].sort_index().pct_change().dropna()
+    rv = s.rolling(window=window).std() * np.sqrt(252)
+    rv = rv.reset_index().rename(columns={price_col: "rv"})
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(x=rv[date_col], y=rv["rv"], mode="lines", name=f"{window}-day RV", line=dict(color="#6a5acd")))
+    fig.update_layout(margin=dict(l=30, r=20, t=40, b=30), height=420, template="plotly_white", legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1))
+    return fig
+
+# ============================================================
+# Prepare plotting dataframe (index series or equal-weighted)
+# ============================================================
+if "ticker" in prices.columns:
+    idx_candidates = ["SPX", "SP500", "^GSPC", "SPY", "INDEX"]
+    idx_ticker = next((t for t in idx_candidates if t in prices["ticker"].unique()), None)
+    if idx_ticker:
+        plot_df = prices[prices["ticker"] == idx_ticker][["date", price_col]].sort_values("date").copy().rename(columns={price_col: "close"})
+    else:
+        pivot = prices.pivot_table(index="date", columns="ticker", values=price_col)
+        plot_df = pivot.mean(axis=1).reset_index().rename(columns={0: "close"})
+        if "date" not in plot_df.columns:
+            plot_df = plot_df.reset_index().rename(columns={"index": "date"})
+        plot_df["date"] = pd.to_datetime(plot_df["date"])
+else:
+    plot_df = prices.sort_values("date").rename(columns={price_col: "close"}).copy()
+
+plot_df = plot_df.sort_values("date").reset_index(drop=True)
+plot_df["ma50"] = plot_df["close"].rolling(window=50, min_periods=20).mean()
+plot_df["ma200"] = plot_df["close"].rolling(window=200, min_periods=50).mean()
+
+# ============================================================
+# PAGES (charts now include captions/descriptions)
+# ============================================================
+if page == "Overview":
+    colA, colB = st.columns(2)
+
+    with colA:
+        st.subheader("Cumulative Return (Long/Short)")
+        fig_price = plot_price_series_plotly(plot_df, date_col="date", price_col="close", title="Market Index + Strategy Cum")
+        fig_price.add_trace(
+            go.Scatter(
+                x=weekly_portfolio["date"],
+                y=weekly_portfolio["cum_return"],
+                mode="lines",
+                name="Strategy Cum",
+                line=dict(color="#1F77B4", width=2),
+            )
+        )
+        st.plotly_chart(fig_price, use_container_width=True)
+        st.caption("Chart shows the market index (with MA overlays) and the strategy cumulative return. Use this to compare strategy performance vs market trend.")
+
+    with colB:
+        st.subheader("Headline metrics")
+
+        # Rolling Sharpe (26w) with description
+        try:
+            rs_val = None
+            if "rolling_sharpe_26w" in weekly_portfolio.columns and len(weekly_portfolio):
+                rs_val = weekly_portfolio["rolling_sharpe_26w"].iloc[-1]
+            mcol, dcol = st.columns([1, 2])
+            with mcol:
+                st.metric("Rolling Sharpe (26w)", f"{rs_val:.2f}" if rs_val is not None and not pd.isna(rs_val) else "n/a")
+            with dcol:
+                st.caption("Risk‑adjusted return over the last 26 weeks. Higher values indicate stronger returns per unit of volatility.")
+        except Exception:
+            mcol, dcol = st.columns([1, 2])
+            with mcol:
+                st.metric("Rolling Sharpe (26w)", "n/a")
+            with dcol:
+                st.caption("Risk‑adjusted return over the last 26 weeks. Higher values indicate stronger returns per unit of volatility.")
+
+        # Latest drawdown with description
+        try:
+            dd_val = None
+            if "drawdown" in weekly_portfolio.columns and len(weekly_portfolio):
+                dd_val = weekly_portfolio["drawdown"].iloc[-1]
+            mcol, dcol = st.columns([1, 2])
+            with mcol:
+                st.metric("Latest drawdown", f"{dd_val:.2%}" if dd_val is not None and not pd.isna(dd_val) else "n/a")
+            with dcol:
+                st.caption("Current peak‑to‑trough loss relative to the historical peak. Shows how far the strategy is below its high water mark.")
+        except Exception:
+            mcol, dcol = st.columns([1, 2])
+            with mcol:
+                st.metric("Latest drawdown", "n/a")
+            with dcol:
+                st.caption("Current peak‑to‑trough loss relative to the historical peak. Shows how far the strategy is below its high water mark.")
+
+        # Market volatility (4w avg, annualized) with description
+        try:
+            vol_val = None
+            if "weekly_return" in weekly_portfolio.columns and len(weekly_portfolio) >= 1:
+                wp = weekly_portfolio.copy()
+                # compute 4-week rolling std (min_periods=2 to allow short histories)
+                rolling_std_4 = wp["weekly_return"].rolling(window=4, min_periods=2).std()
+                # annualize each rolling std and take the mean of the last up to 4 values
+                ann_series = (rolling_std_4 * (52 ** 0.5)).dropna()
+                if len(ann_series):
+                    vol_val = ann_series.tail(4).mean()
+                else:
+                    # fallback: use std of available weeks and annualize
+                    vol_val = wp["weekly_return"].std() * (52 ** 0.5) if wp["weekly_return"].notna().any() else None
+            # fallback to regime_info rv20 if present and vol_val still None
+            if vol_val is None and isinstance(regime_info, dict) and regime_info.get("rv20") is not None:
+                vol_val = regime_info.get("rv20")
+            mcol, dcol = st.columns([1, 2])
+            with mcol:
+                st.metric("Market vol (annualized, 4w avg)", f"{vol_val:.2%}" if vol_val is not None and not pd.isna(vol_val) else "n/a")
+            with dcol:
+                st.caption("Four‑week average of annualized volatility. Measures how choppy the market has been recently; useful for sizing and risk decisions.")
+        except Exception:
+            mcol, dcol = st.columns([1, 2])
+            with mcol:
+                st.metric("Market vol (annualized, 4w avg)", "n/a")
+            with dcol:
+                st.caption("Four‑week average of annualized volatility. Measures how choppy the market has been recently; useful for sizing and risk decisions.")
+
+        # % Accuracy (4w avg) with description
+        try:
+            acc_val = None
+            if "date" in df_perf.columns:
+                # get the last up to 4 distinct dates in df_perf
+                last_dates = sorted(df_perf["date"].dropna().unique())[-4:]
+                per_week_acc = []
+                for d in last_dates:
+                    week_df = df_perf[df_perf["date"] == d]
+                    if week_df.empty:
+                        continue
+                    # prefer explicit accuracy column names
+                    if "accuracy" in week_df.columns:
+                        per_week_acc.append(week_df["accuracy"].mean())
+                    elif "correct" in week_df.columns or "is_correct" in week_df.columns or "hit" in week_df.columns:
+                        col = "correct" if "correct" in week_df.columns else ("is_correct" if "is_correct" in week_df.columns else "hit")
+                        per_week_acc.append(week_df[col].mean())
+                    elif {"predicted_return", "realized_return"}.issubset(week_df.columns):
+                        per_week_acc.append((np.sign(week_df["predicted_return"]) == np.sign(week_df["realized_return"])).mean())
+                    else:
+                        # no accuracy info for this week
+                        continue
+                if per_week_acc:
+                    acc_val = float(np.mean(per_week_acc))
+            mcol, dcol = st.columns([1, 2])
+            with mcol:
+                st.metric("% Accuracy (4w avg)", f"{acc_val:.2%}" if acc_val is not None and not pd.isna(acc_val) else "n/a")
+            with dcol:
+                st.caption("Average fraction of correct directional predictions over the last four weeks. Higher values indicate better short‑term signal quality.")
+        except Exception:
+            mcol, dcol = st.columns([1, 2])
+            with mcol:
+                st.metric("% Accuracy (4w avg)", "n/a")
+            with dcol:
+                st.caption("Average fraction of correct directional predictions over the last four weeks. Higher values indicate better short‑term signal quality.")
+
+        st.caption("Headline metrics are shown here for quick monitoring. Full context and history are available in the charts and Diagnostics tab.")
+
+elif page == "Weekly Picks":
+    st.subheader(f"Weekly Picks — {latest_date.date()}")
+
+    week_df = df_perf[df_perf["date"] == latest_date]
+
+    st.markdown("### Top 10 Longs")
+    st.dataframe(
+        week_df[week_df["side"] == "long"]
+        .nlargest(10, "score")
+        [["ticker", "company_name", "market_sector", "score", "weight"]],
+        use_container_width=True,
+    )
+    st.caption("Top long picks for the latest week, sorted by model score and showing target weight.")
+
+    st.markdown("### Top 10 Shorts")
+    st.dataframe(
+        week_df[week_df["side"] == "short"]
+        .nlargest(10, "score")
+        [["ticker", "company_name", "market_sector", "score", "weight"]],
+        use_container_width=True,
+    )
+    st.caption("Top short picks for the latest week, sorted by model score and showing target weight.")
+
+elif page == "Long-Only Strategy":
+    st.subheader("Long-Only Cumulative Return")
+    fig_lo = go.Figure()
+    fig_lo.add_trace(go.Scatter(x=long_only_weekly["date"], y=long_only_weekly["long_only_cum"], mode="lines", line=dict(color="#1F77B4", width=2)))
+    fig_lo.update_layout(margin=dict(l=30, r=20, t=40, b=30), height=420, template="plotly_white")
+    st.plotly_chart(fig_lo, use_container_width=True)
+    st.caption("Cumulative return for the long-only subset of the strategy.")
+
+    st.subheader("Long-Only Weekly Returns")
+    fig_lo_bar = go.Figure()
+    fig_lo_bar.add_trace(go.Bar(x=long_only_weekly["date"], y=long_only_weekly["long_only_return"], marker_color="#1F77B4"))
+    fig_lo_bar.update_layout(margin=dict(l=30, r=20, t=40, b=30), height=420, template="plotly_white")
+    st.plotly_chart(fig_lo_bar, use_container_width=True)
+    st.caption("Weekly returns for the long-only portfolio. Bars above zero are positive weekly contributions.")
+
+elif page == "Combined Long/Short Strategy":
+    st.subheader("Long vs Short Cumulative")
+    fig_ls = go.Figure()
+    fig_ls.add_trace(go.Scatter(x=ls["date"], y=ls["long_cum"], mode="lines", name="Long", line=dict(color="#2E8B57", width=2)))
+    fig_ls.add_trace(go.Scatter(x=ls["date"], y=ls["short_cum"], mode="lines", name="Short", line=dict(color="#C0392B", width=2)))
+    fig_ls.update_layout(margin=dict(l=30, r=20, t=40, b=30), height=420, template="plotly_white", legend=dict(orientation="h"))
+    st.plotly_chart(fig_ls, use_container_width=True)
+    st.caption("Cumulative performance of long and short legs separately. Compare persistence and drawdown behavior between legs.")
+
+    st.subheader("Long vs Short Weekly Returns")
+    fig_ls_bar = go.Figure()
+    fig_ls_bar.add_trace(go.Bar(x=ls["date"], y=ls["long_return"], name="Long", marker_color="#2E8B57"))
+    fig_ls_bar.add_trace(go.Bar(x=ls["date"], y=ls["short_return"], name="Short", marker_color="#C0392B"))
+    fig_ls_bar.update_layout(barmode="overlay", margin=dict(l=30, r=20, t=40, b=30), height=420, template="plotly_white")
+    st.plotly_chart(fig_ls_bar, use_container_width=True)
+    st.caption("Weekly returns for long and short legs. Overlayed bars make it easy to see offsetting contributions.")
+
+elif page == "Contributors & Turnover":
+    colC, colD = st.columns(2)
+
+    with colC:
+        st.subheader("Top 10 Contributors")
+        st.dataframe(top10_contrib.round(4), use_container_width=True)
+        st.caption("Tickers ranked by total contribution to strategy returns over the history shown.")
+
+    with colD:
+        st.subheader("Turnover")
+        fig_to = go.Figure()
+        fig_to.add_trace(go.Scatter(x=turnover_weekly["date"], y=turnover_weekly["turnover"], mode="lines", line=dict(color="#7F8C8D", width=2)))
+        fig_to.update_layout(margin=dict(l=30, r=20, t=40, b=30), height=420, template="plotly_white")
+        st.plotly_chart(fig_to, use_container_width=True)
+        st.caption("Turnover is the sum of absolute weight changes each week. High early values indicate larger rebalancing; lower recent values indicate more stable positions.")
+
+elif page == "Risk Metrics":
+    st.subheader("Drawdown")
+    fig_dd2 = go.Figure()
+    fig_dd2.add_trace(go.Scatter(x=weekly_portfolio["date"], y=weekly_portfolio["drawdown"], mode="lines", line=dict(color="#7F8C8D", width=2)))
+    fig_dd2.update_layout(margin=dict(l=30, r=20, t=40, b=30), height=420, template="plotly_white")
+    st.plotly_chart(fig_dd2, use_container_width=True)
+    st.caption("Drawdown shows the percentage decline from the strategy's historical peak.")
+
+    st.subheader("Rolling Sharpe (26w)")
+    fig_sh = go.Figure()
+    fig_sh.add_trace(go.Scatter(x=weekly_portfolio["date"], y=weekly_portfolio["rolling_sharpe_26w"], mode="lines", line=dict(color="#FF8C00", width=2)))
+    fig_sh.update_layout(margin=dict(l=30, r=20, t=40, b=30), height=420, template="plotly_white")
+    st.plotly_chart(fig_sh, use_container_width=True)
+    st.caption("Rolling Sharpe (26 weeks) estimates risk-adjusted performance over a moving window.")
+
+# ============================================================
+# Footer / Diagnostics
+# ============================================================
+st.markdown("---")
+st.write(f"Data as of: {latest_date.date() if pd.notna(latest_date) else 'n/a'}")
+st.write(f"Price column used: {price_col}")
+st.write(f"Rows - Prices: {len(prices):,} • Weekly selection: {len(df):,} • Ticker meta: {len(meta):,}")
+
+if st.button("Refresh data"):
+    load_data.clear()
+    st.experimental_rerun()

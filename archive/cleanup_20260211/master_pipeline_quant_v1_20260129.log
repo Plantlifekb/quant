@@ -1,0 +1,203 @@
+[2026-01-29 03:00:06 UTC] [master_pipeline_quant_v1] Starting master_pipeline_quant_v1 (v1.1)
+[2026-01-29 03:00:06 UTC] [master_pipeline_quant_v1] Run timestamp: 2026-01-29 03:00:06 UTC
+[2026-01-29 03:00:06 UTC] [master_pipeline_quant_v1] STEP 1 — Running legacy weekly pipeline
+[2026-01-29 03:00:06 UTC] [master_pipeline_quant_v1] Running module: run_pipeline_10stock_weekly
+[2026-01-29 05:20:16 UTC] [master_pipeline_quant_v1] Starting master_pipeline_quant_v1 (v1.1)
+[2026-01-29 05:20:16 UTC] [master_pipeline_quant_v1] Run timestamp: 2026-01-29 05:20:16 UTC
+[2026-01-29 05:20:16 UTC] [master_pipeline_quant_v1] STEP 1 — Running legacy weekly pipeline
+[2026-01-29 05:20:16 UTC] [master_pipeline_quant_v1] Running module: run_pipeline_10stock_weekly
+[2026-01-29 05:28:10 UTC] [master_pipeline_quant_v1] Error in module run_pipeline_10stock_weekly: Command '['python', 'C:\\Quant\\scripts\\ingestion\\ingestion_5years_quant_v1.py']' returned non-zero exit status 1.
+Traceback (most recent call last):
+  File "C:\Quant\scripts\master_pipeline_quant_v1.py", line 47, in run_module
+    mod.main()
+  File "C:\Quant\scripts\run_pipeline_10stock_weekly.py", line 37, in main
+    run_step(step)
+  File "C:\Quant\scripts\run_pipeline_10stock_weekly.py", line 33, in run_step
+    subprocess.run(["python", full_path], check=True)
+  File "C:\Users\Keith\AppData\Local\Programs\Python\Python312\Lib\subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['python', 'C:\\Quant\\scripts\\ingestion\\ingestion_5years_quant_v1.py']' returned non-zero exit status 1.
+[2026-01-29 07:22:59 UTC] [master_pipeline_quant_v1] Starting master_pipeline_quant_v1 (v1.1)
+[2026-01-29 07:22:59 UTC] [master_pipeline_quant_v1] Run timestamp: 2026-01-29 07:22:59 UTC
+[2026-01-29 07:22:59 UTC] [master_pipeline_quant_v1] STEP 1 — Running legacy weekly pipeline
+[2026-01-29 07:22:59 UTC] [master_pipeline_quant_v1] Running module: run_pipeline_10stock_weekly
+[2026-01-29 07:31:04 UTC] [master_pipeline_quant_v1] Error in module run_pipeline_10stock_weekly: Command '['python', 'C:\\Quant\\scripts\\backtest\\backtest_10stock_weekly.py']' returned non-zero exit status 1.
+Traceback (most recent call last):
+  File "C:\Quant\scripts\master_pipeline_quant_v1.py", line 47, in run_module
+    mod.main()
+  File "C:\Quant\scripts\run_pipeline_10stock_weekly.py", line 37, in main
+    run_step(step)
+  File "C:\Quant\scripts\run_pipeline_10stock_weekly.py", line 33, in run_step
+    subprocess.run(["python", full_path], check=True)
+  File "C:\Users\Keith\AppData\Local\Programs\Python\Python312\Lib\subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['python', 'C:\\Quant\\scripts\\backtest\\backtest_10stock_weekly.py']' returned non-zero exit status 1.
+[2026-01-29 14:06:12 UTC] [master_pipeline_quant_v1] Starting master_pipeline_quant_v1 (v1.1)
+[2026-01-29 14:06:12 UTC] [master_pipeline_quant_v1] Run timestamp: 2026-01-29 14:06:12 UTC
+[2026-01-29 14:06:12 UTC] [master_pipeline_quant_v1] STEP 1 — Running legacy weekly pipeline
+[2026-01-29 14:06:12 UTC] [master_pipeline_quant_v1] Running module: run_pipeline_10stock_weekly
+[2026-01-29 14:14:34 UTC] [master_pipeline_quant_v1] Error in module run_pipeline_10stock_weekly: Command '['python', 'C:\\Quant\\scripts\\backtest\\backtest_10stock_weekly.py']' returned non-zero exit status 1.
+Traceback (most recent call last):
+  File "C:\Quant\scripts\master_pipeline_quant_v1.py", line 47, in run_module
+    mod.main()
+  File "C:\Quant\scripts\run_pipeline_10stock_weekly.py", line 37, in main
+    run_step(step)
+  File "C:\Quant\scripts\run_pipeline_10stock_weekly.py", line 33, in run_step
+    subprocess.run(["python", full_path], check=True)
+  File "C:\Users\Keith\AppData\Local\Programs\Python\Python312\Lib\subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['python', 'C:\\Quant\\scripts\\backtest\\backtest_10stock_weekly.py']' returned non-zero exit status 1.
+[2026-01-29 15:43:06 UTC] [master_pipeline_quant_v1] Starting master_pipeline_quant_v1 (v1.1)
+[2026-01-29 15:43:06 UTC] [master_pipeline_quant_v1] Run timestamp: 2026-01-29 15:43:06 UTC
+[2026-01-29 15:43:06 UTC] [master_pipeline_quant_v1] STEP 1 — Running legacy weekly pipeline
+[2026-01-29 15:43:06 UTC] [master_pipeline_quant_v1] Running module: run_pipeline_10stock_weekly
+[2026-01-29 15:51:31 UTC] [master_pipeline_quant_v1] Error in module run_pipeline_10stock_weekly: Command '['python', 'C:\\Quant\\scripts\\dashboard\\dashboard_10stock_weekly.py']' returned non-zero exit status 2.
+Traceback (most recent call last):
+  File "C:\Quant\scripts\master_pipeline_quant_v1.py", line 47, in run_module
+    mod.main()
+  File "C:\Quant\scripts\run_pipeline_10stock_weekly.py", line 37, in main
+    run_step(step)
+  File "C:\Quant\scripts\run_pipeline_10stock_weekly.py", line 33, in run_step
+    subprocess.run(["python", full_path], check=True)
+  File "C:\Users\Keith\AppData\Local\Programs\Python\Python312\Lib\subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['python', 'C:\\Quant\\scripts\\dashboard\\dashboard_10stock_weekly.py']' returned non-zero exit status 2.
+[2026-01-29 16:58:55 UTC] [master_pipeline_quant_v1] Starting master_pipeline_quant_v1 (v1.1)
+[2026-01-29 16:58:55 UTC] [master_pipeline_quant_v1] Run timestamp: 2026-01-29 16:58:55 UTC
+[2026-01-29 16:58:55 UTC] [master_pipeline_quant_v1] STEP 1 — Running legacy weekly pipeline
+[2026-01-29 16:58:55 UTC] [master_pipeline_quant_v1] Running module: run_pipeline_10stock_weekly
+[2026-01-29 17:08:08 UTC] [master_pipeline_quant_v1] Completed module: run_pipeline_10stock_weekly
+[2026-01-29 17:08:08 UTC] [master_pipeline_quant_v1] STEP 2 — Running regime-aware analytics suite
+[2026-01-29 17:08:08 UTC] [master_pipeline_quant_v1] Running module: analytics.regime_factor_weighting_quant_v1
+[2026-01-29 17:10:47 UTC] [master_pipeline_quant_v1] Completed module: analytics.regime_factor_weighting_quant_v1
+[2026-01-29 17:10:47 UTC] [master_pipeline_quant_v1] Running module: analytics.risk_regime_quant_v1
+[2026-01-29 17:11:02 UTC] [master_pipeline_quant_v1] Completed module: analytics.risk_regime_quant_v1
+[2026-01-29 17:11:02 UTC] [master_pipeline_quant_v1] Running module: analytics.factor_exposure_report_quant_v1
+[2026-01-29 17:11:18 UTC] [master_pipeline_quant_v1] Completed module: analytics.factor_exposure_report_quant_v1
+[2026-01-29 17:11:18 UTC] [master_pipeline_quant_v1] Running module: analytics.turnover_regime_quant_v1
+[2026-01-29 17:11:18 UTC] [master_pipeline_quant_v1] Completed module: analytics.turnover_regime_quant_v1
+[2026-01-29 17:11:18 UTC] [master_pipeline_quant_v1] Running module: analytics.attribution_regime_quant_v1
+[2026-01-29 17:11:18 UTC] [master_pipeline_quant_v1] Error in module analytics.attribution_regime_quant_v1: quant_attribution_daily_v1.csv missing columns: ['contribution', 'factor_name', 'ticker']
+Traceback (most recent call last):
+  File "C:\Quant\scripts\master_pipeline_quant_v1.py", line 47, in run_module
+    mod.main()
+  File "C:\Quant\scripts\analytics\attribution_regime_quant_v1.py", line 45, in main
+    raise ValueError(f"quant_attribution_daily_v1.csv missing columns: {sorted(missing)}")
+ValueError: quant_attribution_daily_v1.csv missing columns: ['contribution', 'factor_name', 'ticker']
+[2026-01-29 17:32:54 UTC] [master_pipeline_quant_v1] Starting master_pipeline_quant_v1 (v1.1)
+[2026-01-29 17:32:54 UTC] [master_pipeline_quant_v1] Run timestamp: 2026-01-29 17:32:54 UTC
+[2026-01-29 17:32:54 UTC] [master_pipeline_quant_v1] STEP 1 — Running legacy weekly pipeline
+[2026-01-29 17:32:54 UTC] [master_pipeline_quant_v1] Running module: run_pipeline_10stock_weekly
+[2026-01-29 17:40:58 UTC] [master_pipeline_quant_v1] Completed module: run_pipeline_10stock_weekly
+[2026-01-29 17:40:58 UTC] [master_pipeline_quant_v1] STEP 2 — Running regime-aware analytics suite
+[2026-01-29 17:40:58 UTC] [master_pipeline_quant_v1] Running module: analytics.regime_factor_weighting_quant_v1
+[2026-01-29 17:43:27 UTC] [master_pipeline_quant_v1] Completed module: analytics.regime_factor_weighting_quant_v1
+[2026-01-29 17:43:27 UTC] [master_pipeline_quant_v1] Running module: analytics.risk_regime_quant_v1
+[2026-01-29 17:43:41 UTC] [master_pipeline_quant_v1] Completed module: analytics.risk_regime_quant_v1
+[2026-01-29 17:43:41 UTC] [master_pipeline_quant_v1] Running module: analytics.factor_exposure_report_quant_v1
+[2026-01-29 17:43:56 UTC] [master_pipeline_quant_v1] Completed module: analytics.factor_exposure_report_quant_v1
+[2026-01-29 17:43:56 UTC] [master_pipeline_quant_v1] Running module: analytics.turnover_regime_quant_v1
+[2026-01-29 17:43:56 UTC] [master_pipeline_quant_v1] Completed module: analytics.turnover_regime_quant_v1
+[2026-01-29 17:43:56 UTC] [master_pipeline_quant_v1] Running module: analytics.attribution_regime_quant_v1
+[2026-01-29 17:43:56 UTC] [master_pipeline_quant_v1] Error in module analytics.attribution_regime_quant_v1: quant_attribution_daily_v1.csv missing columns: ['contribution', 'factor_name', 'ticker']
+Traceback (most recent call last):
+  File "C:\Quant\scripts\master_pipeline_quant_v1.py", line 47, in run_module
+    mod.main()
+  File "C:\Quant\scripts\analytics\attribution_regime_quant_v1.py", line 45, in main
+    raise ValueError(f"quant_attribution_daily_v1.csv missing columns: {sorted(missing)}")
+ValueError: quant_attribution_daily_v1.csv missing columns: ['contribution', 'factor_name', 'ticker']
+[2026-01-29 18:13:23 UTC] [master_pipeline_quant_v1] Starting master_pipeline_quant_v1 (v1.1)
+[2026-01-29 18:13:23 UTC] [master_pipeline_quant_v1] Run timestamp: 2026-01-29 18:13:23 UTC
+[2026-01-29 18:13:23 UTC] [master_pipeline_quant_v1] STEP 1 — Running legacy weekly pipeline
+[2026-01-29 18:13:23 UTC] [master_pipeline_quant_v1] Running module: run_pipeline_10stock_weekly
+[2026-01-29 18:21:34 UTC] [master_pipeline_quant_v1] Completed module: run_pipeline_10stock_weekly
+[2026-01-29 18:21:34 UTC] [master_pipeline_quant_v1] STEP 2 — Running regime-aware analytics suite
+[2026-01-29 18:21:34 UTC] [master_pipeline_quant_v1] Running module: analytics.regime_factor_weighting_quant_v1
+[2026-01-29 18:23:59 UTC] [master_pipeline_quant_v1] Completed module: analytics.regime_factor_weighting_quant_v1
+[2026-01-29 18:23:59 UTC] [master_pipeline_quant_v1] Running module: analytics.risk_regime_quant_v1
+[2026-01-29 18:24:13 UTC] [master_pipeline_quant_v1] Completed module: analytics.risk_regime_quant_v1
+[2026-01-29 18:24:13 UTC] [master_pipeline_quant_v1] Running module: analytics.factor_exposure_report_quant_v1
+[2026-01-29 18:24:28 UTC] [master_pipeline_quant_v1] Completed module: analytics.factor_exposure_report_quant_v1
+[2026-01-29 18:24:28 UTC] [master_pipeline_quant_v1] Running module: analytics.turnover_regime_quant_v1
+[2026-01-29 18:24:28 UTC] [master_pipeline_quant_v1] Completed module: analytics.turnover_regime_quant_v1
+[2026-01-29 18:24:28 UTC] [master_pipeline_quant_v1] Running module: analytics.attribution_regime_quant_v1
+[2026-01-29 18:24:28 UTC] [master_pipeline_quant_v1] Error in module analytics.attribution_regime_quant_v1: [Errno 2] No such file or directory: 'C:\\Quant\\data\\analytics\\quant_attribution_daily_v1_1.csv'
+Traceback (most recent call last):
+  File "C:\Quant\scripts\master_pipeline_quant_v1.py", line 47, in run_module
+    mod.main()
+  File "C:\Quant\scripts\analytics\attribution_regime_quant_v1.py", line 38, in main
+    a = pd.read_csv(ATTRIB_DAILY_FILE)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Keith\AppData\Local\Programs\Python\Python312\Lib\site-packages\pandas\io\parsers\readers.py", line 1026, in read_csv
+    return _read(filepath_or_buffer, kwds)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Keith\AppData\Local\Programs\Python\Python312\Lib\site-packages\pandas\io\parsers\readers.py", line 620, in _read
+    parser = TextFileReader(filepath_or_buffer, **kwds)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Keith\AppData\Local\Programs\Python\Python312\Lib\site-packages\pandas\io\parsers\readers.py", line 1620, in __init__
+    self._engine = self._make_engine(f, self.engine)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Keith\AppData\Local\Programs\Python\Python312\Lib\site-packages\pandas\io\parsers\readers.py", line 1880, in _make_engine
+    self.handles = get_handle(
+                   ^^^^^^^^^^^
+  File "C:\Users\Keith\AppData\Local\Programs\Python\Python312\Lib\site-packages\pandas\io\common.py", line 873, in get_handle
+    handle = open(
+             ^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Quant\\data\\analytics\\quant_attribution_daily_v1_1.csv'
+[2026-01-29 19:20:25 UTC] [master_pipeline_quant_v1] Starting master_pipeline_quant_v1 (v1.1)
+[2026-01-29 19:20:25 UTC] [master_pipeline_quant_v1] Run timestamp: 2026-01-29 19:20:25 UTC
+[2026-01-29 19:20:25 UTC] [master_pipeline_quant_v1] STEP 1 — Running legacy weekly pipeline
+[2026-01-29 19:20:25 UTC] [master_pipeline_quant_v1] Running module: run_pipeline_10stock_weekly
+[2026-01-29 19:28:41 UTC] [master_pipeline_quant_v1] Completed module: run_pipeline_10stock_weekly
+[2026-01-29 19:28:41 UTC] [master_pipeline_quant_v1] STEP 2 — Running regime-aware analytics suite
+[2026-01-29 19:28:41 UTC] [master_pipeline_quant_v1] Running module: analytics.regime_factor_weighting_quant_v1
+[2026-01-29 19:31:07 UTC] [master_pipeline_quant_v1] Completed module: analytics.regime_factor_weighting_quant_v1
+[2026-01-29 19:31:07 UTC] [master_pipeline_quant_v1] Running module: analytics.risk_regime_quant_v1
+[2026-01-29 19:31:21 UTC] [master_pipeline_quant_v1] Completed module: analytics.risk_regime_quant_v1
+[2026-01-29 19:31:21 UTC] [master_pipeline_quant_v1] Running module: analytics.factor_exposure_report_quant_v1
+[2026-01-29 19:31:35 UTC] [master_pipeline_quant_v1] Completed module: analytics.factor_exposure_report_quant_v1
+[2026-01-29 19:31:35 UTC] [master_pipeline_quant_v1] Running module: analytics.turnover_regime_quant_v1
+[2026-01-29 19:31:36 UTC] [master_pipeline_quant_v1] Completed module: analytics.turnover_regime_quant_v1
+[2026-01-29 19:31:36 UTC] [master_pipeline_quant_v1] Running module: analytics.attribution_regime_quant_v1
+[2026-01-29 19:31:36 UTC] [master_pipeline_quant_v1] Error in module analytics.attribution_regime_quant_v1: [Errno 2] No such file or directory: 'C:\\Quant\\data\\analytics\\quant_attribution_daily_v1_1.csv'
+Traceback (most recent call last):
+  File "C:\Quant\scripts\master_pipeline_quant_v1.py", line 47, in run_module
+    mod.main()
+  File "C:\Quant\scripts\analytics\attribution_regime_quant_v1.py", line 38, in main
+    a = pd.read_csv(ATTRIB_DAILY_FILE)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Keith\AppData\Local\Programs\Python\Python312\Lib\site-packages\pandas\io\parsers\readers.py", line 1026, in read_csv
+    return _read(filepath_or_buffer, kwds)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Keith\AppData\Local\Programs\Python\Python312\Lib\site-packages\pandas\io\parsers\readers.py", line 620, in _read
+    parser = TextFileReader(filepath_or_buffer, **kwds)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Keith\AppData\Local\Programs\Python\Python312\Lib\site-packages\pandas\io\parsers\readers.py", line 1620, in __init__
+    self._engine = self._make_engine(f, self.engine)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Keith\AppData\Local\Programs\Python\Python312\Lib\site-packages\pandas\io\parsers\readers.py", line 1880, in _make_engine
+    self.handles = get_handle(
+                   ^^^^^^^^^^^
+  File "C:\Users\Keith\AppData\Local\Programs\Python\Python312\Lib\site-packages\pandas\io\common.py", line 873, in get_handle
+    handle = open(
+             ^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Quant\\data\\analytics\\quant_attribution_daily_v1_1.csv'
+[2026-01-29 20:18:57 UTC] [master_pipeline_quant_v1] Starting master_pipeline_quant_v1 (v1.1)
+[2026-01-29 20:18:57 UTC] [master_pipeline_quant_v1] Run timestamp: 2026-01-29 20:18:57 UTC
+[2026-01-29 20:18:57 UTC] [master_pipeline_quant_v1] STEP 1 — Running legacy weekly pipeline
+[2026-01-29 20:18:57 UTC] [master_pipeline_quant_v1] Running module: run_pipeline_10stock_weekly
+[2026-01-29 20:27:08 UTC] [master_pipeline_quant_v1] Completed module: run_pipeline_10stock_weekly
+[2026-01-29 20:27:08 UTC] [master_pipeline_quant_v1] STEP 2 — Running regime-aware analytics suite
+[2026-01-29 20:27:08 UTC] [master_pipeline_quant_v1] Running module: analytics.regime_factor_weighting_quant_v1
+[2026-01-29 20:29:38 UTC] [master_pipeline_quant_v1] Completed module: analytics.regime_factor_weighting_quant_v1
+[2026-01-29 20:29:38 UTC] [master_pipeline_quant_v1] Running module: analytics.risk_regime_quant_v1
+[2026-01-29 20:29:52 UTC] [master_pipeline_quant_v1] Completed module: analytics.risk_regime_quant_v1
+[2026-01-29 20:29:52 UTC] [master_pipeline_quant_v1] Running module: analytics.factor_exposure_report_quant_v1
+[2026-01-29 20:30:08 UTC] [master_pipeline_quant_v1] Completed module: analytics.factor_exposure_report_quant_v1
+[2026-01-29 20:30:08 UTC] [master_pipeline_quant_v1] Running module: analytics.turnover_regime_quant_v1
+[2026-01-29 20:30:08 UTC] [master_pipeline_quant_v1] Completed module: analytics.turnover_regime_quant_v1
+[2026-01-29 20:30:08 UTC] [master_pipeline_quant_v1] Running module: analytics.attribution_regime_quant_v1
+[2026-01-29 20:30:21 UTC] [master_pipeline_quant_v1] Completed module: analytics.attribution_regime_quant_v1
+[2026-01-29 20:30:21 UTC] [master_pipeline_quant_v1] Running module: analytics.optimiser_regime_quant_v1
+[2026-01-29 20:30:25 UTC] [master_pipeline_quant_v1] Completed module: analytics.optimiser_regime_quant_v1
+[2026-01-29 20:30:25 UTC] [master_pipeline_quant_v1] master_pipeline_quant_v1 completed successfully.

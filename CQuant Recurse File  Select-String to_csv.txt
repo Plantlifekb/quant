@@ -1,0 +1,612 @@
+PS C:\Quant> Get-ChildItem C:\Quant -Recurse -File | Select-String "to_csv"
+
+export_worst_episode.py:87:    pnl.loc[start:end].to_csv(out_file, header=True)
+per_day_impact.py:34:impacts_s.to_csv(impacts_file, header=["impact_on_final_nav"])
+per_ticker_pnl_20250404.py:181:per_pos_impact.to_csv(out_file, header=["impact"])
+PS CQuant Get-ChildItem CQuant -Rec.txt:1:PS C:\Quant> Get-ChildItem C:\Quant -Recurse -File | Select-String "to_csv"
+PS CQuant Get-ChildItem CQuant -Rec.txt:3:export_worst_episode.py:87:    pnl.loc[start:end].to_csv(out_file,
+header=True)
+PS CQuant Get-ChildItem CQuant -Rec.txt:4:per_day_impact.py:34:impacts_s.to_csv(impacts_file,
+header=["impact_on_final_nav"])
+PS CQuant Get-ChildItem CQuant -Rec.txt:5:per_ticker_pnl_20250404.py:181:per_pos_impact.to_csv(out_file,
+header=["impact"])
+PS CQuant Get-ChildItem CQuant -Rec.txt:6:reconcile_trades_vs_mark.py:128:        realized_by_ticker.to_csv(OUT /
+f"realized_notional_{DATE}.csv",
+PS CQuant Get-ChildItem CQuant -Rec.txt:8:reconcile_trades_vs_mark.py:143:    recon.to_csv(out_file)
+PS CQuant Get-ChildItem CQuant -Rec.txt:9:run_returns_pipeline_quant_v2.py:40:
+prices_enriched.to_csv(returns_out_path, index=False)
+PS CQuant Get-ChildItem CQuant -Rec.txt:10:archive\backtest_engine_quant_v1.py:143:    df.to_csv(BACKTEST_FILE,
+index=False)
+PS CQuant Get-ChildItem CQuant -Rec.txt:11:archive\dashboard_growth_quant_v1.py:51:df.to_csv(OUT, index=False)
+PS CQuant Get-ChildItem CQuant -Rec.txt:12:archive\dashboard_returns_v2.py:23:    dashboard.to_csv(dashboard_out_path,
+index=False)
+PS CQuant Get-ChildItem CQuant -Rec.txt:13:archive\optimiser_quant_v1.py:183:    opt.to_csv(OPT_OUTPUT_FILE,
+index=False, encoding="utf-8")
+PS CQuant Get-ChildItem CQuant -Rec.txt:14:archive\performance_engine_quant_v1.py:96:    daily.to_csv(OUT_DAILY,
+index=False, encoding="utf-8")
+PS CQuant Get-ChildItem CQuant -Rec.txt:15:archive\portfolio_engine_quant_v1.py:232:
+ls_weights.to_csv(WEIGHTS_LS_FILE, index=False, encoding="utf-8")
+PS CQuant Get-ChildItem CQuant -Rec.txt:16:archive\portfolio_engine_quant_v1.py:235:
+lo_weights.to_csv(WEIGHTS_LO_FILE, index=False, encoding="utf-8")
+PS CQuant Get-ChildItem CQuant -Rec.txt:17:archive\portfolio_engine_quant_v1.py:238:    perf.to_csv(PERF_FILE,
+index=False, encoding="utf-8")
+PS CQuant Get-ChildItem CQuant -Rec.txt:18:archive\quant_alpha_engine_v1.py:69:    df_alpha.to_csv(OUT_FILE,
+index=False)
+PS CQuant Get-ChildItem CQuant -Rec.txt:19:archive\pages\1_Dashboard_Overview.py:45:            csv =
+df.to_csv(index=False).encode("utf-8")
+PS CQuant Get-ChildItem CQuant -Rec.txt:20:archive\pages\archive\1_Dashboard_Overview.py:45:            csv =
+df.to_csv(index=False).encode("utf-8")
+PS CQuant Get-ChildItem CQuant -Rec.txt:21:scripts\ensure_and_rebuild_realized.py:26:    r.to_csv(REALIZED,
+index=False)
+PS CQuant Get-ChildItem CQuant -Rec.txt:22:scripts\ensure_and_rebuild_realized.py:79:realized.to_csv(REALIZED,
+index=False)
+PS CQuant Get-ChildItem CQuant -Rec.txt:23:scripts\ensure_realized_return_now.py:10:        df.to_csv(p, index=False)
+PS CQuant Get-ChildItem CQuant -Rec.txt:24:scripts\fix_and_run_verification.py:46:        realized.to_csv(REALIZED,
+index=False)
+PS CQuant Get-ChildItem CQuant -Rec.txt:25:scripts\fix_and_run_verification.py:55:        r.to_csv(REALIZED,
+index=False)
+PS CQuant Get-ChildItem CQuant -Rec.txt:26:scripts\force_realized_build.py:34:realized.to_csv(OUT, index=False)
+PS CQuant Get-ChildItem CQuant -Rec.txt:27:scripts\force_realized_build_fixed.py:46:realized.to_csv(OUT, index=False)
+PS CQuant Get-ChildItem CQuant -Rec.txt:28:scripts\quant_generate_historical_weights_ensemble_v1.py:185:
+out.to_csv(OUT, index=False)
+PS CQuant Get-ChildItem CQuant -Rec.txt:29:scripts\quant_weekly_10x10_v1.py:189:    picks.to_csv(PICKS_OUT,
+index=False)
+PS CQuant Get-ChildItem CQuant -Rec.txt:30:scripts\quant_weekly_10x10_v1.py:193:    perf.to_csv(PERF_OUT, index=False)
+PS CQuant Get-ChildItem CQuant -Rec.txt:31:scripts\regen_and_verify.py:128:    realized.to_csv(OUT["realized_weekly"],
+index=False)
+PS CQuant Get-ChildItem CQuant -Rec.txt:32:scripts\regen_and_verify.py:189:    picks_matched.to_csv(OUT["regen_" +
+strategy], index=False)
+PS CQuant Get-ChildItem CQuant -Rec.txt:33:scripts\regen_and_verify.py:193:
+pd.DataFrame([summary]).to_csv(OUT["summary_" + strategy], index=False)
+PS CQuant Get-ChildItem CQuant -Rec.txt:34:scripts\regen_and_verify.py:194:        pd.DataFrame().to_csv(OUT["diag_" +
+strategy], index=False)
+PS CQuant Get-ChildItem CQuant -Rec.txt:35:scripts\regen_and_verify.py:234:    }]).to_csv(OUT["summary_" + strategy],
+index=False)
+PS CQuant Get-ChildItem CQuant -Rec.txt:36:scripts\regen_and_verify.py:235:    diag.to_csv(OUT["diag_" + strategy],
+index=False)
+PS CQuant Get-ChildItem CQuant -Rec.txt:37:scripts\regen_and_verify.py:261:
+pd.DataFrame().to_csv(OUT["regen_" + strat], index=False)
+PS CQuant Get-ChildItem CQuant -Rec.txt:39:"no_picks"}]).to_csv(OUT["summary_" + strat], index=False)
+PS CQuant Get-ChildItem CQuant -Rec.txt:40:scripts\regen_and_verify.py:278:
+pd.DataFrame().to_csv(OUT["regen_" + strat], index=False)
+PS CQuant Get-ChildItem CQuant -Rec.txt:42:"missing_keys"}]).to_csv(OUT["summary_" + strat], index=False)
+PS CQuant Get-ChildItem CQuant -Rec.txt:43:scripts\regen_and_verify.py.bak:128:
+realized.to_csv(OUT["realized_weekly"], index=False)
+PS CQuant Get-ChildItem CQuant -Rec.txt:44:scripts\regen_and_verify.py.bak:231:    picks_matched.to_csv(OUT["regen_" +
+strategy], index=False)
+PS CQuant Get-ChildItem CQuant -Rec.txt:45:scripts\regen_and_verify.py.bak:235:
+pd.DataFrame([summary]).to_csv(OUT["summary_" + strategy], index=False)
+PS CQuant Get-ChildItem CQuant -Rec.txt:46:scripts\regen_and_verify.py.bak:236:
+pd.DataFrame().to_csv(OUT["diag_" + strategy], index=False)
+PS CQuant Get-ChildItem CQuant -Rec.txt:47:scripts\regen_and_verify.py.bak:276:    }]).to_csv(OUT["summary_" +
+strategy], index=False)
+PS CQuant Get-ChildItem CQuant -Rec.txt:48:scripts\regen_and_verify.py.bak:277:    diag.to_csv(OUT["diag_" +
+strategy], index=False)
+PS CQuant Get-ChildItem CQuant -Rec.txt:49:scripts\regen_and_verify.py.bak:303:
+pd.DataFrame().to_csv(OUT["regen_" + strat], index=False)
+PS CQuant Get-ChildItem CQuant -Rec.txt:51:"no_picks"}]).to_csv(OUT["summary_" + strat], index=False)
+PS CQuant Get-ChildItem CQuant -Rec.txt:52:scripts\regen_and_verify.py.bak:320:
+pd.DataFrame().to_csv(OUT["regen_" + strat], index=False)
+PS CQuant Get-ChildItem CQuant -Rec.txt:54:"missing_keys"}]).to_csv(OUT["summary_" + strat], index=False)
+PS CQuant Get-ChildItem CQuant -Rec.txt:55:scripts\run_verification.py:366:
+pd.DataFrame([summary]).to_csv(summary_csv, index=False)
+PS CQuant Get-ChildItem CQuant -Rec.txt:56:scripts\run_verification.py:367:    diag.to_csv(diag_csv, index=False)
+PS CQuant Get-ChildItem CQuant -Rec.txt:57:scripts\analytics\aggregate_verification_weekly.py:177:
+picks_lo.to_csv(OUT /
+PS CQuant Get-ChildItem CQuant -Rec.txt:59:scripts\analytics\aggregate_verification_weekly.py:178:
+picks_lo.to_csv(OUT /
+PS CQuant Get-ChildItem CQuant -Rec.txt:61:scripts\analytics\aggregate_verification_weekly.py:179:
+picks_ls.to_csv(OUT /
+PS CQuant Get-ChildItem CQuant -Rec.txt:63:scripts\analytics\aggregate_verification_weekly.py:180:
+picks_ls.to_csv(OUT /
+PS CQuant Get-ChildItem CQuant -Rec.txt:65:scripts\analytics\aggregate_verification_weekly.py:188:    agg.to_csv(OUT /
+PS CQuant Get-ChildItem CQuant -Rec.txt:67:scripts\analytics\aggregate_verification_weekly.py:191:
+summary.to_csv(OUT / "verification_summary.csv",
+PS CQuant Get-ChildItem CQuant -Rec.txt:69:scripts\analytics\aggregate_verification_weekly.py.bak:109:
+picks_lo.to_csv(OUT /
+PS CQuant Get-ChildItem CQuant -Rec.txt:71:scripts\analytics\aggregate_verification_weekly.py.bak:110:
+picks_lo.to_csv(OUT /
+PS CQuant Get-ChildItem CQuant -Rec.txt:73:scripts\analytics\aggregate_verification_weekly.py.bak:111:
+picks_ls.to_csv(OUT /
+PS CQuant Get-ChildItem CQuant -Rec.txt:75:scripts\analytics\aggregate_verification_weekly.py.bak:112:
+picks_ls.to_csv(OUT /
+PS CQuant Get-ChildItem CQuant -Rec.txt:77:scripts\analytics\aggregate_verification_weekly.py.bak:117:
+agg.to_csv(OUT /
+PS CQuant Get-ChildItem CQuant -Rec.txt:79:scripts\analytics\aggregate_verification_weekly.py.bak:120:
+summary.to_csv(OUT / "verification_summary.csv",
+PS CQuant Get-ChildItem CQuant -Rec.txt:81:scripts\analytics\attribution_engine_v1.py:139:
+df_attr.to_csv(REPORT_FILE, index=False)
+PS CQuant Get-ChildItem CQuant -Rec.txt:82:scripts\analytics\attribution_regime_quant_v1.py:71:
+out.to_csv(OUT_FILE, index=False, encoding="utf-8")
+PS CQuant Get-ChildItem CQuant -Rec.txt:83:scripts\analytics\backtest_engine_quant_v1.py:143:
+df.to_csv(BACKTEST_FILE, index=False)
+PS CQuant Get-ChildItem CQuant -Rec.txt:84:scripts\analytics\build_combined_analytics.py:90:    base.to_csv(OUT_PATH,
+index=False)
+PS CQuant Get-ChildItem CQuant -Rec.txt:85:scripts\analytics\composite_signal_quant_v1.py:147:
+df.to_csv(OUTPUT_FILE, index=False, encoding="utf-8")
+PS CQuant Get-ChildItem CQuant -Rec.txt:86:scripts\analytics\ensemble_signal_quant_v1.py:283:
+df.to_csv(OUTPUT_FILE, index=False, encoding="utf-8")
+PS CQuant Get-ChildItem CQuant -Rec.txt:87:scripts\analytics\expected_return_ingestion_quant_v1.py:66:
+df.to_csv(OUT_EXPECTED_RETURN_FILE, index=False,
+PS CQuant Get-ChildItem CQuant -Rec.txt:89:scripts\analytics\factor_engine_quant_v1.py:69:    df.to_csv(OUT_FACTORS,
+index=False, encoding="utf-8")
+PS CQuant Get-ChildItem CQuant -Rec.txt:90:scripts\analytics\factor_exposure_report_quant_v1.py:74:
+exposures.to_csv(EXPOSURES_OUT_FILE, index=False,
+PS CQuant Get-ChildItem CQuant -Rec.txt:92:scripts\analytics\factor_exposure_report_quant_v1.py:92:
+summary.to_csv(SUMMARY_OUT_FILE, index=False,
+PS CQuant Get-ChildItem CQuant -Rec.txt:94:scripts\analytics\factor_neutrality_engine_quant_v1.py:151:
+df.to_csv(OUT_NEUTRAL_FILE, index=False,
+PS CQuant Get-ChildItem CQuant -Rec.txt:96:scripts\analytics\factor_returns_quant_v1.py:99:    out.to_csv(OUT_FILE,
+index=False, encoding="utf-8")
+PS CQuant Get-ChildItem CQuant -Rec.txt:97:scripts\analytics\internal_factor_exposure_engine_quant_v1.py:137:
+df.to_csv(OUT_EXPOSURES_FILE, index=False,
+PS CQuant Get-ChildItem CQuant -Rec.txt:99:scripts\analytics\liquidity_cost_model_quant_v1.py:303:
+df.to_csv(OUT_COSTS_FILE, index=False, encoding="utf-8")
+PS CQuant Get-ChildItem CQuant -Rec.txt:100:scripts\analytics\market_liquidity_ingestion_quant_v1.py:132:
+df.to_csv(OUT_LIQUIDITY_FILE, index=False,
+PS CQuant Get-ChildItem CQuant -Rec.txt:102:scripts\analytics\multi_horizon_signal_quant_v1.py:189:
+df.to_csv(OUTPUT_FILE, index=False, encoding="utf-8")
+PS CQuant Get-ChildItem CQuant -Rec.txt:103:scripts\analytics\optimiser_performance_report_quant_v1.py:175:
+ts.to_csv(TS_OUTPUT, index=False, encoding="utf-8")
+PS CQuant Get-ChildItem CQuant -Rec.txt:104:scripts\analytics\optimiser_performance_report_quant_v1.py:178:
+summary.to_csv(SUMMARY_OUTPUT, index=False,
+PS CQuant Get-ChildItem CQuant -Rec.txt:106:scripts\analytics\optimiser_quant_v2.py:265:
+w_ls_v2.to_csv(W_LS_V2_FILE, index=False, encoding="utf-8")
+PS CQuant Get-ChildItem CQuant -Rec.txt:107:scripts\analytics\optimiser_quant_v2.py:268:
+w_lo_v2.to_csv(W_LO_V2_FILE, index=False, encoding="utf-8")
+PS CQuant Get-ChildItem CQuant -Rec.txt:108:scripts\analytics\optimiser_regime_quant_v1.py:281:
+combined.to_csv(OUT_FILE, index=False)
+PS CQuant Get-ChildItem CQuant -Rec.txt:109:scripts\analytics\optimiser_regime_quant_v1.py:283:
+df.to_csv(OUT_FILE, index=False)
+PS CQuant Get-ChildItem CQuant -Rec.txt:110:scripts\analytics\performance_engine_quant_v1.py:96:
+daily.to_csv(OUT_DAILY, index=False, encoding="utf-8")
+PS CQuant Get-ChildItem CQuant -Rec.txt:111:scripts\analytics\portfolio_engine_quant_v1.py:232:
+ls_weights.to_csv(WEIGHTS_LS_FILE, index=False,
+PS CQuant Get-ChildItem CQuant -Rec.txt:113:scripts\analytics\portfolio_engine_quant_v1.py:235:
+lo_weights.to_csv(WEIGHTS_LO_FILE, index=False,
+PS CQuant Get-ChildItem CQuant -Rec.txt:115:scripts\analytics\portfolio_engine_quant_v1.py:238:
+perf.to_csv(PERF_FILE, index=False, encoding="utf-8")
+PS CQuant Get-ChildItem CQuant -Rec.txt:116:scripts\analytics\portfolio_engine_quant_v2.py:250:
+df.to_csv(OUT_TRADING_FILE, index=False, encoding="utf-8")
+PS CQuant Get-ChildItem CQuant -Rec.txt:117:scripts\analytics\portfolio_engine_quant_v2.py:270:
+raw.to_csv(RAW_TARGETS_FILE, index=False, encoding="utf-8")
+PS CQuant Get-ChildItem CQuant -Rec.txt:118:scripts\analytics\portfolio_performance_v2.py:190:
+ls_daily.to_csv(OUT_LS, index=False, encoding="utf-8")
+PS CQuant Get-ChildItem CQuant -Rec.txt:119:scripts\analytics\portfolio_performance_v2.py:196:
+lo_daily.to_csv(OUT_LO, index=False, encoding="utf-8")
+PS CQuant Get-ChildItem CQuant -Rec.txt:120:scripts\analytics\portfolio_performance_v2.py:205:
+summary.to_csv(OUT_SUMMARY, index=False, encoding="utf-8")
+PS CQuant Get-ChildItem CQuant -Rec.txt:121:scripts\analytics\position_sizing_engine_quant_v1.py:263:
+df.to_csv(OUT_TRADABLE_WEIGHTS_FILE, index=False,
+PS CQuant Get-ChildItem CQuant -Rec.txt:123:scripts\analytics\position_sizing_engine_quant_v1_osqp.py:424:
+df.to_csv(OUT_TRADABLE_WEIGHTS_FILE, index=False)
+PS CQuant Get-ChildItem CQuant
+-Rec.txt:124:scripts\analytics\position_sizing_engine_quant_v1_regime.py:48:w_reg.to_csv(WEIGHTS_OUT, index=False)
+PS CQuant Get-ChildItem CQuant -Rec.txt:125:scripts\analytics\quant_alpha_engine_v2.py:120:
+df_alpha.to_csv(OUT_FILE, index=False)
+PS CQuant Get-ChildItem CQuant -Rec.txt:126:scripts\analytics\quant_attribution_tradable_v1.py:200:
+ticker_attr.to_csv(OUT_TICKER, index=False,
+PS CQuant Get-ChildItem CQuant -Rec.txt:128:scripts\analytics\quant_attribution_tradable_v1.py:218:
+sector_attr.to_csv(OUT_SECTOR, index=False,
+PS CQuant Get-ChildItem CQuant -Rec.txt:130:scripts\analytics\quant_attribution_tradable_v1.py:233:
+daily_attr.to_csv(OUT_DAILY, index=False, encoding="utf-8")
+PS CQuant Get-ChildItem CQuant -Rec.txt:131:scripts\analytics\quant_attribution_v1.py:220:
+scaled.to_csv(OUT_DAILY_FACTORS, index=False, encoding="utf-8")
+PS CQuant Get-ChildItem CQuant -Rec.txt:132:scripts\analytics\quant_attribution_v1_1.py:237:
+scaled.to_csv(OUT_DAILY_FACTORS, index=False, encoding="utf-8")
+PS CQuant Get-ChildItem CQuant -Rec.txt:133:scripts\analytics\quant_backtest_pnl_v1.py:101:    df.to_csv(OUT_FILE,
+index=False, encoding="utf-8")
+PS CQuant Get-ChildItem CQuant -Rec.txt:134:scripts\analytics\quant_backtest_v1.py:150:    daily.to_csv(OUT_FILE,
+index=False, encoding="utf-8")
+PS CQuant Get-ChildItem CQuant -Rec.txt:135:scripts\analytics\realized_returns_v1.py:92:    realized.to_csv(OUT_FILE,
+index=False, encoding="utf-8")
+PS CQuant Get-ChildItem CQuant -Rec.txt:136:scripts\analytics\regime_adjustments_quant_v1.py:109:
+out.to_csv(OUT_FILE, index=False, encoding="utf-8")
+PS CQuant Get-ChildItem CQuant -Rec.txt:137:scripts\analytics\regime_awareness_quant_v1.py:228:
+df.to_csv(REGIME_FILE, index=False, encoding="utf-8")
+PS CQuant Get-ChildItem CQuant -Rec.txt:138:scripts\analytics\regime_classifier_quant_v1.py:203:
+out.to_csv(OUT_FILE, index=False, encoding="utf-8")
+PS CQuant Get-ChildItem CQuant -Rec.txt:139:scripts\analytics\regime_exposure_quant_v1.py:200:
+df.to_csv(OUTPUT_FILE, index=False, encoding="utf-8")
+PS CQuant Get-ChildItem CQuant -Rec.txt:140:scripts\analytics\regime_factor_weighting_quant_v1.py:221:
+df.to_csv(OUT_FILE, index=False, encoding="utf-8")
+PS CQuant Get-ChildItem CQuant -Rec.txt:141:scripts\analytics\regime_portfolio_controls_quant_v1.py:119:
+out.to_csv(OUT_FILE, index=False, encoding="utf-8")
+PS CQuant Get-ChildItem CQuant -Rec.txt:142:scripts\analytics\reporting_engine_v1.py:284:
+df_report.to_csv(REPORT_STACKED_FILE, index=False)
+PS CQuant Get-ChildItem CQuant -Rec.txt:143:scripts\analytics\reporting_engine_v1.py:292:
+df_dash.to_csv(REPORT_DASHBOARD_FILE, index=False)
+PS CQuant Get-ChildItem CQuant -Rec.txt:144:scripts\analytics\restore_date_and_run_agg.py:28:        df.to_csv(exp,
+index=False)
+PS CQuant Get-ChildItem CQuant -Rec.txt:145:scripts\analytics\restore_date_and_run_agg.py:39:
+df.to_csv(exp, index=False)
+PS CQuant Get-ChildItem CQuant -Rec.txt:146:scripts\analytics\restore_prices_date_and_run.py:18:
+df.to_csv(prices, index=False)
+PS CQuant Get-ChildItem CQuant -Rec.txt:147:scripts\analytics\returns_panel_v1.py:130:
+ret_panel.to_csv(RET_PANEL_FILE, index=False, encoding="utf-8")
+PS CQuant Get-ChildItem CQuant -Rec.txt:148:scripts\analytics\returns_timeseries_quant_v1.py:50:
+long_df.to_csv(OUT_FILE, index=False, encoding="utf-8")
+PS CQuant Get-ChildItem CQuant -Rec.txt:149:scripts\analytics\risk_controls_quant_v1.py:309:
+w_ls_rc.to_csv(W_LS_RC_FILE, index=False, encoding="utf-8")
+PS CQuant Get-ChildItem CQuant -Rec.txt:150:scripts\analytics\risk_controls_quant_v1.py:312:
+w_lo_rc.to_csv(W_LO_RC_FILE, index=False, encoding="utf-8")
+PS CQuant Get-ChildItem CQuant -Rec.txt:151:scripts\analytics\risk_controls_quant_v1.py:315:
+perf_rc.to_csv(PERF_RC_FILE, index=False, encoding="utf-8")
+PS CQuant Get-ChildItem CQuant -Rec.txt:152:scripts\analytics\risk_engine_v1.py:173:
+df_model.to_csv(RISK_MODEL_FILE, index=False)
+PS CQuant Get-ChildItem CQuant -Rec.txt:153:scripts\analytics\risk_engine_v1.py:212:
+df_daily.to_csv(RISK_DAILY_FILE, index=False)
+PS CQuant Get-ChildItem CQuant -Rec.txt:154:scripts\analytics\risk_model_quant_v1.py:210:
+df[cols].to_csv(OUTPUT_FILE, index=False, encoding="utf-8")
+PS CQuant Get-ChildItem CQuant -Rec.txt:155:scripts\analytics\risk_model_regime_quant_v1.py:209:
+out.to_csv(OUT_FILE, index=False, encoding="utf-8")
+PS CQuant Get-ChildItem CQuant -Rec.txt:156:scripts\analytics\risk_neutral_portfolio_quant_v1.py:232:
+w_ls.to_csv(W_LS_FILE, index=False, encoding="utf-8")
+PS CQuant Get-ChildItem CQuant -Rec.txt:157:scripts\analytics\risk_neutral_portfolio_quant_v1.py:235:
+w_lo.to_csv(W_LO_FILE, index=False, encoding="utf-8")
+PS CQuant Get-ChildItem CQuant -Rec.txt:158:scripts\analytics\risk_neutral_portfolio_quant_v1.py:238:
+perf.to_csv(PERF_FILE, index=False, encoding="utf-8")
+PS CQuant Get-ChildItem CQuant -Rec.txt:159:scripts\analytics\risk_regime_quant_v1.py:78:    out.to_csv(OUT_FILE,
+index=False, encoding="utf-8")
+PS CQuant Get-ChildItem CQuant -Rec.txt:160:scripts\analytics\risk_report_quant_v1.py:244:
+ts.to_csv(TS_OUTPUT_FILE, index=False, encoding="utf-8")
+PS CQuant Get-ChildItem CQuant -Rec.txt:161:scripts\analytics\risk_report_quant_v1.py:247:
+summary.to_csv(SUMMARY_OUTPUT_FILE, index=False, encoding="utf-8")
+PS CQuant Get-ChildItem CQuant -Rec.txt:162:scripts\analytics\summary_engine_v1.py:169:        df_out.to_csv(OUT_FILE,
+index=False)
+PS CQuant Get-ChildItem CQuant -Rec.txt:163:scripts\analytics\turnover_optimisation_quant_v1.py:241:
+w_ls_to.to_csv(W_LS_TO_FILE, index=False, encoding="utf-8")
+PS CQuant Get-ChildItem CQuant -Rec.txt:164:scripts\analytics\turnover_optimisation_quant_v1.py:244:
+w_lo_to.to_csv(W_LO_TO_FILE, index=False, encoding="utf-8")
+PS CQuant Get-ChildItem CQuant -Rec.txt:165:scripts\analytics\turnover_optimisation_quant_v1.py:247:
+perf_to.to_csv(PERF_TO_FILE, index=False, encoding="utf-8")
+PS CQuant Get-ChildItem CQuant -Rec.txt:166:scripts\analytics\turnover_regime_quant_v1.py:100:    out.to_csv(OUT_FILE,
+index=False, encoding="utf-8")
+PS CQuant Get-ChildItem CQuant -Rec.txt:167:scripts\analytics\turnover_report_quant_v1.py:294:
+ts.to_csv(TS_OUTPUT_FILE, index=False, encoding="utf-8")
+PS CQuant Get-ChildItem CQuant -Rec.txt:168:scripts\analytics\turnover_report_quant_v1.py:297:
+summary.to_csv(SUMMARY_OUTPUT_FILE, index=False,
+PS CQuant Get-ChildItem CQuant -Rec.txt:170:scripts\analytics\vol_target_quant_v1.py:160:    df.to_csv(PERF_VT_FILE,
+index=False, encoding="utf-8")
+PS CQuant Get-ChildItem CQuant -Rec.txt:171:scripts\analytics\attribution_suite_v1\attribution_diagnostics_v1.py:169:
+  df.to_csv(OUT_FILE, index=False,
+PS CQuant Get-ChildItem CQuant
+-Rec.txt:173:scripts\analytics\attribution_suite_v1\attribution_expected_vs_realised_v1.py:172:    out.to_csv(OUT_FILE,
+PS CQuant Get-ChildItem CQuant
+-Rec.txt:175:scripts\analytics\attribution_suite_v1\attribution_regime_summary_v1.py:120:    out.to_csv(OUT_FILE,
+index=False,
+PS CQuant Get-ChildItem CQuant -Rec.txt:177:scripts\analytics\attribution_suite_v1\attribution_rolling_v1.py:121:
+out.to_csv(OUT_FILE, index=False,
+PS CQuant Get-ChildItem CQuant -Rec.txt:179:scripts\analytics\attribution_suite_v1\attribution_sector_v1.py:121:
+out.to_csv(OUT_FILE, index=False,
+PS CQuant Get-ChildItem CQuant
+-Rec.txt:181:scripts\analytics\attribution_suite_v1\build_positions_timeseries_v1.py:129:    df.to_csv(OUT_FILE,
+index=False,
+PS CQuant Get-ChildItem CQuant -Rec.txt:183:scripts\analytics\attribution_suite_v1\factor_returns_alignment_v1.py:138:
+   out.to_csv(OUT_FILE, index=False,
+PS CQuant Get-ChildItem CQuant -Rec.txt:185:scripts\analytics\attribution_suite_v1\liquidity_costs_enhanced_v1.py:127:
+   out.to_csv(OUT_FILE, index=False,
+PS CQuant Get-ChildItem CQuant -Rec.txt:188:_FILE parent mkdir to_csv) a crequired missing reg outs      r mainrB#s
+PS CQuant Get-ChildItem CQuant -Rec.txt:192:ndexr EXPOSURES_OUT_FILE parent mkdir to_csv float np nanmean abs values
+append
+PS CQuant Get-ChildItem CQuant -Rec.txt:203:rDrErG concat drop_duplicatesr` to_csv)r:r existingcombineds
+PS CQuant Get-ChildItem CQuant -Rec.txt:208:encoding) copyOUT_FILE parent mkdir to_csv)rCr~s
+PS CQuant Get-ChildItem CQuant -Rec.txt:221:_FILE parent mkdir to_csv)
+PS CQuant Get-ChildItem CQuant -Rec.txt:226: to_csv) w cdaily_to reg outs     r mainrH(sr
+PS CQuant Get-ChildItem CQuant -Rec.txt:227:scripts\backtest\backtest_10stock_weekly.py:122:
+backtest.to_csv(OUTPUT_PATH, index=False, encoding="utf-8")
+PS CQuant Get-ChildItem CQuant -Rec.txt:228:scripts\backtest\backtest_longonly_weekly.py:88:
+result.to_csv(OUTPUT_PATH, index=False)
+PS CQuant Get-ChildItem CQuant -Rec.txt:229:scripts\backtest\backtest_longshort_weekly.py:126:
+result.to_csv(OUTPUT_PATH, index=False)
+PS CQuant Get-ChildItem CQuant -Rec.txt:230:scripts\backtest\backtest_weekly_quant_v1.py:76:weekly.to_csv(OUT,
+index=False)
+PS CQuant Get-ChildItem CQuant -Rec.txt:232:long_only[cols].to_csv(index=False).encode("utf-8"),
+file_name="long_only_top10.csv")
+PS CQuant Get-ChildItem CQuant -Rec.txt:234:long_short[cols].to_csv(index=False).encode("utf-8"),
+file_name="long_short_top10.csv")
+PS CQuant Get-ChildItem CQuant -Rec.txt:235:scripts\dashboard\app.py:370:        csv =
+picks.to_csv(index=False).encode("utf-8")
+PS CQuant Get-ChildItem CQuant -Rec.txt:236:scripts\diagnostics\inspect_csvs_quant_v1.py:171:    out.to_csv(OUT_FILE,
+index=False, encoding="utf-8")
+PS CQuant Get-ChildItem CQuant -Rec.txt:237:scripts\enrichment\enrichment_10stock_weekly.py:115:
+df_enriched.to_csv(OUTPUT_PATH, index=False, encoding="utf-8")
+PS CQuant Get-ChildItem CQuant -Rec.txt:238:scripts\enrichment\enrichment_daily_quant_v1.py:238:
+enriched.to_csv(OUT_CSV, index=False, encoding="utf-8")
+PS CQuant Get-ChildItem CQuant -Rec.txt:239:scripts\enrichment\enrich_daily.py:91:df.to_csv(OUT, index=False)
+PS CQuant Get-ChildItem CQuant -Rec.txt:240:scripts\incremental\incremental_update_quant_v1.py:187:
+df_master.to_csv(MASTER_CSV, index=False, encoding="utf-8")
+PS CQuant Get-ChildItem CQuant -Rec.txt:241:scripts\ingestion\build_prices_quant_v1.py:203:
+cleaned.to_csv(out_path, index=False)
+PS CQuant Get-ChildItem CQuant -Rec.txt:242:scripts\ingestion\ingestion_5years_quant_v1.py:393:
+final.to_csv(OUT_CSV, index=False, encoding="utf-8")
+PS CQuant Get-ChildItem CQuant -Rec.txt:243:scripts\ingestion\ingestion_5years_quant_v1.py:423:
+governed.to_csv(GOVERNED_OUT, index=False, encoding="utf-8")
+PS CQuant Get-ChildItem CQuant -Rec.txt:244:scripts\master\master_dataset_quant_v1.py:104:
+df_master.to_csv(OUT_MASTER, index=False, encoding="utf-8")
+PS CQuant Get-ChildItem CQuant -Rec.txt:245:scripts\portfolio\portfolio_engine_regime_overlay_quant_v1.py:149:
+out.to_csv(OUT_FILE, index=False,
+PS CQuant Get-ChildItem CQuant -Rec.txt:247:scripts\ranking\ranking_10stock_weekly.py:94:
+df_selection.to_csv(OUTPUT_PATH, index=False, encoding="utf-8")
+PS CQuant Get-ChildItem CQuant -Rec.txt:248:scripts\ranking\ranking_weekly_quant_v1.py:66:top10.to_csv(OUT,
+index=False)
+PS CQuant Get-ChildItem CQuant -Rec.txt:249:scripts\reporting\reporting_engine_returns_v2.py:40:
+summary.to_csv(output_path, index=False)
+PS CQuant Get-ChildItem CQuant -Rec.txt:251:F) indexN)r to_csv)rrr␦s
+PS CQuant Get-ChildItem CQuant -Rec.txt:255:scripts\selection\build_weekly_selection_longonly.py:85:
+out.to_csv(OUT, index=False)
+PS CQuant Get-ChildItem CQuant -Rec.txt:256:scripts\selection\build_weekly_selection_longshort.py:122:
+out.to_csv(OUT, index=False)
+PS CQuant Get-ChildItem CQuant -Rec.txt:257:scripts\selection\validate_weekly_selection_longshort.py:87:
+out.to_csv(OUT, index=False)
+PS CQuant Get-ChildItem CQuant -Rec.txt:272:                reset_index appendr0 concat to_csv OUT)r2r>date_col
+reconcile_trades_vs_mark.py:128:        realized_by_ticker.to_csv(OUT / f"realized_notional_{DATE}.csv",
+header=["signed_notional"])
+reconcile_trades_vs_mark.py:143:    recon.to_csv(out_file)
+run_returns_pipeline_quant_v2.py:40:    prices_enriched.to_csv(returns_out_path, index=False)
+archive\backtest_engine_quant_v1.py:143:    df.to_csv(BACKTEST_FILE, index=False)
+archive\dashboard_growth_quant_v1.py:51:df.to_csv(OUT, index=False)
+archive\dashboard_returns_v2.py:23:    dashboard.to_csv(dashboard_out_path, index=False)
+archive\optimiser_quant_v1.py:183:    opt.to_csv(OPT_OUTPUT_FILE, index=False, encoding="utf-8")
+archive\performance_engine_quant_v1.py:96:    daily.to_csv(OUT_DAILY, index=False, encoding="utf-8")
+archive\portfolio_engine_quant_v1.py:232:    ls_weights.to_csv(WEIGHTS_LS_FILE, index=False, encoding="utf-8")
+archive\portfolio_engine_quant_v1.py:235:    lo_weights.to_csv(WEIGHTS_LO_FILE, index=False, encoding="utf-8")
+archive\portfolio_engine_quant_v1.py:238:    perf.to_csv(PERF_FILE, index=False, encoding="utf-8")
+archive\quant_alpha_engine_v1.py:69:    df_alpha.to_csv(OUT_FILE, index=False)
+archive\pages\1_Dashboard_Overview.py:45:            csv = df.to_csv(index=False).encode("utf-8")
+archive\pages\archive\1_Dashboard_Overview.py:45:            csv = df.to_csv(index=False).encode("utf-8")
+scripts\ensure_and_rebuild_realized.py:26:    r.to_csv(REALIZED, index=False)
+scripts\ensure_and_rebuild_realized.py:79:realized.to_csv(REALIZED, index=False)
+scripts\ensure_realized_return_now.py:10:        df.to_csv(p, index=False)
+scripts\fix_and_run_verification.py:46:        realized.to_csv(REALIZED, index=False)
+scripts\fix_and_run_verification.py:55:        r.to_csv(REALIZED, index=False)
+scripts\force_realized_build.py:34:realized.to_csv(OUT, index=False)
+scripts\force_realized_build_fixed.py:46:realized.to_csv(OUT, index=False)
+scripts\quant_generate_historical_weights_ensemble_v1.py:185:    out.to_csv(OUT, index=False)
+scripts\quant_weekly_10x10_v1.py:189:    picks.to_csv(PICKS_OUT, index=False)
+scripts\quant_weekly_10x10_v1.py:193:    perf.to_csv(PERF_OUT, index=False)
+scripts\regen_and_verify.py:128:    realized.to_csv(OUT["realized_weekly"], index=False)
+scripts\regen_and_verify.py:189:    picks_matched.to_csv(OUT["regen_" + strategy], index=False)
+scripts\regen_and_verify.py:193:        pd.DataFrame([summary]).to_csv(OUT["summary_" + strategy], index=False)
+scripts\regen_and_verify.py:194:        pd.DataFrame().to_csv(OUT["diag_" + strategy], index=False)
+scripts\regen_and_verify.py:234:    }]).to_csv(OUT["summary_" + strategy], index=False)
+scripts\regen_and_verify.py:235:    diag.to_csv(OUT["diag_" + strategy], index=False)
+scripts\regen_and_verify.py:261:            pd.DataFrame().to_csv(OUT["regen_" + strat], index=False)
+scripts\regen_and_verify.py:262:            pd.DataFrame([{"strategy": strat, "status":
+"no_picks"}]).to_csv(OUT["summary_" + strat], index=False)
+scripts\regen_and_verify.py:278:            pd.DataFrame().to_csv(OUT["regen_" + strat], index=False)
+scripts\regen_and_verify.py:279:            pd.DataFrame([{"strategy": strat, "status":
+"missing_keys"}]).to_csv(OUT["summary_" + strat], index=False)
+scripts\regen_and_verify.py.bak:128:    realized.to_csv(OUT["realized_weekly"], index=False)
+scripts\regen_and_verify.py.bak:231:    picks_matched.to_csv(OUT["regen_" + strategy], index=False)
+scripts\regen_and_verify.py.bak:235:        pd.DataFrame([summary]).to_csv(OUT["summary_" + strategy], index=False)
+scripts\regen_and_verify.py.bak:236:        pd.DataFrame().to_csv(OUT["diag_" + strategy], index=False)
+scripts\regen_and_verify.py.bak:276:    }]).to_csv(OUT["summary_" + strategy], index=False)
+scripts\regen_and_verify.py.bak:277:    diag.to_csv(OUT["diag_" + strategy], index=False)
+scripts\regen_and_verify.py.bak:303:            pd.DataFrame().to_csv(OUT["regen_" + strat], index=False)
+scripts\regen_and_verify.py.bak:304:            pd.DataFrame([{"strategy": strat, "status":
+"no_picks"}]).to_csv(OUT["summary_" + strat], index=False)
+scripts\regen_and_verify.py.bak:320:            pd.DataFrame().to_csv(OUT["regen_" + strat], index=False)
+scripts\regen_and_verify.py.bak:321:            pd.DataFrame([{"strategy": strat, "status":
+"missing_keys"}]).to_csv(OUT["summary_" + strat], index=False)
+scripts\run_verification.py:366:    pd.DataFrame([summary]).to_csv(summary_csv, index=False)
+scripts\run_verification.py:367:    diag.to_csv(diag_csv, index=False)
+scripts\analytics\aggregate_verification_weekly.py:177:    picks_lo.to_csv(OUT /
+"predicted_vs_picks_weekly_longonly.csv", index=False)
+scripts\analytics\aggregate_verification_weekly.py:178:    picks_lo.to_csv(OUT /
+"realized_vs_picks_weekly_longonly.csv", index=False)
+scripts\analytics\aggregate_verification_weekly.py:179:    picks_ls.to_csv(OUT /
+"predicted_vs_picks_weekly_longshort.csv", index=False)
+scripts\analytics\aggregate_verification_weekly.py:180:    picks_ls.to_csv(OUT /
+"realized_vs_picks_weekly_longshort.csv", index=False)
+scripts\analytics\aggregate_verification_weekly.py:188:    agg.to_csv(OUT /
+"weekly_portfolio_predicted_vs_realized.csv", index=False)
+scripts\analytics\aggregate_verification_weekly.py:191:    summary.to_csv(OUT / "verification_summary.csv",
+index=False)
+scripts\analytics\aggregate_verification_weekly.py.bak:109:    picks_lo.to_csv(OUT /
+"predicted_vs_picks_weekly_longonly.csv", index=False)
+scripts\analytics\aggregate_verification_weekly.py.bak:110:    picks_lo.to_csv(OUT /
+"realized_vs_picks_weekly_longonly.csv", index=False)
+scripts\analytics\aggregate_verification_weekly.py.bak:111:    picks_ls.to_csv(OUT /
+"predicted_vs_picks_weekly_longshort.csv", index=False)
+scripts\analytics\aggregate_verification_weekly.py.bak:112:    picks_ls.to_csv(OUT /
+"realized_vs_picks_weekly_longshort.csv", index=False)
+scripts\analytics\aggregate_verification_weekly.py.bak:117:    agg.to_csv(OUT /
+"weekly_portfolio_predicted_vs_realized.csv", index=False)
+scripts\analytics\aggregate_verification_weekly.py.bak:120:    summary.to_csv(OUT / "verification_summary.csv",
+index=False)
+scripts\analytics\attribution_engine_v1.py:139:    df_attr.to_csv(REPORT_FILE, index=False)
+scripts\analytics\attribution_regime_quant_v1.py:71:    out.to_csv(OUT_FILE, index=False, encoding="utf-8")
+scripts\analytics\backtest_engine_quant_v1.py:143:    df.to_csv(BACKTEST_FILE, index=False)
+scripts\analytics\build_combined_analytics.py:90:    base.to_csv(OUT_PATH, index=False)
+scripts\analytics\composite_signal_quant_v1.py:147:    df.to_csv(OUTPUT_FILE, index=False, encoding="utf-8")
+scripts\analytics\ensemble_signal_quant_v1.py:283:    df.to_csv(OUTPUT_FILE, index=False, encoding="utf-8")
+scripts\analytics\expected_return_ingestion_quant_v1.py:66:    df.to_csv(OUT_EXPECTED_RETURN_FILE, index=False,
+encoding="utf-8")
+scripts\analytics\factor_engine_quant_v1.py:69:    df.to_csv(OUT_FACTORS, index=False, encoding="utf-8")
+scripts\analytics\factor_exposure_report_quant_v1.py:74:    exposures.to_csv(EXPOSURES_OUT_FILE, index=False,
+encoding="utf-8")
+scripts\analytics\factor_exposure_report_quant_v1.py:92:    summary.to_csv(SUMMARY_OUT_FILE, index=False,
+encoding="utf-8")
+scripts\analytics\factor_neutrality_engine_quant_v1.py:151:    df.to_csv(OUT_NEUTRAL_FILE, index=False,
+encoding="utf-8")
+scripts\analytics\factor_returns_quant_v1.py:99:    out.to_csv(OUT_FILE, index=False, encoding="utf-8")
+scripts\analytics\internal_factor_exposure_engine_quant_v1.py:137:    df.to_csv(OUT_EXPOSURES_FILE, index=False,
+encoding="utf-8")
+scripts\analytics\liquidity_cost_model_quant_v1.py:303:    df.to_csv(OUT_COSTS_FILE, index=False, encoding="utf-8")
+scripts\analytics\market_liquidity_ingestion_quant_v1.py:132:    df.to_csv(OUT_LIQUIDITY_FILE, index=False,
+encoding="utf-8")
+scripts\analytics\multi_horizon_signal_quant_v1.py:189:    df.to_csv(OUTPUT_FILE, index=False, encoding="utf-8")
+scripts\analytics\optimiser_performance_report_quant_v1.py:175:    ts.to_csv(TS_OUTPUT, index=False, encoding="utf-8")
+scripts\analytics\optimiser_performance_report_quant_v1.py:178:    summary.to_csv(SUMMARY_OUTPUT, index=False,
+encoding="utf-8")
+scripts\analytics\optimiser_quant_v2.py:265:    w_ls_v2.to_csv(W_LS_V2_FILE, index=False, encoding="utf-8")
+scripts\analytics\optimiser_quant_v2.py:268:    w_lo_v2.to_csv(W_LO_V2_FILE, index=False, encoding="utf-8")
+scripts\analytics\optimiser_regime_quant_v1.py:281:        combined.to_csv(OUT_FILE, index=False)
+scripts\analytics\optimiser_regime_quant_v1.py:283:        df.to_csv(OUT_FILE, index=False)
+scripts\analytics\performance_engine_quant_v1.py:96:    daily.to_csv(OUT_DAILY, index=False, encoding="utf-8")
+scripts\analytics\portfolio_engine_quant_v1.py:232:    ls_weights.to_csv(WEIGHTS_LS_FILE, index=False,
+encoding="utf-8")
+scripts\analytics\portfolio_engine_quant_v1.py:235:    lo_weights.to_csv(WEIGHTS_LO_FILE, index=False,
+encoding="utf-8")
+scripts\analytics\portfolio_engine_quant_v1.py:238:    perf.to_csv(PERF_FILE, index=False, encoding="utf-8")
+scripts\analytics\portfolio_engine_quant_v2.py:250:    df.to_csv(OUT_TRADING_FILE, index=False, encoding="utf-8")
+scripts\analytics\portfolio_engine_quant_v2.py:270:    raw.to_csv(RAW_TARGETS_FILE, index=False, encoding="utf-8")
+scripts\analytics\portfolio_performance_v2.py:190:    ls_daily.to_csv(OUT_LS, index=False, encoding="utf-8")
+scripts\analytics\portfolio_performance_v2.py:196:    lo_daily.to_csv(OUT_LO, index=False, encoding="utf-8")
+scripts\analytics\portfolio_performance_v2.py:205:    summary.to_csv(OUT_SUMMARY, index=False, encoding="utf-8")
+scripts\analytics\position_sizing_engine_quant_v1.py:263:    df.to_csv(OUT_TRADABLE_WEIGHTS_FILE, index=False,
+encoding="utf-8")
+scripts\analytics\position_sizing_engine_quant_v1_osqp.py:424:    df.to_csv(OUT_TRADABLE_WEIGHTS_FILE, index=False)
+scripts\analytics\position_sizing_engine_quant_v1_regime.py:48:w_reg.to_csv(WEIGHTS_OUT, index=False)
+scripts\analytics\quant_alpha_engine_v2.py:120:    df_alpha.to_csv(OUT_FILE, index=False)
+scripts\analytics\quant_attribution_tradable_v1.py:200:    ticker_attr.to_csv(OUT_TICKER, index=False,
+encoding="utf-8")
+scripts\analytics\quant_attribution_tradable_v1.py:218:    sector_attr.to_csv(OUT_SECTOR, index=False,
+encoding="utf-8")
+scripts\analytics\quant_attribution_tradable_v1.py:233:    daily_attr.to_csv(OUT_DAILY, index=False, encoding="utf-8")
+scripts\analytics\quant_attribution_v1.py:220:    scaled.to_csv(OUT_DAILY_FACTORS, index=False, encoding="utf-8")
+scripts\analytics\quant_attribution_v1_1.py:237:    scaled.to_csv(OUT_DAILY_FACTORS, index=False, encoding="utf-8")
+scripts\analytics\quant_backtest_pnl_v1.py:101:    df.to_csv(OUT_FILE, index=False, encoding="utf-8")
+scripts\analytics\quant_backtest_v1.py:150:    daily.to_csv(OUT_FILE, index=False, encoding="utf-8")
+scripts\analytics\realized_returns_v1.py:92:    realized.to_csv(OUT_FILE, index=False, encoding="utf-8")
+scripts\analytics\regime_adjustments_quant_v1.py:109:    out.to_csv(OUT_FILE, index=False, encoding="utf-8")
+scripts\analytics\regime_awareness_quant_v1.py:228:    df.to_csv(REGIME_FILE, index=False, encoding="utf-8")
+scripts\analytics\regime_classifier_quant_v1.py:203:    out.to_csv(OUT_FILE, index=False, encoding="utf-8")
+scripts\analytics\regime_exposure_quant_v1.py:200:    df.to_csv(OUTPUT_FILE, index=False, encoding="utf-8")
+scripts\analytics\regime_factor_weighting_quant_v1.py:221:    df.to_csv(OUT_FILE, index=False, encoding="utf-8")
+scripts\analytics\regime_portfolio_controls_quant_v1.py:119:    out.to_csv(OUT_FILE, index=False, encoding="utf-8")
+scripts\analytics\reporting_engine_v1.py:284:        df_report.to_csv(REPORT_STACKED_FILE, index=False)
+scripts\analytics\reporting_engine_v1.py:292:        df_dash.to_csv(REPORT_DASHBOARD_FILE, index=False)
+scripts\analytics\restore_date_and_run_agg.py:28:        df.to_csv(exp, index=False)
+scripts\analytics\restore_date_and_run_agg.py:39:                    df.to_csv(exp, index=False)
+scripts\analytics\restore_prices_date_and_run.py:18:        df.to_csv(prices, index=False)
+scripts\analytics\returns_panel_v1.py:130:    ret_panel.to_csv(RET_PANEL_FILE, index=False, encoding="utf-8")
+scripts\analytics\returns_timeseries_quant_v1.py:50:    long_df.to_csv(OUT_FILE, index=False, encoding="utf-8")
+scripts\analytics\risk_controls_quant_v1.py:309:    w_ls_rc.to_csv(W_LS_RC_FILE, index=False, encoding="utf-8")
+scripts\analytics\risk_controls_quant_v1.py:312:    w_lo_rc.to_csv(W_LO_RC_FILE, index=False, encoding="utf-8")
+scripts\analytics\risk_controls_quant_v1.py:315:    perf_rc.to_csv(PERF_RC_FILE, index=False, encoding="utf-8")
+scripts\analytics\risk_engine_v1.py:173:    df_model.to_csv(RISK_MODEL_FILE, index=False)
+scripts\analytics\risk_engine_v1.py:212:    df_daily.to_csv(RISK_DAILY_FILE, index=False)
+scripts\analytics\risk_model_quant_v1.py:210:    df[cols].to_csv(OUTPUT_FILE, index=False, encoding="utf-8")
+scripts\analytics\risk_model_regime_quant_v1.py:209:    out.to_csv(OUT_FILE, index=False, encoding="utf-8")
+scripts\analytics\risk_neutral_portfolio_quant_v1.py:232:    w_ls.to_csv(W_LS_FILE, index=False, encoding="utf-8")
+scripts\analytics\risk_neutral_portfolio_quant_v1.py:235:    w_lo.to_csv(W_LO_FILE, index=False, encoding="utf-8")
+scripts\analytics\risk_neutral_portfolio_quant_v1.py:238:    perf.to_csv(PERF_FILE, index=False, encoding="utf-8")
+scripts\analytics\risk_regime_quant_v1.py:78:    out.to_csv(OUT_FILE, index=False, encoding="utf-8")
+scripts\analytics\risk_report_quant_v1.py:244:    ts.to_csv(TS_OUTPUT_FILE, index=False, encoding="utf-8")
+scripts\analytics\risk_report_quant_v1.py:247:    summary.to_csv(SUMMARY_OUTPUT_FILE, index=False, encoding="utf-8")
+scripts\analytics\summary_engine_v1.py:169:        df_out.to_csv(OUT_FILE, index=False)
+scripts\analytics\turnover_optimisation_quant_v1.py:241:    w_ls_to.to_csv(W_LS_TO_FILE, index=False, encoding="utf-8")
+scripts\analytics\turnover_optimisation_quant_v1.py:244:    w_lo_to.to_csv(W_LO_TO_FILE, index=False, encoding="utf-8")
+scripts\analytics\turnover_optimisation_quant_v1.py:247:    perf_to.to_csv(PERF_TO_FILE, index=False, encoding="utf-8")
+scripts\analytics\turnover_regime_quant_v1.py:100:    out.to_csv(OUT_FILE, index=False, encoding="utf-8")
+scripts\analytics\turnover_report_quant_v1.py:294:    ts.to_csv(TS_OUTPUT_FILE, index=False, encoding="utf-8")
+scripts\analytics\turnover_report_quant_v1.py:297:    summary.to_csv(SUMMARY_OUTPUT_FILE, index=False,
+encoding="utf-8")
+scripts\analytics\vol_target_quant_v1.py:160:    df.to_csv(PERF_VT_FILE, index=False, encoding="utf-8")
+scripts\analytics\attribution_suite_v1\attribution_diagnostics_v1.py:169:    df.to_csv(OUT_FILE, index=False,
+encoding="utf-8")
+scripts\analytics\attribution_suite_v1\attribution_expected_vs_realised_v1.py:172:    out.to_csv(OUT_FILE,
+index=False, encoding="utf-8")
+scripts\analytics\attribution_suite_v1\attribution_regime_summary_v1.py:120:    out.to_csv(OUT_FILE, index=False,
+encoding="utf-8")
+scripts\analytics\attribution_suite_v1\attribution_rolling_v1.py:121:    out.to_csv(OUT_FILE, index=False,
+encoding="utf-8")
+scripts\analytics\attribution_suite_v1\attribution_sector_v1.py:121:    out.to_csv(OUT_FILE, index=False,
+encoding="utf-8")
+scripts\analytics\attribution_suite_v1\build_positions_timeseries_v1.py:129:    df.to_csv(OUT_FILE, index=False,
+encoding="utf-8")
+scripts\analytics\attribution_suite_v1\factor_returns_alignment_v1.py:138:    out.to_csv(OUT_FILE, index=False,
+encoding="utf-8")
+scripts\analytics\attribution_suite_v1\liquidity_costs_enhanced_v1.py:127:    out.to_csv(OUT_FILE, index=False,
+encoding="utf-8")
+scripts\analytics\__pycache__\attribution_regime_quant_v1.cpython-312.pyc:29:merge_asof fillna groupby sumrOUT
+_FILE parent mkdir to_csv) a crequired missing reg outs      r mainrB#s   
+scripts\analytics\__pycache__\factor_exposure_report_quant_v1.cpython-312.pyc:41:ValueError copy 
+                                                                                                 sort_values 
+                                                                                                             reset_i
+ndexr EXPOSURES_OUT_FILE parent mkdir to_csv float np nanmean abs values append 
+DataFrame SUMMARY_OUT_FILE)      df c non_factor_cols 
+                                                      factor_cols       exposures 
+                                                                                  summary_rows f avg_abs summarys       
+       r mainrJ,s   
+scripts\analytics\__pycache__\optimiser_regime_quant_v1.cpython-312.pyc:103: 
+                                                                              y)
+                                                                                N optimiser_run_dateT) p
+arentsexist_okr@rA) 
+                    ignore_indexrB last) subset keepF) index)
+                                                             r6OUT_FILE parent mkdir exists
+rDrErG concat drop_duplicatesr` to_csv)r:r existingcombineds
+r save_portfolior 
+scripts\analytics\__pycache__\regime_factor_weighting_quant_v1.cpython-312.pyc:63:LrrCrun_datec
+  |j }||d<tjjdd  
+|j      tdd  y)N regime_factor_run_dateT) parentsexist_okFzutf-8) index 
+encoding) copyOUT_FILE parent mkdir to_csv)rCr~s
+r ␦save_regime_factor_returnsr  sA  
+                                            B #+ B    
+                                                       O O   $   6  I I h e g I 6rc
+   tjd t }t }t
+ }t
+    }t
+scripts\analytics\__pycache__\risk_regime_quant_v1.cpython-312.pyc:30:ValueError sorted 
+                                                                                        to_datetime 
+                                                                                                    sort_values 
+                                                                                                                res
+et_index groupby rolling WINDOWr dropna empty iloc append floatr        DataFrame 
+                                                                                  from_records warningOUT
+_FILE parent mkdir to_csv)
+                           fr crequired missing rows regime factor grp lastlast_row outs
+
+ r mainrM#s   
+scripts\analytics\__pycache__\turnover_regime_quant_v1.cpython-312.pyc:36:merge_asof aggrOUT_FILE parent mkdir
+ to_csv) w cdaily_to reg outs     r mainrH(sr  
+scripts\backtest\backtest_10stock_weekly.py:122:    backtest.to_csv(OUTPUT_PATH, index=False, encoding="utf-8")
+scripts\backtest\backtest_longonly_weekly.py:88:    result.to_csv(OUTPUT_PATH, index=False)
+scripts\backtest\backtest_longshort_weekly.py:126:    result.to_csv(OUTPUT_PATH, index=False)
+scripts\backtest\backtest_weekly_quant_v1.py:76:weekly.to_csv(OUT, index=False)
+scripts\dashboard\app.py:278:            st.download_button("Download Long Only CSV",
+long_only[cols].to_csv(index=False).encode("utf-8"), file_name="long_only_top10.csv")
+scripts\dashboard\app.py:282:            st.download_button("Download Long/Short CSV",
+long_short[cols].to_csv(index=False).encode("utf-8"), file_name="long_short_top10.csv")
+scripts\dashboard\app.py:370:        csv = picks.to_csv(index=False).encode("utf-8")
+scripts\diagnostics\inspect_csvs_quant_v1.py:171:    out.to_csv(OUT_FILE, index=False, encoding="utf-8")
+scripts\enrichment\enrichment_10stock_weekly.py:115:    df_enriched.to_csv(OUTPUT_PATH, index=False, encoding="utf-8")
+scripts\enrichment\enrichment_daily_quant_v1.py:238:    enriched.to_csv(OUT_CSV, index=False, encoding="utf-8")
+scripts\enrichment\enrich_daily.py:91:df.to_csv(OUT, index=False)
+scripts\incremental\incremental_update_quant_v1.py:187:    df_master.to_csv(MASTER_CSV, index=False, encoding="utf-8")
+scripts\ingestion\build_prices_quant_v1.py:203:    cleaned.to_csv(out_path, index=False)
+scripts\ingestion\ingestion_5years_quant_v1.py:393:    final.to_csv(OUT_CSV, index=False, encoding="utf-8")
+scripts\ingestion\ingestion_5years_quant_v1.py:423:    governed.to_csv(GOVERNED_OUT, index=False, encoding="utf-8")
+scripts\master\master_dataset_quant_v1.py:104:    df_master.to_csv(OUT_MASTER, index=False, encoding="utf-8")
+scripts\portfolio\portfolio_engine_regime_overlay_quant_v1.py:149:    out.to_csv(OUT_FILE, index=False,
+encoding="utf-8")
+scripts\ranking\ranking_10stock_weekly.py:94:    df_selection.to_csv(OUTPUT_PATH, index=False, encoding="utf-8")
+scripts\ranking\ranking_weekly_quant_v1.py:66:top10.to_csv(OUT, index=False)
+scripts\reporting\reporting_engine_returns_v2.py:40:    summary.to_csv(output_path, index=False)
+scripts\reporting\__pycache__\reporting_engine_returns_v2.cpython-312.pyc:15:
+F) indexN)r to_csv)rrr␦s
+rwrite_dashboard_inputs_v2r"#s # ? 3 G 
+                                        N N ; e N ,r) pandas pd         DataFramer strr"
+ r<module>r(sB    " , ,  2 < <  >- r | | - # - RV -r
+scripts\selection\build_weekly_selection_longonly.py:85:    out.to_csv(OUT, index=False)
+scripts\selection\build_weekly_selection_longshort.py:122:    out.to_csv(OUT, index=False)
+scripts\selection\validate_weekly_selection_longshort.py:87:    out.to_csv(OUT, index=False)
+scripts\__pycache__\regen_and_verify.cpython-312.pyc:51:weekly_return weekrG r-rB coerceT  errorsdayfir
+st  subset)rKrBrGz3ingestion missing required columns. Found columns:  (r7zW-MON) 
+                                                                                  close_start 
+close_endrUrT  ? indexz8No weekly returns could be computed from ingestion file.) 
+                                                                                  ignore_indexr rW
+)&rr INGESTr' 
+              PRICES_PARQr$ 
+                            read_parquet FileNotFoundErrorr- strip lower next notna an
+y rename 
+         to_datetime dt         normalize astype str dropna 
+                                                            RuntimeErrorr, groupby 
+                                                                                   sort_values 
+set_indexresample first last 
+DataFrame empty 
+                reset_index appendr0 concat to_csv OUT)r2r>date_col 
+
+
+PS C:\Quant>

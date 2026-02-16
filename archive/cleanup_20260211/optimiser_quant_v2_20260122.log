@@ -1,0 +1,16 @@
+[2026-01-22 10:02:36 UTC] [optimiser_quant_v2] Starting optimiser_quant_v2 run (v2.0).
+[2026-01-22 10:02:36 UTC] [optimiser_quant_v2] Loading factors and v1 weights for optimiser v2.0.
+[2026-01-22 10:02:38 UTC] [optimiser_quant_v2] Loaded 663977 factor rows, 663977 long-short v1 weight rows, 663977 long-only v1 weight rows.
+[2026-01-22 10:02:38 UTC] [optimiser_quant_v2] Building v2 turnover-aware weights for longshort and longonly.
+[2026-01-22 10:02:42 UTC] [optimiser_quant_v2] Built 664011 long-short v2 weight rows and 664011 long-only v2 weight rows.
+[2026-01-22 10:02:43 UTC] [optimiser_quant_v2] Saving long-short v2 weights to C:\Quant\data\analytics\quant_portfolio_weights_ensemble_risk_longshort_v2.csv
+[2026-01-22 10:02:44 UTC] [optimiser_quant_v2] Saving long-only v2 weights to C:\Quant\data\analytics\quant_portfolio_weights_ensemble_risk_longonly_v2.csv
+[2026-01-22 10:02:45 UTC] [optimiser_quant_v2] optimiser_quant_v2 run completed successfully.
+[2026-01-22 10:08:04 UTC] [optimiser_quant_v2] Starting optimiser_quant_v2 run (v2.0, signal-driven).
+[2026-01-22 10:08:04 UTC] [optimiser_quant_v2] Loading factors for optimiser v2.0 from C:\Quant\data\analytics\quant_factors_ensemble_risk_v1.csv
+[2026-01-22 10:08:06 UTC] [optimiser_quant_v2] Loaded 663977 factor rows after cleaning.
+[2026-01-22 10:08:06 UTC] [optimiser_quant_v2] Building v2 turnover-aware, signal-driven weights.
+[2026-01-22 10:08:10 UTC] [optimiser_quant_v2] Built 664011 long-short v2 weight rows and 664011 long-only v2 weight rows.
+[2026-01-22 10:08:10 UTC] [optimiser_quant_v2] Saving long-short v2 weights to C:\Quant\data\analytics\quant_portfolio_weights_ensemble_risk_longshort_v2.csv
+[2026-01-22 10:08:11 UTC] [optimiser_quant_v2] Saving long-only v2 weights to C:\Quant\data\analytics\quant_portfolio_weights_ensemble_risk_longonly_v2.csv
+[2026-01-22 10:08:13 UTC] [optimiser_quant_v2] optimiser_quant_v2 run completed successfully.

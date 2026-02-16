@@ -1,0 +1,15 @@
+2026-02-16 16:30:28,332 INFO === MASTER PIPELINE START ===
+2026-02-16 16:30:28,338 INFO Newest data file: C:\Quant\data\analytics\strategy_returns_manifest.json (age 0:00:01.529564)
+2026-02-16 16:30:28,338 INFO Starting ingestion step
+2026-02-16 16:31:17,521 INFO Starting build_strategy_returns
+2026-02-16 16:31:17,591 INFO Attribution appears aggregated; using aggregated attribution fallback
+2026-02-16 16:31:17,632 INFO WROTE strategy returns (1251 rows) and manifest (method=aggregated_attribution)
+2026-02-16 16:31:17,632 INFO Verifying strategy returns
+2026-02-16 16:31:17,707 INFO Strategy final cum values: {'LONG_ONLY': 236.73374604180978, 'LONG_SHORT': -0.8905938112554276}
+2026-02-16 16:31:17,707 INFO Strategy verification OK
+2026-02-16 16:31:17,707 INFO Starting build_weekly_picks
+2026-02-16 16:31:18,320 ERROR Expected 'weight' column in optimiser output
+2026-02-16 16:31:18,320 ERROR Exiting with code 25
+2026-02-16 16:31:18,320 ERROR build_weekly_picks failed
+2026-02-16 16:31:18,320 ERROR Exception: 25
+2026-02-16 16:31:18,327 ERROR Exiting with code 25

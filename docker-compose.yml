@@ -1,0 +1,56 @@
+services:
+
+  postgres:
+    image: postgres:16
+    container_name: quant_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: quant
+      POSTGRES_PASSWORD: quant_password
+      POSTGRES_DB: quantdb
+    ports:
+      - "5432:5432"
+    volumes:
+      - quant_postgres_data:/var/lib/postgresql/data
+      - C:/Quant/data/ingestion:/data/ingestion
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U quant -d quantdb"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  dashboard:
+    build:
+      context: ./scripts/dashboard
+      dockerfile: Dockerfile
+    container_name: quant_dashboard
+    restart: unless-stopped
+    ports:
+      - "8050:8050"
+    volumes:
+      - ./data:/data
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  ingestion:
+    build:
+      context: ./ingestion
+      dockerfile: Dockerfile
+    container_name: quant_ingestion
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: quantdb
+      DB_USER: quant
+      DB_PASSWORD: quant_password
+    volumes:
+      - C:/Quant/data/ingestion:/data/ingestion
+    command: ["python", "ingest_5years.py"]
+
+volumes:
+  quant_postgres_data:

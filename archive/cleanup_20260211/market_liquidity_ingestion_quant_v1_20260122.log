@@ -1,0 +1,7 @@
+[2026-01-22 14:47:46 UTC] [market_liquidity_ingestion_quant_v1] Starting market liquidity ingestion (patched version).
+[2026-01-22 14:47:46 UTC] [market_liquidity_ingestion_quant_v1] Loading OHLCV from C:\Quant\data\ingestion\ingestion_5years.csv
+[2026-01-22 14:47:47 UTC] [market_liquidity_ingestion_quant_v1] Loaded 681120 OHLCV rows.
+[2026-01-22 14:47:47 UTC] [market_liquidity_ingestion_quant_v1] Building liquidity dataset.
+[2026-01-22 14:47:47 UTC] [market_liquidity_ingestion_quant_v1] Built 681120 liquidity rows.
+[2026-01-22 14:47:47 UTC] [market_liquidity_ingestion_quant_v1] Saving liquidity dataset to C:\Quant\data\analytics\quant_market_liquidity_timeseries.csv
+[2026-01-22 14:47:50 UTC] [market_liquidity_ingestion_quant_v1] Completed market liquidity ingestion successfully.

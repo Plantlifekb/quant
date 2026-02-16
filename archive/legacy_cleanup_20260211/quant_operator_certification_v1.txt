@@ -1,0 +1,137 @@
+Quant v1.0 — Operator Certification Test
+Canonical, governed, non‑drifting
+
+Purpose:
+This certification ensures the operator can correctly execute,
+validate, and maintain the Quant v1.0 governed pipeline without
+introducing drift, corruption, or unapproved changes.
+
+──────────────────────────────────────────────────────────────
+SECTION 1 — DIRECTORY STRUCTURE (PASS/FAIL)
+
+Operator must confirm:
+[ ] C:\Quant\data\ingestion exists
+[ ] C:\Quant\data\enriched exists
+[ ] C:\Quant\data\ranking exists
+[ ] C:\Quant\data\backtest exists
+[ ] C:\Quant\data\dashboard exists
+[ ] C:\Quant\scripts\enrichment exists
+[ ] C:\Quant\scripts\ranking exists
+[ ] C:\Quant\scripts\backtest exists
+[ ] C:\Quant\scripts\dashboard exists
+[ ] C:\Quant\scripts\validation exists
+[ ] C:\Quant\scripts\logs exists
+[ ] C:\Quant\scripts\patches exists
+[ ] C:\Quant\scripts\bootstrap exists
+[ ] C:\Quant\logs exists
+[ ] C:\Quant\archive exists
+[ ] C:\Quant\runbook exists
+[ ] C:\Quant\manifest exists
+
+No additional folders permitted.
+
+──────────────────────────────────────────────────────────────
+SECTION 2 — MODULE VERIFICATION (PASS/FAIL)
+
+Operator must confirm presence of:
+[ ] enrichment_daily_quant_v1.py
+[ ] ranking_weekly_quant_v1.py
+[ ] backtest_weekly_quant_v1.py
+[ ] dashboard_top10_quant_v1.py
+[ ] dashboard_growth_quant_v1.py
+[ ] schema_validator_quant_v1.py
+[ ] directory_auditor_quant_v1.py
+[ ] compliance_checker_quant_v1.py
+[ ] logging_quant_v1.py
+[ ] patch_logging_integration_quant_v1.py
+[ ] bootstrap_quant_v1.py
+[ ] run_growth_pipeline_quant_v1.py
+
+No additional scripts permitted.
+
+──────────────────────────────────────────────────────────────
+SECTION 3 — GOVERNED OUTPUTS (PASS/FAIL)
+
+Operator must confirm:
+[ ] ingestion_5years.csv exists
+[ ] enriched_daily.csv exists
+[ ] weekly_top10_quant_v1.csv exists
+[ ] weekly_backtest_quant_v1.csv exists
+[ ] dashboard_top10_quant_v1.csv exists
+[ ] dashboard_growth_quant_v1.csv exists
+
+No additional CSVs permitted.
+
+──────────────────────────────────────────────────────────────
+SECTION 4 — SCHEMA VALIDATION (PASS/FAIL)
+
+Operator must:
+[ ] Run schema_validator_quant_v1.py
+[ ] Confirm no schema mismatches
+[ ] Confirm all columns lowercase
+[ ] Confirm all dates ISO‑8601
+[ ] Confirm no blank columns
+[ ] Confirm no partial outputs
+
+──────────────────────────────────────────────────────────────
+SECTION 5 — DIRECTORY AUDIT (PASS/FAIL)
+
+Operator must:
+[ ] Run directory_auditor_quant_v1.py
+[ ] Confirm no forbidden files
+[ ] Confirm no legacy artefacts
+[ ] Confirm no unapproved directories
+[ ] Confirm no drift
+
+──────────────────────────────────────────────────────────────
+SECTION 6 — LOGGING COMPLIANCE (PASS/FAIL)
+
+Operator must confirm:
+[ ] quant_v1.log exists
+[ ] All modules log start/end
+[ ] All logs ASCII‑safe
+[ ] No missing log entries
+[ ] No silent failures
+
+──────────────────────────────────────────────────────────────
+SECTION 7 — PIPELINE EXECUTION (PASS/FAIL)
+
+Operator must:
+[ ] Run run_growth_pipeline_quant_v1.py
+[ ] Confirm all modules complete without error
+[ ] Confirm all outputs updated
+[ ] Confirm validation passes after run
+
+──────────────────────────────────────────────────────────────
+SECTION 8 — INCIDENT RESPONSE (PASS/FAIL)
+
+Operator must demonstrate:
+[ ] Ability to identify failing module
+[ ] Ability to inspect quant_v1.log
+[ ] Ability to re‑run failing module
+[ ] Ability to freeze outputs if failure persists
+[ ] Understanding that no manual edits are permitted
+
+──────────────────────────────────────────────────────────────
+SECTION 9 — VERSIONING RULES (PASS/FAIL)
+
+Operator must confirm understanding:
+[ ] Any change requires version bump
+[ ] No schema changes allowed in v1.0
+[ ] No directory changes allowed in v1.0
+[ ] No logic changes allowed in v1.0
+[ ] No new dependencies allowed in v1.0
+
+──────────────────────────────────────────────────────────────
+SECTION 10 — FINAL CERTIFICATION
+
+Operator Name: _______________________
+
+Date: ________________________________
+
+Result:
+[ ] PASS — Operator certified for Quant v1.0
+[ ] FAIL — Operator not certified
+
+──────────────────────────────────────────────────────────────
+End of Certification

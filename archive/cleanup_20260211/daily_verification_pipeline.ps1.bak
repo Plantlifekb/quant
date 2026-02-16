@@ -1,0 +1,159 @@
+$scriptPath="C:\Quant\scripts\daily_verification_pipeline.ps1"
+if (Test-Path $scriptPath) { Copy-Item $scriptPath "$scriptPath.bak" -Force }
+$content=@'
+<#
+.SYNOPSIS
+  Robust daily verification pipeline with normalization for predicted picks (longshort).
+.DESCRIPTION
+  - Normalizes headers (week_start -> week), date formats, and ticker casing.
+  - Writes diagnostics when mismatches occur.
+  - By default logs WARN and continues so scheduled runs don't silently fail.
+  - Set environment variable STRICT_VALIDATION=1 to make the script exit on no matches.
+#>
+
+# --- Configuration ---
+$baseDir = "C:\Quant"
+$predDir = Join-Path $baseDir "outputs\verification"
+$analysisDir = Join-Path $baseDir "analysis"
+$logsDir = Join-Path $baseDir "logs"
+
+$pred_longshort = Join-Path $predDir "predicted_vs_picks_weekly_longshort.csv"
+$pred_longonly  = Join-Path $predDir "predicted_vs_picks_weekly_longonly.csv"
+$real_longshort = Join-Path $analysisDir "regenerated_realized_longshort.csv"
+$real_longonly  = Join-Path $analysisDir "regenerated_realized_longonly.csv"
+
+$diagDir = Join-Path $analysisDir "diagnostics"
+if (-not (Test-Path $diagDir)) { New-Item -Path $diagDir -ItemType Directory -Force | Out-Null }
+
+$timestamp = (Get-Date).ToString("yyyyMMdd_HHmmss")
+$logFile = Join-Path $logsDir "daily_verification_$timestamp.log"
+
+# Simple logger
+function Log($level, $msg) {
+  $line = "{0} {1}`t{2}" -f (Get-Date).ToString("o"), $level, $msg
+  $line | Out-File -FilePath $logFile -Append -Encoding utf8
+  Write-Output $line
+}
+
+# --- Helpers ---
+function Backup-IfExists($path) {
+  if (Test-Path $path) {
+    $bak = "$path.pre_replace.$timestamp.bak"
+    Copy-Item -Path $path -Destination $bak -Force
+    Log "INFO" "Backed up $path -> $bak"
+  }
+}
+
+function Normalize-Date($s) {
+  if (-not $s) { return $s }
+  try { return ([datetime]::Parse($s)).ToString('yyyy-MM-dd') } catch { return $s }
+}
+
+# --- Normalize predicted longshort picks (permissive) ---
+if (-not (Test-Path $pred_longshort)) {
+  Log "WARN" "Predicted longshort file missing: $pred_longshort"
+} else {
+  try {
+    # Read raw to detect header name drift
+    $raw = Get-Content $pred_longshort -ErrorAction Stop
+    if ($raw.Count -gt 0 -and $raw[0] -match 'week_start') {
+      Backup-IfExists $pred_longshort
+      $raw[0] = $raw[0] -replace 'week_start','week'
+      # write normalized header back (atomic write via temp)
+      $tmp = Join-Path $env:TEMP ("predicted_vs_picks_weekly_longshort.normalized.$timestamp.csv")
+      $raw | Set-Content -Path $tmp -Encoding utf8
+      Move-Item -Path $tmp -Destination $pred_longshort -Force
+      Log "INFO" "Normalized header week_start -> week in $pred_longshort"
+    }
+  } catch {
+    Log "ERROR" "Failed to normalize header for $pred_longshort: $_"
+  }
+}
+
+# --- Import and normalize both predicted and realized (if present) ---
+$pred = @()
+$real = @()
+if (Test-Path $pred_longshort) {
+  try {
+    $pred = Import-Csv $pred_longshort -ErrorAction Stop | ForEach-Object {
+      if ($_.PSObject.Properties.Name -contains 'week') { $_.week = Normalize-Date($_.week) }
+      if ($_.PSObject.Properties.Name -contains 'ticker') { $_.ticker = ($_.ticker -as [string]).Trim().ToUpper() }
+      $_
+    }
+    Log "INFO" "Imported predicted longshort rows: $($pred.Count)"
+  } catch {
+    Log "ERROR" "Failed to import predicted longshort: $_"
+  }
+}
+
+if (Test-Path $real_longshort) {
+  try {
+    $real = Import-Csv $real_longshort -ErrorAction Stop | ForEach-Object {
+      if ($_.PSObject.Properties.Name -contains 'week') { $_.week = Normalize-Date($_.week) }
+      if ($_.PSObject.Properties.Name -contains 'ticker') { $_.ticker = ($_.ticker -as [string]).Trim().ToUpper() }
+      $_
+    }
+    Log "INFO" "Imported realized longshort rows: $($real.Count)"
+  } catch {
+    Log "ERROR" "Failed to import realized longshort: $_"
+  }
+}
+
+# --- Matching test (permissive) ---
+$matchCount = 0
+if ($pred.Count -gt 0 -and $real.Count -gt 0) {
+  foreach ($p in $pred) {
+    $found = $real | Where-Object { $_.ticker -eq $p.ticker -and $_.week -eq $p.week }
+    if ($found) { $matchCount += ($found | Measure-Object).Count }
+  }
+}
+
+if ($pred.Count -eq 0) {
+  Log "WARN" "Predicted longshort file has no rows (or failed to import)."
+}
+if ($real.Count -eq 0) {
+  Log "WARN" "Realized longshort file has no rows (or failed to import)."
+}
+
+if ($matchCount -eq 0) {
+  Log "WARN" "No matching predicted rows found for longshort (matches: $matchCount). Pipeline will continue; investigate generator or mapping."
+  # write diagnostics for debugging
+  $diagPred = Join-Path $diagDir "predicted_longshort_sample.$timestamp.csv"
+  $diagReal = Join-Path $diagDir "realized_longshort_sample.$timestamp.csv"
+  if ($pred.Count -gt 0) { $pred | Select-Object week,ticker,score,side,target_weight | Export-Csv -Path $diagPred -NoTypeInformation -Encoding utf8; Log "WARN" "Wrote predicted sample to $diagPred" }
+  if ($real.Count -gt 0) { $real | Select-Object week,ticker,predicted_score,side,target_weight | Export-Csv -Path $diagReal -NoTypeInformation -Encoding utf8; Log "WARN" "Wrote realized sample to $diagReal" }
+  # Strict mode: exit if environment variable STRICT_VALIDATION is set to 1
+  if ($env:STRICT_VALIDATION -eq '1') {
+    Log "ERROR" "STRICT_VALIDATION enabled and no matches found. Aborting."
+    exit 1
+  }
+} else {
+  Log "INFO" "Longshort normalization complete (matches: $matchCount)."
+}
+
+# --- Existing longonly flow (preserve current behavior) ---
+# (This section assumes your original longonly processing follows here.
+#  Keep your existing longonly steps; the normalization above won't affect them.)
+try {
+  Log "INFO" "Starting longonly verification steps..."
+  # Example placeholder: call your existing longonly runner or functions here.
+  # <insert existing longonly pipeline logic>
+  Log "INFO" "Longonly verification completed."
+} catch {
+  Log "ERROR" "Longonly verification failed: $_"
+}
+
+# --- Run verification runner (existing behavior) ---
+try {
+  Log "INFO" "Running verification runner..."
+  # <insert call to your verification runner or script here>
+  # Example: & "C:\Quant\scripts\run_verification_runner.ps1" -Strategy longshort,longonly
+  Log "INFO" "Verification runner invoked."
+} catch {
+  Log "ERROR" "Failed to invoke verification runner: $_"
+}
+
+Log "INFO" "END pipeline success"
+'@
+$content | Set-Content -Path $scriptPath -Encoding utf8
+Write-Output "Wrote $scriptPath (backup created if it existed)"

@@ -1,0 +1,6 @@
+[2026-01-22 16:48:20 UTC] [expected_return_ingestion_quant_v1] Starting expected return ingestion (Quant v1.0).
+[2026-01-22 16:48:20 UTC] [expected_return_ingestion_quant_v1] Loading composite signal from C:\Quant\data\analytics\quant_signals_timeseries.csv
+[2026-01-22 16:55:40 UTC] [expected_return_ingestion_quant_v1] Starting expected return ingestion (Quant v1.0).
+[2026-01-22 16:55:40 UTC] [expected_return_ingestion_quant_v1] Loading composite signal from C:\Quant\data\analytics\quant_factors_composite.csv
+[2026-01-22 16:55:44 UTC] [expected_return_ingestion_quant_v1] Saving expected returns to C:\Quant\data\analytics\quant_expected_returns_timeseries.csv
+[2026-01-22 16:55:46 UTC] [expected_return_ingestion_quant_v1] Completed expected return ingestion successfully.

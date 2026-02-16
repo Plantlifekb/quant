@@ -1,0 +1,225 @@
+Quant v1.0 — Execution Timing Specification
+
+Canonical, governed, non‑drifting
+
+Purpose
+
+Define the exact temporal rules, scheduling windows, sequencing constraints, and deterministic timing requirements for all Quant v1.0 modules. This ensures that every run occurs at the correct time, in the correct order, with no ambiguity or drift.
+
+1. Timing Philosophy
+
+Quant v1.0 enforces:
+
+deterministic execution
+
+fixed scheduling windows
+
+no time‑dependent randomness
+
+no reliance on external clocks beyond system time
+
+strict separation of daily and weekly processes
+
+All timing rules are absolute and non‑negotiable.
+
+2. Daily Execution Rules
+
+2.1 Daily Enrichment
+
+Module: enrichment_daily_quant_v1.py
+
+Execution Window:
+
+Must run once per trading day
+
+Must run after market close
+
+Must run before 23:59 local system time
+
+Rationale:
+
+Requires full daily OHLCV data
+
+Produces enriched_daily.csv for downstream weekly processes
+
+Constraints:
+
+Cannot run before market close
+
+Cannot run more than once per day
+
+Cannot run on weekends or market holidays
+
+3. Weekly Execution Rules
+
+Weekly processes occur on two distinct days: Monday and Saturday.
+
+3.1 Weekly Ranking (Monday)
+
+Module: ranking_weekly_quant_v1.py
+
+Execution Window:
+
+Must run every Monday
+
+Must run between 00:00 and 12:00 local time
+
+Rationale:
+
+Uses the most recent enriched_daily.csv
+
+Produces weekly_top10_quant_v1.csv
+
+Constraints:
+
+Cannot run before Monday
+
+Cannot run after 12:00 Monday
+
+Cannot run twice in the same week
+
+3.2 Weekly Backtest (Saturday)
+
+Module: backtest_weekly_quant_v1.py
+
+Execution Window:
+
+Must run every Saturday
+
+Must run between 00:00 and 23:59 local time
+
+Rationale:
+
+Uses weekly_top10_quant_v1.csv
+
+Produces weekly_backtest_quant_v1.csv
+
+Constraints:
+
+Cannot run before Saturday
+
+Cannot run twice in the same week
+
+4. Dashboard Generation Timing
+
+Dashboard modules run after their upstream dependencies.
+
+4.1 Dashboard Top 10
+
+Module: dashboard_top10_quant_v1.py
+
+Execution Window:
+
+Must run immediately after weekly ranking
+
+Must run on Monday
+
+4.2 Dashboard Growth
+
+Module: dashboard_growth_quant_v1.py
+
+Execution Window:
+
+Must run immediately after weekly backtest
+
+Must run on Saturday
+
+5. Validation Timing
+
+Validation modules run after every module.
+
+5.1 Schema Validation
+
+Module: schema_validator_quant_v1.py
+
+Execution Window:
+
+Immediately after each module completes
+
+5.2 Directory Audit
+
+Module: directory_auditor_quant_v1.py
+
+Execution Window:
+
+Immediately after schema validation
+
+5.3 Full Compliance Check
+
+Module: compliance_checker_quant_v1.py
+
+Execution Window:
+
+After all modules in the weekly cycle
+
+Must run once per week
+
+Must run on Saturday
+
+6. Orchestration Timing
+
+6.1 Full Pipeline Run
+
+Module: run_growth_pipeline_quant_v1.py
+
+Execution Window:
+
+May be run manually at any time after daily enrichment
+
+Must not be run before enrichment_daily_quant_v1.py
+
+Constraints:
+
+Cannot override daily or weekly timing rules
+
+Cannot skip validation
+
+7. Temporal Invariants
+
+No module may run outside its defined window
+
+No module may run twice within the same period
+
+No module may run before its dependencies
+
+All timestamps must be ISO‑8601
+
+All logs must reflect actual execution time
+
+No backdating or manual timestamp modification
+
+8. Failure Timing Rules
+
+If a module fails:
+
+Pipeline stops immediately
+
+No retries outside the defined window
+
+Incident Response Playbook must be followed
+
+If the timing window closes before recovery:
+
+The run is considered missed
+
+No retroactive execution is permitted
+
+9. Clock Integrity Requirements
+
+Quant v1.0 relies on system time.
+
+System clock must:
+
+be synchronized
+
+not drift more than ±1 second
+
+not be manually adjusted during execution
+
+If clock integrity is compromised:
+
+All runs freeze
+
+Incident must be declared
+
+End of Execution Timing Specification

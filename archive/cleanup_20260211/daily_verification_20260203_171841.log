@@ -1,0 +1,11 @@
+2026-02-03T17:18:41.9116718+00:00 	 START pipeline
+2026-02-03T17:18:41.9309285+00:00 	 Backed up predicted -> C:\Quant\outputs\verification\backups\predicted_vs_picks_weekly_longonly.20260203_171841.csv
+2026-02-03T17:18:41.9309285+00:00 	 Backed up realized -> C:\Quant\analysis\backups\regenerated_realized_longonly.20260203_171841.csv
+2026-02-03T17:18:42.1099543+00:00 	 Cleaned predicted picks -> C:\Quant\outputs\verification\predicted_vs_picks_weekly_longonly.cleaned.deduped.csv (rows: 80)
+2026-02-03T17:18:42.1860350+00:00 	 No flagged rows
+2026-02-03T17:18:42.2153907+00:00 	 Corrected realized written -> C:\Quant\analysis\regenerated_realized_longonly.autocorrected.csv (rows: 80)
+2026-02-03T17:18:42.2153907+00:00 	 Replaced realized file with corrected version; backup -> C:\Quant\analysis\regenerated_realized_longonly.csv.pre_replace.20260203_171841.bak
+2026-02-03T17:18:42.2780453+00:00 	 Replaced predicted picks with cleaned deduped version; backup -> C:\Quant\outputs\verification\predicted_vs_picks_weekly_longonly.csv.pre_replace.20260203_171841.bak
+2026-02-03T17:18:42.2780453+00:00 	 Running verification runner
+2026-02-03T17:18:49.0782984+00:00 	 ERROR: Matplotlib is building the font cache; this may take a moment.
+2026-02-03T17:18:49.0900925+00:00 	 StackTrace: 

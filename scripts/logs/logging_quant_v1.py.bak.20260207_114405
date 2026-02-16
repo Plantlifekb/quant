@@ -1,0 +1,55 @@
+# ============================================================
+# Module: logging_quant_v1.py
+# Quant Version: v1.0
+# Purpose:
+#   Provide governed, deterministic logging for all Quant v1.0
+#   modules. Ensures ASCII‑safe, timestamped, reproducible logs.
+#
+# Outputs:
+#   C:\Quant\logs\quant_v1.log
+#
+# Governance Rules:
+#   - ASCII‑safe logs only.
+#   - No schema drift in log format.
+#   - Deterministic timestamps (ISO‑8601).
+#   - No silent failures.
+#   - All modules must use this logger.
+#
+# Log Format:
+#   YYYY‑MM‑DDTHH:MM:SSZ | MODULE | LEVEL | MESSAGE
+#
+# Dependencies:
+#   - logging, pathlib, datetime
+#
+# Provenance:
+#   - Canonical logging module for Quant v1.0.
+#   - Any modification requires version bump.
+# ============================================================
+
+import logging
+from pathlib import Path
+from datetime import datetime, timezone
+
+LOG_DIR = Path(r"C:\Quant\logs")
+LOG_DIR.mkdir(parents=True, exist_ok=True)
+
+LOG_FILE = LOG_DIR / "quant_v1.log"
+
+class QuantFormatter(logging.Formatter):
+    def format(self, record):
+        ts = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+        module = record.name
+        level = record.levelname
+        msg = record.getMessage().encode("ascii", "ignore").decode()
+        return f"{ts} | {module} | {level} | {msg}"
+
+def get_logger(module_name: str) -> logging.Logger:
+    logger = logging.getLogger(module_name)
+    logger.setLevel(logging.INFO)
+
+    if not logger.handlers:
+        handler = logging.FileHandler(LOG_FILE, encoding="utf-8")
+        handler.setFormatter(QuantFormatter())
+        logger.addHandler(handler)
+
+    return logger

@@ -1,0 +1,185 @@
+Quant v1.0 — Universe Selection Specification
+
+Canonical, governed, non‑drifting
+
+Purpose
+
+Define the exact rules, filters, constraints, and invariants that determine which tickers are included in the Quant v1.0 trading universe. This ensures that the universe is stable, auditable, and free from discretionary or accidental changes.
+
+1. Universe Philosophy
+
+Quant v1.0 enforces a fixed, deterministic, rules‑based universe. The universe must:
+
+be fully governed
+
+be reproducible from raw ingestion
+
+avoid discretionary inclusion/exclusion
+
+avoid dynamic or adaptive universe changes
+
+remain stable across time unless explicitly versioned
+
+2. Source Data
+
+2.1 Primary Input
+
+File: ingestion_5years.csv
+
+Fields used for universe selection:
+
+ticker
+
+volume
+
+close
+
+date
+
+3. Universe Definition
+
+3.1 Base Universe
+
+The Quant v1.0 universe consists of:
+
+all tickers present in ingestion_5years.csv
+
+with complete 5‑year history
+
+3.2 Completeness Requirement
+
+A ticker is included only if:
+
+it has no missing days in the 5‑year dataset
+
+it has no missing OHLCV fields
+
+it has no zero‑volume days
+
+3.3 Liquidity Filter
+
+A ticker must satisfy: [ \text{median(volume)} > 100{,}000 ]
+
+3.4 Price Filter
+
+A ticker must satisfy: [ \text{median(close)} > 5 ]
+
+3.5 Survivorship Bias Rule
+
+The universe is based solely on the ingestion file.
+
+Forbidden:
+
+adding delisted tickers manually
+
+removing delisted tickers manually
+
+external survivorship adjustments
+
+4. Forbidden Universe Adjustments
+
+4.1 No Discretionary Changes
+
+Forbidden:
+
+adding a ticker because it "looks good"
+
+removing a ticker because it "looks bad"
+
+manual overrides
+
+4.2 No Dynamic Universe Rules
+
+Forbidden:
+
+volatility‑based universe changes
+
+regime‑dependent universe changes
+
+score‑dependent universe changes
+
+4.3 No External Data
+
+Forbidden:
+
+sector classifications
+
+fundamentals
+
+analyst ratings
+
+alternative datasets
+
+5. Universe Stability
+
+5.1 Universe Must Be Static
+
+The universe must not change week‑to‑week.
+
+5.2 Versioning
+
+If the universe changes:
+
+it must be versioned (v1.0 → v1.1)
+
+all downstream modules must reference the correct version
+
+5.3 Deterministic Ordering
+
+Tickers must be sorted alphabetically.
+
+6. Universe Output
+
+6.1 File
+
+universe_quant_v1.csv
+
+6.2 Required Fields
+
+ticker
+
+median_volume
+
+median_close
+
+included_flag
+
+6.3 Inclusion Flag
+
+Values:
+
+1 = included
+
+0 = excluded
+
+7. Validation
+
+7.1 Schema Validator
+
+Ensures universe file contains required fields.
+
+7.2 Compliance Checker
+
+Ensures:
+
+no forbidden filters used
+
+no external data used
+
+no discretionary changes
+
+7.3 Directory Auditor
+
+Ensures no alternative universe files exist.
+
+8. Failure Handling
+
+If universe selection fails:
+
+pipeline stops
+
+no enrichment may run
+
+incident must be declared
+
+End of Universe Selection Specification

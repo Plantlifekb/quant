@@ -1,0 +1,60 @@
+[2026-01-27 07:57:24 UTC] [master_pipeline_quant_v1] Starting master_pipeline_quant_v1 (v1.1)
+[2026-01-27 07:57:24 UTC] [master_pipeline_quant_v1] Run timestamp: 2026-01-27 07:57:24 UTC
+[2026-01-27 07:57:24 UTC] [master_pipeline_quant_v1] STEP 1 — Running legacy weekly pipeline
+[2026-01-27 07:57:24 UTC] [master_pipeline_quant_v1] Running module: run_pipeline_10stock_weekly
+[2026-01-27 07:57:34 UTC] [master_pipeline_quant_v1] Starting master_pipeline_quant_v1 (v1.1)
+[2026-01-27 07:57:34 UTC] [master_pipeline_quant_v1] Run timestamp: 2026-01-27 07:57:34 UTC
+[2026-01-27 07:57:34 UTC] [master_pipeline_quant_v1] STEP 1 — Running legacy weekly pipeline
+[2026-01-27 07:57:34 UTC] [master_pipeline_quant_v1] Running module: run_pipeline_10stock_weekly
+[2026-01-27 08:05:41 UTC] [master_pipeline_quant_v1] Error in module run_pipeline_10stock_weekly: Command '['python', 'C:\\Quant\\scripts\\enrichment\\enrichment_10stock_weekly.py']' returned non-zero exit status 1.
+Traceback (most recent call last):
+  File "C:\Quant\scripts\master_pipeline_quant_v1.py", line 47, in run_module
+    mod.main()
+  File "C:\Quant\scripts\run_pipeline_10stock_weekly.py", line 37, in main
+    run_step(step)
+  File "C:\Quant\scripts\run_pipeline_10stock_weekly.py", line 33, in run_step
+    subprocess.run(["python", full_path], check=True)
+  File "C:\Users\Keith\AppData\Local\Programs\Python\Python312\Lib\subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['python', 'C:\\Quant\\scripts\\enrichment\\enrichment_10stock_weekly.py']' returned non-zero exit status 1.
+[2026-01-27 08:05:45 UTC] [master_pipeline_quant_v1] Error in module run_pipeline_10stock_weekly: Command '['python', 'C:\\Quant\\scripts\\enrichment\\enrichment_10stock_weekly.py']' returned non-zero exit status 1.
+Traceback (most recent call last):
+  File "C:\Quant\scripts\master_pipeline_quant_v1.py", line 47, in run_module
+    mod.main()
+  File "C:\Quant\scripts\run_pipeline_10stock_weekly.py", line 37, in main
+    run_step(step)
+  File "C:\Quant\scripts\run_pipeline_10stock_weekly.py", line 33, in run_step
+    subprocess.run(["python", full_path], check=True)
+  File "C:\Users\Keith\AppData\Local\Programs\Python\Python312\Lib\subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['python', 'C:\\Quant\\scripts\\enrichment\\enrichment_10stock_weekly.py']' returned non-zero exit status 1.
+[2026-01-27 08:10:09 UTC] [master_pipeline_quant_v1] Starting master_pipeline_quant_v1 (v1.1)
+[2026-01-27 08:10:09 UTC] [master_pipeline_quant_v1] Run timestamp: 2026-01-27 08:10:09 UTC
+[2026-01-27 08:10:09 UTC] [master_pipeline_quant_v1] STEP 1 — Running legacy weekly pipeline
+[2026-01-27 08:10:09 UTC] [master_pipeline_quant_v1] Running module: run_pipeline_10stock_weekly
+[2026-01-27 08:10:11 UTC] [master_pipeline_quant_v1] Starting master_pipeline_quant_v1 (v1.1)
+[2026-01-27 08:10:11 UTC] [master_pipeline_quant_v1] Run timestamp: 2026-01-27 08:10:11 UTC
+[2026-01-27 08:10:11 UTC] [master_pipeline_quant_v1] STEP 1 — Running legacy weekly pipeline
+[2026-01-27 08:10:11 UTC] [master_pipeline_quant_v1] Running module: run_pipeline_10stock_weekly
+[2026-01-27 08:18:12 UTC] [master_pipeline_quant_v1] Error in module run_pipeline_10stock_weekly: Command '['python', 'C:\\Quant\\scripts\\backtest\\backtest_10stock_weekly.py']' returned non-zero exit status 1.
+Traceback (most recent call last):
+  File "C:\Quant\scripts\master_pipeline_quant_v1.py", line 47, in run_module
+    mod.main()
+  File "C:\Quant\scripts\run_pipeline_10stock_weekly.py", line 37, in main
+    run_step(step)
+  File "C:\Quant\scripts\run_pipeline_10stock_weekly.py", line 33, in run_step
+    subprocess.run(["python", full_path], check=True)
+  File "C:\Users\Keith\AppData\Local\Programs\Python\Python312\Lib\subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['python', 'C:\\Quant\\scripts\\backtest\\backtest_10stock_weekly.py']' returned non-zero exit status 1.
+[2026-01-27 08:18:13 UTC] [master_pipeline_quant_v1] Error in module run_pipeline_10stock_weekly: Command '['python', 'C:\\Quant\\scripts\\backtest\\backtest_10stock_weekly.py']' returned non-zero exit status 1.
+Traceback (most recent call last):
+  File "C:\Quant\scripts\master_pipeline_quant_v1.py", line 47, in run_module
+    mod.main()
+  File "C:\Quant\scripts\run_pipeline_10stock_weekly.py", line 37, in main
+    run_step(step)
+  File "C:\Quant\scripts\run_pipeline_10stock_weekly.py", line 33, in run_step
+    subprocess.run(["python", full_path], check=True)
+  File "C:\Users\Keith\AppData\Local\Programs\Python\Python312\Lib\subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['python', 'C:\\Quant\\scripts\\backtest\\backtest_10stock_weekly.py']' returned non-zero exit status 1.

@@ -1,0 +1,333 @@
+2026-02-02T20:58:58.6314759+00:00 START Running C:\Quant\scripts\master_pipeline_quant_v1.py
+2026-02-02T20:59:41.5895614+00:00 START Running C:\Quant\scripts\master_pipeline_quant_v1.py
+2026-02-02T20:59:41.7902733+00:00 START Running C:\Quant\scripts\master_pipeline_quant_v1.py
+2026-02-02T20:59:41.8373916+00:00 START Running C:\Quant\scripts\master_pipeline_quant_v1.py
+2026-02-02T21:00:47.5837992+00:00 FINISHED ExitCode:0 Duration:00:01:48.9523233
+2026-02-02T21:00:47.6253284+00:00 INFO Completed successfully
+2026-02-02T21:02:08.0544358+00:00 FINISHED ExitCode:0 Duration:00:02:26.4648744
+2026-02-02T21:02:08.0978283+00:00 INFO Completed successfully
+2026-02-02T21:02:08.1389750+00:00 FINISHED ExitCode:0 Duration:00:02:26.3015834
+2026-02-02T21:02:08.1645283+00:00 INFO Completed successfully
+2026-02-02T21:02:09.4985837+00:00 FINISHED ExitCode:0 Duration:00:02:27.7083104
+2026-02-02T21:02:09.5150993+00:00 INFO Completed successfully
+2026-02-03T01:00:02.2260576+00:00 START Running C:\Quant\scripts\master_pipeline_quant_v1.py
+2026-02-03T01:00:53.7293771+00:00 FINISHED ExitCode:0 Duration:00:00:51.5033195
+2026-02-03T01:00:53.7456682+00:00 INFO Completed successfully
+2026-02-04T01:00:02.3644858+00:00 START Running C:\Quant\scripts\master_pipeline_quant_v1.py
+2026-02-04T01:00:40.1260781+00:00 FINISHED ExitCode:0 Duration:00:00:37.7615923
+2026-02-04T01:00:40.1404671+00:00 INFO Completed successfully
+2026-02-05T03:00:07.1145962+00:00 START Running C:\Quant\scripts\master_pipeline_quant_v1.py
+2026-02-05T03:01:02.2529270+00:00 FINISHED ExitCode:0 Duration:00:00:55.1383308
+2026-02-05T03:01:02.2845015+00:00 INFO Completed successfully
+2026-02-06T01:00:02.7105988+00:00 START Running C:\Quant\scripts\master_pipeline_quant_v1.py
+2026-02-06T01:00:46.1827750+00:00 FINISHED ExitCode:0 Duration:00:00:43.4721762
+2026-02-06T01:00:46.2286038+00:00 INFO Completed successfully
+2026-02-06T16:48:38.7938396+00:00 START Running C:\Quant\scripts\master_pipeline_quant_v1.py
+2026-02-06T16:50:29.4974163+00:00 START Running C:\Quant\scripts\master_pipeline_quant_v1.py
+2026-02-06T16:53:22.2366660+00:00 START Running C:\Quant\scripts\master_pipeline_quant_v1.py
+2026-02-06T16:53:22.2366660+00:00 START Ingestion C:\Quant\scripts\ingestion_5years_quant_v1.py
+2026-02-06T16:53:22.3324056+00:00 FINISHED Ingestion ExitCode:2
+2026-02-06T16:53:22.3344112+00:00 ERROR Ingestion failed with exit code 2. See C:\Quant\logs\ingestion_5years.log
+2026-02-06T16:58:19.9886222+00:00 START Running C:\Quant\scripts\master_pipeline_quant_v1.py
+2026-02-06T16:58:19.9886222+00:00 START Ingestion C:\Quant\scripts\ingestion\ingestion_5years_quant_v1.py
+2026-02-06T16:58:20.9595198+00:00 FINISHED Ingestion ExitCode:1
+2026-02-06T16:58:20.9595198+00:00 ERROR Ingestion failed with exit code 1. See C:\Quant\logs\ingestion_5years.log
+2026-02-06T17:01:43.1974989+00:00 START Running C:\Quant\scripts\master_pipeline_quant_v1.py
+2026-02-06T17:01:43.2135371+00:00 START Ingestion C:\Quant\scripts\ingestion\ingestion_5years_quant_v1.py
+2026-02-06T17:09:21.6720631+00:00 FINISHED Ingestion ExitCode:0
+2026-02-06T17:09:54.4108032+00:00 FINISHED ExitCode:0 Duration:00:08:11.2133043
+2026-02-06T17:09:54.4265148+00:00 INFO Completed successfully
+2026-02-07T01:00:02.6725335+00:00 START Running C:\Quant\scripts\master_pipeline_quant_v1.py
+2026-02-07T01:00:02.6725335+00:00 START Ingestion C:\Quant\scripts\ingestion\ingestion_5years_quant_v1.py
+2026-02-07T01:07:39.4514752+00:00 FINISHED Ingestion ExitCode:0
+2026-02-07T01:07:39.4580385+00:00 START Canonical C:\Quant\scripts\canonical\canonical_pipeline_quant_v1.py
+2026-02-07T01:07:40.2107538+00:00 FINISHED Canonical ExitCode:1
+2026-02-07T01:07:40.2107538+00:00 ERROR Canonical pipeline failed with exit code 1. See C:\Quant\logs\canonical_pipeline.log
+2026-02-07T11:41:27.2336710+00:00 START Running wrapper for C:\Quant\scripts\master_pipeline_quant_v1.py
+2026-02-07T11:41:27.2336710+00:00 INFO Set PYTHONPATH to: C:\Quant\scripts;C:\Quant\scripts\logs;C:\ensemble
+2026-02-07T11:41:27.2336710+00:00 INFO Running preflight script: C:\Quant\scripts\preflight.ps1
+2026-02-07T11:41:27.4560572+00:00 INFO Preflight script passed.
+2026-02-07T11:41:27.4560572+00:00 INFO canonical logging module already present: C:\Quant\scripts\canonical\logging_quant_v1.py
+2026-02-07T11:41:27.4560572+00:00 START Ingestion C:\Quant\scripts\ingestion\ingestion_5years_quant_v1.py
+2026-02-07T11:55:27.4663437+00:00 START Running wrapper for C:\Quant\scripts\master_pipeline_quant_v1.py
+2026-02-07T11:55:27.4747360+00:00 INFO Set PYTHONPATH to: C:\Quant\scripts;C:\Quant\scripts\logs;C:\ensemble
+2026-02-07T11:55:27.4774239+00:00 INFO Running preflight script: C:\Quant\scripts\preflight.ps1
+2026-02-07T11:55:27.7023314+00:00 INFO Preflight script passed.
+2026-02-07T11:55:27.7023314+00:00 INFO canonical logging module already present: C:\Quant\scripts\canonical\logging_quant_v1.py
+2026-02-07T11:55:27.7023314+00:00 START Ingestion C:\Quant\scripts\ingestion\ingestion_5years_quant_v1.py
+2026-02-07T14:22:49.4006935+00:00 START Running wrapper for C:\Quant\scripts\master_pipeline_quant_v1.py
+2026-02-07T14:22:49.4091105+00:00 INFO Set PYTHONPATH to: C:\Quant\scripts;C:\Quant\scripts\logs;C:\ensemble
+2026-02-07T14:22:49.4123422+00:00 INFO Running preflight script: C:\Quant\scripts\preflight.ps1
+2026-02-07T14:22:49.6501305+00:00 INFO Preflight script passed.
+2026-02-07T14:22:49.6501305+00:00 INFO canonical logging module already present: C:\Quant\scripts\canonical\logging_quant_v1.py
+2026-02-07T14:22:49.6501305+00:00 START Ingestion C:\Quant\scripts\ingestion\ingestion_5years_quant_v1.py
+2026-02-07T14:38:42.4593348+00:00 START Running wrapper for C:\Quant\scripts\master_pipeline_quant_v1.py
+2026-02-07T14:38:42.4593348+00:00 INFO Set PYTHONPATH to: C:\Quant\scripts;C:\Quant\scripts\logs;C:\ensemble
+2026-02-07T14:38:42.4593348+00:00 INFO Running preflight script: C:\Quant\scripts\preflight.ps1
+2026-02-07T14:38:42.6853844+00:00 INFO Preflight script passed.
+2026-02-07T14:38:42.6980386+00:00 INFO canonical logging module already present: C:\Quant\scripts\canonical\logging_quant_v1.py
+2026-02-07T14:38:42.6980386+00:00 START Ingestion C:\Quant\scripts\ingestion\ingestion_5years_quant_v1.py
+2026-02-07T14:44:45.2928603+00:00 START Running wrapper for C:\Quant\scripts\master_pipeline_quant_v1.py
+2026-02-07T14:44:45.2972996+00:00 INFO Set PYTHONPATH to: C:\Quant\scripts;C:\Quant\scripts\logs;C:\ensemble
+2026-02-07T14:44:45.2993431+00:00 INFO Running preflight script: C:\Quant\scripts\preflight.ps1
+2026-02-07T14:44:45.5201756+00:00 INFO Preflight script passed.
+2026-02-07T14:44:45.5201756+00:00 INFO canonical logging module already present: C:\Quant\scripts\canonical\logging_quant_v1.py
+2026-02-07T14:44:45.5201756+00:00 START Ingestion C:\Quant\scripts\ingestion\ingestion_5years_quant_v1.py
+2026-02-07T14:46:55.9818745+00:00 START Running wrapper for C:\Quant\scripts\master_pipeline_quant_v1.py
+2026-02-07T14:46:55.9818745+00:00 INFO Set PYTHONPATH to: C:\Quant\scripts;C:\Quant\scripts\logs;C:\ensemble
+2026-02-07T14:46:55.9818745+00:00 INFO Running preflight script: C:\Quant\scripts\preflight.ps1
+2026-02-07T14:46:56.2077439+00:00 INFO Preflight script passed.
+2026-02-07T14:46:56.2077439+00:00 INFO canonical logging module already present: C:\Quant\scripts\canonical\logging_quant_v1.py
+2026-02-07T14:46:56.2190831+00:00 START Ingestion C:\Quant\scripts\ingestion\ingestion_5years_quant_v1.py
+2026-02-07T14:50:10.3282095+00:00 START Running wrapper for C:\Quant\scripts\master_pipeline_quant_v1.py
+2026-02-07T14:50:10.3282095+00:00 INFO Set PYTHONPATH to: C:\Quant\scripts;C:\Quant\scripts\logs;C:\ensemble
+2026-02-07T14:50:10.3282095+00:00 INFO Running preflight script: C:\Quant\scripts\preflight.ps1
+2026-02-07T14:50:10.5497265+00:00 INFO Preflight script passed.
+2026-02-07T14:50:10.5497265+00:00 INFO canonical logging module already present: C:\Quant\scripts\canonical\logging_quant_v1.py
+2026-02-07T14:50:10.5497265+00:00 START Ingestion C:\Quant\scripts\ingestion\ingestion_5years_quant_v1.py
+2026-02-07T14:50:37.1940112+00:00 START Running wrapper for C:\Quant\scripts\master_pipeline_quant_v1.py
+2026-02-07T14:50:37.2099459+00:00 INFO Set PYTHONPATH to: C:\Quant\scripts;C:\Quant\scripts\logs;C:\ensemble
+2026-02-07T14:50:37.2099459+00:00 INFO Running preflight script: C:\Quant\scripts\preflight.ps1
+2026-02-07T14:50:37.4169961+00:00 INFO Preflight script passed.
+2026-02-07T14:50:37.4324410+00:00 INFO canonical logging module already present: C:\Quant\scripts\canonical\logging_quant_v1.py
+2026-02-07T14:50:37.4324410+00:00 START Ingestion C:\Quant\scripts\ingestion\ingestion_5years_quant_v1.py
+2026-02-07T14:55:05.9542057+00:00 START Running wrapper for C:\Quant\scripts\master_pipeline_quant_v1.py
+2026-02-07T14:55:05.9616625+00:00 INFO Preflight script passed.
+2026-02-07T14:55:05.9616625+00:00 WARN Preflight script not found; continuing without preflight.
+2026-02-07T14:55:05.9677031+00:00 START Ingestion C:\Quant\scripts\ingestion\ingestion_5years_quant_v1.py
+2026-02-07T14:55:16.5638775+00:00 START Running wrapper for C:\Quant\scripts\master_pipeline_quant_v1.py
+2026-02-07T14:55:16.5716398+00:00 INFO Preflight script passed.
+2026-02-07T14:55:16.5736450+00:00 WARN Preflight script not found; continuing without preflight.
+2026-02-07T14:55:16.5776675+00:00 START Ingestion C:\Quant\scripts\ingestion\ingestion_5years_quant_v1.py
+2026-02-07T14:55:43.2453319+00:00 START Running wrapper for C:\Quant\scripts\master_pipeline_quant_v1.py
+2026-02-07T14:55:43.2529311+00:00 INFO Preflight script passed.
+2026-02-07T14:55:43.2529311+00:00 WARN Preflight script not found; continuing without preflight.
+2026-02-07T14:55:43.2529311+00:00 START Ingestion C:\Quant\scripts\ingestion\ingestion_5years_quant_v1.py
+2026-02-07T14:58:18.5432494+00:00 START Running wrapper for C:\Quant\scripts\master_pipeline_quant_v1.py
+2026-02-07T14:58:18.5432494+00:00 INFO Preflight script passed.
+2026-02-07T14:58:18.5593473+00:00 WARN Preflight script not found; continuing without preflight.
+2026-02-07T14:58:18.5657701+00:00 START Ingestion C:\Quant\scripts\ingestion\ingestion_5years_quant_v1.py
+2026-02-07T14:58:59.3754045+00:00 START Running wrapper for C:\Quant\scripts\master_pipeline_quant_v1.py
+2026-02-07T14:58:59.3834647+00:00 INFO Preflight script passed.
+2026-02-07T14:58:59.3834647+00:00 WARN Preflight script not found; continuing without preflight.
+2026-02-07T14:58:59.3912747+00:00 START Ingestion C:\Quant\scripts\ingestion\ingestion_5years_quant_v1.py
+2026-02-07T15:00:30.2147922+00:00 START Running wrapper for C:\Quant\scripts\master_pipeline_quant_v1.py
+2026-02-07T15:00:30.2147922+00:00 INFO Preflight script passed.
+2026-02-07T15:00:30.2307541+00:00 WARN Preflight script not found; continuing without preflight.
+2026-02-07T15:00:30.2307541+00:00 START Ingestion C:\Quant\scripts\ingestion\ingestion_5years_quant_v1.py
+2026-02-07T16:25:43.3803068+00:00 START Running wrapper for C:\Quant\scripts\master_pipeline_quant_v1.py
+2026-02-07T16:25:43.3897672+00:00 INFO Preflight script passed.
+2026-02-07T16:25:43.3940051+00:00 WARN Preflight script not found; continuing without preflight.
+2026-02-07T16:25:43.3980158+00:00 START Ingestion C:\Quant\scripts\ingestion\ingestion_5years_quant_v1.py
+2026-02-07T16:26:55.5889334+00:00 START Running wrapper for C:\Quant\scripts\master_pipeline_quant_v1.py
+2026-02-07T16:26:55.5949534+00:00 INFO Preflight script passed.
+2026-02-07T16:26:55.5969638+00:00 WARN Preflight script not found; continuing without preflight.
+2026-02-07T16:26:55.5969638+00:00 START Ingestion C:\Quant\scripts\ingestion\ingestion_5years_quant_v1.py
+2026-02-07T16:27:47.5853718+00:00 START Running wrapper for C:\Quant\scripts\master_pipeline_quant_v1.py
+2026-02-07T16:27:47.5853718+00:00 INFO Preflight script passed.
+2026-02-07T16:27:47.5853718+00:00 WARN Preflight script not found; continuing without preflight.
+2026-02-07T16:27:47.6010238+00:00 START Ingestion C:\Quant\scripts\ingestion\ingestion_5years_quant_v1.py
+2026-02-07T16:28:27.0154422+00:00 START Running wrapper for C:\Quant\scripts\master_pipeline_quant_v1.py
+2026-02-07T16:28:27.0154422+00:00 INFO Preflight script passed.
+2026-02-07T16:28:27.0154422+00:00 WARN Preflight script not found; continuing without preflight.
+2026-02-07T16:28:27.0154422+00:00 START Ingestion C:\Quant\scripts\ingestion\ingestion_5years_quant_v1.py
+2026-02-07T16:29:20.1579221+00:00 START Running wrapper for C:\Quant\scripts\master_pipeline_quant_v1.py
+2026-02-07T16:29:20.1579221+00:00 INFO Preflight script passed.
+2026-02-07T16:29:20.1579221+00:00 WARN Preflight script not found; continuing without preflight.
+2026-02-07T16:29:20.1737689+00:00 START Ingestion C:\Quant\scripts\ingestion\ingestion_5years_quant_v1.py
+2026-02-07T16:30:09.3501039+00:00 START Running wrapper for C:\Quant\scripts\master_pipeline_quant_v1.py
+2026-02-07T16:30:09.3594688+00:00 INFO Preflight script passed.
+2026-02-07T16:30:09.3594688+00:00 WARN Preflight script not found; continuing without preflight.
+2026-02-07T16:30:09.3594688+00:00 START Ingestion C:\Quant\scripts\ingestion\ingestion_5years_quant_v1.py
+2026-02-07T16:31:40.6874812+00:00 START Running wrapper for C:\Quant\scripts\master_pipeline_quant_v1.py
+2026-02-07T16:31:40.6874812+00:00 INFO Preflight script passed.
+2026-02-07T16:31:40.6874812+00:00 WARN Preflight script not found; continuing without preflight.
+2026-02-07T16:31:40.7032733+00:00 START Ingestion C:\Quant\scripts\ingestion\ingestion_5years_quant_v1.py
+2026-02-07T16:34:18.5862163+00:00 START Running wrapper for C:\Quant\scripts\master_pipeline_quant_v1.py
+2026-02-07T16:34:18.5862163+00:00 INFO Preflight script passed.
+2026-02-07T16:34:18.6020096+00:00 WARN Preflight script not found; continuing without preflight.
+2026-02-07T16:34:18.6020096+00:00 START Ingestion C:\Quant\scripts\ingestion\ingestion_5years_quant_v1.py
+2026-02-07T16:36:17.8352694+00:00 START Running wrapper for C:\Quant\scripts\master_pipeline_quant_v1.py
+2026-02-07T16:36:17.8512736+00:00 INFO Preflight script passed.
+2026-02-07T16:36:17.8531457+00:00 WARN Preflight script not found; continuing without preflight.
+2026-02-07T16:36:17.8562641+00:00 START Ingestion C:\Quant\scripts\ingestion\ingestion_5years_quant_v1.py
+2026-02-07T16:37:28.1857028+00:00 START Running wrapper for C:\Quant\scripts\master_pipeline_quant_v1.py
+2026-02-07T16:37:28.1998587+00:00 INFO Preflight script passed.
+2026-02-07T16:37:28.1998587+00:00 WARN Preflight script not found; continuing without preflight.
+2026-02-07T16:37:28.1998587+00:00 START Ingestion C:\Quant\scripts\ingestion\ingestion_5years_quant_v1.py
+2026-02-07T16:39:40.0975090+00:00 START Running wrapper for C:\Quant\scripts\master_pipeline_quant_v1.py
+2026-02-07T16:39:40.0995188+00:00 INFO Preflight script passed.
+2026-02-07T16:39:40.1051994+00:00 WARN Preflight script not found; continuing without preflight.
+2026-02-07T16:39:40.1083763+00:00 START Ingestion C:\Quant\scripts\ingestion\ingestion_5years_quant_v1.py
+2026-02-07T16:40:22.7590726+00:00 START Running wrapper for C:\Quant\scripts\master_pipeline_quant_v1.py
+2026-02-07T16:40:22.7764096+00:00 INFO Preflight script passed.
+2026-02-07T16:40:22.7764096+00:00 WARN Preflight script not found; continuing without preflight.
+2026-02-07T16:40:22.7764096+00:00 START Ingestion C:\Quant\scripts\ingestion\ingestion_5years_quant_v1.py
+2026-02-07T16:40:50.1554372+00:00 START Running wrapper for C:\Quant\scripts\master_pipeline_quant_v1.py
+2026-02-07T16:40:50.1554372+00:00 INFO Preflight script passed.
+2026-02-07T16:40:50.1691260+00:00 WARN Preflight script not found; continuing without preflight.
+2026-02-07T16:40:50.1731414+00:00 START Ingestion C:\Quant\scripts\ingestion\ingestion_5years_quant_v1.py
+2026-02-07T16:45:30.0644799+00:00 START Running wrapper for C:\Quant\scripts\master_pipeline_quant_v1.py
+2026-02-07T16:45:30.0685000+00:00 INFO Preflight script passed.
+2026-02-07T16:45:30.0685000+00:00 WARN Preflight script not found; continuing without preflight.
+2026-02-07T16:45:30.0685000+00:00 START Ingestion C:\Quant\scripts\ingestion\ingestion_5years_quant_v1.py
+2026-02-07T16:47:28.1072045+00:00 START Running wrapper for C:\Quant\scripts\master_pipeline_quant_v1.py
+2026-02-07T16:47:28.1232360+00:00 INFO Preflight script passed.
+2026-02-07T16:47:28.1232360+00:00 WARN Preflight script not found; continuing without preflight.
+2026-02-07T16:47:28.1298840+00:00 START Ingestion C:\Quant\scripts\ingestion\ingestion_5years_quant_v1.py
+2026-02-07T16:48:44.2049065+00:00 START Running wrapper for C:\Quant\scripts\master_pipeline_quant_v1.py
+2026-02-07T16:48:44.2049065+00:00 INFO Preflight script passed.
+2026-02-07T16:48:44.2049065+00:00 WARN Preflight script not found; continuing without preflight.
+2026-02-07T16:48:44.2187118+00:00 START Ingestion C:\Quant\scripts\ingestion\ingestion_5years_quant_v1.py
+2026-02-07T16:49:01.6149014+00:00 START Running wrapper for C:\Quant\scripts\master_pipeline_quant_v1.py
+2026-02-07T16:49:01.6307222+00:00 INFO Preflight script passed.
+2026-02-07T16:49:01.6307222+00:00 WARN Preflight script not found; continuing without preflight.
+2026-02-07T16:49:01.6307222+00:00 START Ingestion C:\Quant\scripts\ingestion\ingestion_5years_quant_v1.py
+2026-02-07T16:53:58.5326850+00:00 START Running wrapper for C:\Quant\scripts\master_pipeline_quant_v1.py
+2026-02-07T16:53:58.5326850+00:00 INFO Preflight script passed.
+2026-02-07T16:53:58.5326850+00:00 WARN Preflight script not found; continuing without preflight.
+2026-02-07T16:53:58.5326850+00:00 START Ingestion C:\Quant\scripts\ingestion\ingestion_5years_quant_v1.py
+2026-02-07T16:54:27.7220781+00:00 START Running wrapper for C:\Quant\scripts\master_pipeline_quant_v1.py
+2026-02-07T16:54:27.7400454+00:00 INFO Preflight script passed.
+2026-02-07T16:54:27.7420532+00:00 WARN Preflight script not found; continuing without preflight.
+2026-02-07T16:54:27.7420532+00:00 START Ingestion C:\Quant\scripts\ingestion\ingestion_5years_quant_v1.py
+2026-02-07T16:56:31.2940557+00:00 START Running wrapper for C:\Quant\scripts\master_pipeline_quant_v1.py
+2026-02-07T16:56:31.2960705+00:00 INFO Preflight script passed.
+2026-02-07T16:56:31.2960705+00:00 WARN Preflight script not found; continuing without preflight.
+2026-02-07T16:56:31.3162426+00:00 START Ingestion C:\Quant\scripts\ingestion\ingestion_5years_quant_v1.py
+2026-02-07T16:57:55.0561625+00:00 START Running wrapper for C:\Quant\scripts\master_pipeline_quant_v1.py
+2026-02-07T16:57:55.0561625+00:00 INFO Preflight script passed.
+2026-02-07T16:57:55.0720059+00:00 WARN Preflight script not found; continuing without preflight.
+2026-02-07T16:57:55.0720059+00:00 START Ingestion C:\Quant\scripts\ingestion\ingestion_5years_quant_v1.py
+2026-02-07T17:00:31.4539133+00:00 START Running wrapper for C:\Quant\scripts\master_pipeline_quant_v1.py
+2026-02-07T17:00:31.4579224+00:00 INFO Preflight script passed.
+2026-02-07T17:00:31.4607544+00:00 WARN Preflight script not found; continuing without preflight.
+2026-02-07T17:00:31.4658893+00:00 START Ingestion C:\Quant\scripts\ingestion\ingestion_5years_quant_v1.py
+2026-02-07T17:01:11.9180372+00:00 START Running wrapper for C:\Quant\scripts\master_pipeline_quant_v1.py
+2026-02-07T17:01:11.9311324+00:00 INFO Preflight script passed.
+2026-02-07T17:01:11.9311324+00:00 WARN Preflight script not found; continuing without preflight.
+2026-02-07T17:01:11.9369034+00:00 START Ingestion C:\Quant\scripts\ingestion\ingestion_5years_quant_v1.py
+2026-02-07T17:07:21.8104994+00:00 START Running wrapper for C:\Quant\scripts\master_pipeline_quant_v1.py
+2026-02-07T17:07:21.8135192+00:00 INFO Preflight script passed.
+2026-02-07T17:07:21.8135192+00:00 WARN Preflight script not found; continuing without preflight.
+2026-02-07T17:07:21.8135192+00:00 START Ingestion C:\Quant\scripts\ingestion\ingestion_5years_quant_v1.py
+2026-02-07T17:08:51.8557459+00:00 START Running wrapper for C:\Quant\scripts\master_pipeline_quant_v1.py
+2026-02-07T17:08:51.8715436+00:00 INFO Preflight script passed.
+2026-02-07T17:08:51.8715436+00:00 WARN Preflight script not found; continuing without preflight.
+2026-02-07T17:08:51.8752868+00:00 START Ingestion C:\Quant\scripts\ingestion\ingestion_5years_quant_v1.py
+2026-02-07T17:10:14.3037247+00:00 START Running wrapper for C:\Quant\scripts\master_pipeline_quant_v1.py
+2026-02-07T17:10:14.3037247+00:00 INFO Preflight script passed.
+2026-02-07T17:10:14.3037247+00:00 WARN Preflight script not found; continuing without preflight.
+2026-02-07T17:10:14.3198570+00:00 START Ingestion C:\Quant\scripts\ingestion\ingestion_5years_quant_v1.py
+2026-02-07T17:10:55.5192981+00:00 START Running wrapper for C:\Quant\scripts\master_pipeline_quant_v1.py
+2026-02-07T17:10:55.5253300+00:00 INFO Preflight script passed.
+2026-02-07T17:10:55.5253300+00:00 WARN Preflight script not found; continuing without preflight.
+2026-02-07T17:10:55.5313375+00:00 START Ingestion C:\Quant\scripts\ingestion\ingestion_5years_quant_v1.py
+2026-02-07T17:11:34.1363958+00:00 START Running wrapper for C:\Quant\scripts\master_pipeline_quant_v1.py
+2026-02-07T17:11:34.1451412+00:00 INFO Preflight script passed.
+2026-02-07T17:11:34.1451412+00:00 WARN Preflight script not found; continuing without preflight.
+2026-02-07T17:11:34.1530376+00:00 START Ingestion C:\Quant\scripts\ingestion\ingestion_5years_quant_v1.py
+2026-02-07T17:15:37.8006194+00:00 START Running wrapper for C:\Quant\scripts\master_pipeline_quant_v1.py
+2026-02-07T17:15:37.8046311+00:00 INFO Preflight script passed.
+2026-02-07T17:15:37.8078246+00:00 WARN Preflight script not found; continuing without preflight.
+2026-02-07T17:15:37.8126397+00:00 START Ingestion C:\Quant\scripts\ingestion\ingestion_5years_quant_v1.py
+2026-02-07T17:20:19.6122860+00:00 START Running wrapper for C:\Quant\scripts\master_pipeline_quant_v1.py
+2026-02-07T17:20:19.6143955+00:00 INFO Preflight script passed.
+2026-02-07T17:20:19.6143955+00:00 WARN Preflight script not found; continuing without preflight.
+2026-02-07T17:20:19.6143955+00:00 START Ingestion C:\Quant\scripts\ingestion\ingestion_5years_quant_v1.py
+2026-02-07T17:22:17.6234698+00:00 START Running wrapper for C:\Quant\scripts\master_pipeline_quant_v1.py
+2026-02-07T17:22:17.6312412+00:00 INFO Preflight script passed.
+2026-02-07T17:22:17.6312412+00:00 WARN Preflight script not found; continuing without preflight.
+2026-02-07T17:22:17.6375962+00:00 START Ingestion C:\Quant\scripts\ingestion\ingestion_5years_quant_v1.py
+2026-02-07T17:23:13.5674210+00:00 START Running wrapper for C:\Quant\scripts\master_pipeline_quant_v1.py
+2026-02-07T17:23:13.5798886+00:00 INFO Preflight script passed.
+2026-02-07T17:23:13.5820202+00:00 WARN Preflight script not found; continuing without preflight.
+2026-02-07T17:23:13.5820202+00:00 START Ingestion C:\Quant\scripts\ingestion\ingestion_5years_quant_v1.py
+2026-02-07T17:25:07.2475000+00:00 START Running wrapper for C:\Quant\scripts\master_pipeline_quant_v1.py
+2026-02-07T17:25:07.2632632+00:00 INFO Preflight script passed.
+2026-02-07T17:25:07.2684702+00:00 WARN Preflight script not found; continuing without preflight.
+2026-02-07T17:25:07.2717743+00:00 START Ingestion C:\Quant\scripts\ingestion\ingestion_5years_quant_v1.py
+2026-02-07T17:32:14.8934201+00:00 START Running wrapper for C:\Quant\scripts\master_pipeline_quant_v1.py
+2026-02-07T17:32:14.8934201+00:00 INFO Preflight script passed.
+2026-02-07T17:32:14.8934201+00:00 WARN Preflight script not found; continuing without preflight.
+2026-02-07T17:32:14.9094617+00:00 START Ingestion C:\Quant\scripts\ingestion\ingestion_5years_quant_v1.py
+2026-02-08T01:00:02.7339631+00:00 START Running wrapper for C:\Quant\scripts\master_pipeline_quant_v1.py
+2026-02-08T01:00:02.7379735+00:00 INFO Preflight script passed.
+2026-02-08T01:00:02.7379735+00:00 WARN Preflight script not found; continuing without preflight.
+2026-02-08T01:00:02.7443208+00:00 START Ingestion C:\Quant\scripts\ingestion\ingestion_5years_quant_v1.py
+2026-02-08T09:22:28.5938126+00:00 START Running wrapper for C:\Quant\scripts\master_pipeline_quant_v1.py
+2026-02-08T09:22:28.5938126+00:00 INFO Preflight script passed.
+2026-02-08T09:22:28.5938126+00:00 WARN Preflight script not found; continuing without preflight.
+2026-02-08T09:22:28.5938126+00:00 INFO canonical logging module already present: C:\Quant\scripts\canonical\logging_quant_v1.py
+2026-02-08T09:22:28.5938126+00:00 START Ingestion C:\Quant\scripts\ingestion\ingestion_5years_quant_v1.py
+2026-02-08T09:42:12.8538839+00:00 START Running wrapper for C:\Quant\scripts\master_pipeline_quant_v1.py
+2026-02-08T09:42:12.8538839+00:00 INFO Preflight script passed.
+2026-02-08T09:42:12.8538839+00:00 WARN Preflight script not found; continuing without preflight.
+2026-02-08T09:42:12.8538839+00:00 INFO canonical logging module already present: C:\Quant\scripts\canonical\logging_quant_v1.py
+2026-02-08T09:42:12.8538839+00:00 START Ingestion C:\Quant\scripts\ingestion\ingestion_5years_quant_v1.py
+2026-02-08T09:50:25.1955559+00:00 START Running wrapper for C:\Quant\scripts\master_pipeline_quant_v1.py
+2026-02-08T09:50:25.1955559+00:00 INFO Preflight script passed.
+2026-02-08T09:50:25.1955559+00:00 WARN Preflight script not found; continuing without preflight.
+2026-02-08T09:50:25.1955559+00:00 INFO canonical logging module already present: C:\Quant\scripts\canonical\logging_quant_v1.py
+2026-02-08T09:50:25.1955559+00:00 START Ingestion C:\Quant\scripts\ingestion\ingestion_5years_quant_v1.py
+2026-02-08T09:55:46.9730420+00:00 START Running wrapper for C:\Quant\scripts\master_pipeline_quant_v1.py
+2026-02-08T09:55:46.9730420+00:00 INFO Preflight script passed.
+2026-02-08T09:55:46.9730420+00:00 WARN Preflight script not found; continuing without preflight.
+2026-02-08T09:55:46.9889499+00:00 INFO canonical logging module already present: C:\Quant\scripts\canonical\logging_quant_v1.py
+2026-02-08T09:55:46.9889499+00:00 START Ingestion C:\Quant\scripts\ingestion\ingestion_5years_quant_v1.py
+2026-02-08T09:58:24.9157440+00:00 START Running wrapper for C:\Quant\scripts\master_pipeline_quant_v1.py
+2026-02-08T09:58:24.9157440+00:00 INFO Preflight script passed.
+2026-02-08T09:58:24.9157440+00:00 WARN Preflight script not found; continuing without preflight.
+2026-02-08T09:58:24.9157440+00:00 INFO canonical logging module already present: C:\Quant\scripts\canonical\logging_quant_v1.py
+2026-02-08T09:58:24.9157440+00:00 START Ingestion C:\Quant\scripts\ingestion\ingestion_5years_quant_v1.py
+2026-02-08T10:06:02.4653142+00:00 FINISHED Ingestion ExitCode:0
+2026-02-08T10:06:02.4693280+00:00 START Canonical C:\Quant\scripts\canonical\canonical_pipeline_quant_v1.py
+2026-02-08T10:19:03.1417386+00:00 START Running wrapper for C:\Quant\scripts\master_pipeline_quant_v1.py
+2026-02-08T10:19:03.1417386+00:00 INFO Preflight script passed.
+2026-02-08T10:19:03.1417386+00:00 WARN Preflight script not found; continuing without preflight.
+2026-02-08T10:19:03.1417386+00:00 INFO canonical logging module already present: C:\Quant\scripts\canonical\logging_quant_v1.py
+2026-02-08T10:19:03.1417386+00:00 START Ingestion C:\Quant\scripts\ingestion\ingestion_5years_quant_v1.py
+2026-02-08T10:26:34.5391545+00:00 FINISHED Ingestion ExitCode:0
+2026-02-08T10:26:34.5391545+00:00 START Canonical C:\Quant\scripts\canonical\canonical_pipeline_quant_v1.py
+2026-02-11T07:07:12.8355314+00:00 START Running wrapper for C:\Quant\scripts\master_pipeline_quant_v1.py
+2026-02-11T07:07:12.8471611+00:00 INFO Preflight script passed.
+2026-02-11T07:07:12.8471611+00:00 WARN Preflight script not found; continuing without preflight.
+2026-02-11T07:07:12.8471611+00:00 INFO canonical logging module already present: C:\Quant\scripts\canonical\logging_quant_v1.py
+2026-02-11T07:07:12.8471611+00:00 START Ingestion C:\Quant\scripts\ingestion\ingestion_5years_quant_v1.py
+2026-02-11T07:14:48.4940318+00:00 FINISHED Ingestion ExitCode:0
+2026-02-11T07:14:48.5019266+00:00 START Canonical C:\Quant\scripts\canonical\canonical_pipeline_quant_v1.py
+2026-02-12T03:00:17.4162620+00:00 START Running wrapper for C:\Quant\scripts\master_pipeline_quant_v1.py
+2026-02-12T03:00:17.4335226+00:00 INFO Preflight script passed.
+2026-02-12T03:00:17.4335226+00:00 WARN Preflight script not found; continuing without preflight.
+2026-02-12T03:00:17.4410739+00:00 INFO canonical logging module already present: C:\Quant\scripts\canonical\logging_quant_v1.py
+2026-02-12T03:00:17.4434219+00:00 START Ingestion C:\Quant\scripts\ingestion\ingestion_5years_quant_v1.py
+2026-02-12T06:19:26.7639847+00:00 FINISHED Ingestion ExitCode:0
+2026-02-12T06:19:26.7824561+00:00 START Canonical C:\Quant\scripts\canonical\canonical_pipeline_quant_v1.py
+2026-02-13T03:00:05.8605095+00:00 START Running wrapper for C:\Quant\scripts\master_pipeline_quant_v1.py
+2026-02-13T03:00:05.8799192+00:00 INFO Preflight script passed.
+2026-02-13T03:00:05.8838128+00:00 WARN Preflight script not found; continuing without preflight.
+2026-02-13T03:00:05.9013665+00:00 INFO canonical logging module already present: C:\Quant\scripts\canonical\logging_quant_v1.py
+2026-02-13T03:00:05.9033846+00:00 START Ingestion C:\Quant\scripts\ingestion\ingestion_5years_quant_v1.py
+2026-02-13T03:54:47.4855471+00:00 FINISHED Ingestion ExitCode:0
+2026-02-13T03:54:47.4926037+00:00 START Canonical C:\Quant\scripts\canonical\canonical_pipeline_quant_v1.py
+2026-02-14T03:00:13.3951566+00:00 START Running wrapper for C:\Quant\scripts\master_pipeline_quant_v1.py
+2026-02-14T03:00:13.4251549+00:00 INFO Preflight script passed.
+2026-02-14T03:00:13.4363646+00:00 WARN Preflight script not found; continuing without preflight.
+2026-02-14T03:00:13.6670221+00:00 INFO canonical logging module already present: C:\Quant\scripts\canonical\logging_quant_v1.py
+2026-02-14T03:00:13.7232143+00:00 START Ingestion C:\Quant\scripts\ingestion\ingestion_5years_quant_v1.py
+2026-02-14T03:09:12.3780930+00:00 FINISHED Ingestion ExitCode:0
+2026-02-14T03:09:12.3938587+00:00 START Canonical C:\Quant\scripts\canonical\canonical_pipeline_quant_v1.py
+2026-02-15T03:00:15.7017759+00:00 START Running wrapper for C:\Quant\scripts\master_pipeline_quant_v1.py
+2026-02-15T03:00:15.7240522+00:00 INFO Preflight script passed.
+2026-02-15T03:00:15.7276627+00:00 WARN Preflight script not found; continuing without preflight.
+2026-02-15T03:00:15.7370653+00:00 INFO canonical logging module already present: C:\Quant\scripts\canonical\logging_quant_v1.py
+2026-02-15T03:00:15.7386417+00:00 START Ingestion C:\Quant\scripts\ingestion\ingestion_5years_quant_v1.py
+2026-02-15T05:02:23.4576621+00:00 FINISHED Ingestion ExitCode:0
+2026-02-15T05:02:23.4734868+00:00 START Canonical C:\Quant\scripts\canonical\canonical_pipeline_quant_v1.py
+2026-02-16T03:00:10.4869900+00:00 START Running wrapper for C:\Quant\scripts\master_pipeline_quant_v1.py
+2026-02-16T03:00:10.4984419+00:00 INFO Preflight script passed.
+2026-02-16T03:00:10.4994743+00:00 WARN Preflight script not found; continuing without preflight.
+2026-02-16T03:00:10.5056576+00:00 INFO canonical logging module already present: C:\Quant\scripts\canonical\logging_quant_v1.py
+2026-02-16T03:00:10.5056576+00:00 START Ingestion C:\Quant\scripts\ingestion\ingestion_5years_quant_v1.py
+2026-02-16T05:45:38.3523828+00:00 FINISHED Ingestion ExitCode:0
+2026-02-16T05:45:38.3664143+00:00 START Canonical C:\Quant\scripts\canonical\canonical_pipeline_quant_v1.py

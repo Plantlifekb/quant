@@ -1,0 +1,120 @@
+regime_label,factor_name,contribution,attribution_regime_run_date
+calm_trending_down,liquidity_factor,4.207857774233337,2026-01-30 01:11:37 UTC
+calm_trending_down,low_vol_252,0.5706779562134331,2026-01-30 01:11:37 UTC
+calm_trending_down,sector_basic materials,0.02368421383482882,2026-01-30 01:11:37 UTC
+calm_trending_down,sector_communication services,0.01308496964500981,2026-01-30 01:11:37 UTC
+calm_trending_down,sector_consumer cyclical,0.18408468218369808,2026-01-30 01:11:37 UTC
+calm_trending_down,sector_consumer defensive,0.055210048996979705,2026-01-30 01:11:37 UTC
+calm_trending_down,sector_energy,0.036423566903397556,2026-01-30 01:11:37 UTC
+calm_trending_down,sector_financial services,-0.055033752628745713,2026-01-30 01:11:37 UTC
+calm_trending_down,sector_healthcare,0.051109636993635923,2026-01-30 01:11:37 UTC
+calm_trending_down,sector_industrials,-0.11857136720827238,2026-01-30 01:11:37 UTC
+calm_trending_down,sector_real estate,0.045513032025733716,2026-01-30 01:11:37 UTC
+calm_trending_down,sector_technology,-0.027624166471086873,2026-01-30 01:11:37 UTC
+calm_trending_down,sector_unknown,2.1227785336642697e-07,2026-01-30 01:11:37 UTC
+calm_trending_down,sector_utilities,-0.20491201610637838,2026-01-30 01:11:37 UTC
+calm_trending_down,size_factor,4.207857774233338,2026-01-30 01:11:37 UTC
+calm_trending_down,vol_factor,0.6062459733826093,2026-01-30 01:11:37 UTC
+calm_trending_down,volume_zscore,4.610733734333521,2026-01-30 01:11:37 UTC
+calm_trending_up,liquidity_factor,4.8419452784531956,2026-01-30 01:11:37 UTC
+calm_trending_up,low_vol_252,-0.07303217400728734,2026-01-30 01:11:37 UTC
+calm_trending_up,sector_basic materials,0.13841773746576244,2026-01-30 01:11:37 UTC
+calm_trending_up,sector_communication services,-0.043477081801855444,2026-01-30 01:11:37 UTC
+calm_trending_up,sector_consumer cyclical,0.33123157230701883,2026-01-30 01:11:37 UTC
+calm_trending_up,sector_consumer defensive,-0.02477349251623844,2026-01-30 01:11:37 UTC
+calm_trending_up,sector_energy,-0.1077544430136749,2026-01-30 01:11:37 UTC
+calm_trending_up,sector_financial services,0.2065689197452105,2026-01-30 01:11:37 UTC
+calm_trending_up,sector_healthcare,-0.10778591619213805,2026-01-30 01:11:37 UTC
+calm_trending_up,sector_industrials,-0.0638434174209472,2026-01-30 01:11:37 UTC
+calm_trending_up,sector_real estate,-0.10554753981397828,2026-01-30 01:11:37 UTC
+calm_trending_up,sector_technology,-0.21404928558996966,2026-01-30 01:11:37 UTC
+calm_trending_up,sector_unknown,-1.4764796807704863e-06,2026-01-30 01:11:37 UTC
+calm_trending_up,sector_utilities,0.24390016796772457,2026-01-30 01:11:37 UTC
+calm_trending_up,size_factor,4.841945278453196,2026-01-30 01:11:37 UTC
+calm_trending_up,vol_factor,-0.07655984030351196,2026-01-30 01:11:37 UTC
+calm_trending_up,volume_zscore,5.286541171022795,2026-01-30 01:11:37 UTC
+high_vol,liquidity_factor,87.21854326080071,2026-01-30 01:11:37 UTC
+high_vol,low_vol_252,-116.68731587165873,2026-01-30 01:11:37 UTC
+high_vol,sector_basic materials,1.2952984932500178,2026-01-30 01:11:37 UTC
+high_vol,sector_communication services,-3.1902754404321576,2026-01-30 01:11:37 UTC
+high_vol,sector_consumer cyclical,-4.900062795498409,2026-01-30 01:11:37 UTC
+high_vol,sector_consumer defensive,1.0388299434540564,2026-01-30 01:11:37 UTC
+high_vol,sector_energy,0.12172051487622203,2026-01-30 01:11:37 UTC
+high_vol,sector_financial services,-5.425430246762966,2026-01-30 01:11:37 UTC
+high_vol,sector_healthcare,-1.3459813075033913,2026-01-30 01:11:37 UTC
+high_vol,sector_industrials,0.7892872880311611,2026-01-30 01:11:37 UTC
+high_vol,sector_real estate,1.3704495860113801,2026-01-30 01:11:37 UTC
+high_vol,sector_technology,-5.4139089103276605,2026-01-30 01:11:37 UTC
+high_vol,sector_unknown,-8.669996529197436e-05,2026-01-30 01:11:37 UTC
+high_vol,sector_utilities,-4.562920129377553,2026-01-30 01:11:37 UTC
+high_vol,size_factor,87.21854326080074,2026-01-30 01:11:37 UTC
+high_vol,vol_factor,-123.97528885680597,2026-01-30 01:11:37 UTC
+high_vol,volume_zscore,95.87294766602515,2026-01-30 01:11:37 UTC
+normal,liquidity_factor,8.77563193268896,2026-01-30 01:11:37 UTC
+normal,low_vol_252,11.1370818298913,2026-01-30 01:11:37 UTC
+normal,sector_basic materials,0.05663429279982916,2026-01-30 01:11:37 UTC
+normal,sector_communication services,0.03528683899567646,2026-01-30 01:11:37 UTC
+normal,sector_consumer cyclical,-0.20503502364741774,2026-01-30 01:11:37 UTC
+normal,sector_consumer defensive,0.2806680257919918,2026-01-30 01:11:37 UTC
+normal,sector_energy,0.4385313861901655,2026-01-30 01:11:37 UTC
+normal,sector_financial services,0.117509425058084,2026-01-30 01:11:37 UTC
+normal,sector_healthcare,0.5248591838960154,2026-01-30 01:11:37 UTC
+normal,sector_industrials,0.3144890905818265,2026-01-30 01:11:37 UTC
+normal,sector_real estate,-0.13650613248804266,2026-01-30 01:11:37 UTC
+normal,sector_technology,0.6859986449553176,2026-01-30 01:11:37 UTC
+normal,sector_unknown,9.568849903179646e-06,2026-01-30 01:11:37 UTC
+normal,sector_utilities,-0.21962691777020904,2026-01-30 01:11:37 UTC
+normal,size_factor,8.77563193268896,2026-01-30 01:11:37 UTC
+normal,vol_factor,11.83460839688192,2026-01-30 01:11:37 UTC
+normal,volume_zscore,9.601407231474077,2026-01-30 01:11:37 UTC
+recovery,liquidity_factor,14.613726520772902,2026-01-30 01:11:37 UTC
+recovery,low_vol_252,-10.258041263777287,2026-01-30 01:11:37 UTC
+recovery,sector_basic materials,0.13721863326059563,2026-01-30 01:11:37 UTC
+recovery,sector_communication services,-0.6027197705957003,2026-01-30 01:11:37 UTC
+recovery,sector_consumer cyclical,0.3377588356684146,2026-01-30 01:11:37 UTC
+recovery,sector_consumer defensive,0.012360021663329383,2026-01-30 01:11:37 UTC
+recovery,sector_energy,0.46689162619867336,2026-01-30 01:11:37 UTC
+recovery,sector_financial services,-0.28582713171379515,2026-01-30 01:11:37 UTC
+recovery,sector_healthcare,-0.9275567703079725,2026-01-30 01:11:37 UTC
+recovery,sector_industrials,0.5262085437369696,2026-01-30 01:11:37 UTC
+recovery,sector_real estate,-0.6061700711758226,2026-01-30 01:11:37 UTC
+recovery,sector_technology,0.24222973392673997,2026-01-30 01:11:37 UTC
+recovery,sector_unknown,-1.0238467162168842e-05,2026-01-30 01:11:37 UTC
+recovery,sector_utilities,-0.540161919360712,2026-01-30 01:11:37 UTC
+recovery,size_factor,14.6137265207729,2026-01-30 01:11:37 UTC
+recovery,vol_factor,-10.895521166999153,2026-01-30 01:11:37 UTC
+recovery,volume_zscore,16.070714460488553,2026-01-30 01:11:37 UTC
+stress_building,liquidity_factor,-6.767130171899802,2026-01-30 01:11:37 UTC
+stress_building,low_vol_252,21.945951491364614,2026-01-30 01:11:37 UTC
+stress_building,sector_basic materials,0.141043832876182,2026-01-30 01:11:37 UTC
+stress_building,sector_communication services,-0.03579316233692641,2026-01-30 01:11:37 UTC
+stress_building,sector_consumer cyclical,0.00413148552720235,2026-01-30 01:11:37 UTC
+stress_building,sector_consumer defensive,-0.09046190629335508,2026-01-30 01:11:37 UTC
+stress_building,sector_energy,0.0366242342473595,2026-01-30 01:11:37 UTC
+stress_building,sector_financial services,-0.11097255628127929,2026-01-30 01:11:37 UTC
+stress_building,sector_healthcare,-0.02838556560255498,2026-01-30 01:11:37 UTC
+stress_building,sector_industrials,-0.20762053009169984,2026-01-30 01:11:37 UTC
+stress_building,sector_real estate,0.03228451269904139,2026-01-30 01:11:37 UTC
+stress_building,sector_technology,-0.00869476640101799,2026-01-30 01:11:37 UTC
+stress_building,sector_unknown,4.9634242723055304e-06,2026-01-30 01:11:37 UTC
+stress_building,sector_utilities,0.01925054470722197,2026-01-30 01:11:37 UTC
+stress_building,size_factor,-6.767130171899803,2026-01-30 01:11:37 UTC
+stress_building,vol_factor,23.321175319508097,2026-01-30 01:11:37 UTC
+stress_building,volume_zscore,-7.420199844982664,2026-01-30 01:11:37 UTC
+unknown,liquidity_factor,0.08151704388038625,2026-01-30 01:11:37 UTC
+unknown,low_vol_252,0.28400285135464515,2026-01-30 01:11:37 UTC
+unknown,sector_basic materials,0.0003157769314680475,2026-01-30 01:11:37 UTC
+unknown,sector_communication services,0.00033954486598852254,2026-01-30 01:11:37 UTC
+unknown,sector_consumer cyclical,0.0010968135725271096,2026-01-30 01:11:37 UTC
+unknown,sector_consumer defensive,0.00038238939208475346,2026-01-30 01:11:37 UTC
+unknown,sector_energy,0.000498632001110398,2026-01-30 01:11:37 UTC
+unknown,sector_financial services,0.0012442357522666374,2026-01-30 01:11:37 UTC
+unknown,sector_healthcare,0.0008175687276661037,2026-01-30 01:11:37 UTC
+unknown,sector_industrials,0.0014254859273244388,2026-01-30 01:11:37 UTC
+unknown,sector_real estate,0.0004965880179822911,2026-01-30 01:11:37 UTC
+unknown,sector_technology,0.0017828329981942935,2026-01-30 01:11:37 UTC
+unknown,sector_unknown,1.791120959340197e-05,2026-01-30 01:11:37 UTC
+unknown,sector_utilities,0.0004303625529356054,2026-01-30 01:11:37 UTC
+unknown,size_factor,0.08151704388038625,2026-01-30 01:11:37 UTC
+unknown,vol_factor,0.301802922547994,2026-01-30 01:11:37 UTC
+unknown,volume_zscore,0.08957529611685623,2026-01-30 01:11:37 UTC

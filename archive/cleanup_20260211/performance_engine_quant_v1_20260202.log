@@ -1,0 +1,4 @@
+[2026-02-02 07:32:08 UTC] [performance_engine_quant_v1] === Starting performance engine ===
+[2026-02-02 07:32:14 UTC] [performance_engine_quant_v1] Daily performance written: C:\Quant\data\analytics\quant_performance.csv
+[2026-02-02 07:32:14 UTC] [performance_engine_quant_v1] Summary written: C:\Quant\data\analytics\quant_summary.txt
+[2026-02-02 07:32:14 UTC] [performance_engine_quant_v1] Done.

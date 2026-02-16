@@ -1,0 +1,26 @@
+[2026-01-22 07:46:03 UTC] [portfolio_engine_quant_v1] Starting portfolio_engine_quant_v1 run (v1.0, run hot, long-short + long-only).
+[2026-01-22 07:46:03 UTC] [portfolio_engine_quant_v1] Loading factor data from C:\Quant\data\analytics\quant_factors.csv
+[2026-01-22 07:46:06 UTC] [portfolio_engine_quant_v1] Loaded 680604 rows after dropping missing key fields.
+[2026-01-22 07:46:06 UTC] [portfolio_engine_quant_v1] Building long-short weights.
+[2026-01-22 07:46:08 UTC] [portfolio_engine_quant_v1] Built long-short weights for 1319 dates with target total names 30 where universe allowed.
+[2026-01-22 07:46:08 UTC] [portfolio_engine_quant_v1] Building long-only weights from long-short weights.
+[2026-01-22 07:46:08 UTC] [portfolio_engine_quant_v1] Built long-only weights for 1319 dates by renormalizing long-side weights to sum to 1.0.
+[2026-01-22 07:46:08 UTC] [portfolio_engine_quant_v1] Computing portfolio performance.
+[2026-01-22 07:46:09 UTC] [portfolio_engine_quant_v1] Portfolio performance computed for long-short and long-only portfolios.
+[2026-01-22 07:46:09 UTC] [portfolio_engine_quant_v1] Saving long-short weights to C:\Quant\data\analytics\quant_portfolio_weights_longshort.csv
+[2026-01-22 07:46:09 UTC] [portfolio_engine_quant_v1] Saving long-only weights to C:\Quant\data\analytics\quant_portfolio_weights_longonly.csv
+[2026-01-22 07:46:09 UTC] [portfolio_engine_quant_v1] Saving performance to C:\Quant\data\analytics\quant_portfolio_performance.csv
+[2026-01-22 07:46:09 UTC] [portfolio_engine_quant_v1] portfolio_engine_quant_v1 run completed successfully.
+[2026-01-22 08:10:59 UTC] [portfolio_engine_quant_v1] Starting portfolio_engine_quant_v1 run (v1.0, run hot, long-short + long-only, signal=composite_signal_v1).
+[2026-01-22 08:10:59 UTC] [portfolio_engine_quant_v1] Loading factor data from C:\Quant\data\analytics\quant_factors_composite.csv
+[2026-01-22 08:11:04 UTC] [portfolio_engine_quant_v1] Loaded 680604 rows after dropping missing key fields.
+[2026-01-22 08:11:04 UTC] [portfolio_engine_quant_v1] Building long-short weights.
+[2026-01-22 08:11:06 UTC] [portfolio_engine_quant_v1] Built long-short weights for 1319 dates with target total names 30 where universe allowed.
+[2026-01-22 08:11:06 UTC] [portfolio_engine_quant_v1] Building long-only weights from long-short weights.
+[2026-01-22 08:11:10 UTC] [portfolio_engine_quant_v1] Built long-only weights for 1319 dates by renormalizing long-side weights to sum to 1.0.
+[2026-01-22 08:11:10 UTC] [portfolio_engine_quant_v1] Computing portfolio performance.
+[2026-01-22 08:11:11 UTC] [portfolio_engine_quant_v1] Portfolio performance computed for long-short and long-only portfolios.
+[2026-01-22 08:11:11 UTC] [portfolio_engine_quant_v1] Saving long-short weights to C:\Quant\data\analytics\quant_portfolio_weights_longshort.csv
+[2026-01-22 08:11:12 UTC] [portfolio_engine_quant_v1] Saving long-only weights to C:\Quant\data\analytics\quant_portfolio_weights_longonly.csv
+[2026-01-22 08:11:14 UTC] [portfolio_engine_quant_v1] Saving performance to C:\Quant\data\analytics\quant_portfolio_performance.csv
+[2026-01-22 08:11:14 UTC] [portfolio_engine_quant_v1] portfolio_engine_quant_v1 run completed successfully.

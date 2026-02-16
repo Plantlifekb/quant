@@ -1,0 +1,22 @@
+﻿2026-02-09T02:00:02.0026456+00:00 INFO	START system freshness / lineage verification
+2026-02-09T02:00:02.0270872+00:00 INFO	[FRESHNESS] Ingestion (5y) => 2026-02-08T10:26:30
+2026-02-09T02:00:02.0270872+00:00 INFO	[FRESHNESS] Canonical prices => 2026-02-08T10:38:43
+2026-02-09T02:00:02.0270872+00:00 INFO	[FRESHNESS] Canonical fundamentals => 2026-02-08T10:38:45
+2026-02-09T02:00:02.0270872+00:00 INFO	[FRESHNESS] Canonical risk_model => 2026-02-07T11:52:41
+2026-02-09T02:00:02.0270872+00:00 INFO	[FRESHNESS] Analytics weekly picks => 2026-02-06T17:09:54
+2026-02-09T02:00:02.0270872+00:00 INFO	[FRESHNESS] Dashboard inputs v2 => 2026-02-07T11:52:41
+2026-02-09T02:00:02.0432557+00:00 INFO	[FRESHNESS] Canonical aggregate timestamp => 2026-02-08T10:38:45
+2026-02-09T02:00:02.0432557+00:00 INFO	[LINEAGE] Ingestion (5y) -> Canonical OK
+2026-02-09T02:00:02.0592899+00:00 WARN	[LINEAGE] Analytics weekly picks (2026-02-06T17:09:54) is older than Canonical (2026-02-08T10:38:45)
+2026-02-09T02:00:02.0592899+00:00 INFO	[LINEAGE] Analytics weekly picks -> Dashboard inputs v2 OK
+2026-02-09T02:00:02.0592899+00:00 INFO	END system freshness / lineage verification
+2026-02-09T02:03:02.7276606+00:00 INFO	Imported predicted longshort rows: 664011
+2026-02-09T02:03:02.8003479+00:00 INFO	Imported realized longshort rows: 160
+2026-02-09T03:21:01.0568321+00:00 WARN	No matching predicted rows found for longshort (matches: 0).
+2026-02-09T03:22:53.7323233+00:00 WARN	Wrote predicted sample to C:\Quant\analysis\diagnostics\predicted_longshort_sample.20260209_020001.csv
+2026-02-09T03:22:53.8317069+00:00 WARN	Wrote realized sample to C:\Quant\analysis\diagnostics\realized_longshort_sample.20260209_020001.csv
+2026-02-09T03:22:53.8317069+00:00 INFO	Starting longonly verification steps...
+2026-02-09T03:22:53.8317069+00:00 INFO	Longonly verification completed.
+2026-02-09T03:22:53.8379258+00:00 INFO	Running verification runner...
+2026-02-09T03:22:53.8379258+00:00 INFO	Verification runner invoked.
+2026-02-09T03:22:53.8379258+00:00 INFO	END pipeline success

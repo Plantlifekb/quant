@@ -1,0 +1,14 @@
+{
+  "rows": 1251,
+  "unit_converted": false,
+  "clip_value": 0.5,
+  "date_min": "2021-01-27 00:00:00",
+  "date_max": "2026-01-20 00:00:00",
+  "long_rows": 839,
+  "short_rows": 412,
+  "generated_at": "2026-02-16T16:37:03.152397+00:00",
+  "method": "aggregated_attribution",
+  "provenance": {
+    "attribution_file": "C:\\Quant\\data\\analytics\\attribution_quant_v2.parquet"
+  }
+}

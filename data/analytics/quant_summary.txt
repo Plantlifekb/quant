@@ -1,0 +1,10 @@
+
+Quant v1.0 — Performance Summary
+Run date: 2026-02-02 07:32:14 UTC
+
+Annualized Return:     0.0629
+Annualized Volatility: 0.0881
+Sharpe Ratio:          0.7147
+Sortino Ratio:         0.8872
+Max Drawdown:          -0.0935
+Calmar Ratio:          0.6733

@@ -1,0 +1,7 @@
+[2026-01-22 09:52:08 UTC] [optimiser_quant_v1] Starting optimiser_quant_v1 run (v1.0).
+[2026-01-22 09:52:08 UTC] [optimiser_quant_v1] Loading risk time series from C:\Quant\data\analytics\quant_risk_timeseries_ensemble_risk.csv
+[2026-01-22 09:52:08 UTC] [optimiser_quant_v1] Loaded 2600 risk time series rows after cleaning.
+[2026-01-22 09:52:08 UTC] [optimiser_quant_v1] Applying volatility targeting optimiser to risk-neutral portfolios.
+[2026-01-22 09:52:08 UTC] [optimiser_quant_v1] Volatility targeting optimiser applied.
+[2026-01-22 09:52:08 UTC] [optimiser_quant_v1] Saving optimised performance to C:\Quant\data\analytics\quant_optimised_performance_ensemble_risk.csv
+[2026-01-22 09:52:08 UTC] [optimiser_quant_v1] optimiser_quant_v1 run completed successfully.

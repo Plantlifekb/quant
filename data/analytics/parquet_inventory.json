@@ -1,0 +1,1944 @@
+[
+  {
+    "file": "optimiser_regime_quant_v1.parquet",
+    "path": "C:\\Quant\\data\\analytics\\optimiser_regime_quant_v1.parquet",
+    "size_bytes": 67745031,
+    "rows": 679800,
+    "columns": [
+      {
+        "name": "date",
+        "dtype": "datetime64[ns]"
+      },
+      {
+        "name": "ticker",
+        "dtype": "object"
+      },
+      {
+        "name": "close",
+        "dtype": "float64"
+      },
+      {
+        "name": "sma50",
+        "dtype": "float64"
+      },
+      {
+        "name": "sma200",
+        "dtype": "float64"
+      },
+      {
+        "name": "state",
+        "dtype": "object"
+      },
+      {
+        "name": "ret_close",
+        "dtype": "float64"
+      },
+      {
+        "name": "ret_adj_close",
+        "dtype": "float64"
+      },
+      {
+        "name": "log_ret_close",
+        "dtype": "float64"
+      },
+      {
+        "name": "log_ret_adj_close",
+        "dtype": "float64"
+      },
+      {
+        "name": "vol20_simple",
+        "dtype": "float64"
+      },
+      {
+        "name": "vol60_simple",
+        "dtype": "float64"
+      },
+      {
+        "name": "vol20_log",
+        "dtype": "float64"
+      },
+      {
+        "name": "vol60_log",
+        "dtype": "float64"
+      },
+      {
+        "name": "rolling_max",
+        "dtype": "float64"
+      },
+      {
+        "name": "drawdown",
+        "dtype": "float64"
+      },
+      {
+        "name": "vol_zscore",
+        "dtype": "float64"
+      },
+      {
+        "name": "regime",
+        "dtype": "object"
+      }
+    ],
+    "sample": [
+      {
+        "date": "2021-01-18 00:00:00",
+        "ticker": "A",
+        "close": 127.3499984741211,
+        "sma50": NaN,
+        "sma200": NaN,
+        "state": "Unknown",
+        "ret_close": NaN,
+        "ret_adj_close": NaN,
+        "log_ret_close": NaN,
+        "log_ret_adj_close": NaN,
+        "vol20_simple": NaN,
+        "vol60_simple": NaN,
+        "vol20_log": NaN,
+        "vol60_log": NaN,
+        "rolling_max": 127.3499984741211,
+        "drawdown": 0.0,
+        "vol_zscore": NaN,
+        "regime": "Unknown"
+      },
+      {
+        "date": "2021-01-19 00:00:00",
+        "ticker": "A",
+        "close": 127.3499984741211,
+        "sma50": NaN,
+        "sma200": NaN,
+        "state": "Unknown",
+        "ret_close": 0.0,
+        "ret_adj_close": 0.0,
+        "log_ret_close": 0.0,
+        "log_ret_adj_close": 0.0,
+        "vol20_simple": NaN,
+        "vol60_simple": NaN,
+        "vol20_log": NaN,
+        "vol60_log": NaN,
+        "rolling_max": 127.3499984741211,
+        "drawdown": 0.0,
+        "vol_zscore": NaN,
+        "regime": "Unknown"
+      },
+      {
+        "date": "2021-01-20 00:00:00",
+        "ticker": "A",
+        "close": 128.11000061035156,
+        "sma50": NaN,
+        "sma200": NaN,
+        "state": "Unknown",
+        "ret_close": 0.005967822107080023,
+        "ret_adj_close": 0.005967758902341913,
+        "log_ret_close": 0.00595008518892756,
+        "log_ret_adj_close": 0.005950022359144433,
+        "vol20_simple": NaN,
+        "vol60_simple": NaN,
+        "vol20_log": NaN,
+        "vol60_log": NaN,
+        "rolling_max": 128.11000061035156,
+        "drawdown": 0.0,
+        "vol_zscore": NaN,
+        "regime": "Unknown"
+      },
+      {
+        "date": "2021-01-21 00:00:00",
+        "ticker": "A",
+        "close": 127.0,
+        "sma50": NaN,
+        "sma200": NaN,
+        "state": "Unknown",
+        "ret_close": -0.008664433729320242,
+        "ret_adj_close": -0.008664375071903763,
+        "log_ret_close": -0.008702188174028376,
+        "log_ret_adj_close": -0.008702129003938307,
+        "vol20_simple": NaN,
+        "vol60_simple": NaN,
+        "vol20_log": NaN,
+        "vol60_log": NaN,
+        "rolling_max": 128.11000061035156,
+        "drawdown": -0.008664433729320242,
+        "vol_zscore": NaN,
+        "regime": "Unknown"
+      },
+      {
+        "date": "2021-01-22 00:00:00",
+        "ticker": "A",
+        "close": 126.33000183105467,
+        "sma50": NaN,
+        "sma200": NaN,
+        "state": "Unknown",
+        "ret_close": -0.005275576133427773,
+        "ret_adj_close": -0.005275526624934135,
+        "log_ret_close": -0.005289541122426388,
+        "log_ret_adj_close": -0.005289491351362947,
+        "vol20_simple": NaN,
+        "vol60_simple": NaN,
+        "vol20_log": NaN,
+        "vol60_log": NaN,
+        "rolling_max": 128.11000061035156,
+        "drawdown": -0.013894299982955882,
+        "vol_zscore": NaN,
+        "regime": "Unknown"
+      }
+    ]
+  },
+  {
+    "file": "weekly_picks_quant_v2.parquet",
+    "path": "C:\\Quant\\data\\analytics\\weekly_picks_quant_v2.parquet",
+    "size_bytes": 33761454,
+    "rows": 3292335,
+    "columns": [
+      {
+        "name": "week_start",
+        "dtype": "datetime64[ns]"
+      },
+      {
+        "name": "date",
+        "dtype": "datetime64[ns]"
+      },
+      {
+        "name": "ticker",
+        "dtype": "object"
+      },
+      {
+        "name": "pick_rank",
+        "dtype": "int64"
+      },
+      {
+        "name": "weight",
+        "dtype": "float64"
+      },
+      {
+        "name": "expected_return",
+        "dtype": "float64"
+      },
+      {
+        "name": "weekly_realized_return",
+        "dtype": "float64"
+      },
+      {
+        "name": "regime",
+        "dtype": "object"
+      },
+      {
+        "name": "state",
+        "dtype": "object"
+      }
+    ],
+    "sample": [
+      {
+        "week_start": "2021-02-15 00:00:00",
+        "date": "2021-02-15 00:00:00",
+        "ticker": "MSTR",
+        "pick_rank": 1,
+        "weight": 0.00021326716340979752,
+        "expected_return": 0.025093282558606,
+        "weekly_realized_return": 0.04885869976763278,
+        "regime": "Unknown",
+        "state": "Bull"
+      },
+      {
+        "week_start": "2021-02-15 00:00:00",
+        "date": "2021-02-15 00:00:00",
+        "ticker": "MSTR",
+        "pick_rank": 1,
+        "weight": 0.00021326716340979752,
+        "expected_return": 0.025093282558606,
+        "weekly_realized_return": -0.2506254376104587,
+        "regime": "Unknown",
+        "state": "Bull"
+      },
+      {
+        "week_start": "2021-02-15 00:00:00",
+        "date": "2021-02-15 00:00:00",
+        "ticker": "MSTR",
+        "pick_rank": 1,
+        "weight": 0.00021326716340979752,
+        "expected_return": 0.025093282558606,
+        "weekly_realized_return": -0.029982319760391684,
+        "regime": "Unknown",
+        "state": "Bull"
+      },
+      {
+        "week_start": "2021-02-15 00:00:00",
+        "date": "2021-02-15 00:00:00",
+        "ticker": "MSTR",
+        "pick_rank": 1,
+        "weight": 0.00021326716340979752,
+        "expected_return": 0.025093282558606,
+        "weekly_realized_return": -0.08125740465379108,
+        "regime": "Unknown",
+        "state": "Bull"
+      },
+      {
+        "week_start": "2021-02-15 00:00:00",
+        "date": "2021-02-15 00:00:00",
+        "ticker": "MSTR",
+        "pick_rank": 1,
+        "weight": 0.00021326716340979752,
+        "expected_return": 0.025093282558606,
+        "weekly_realized_return": -0.06664986426453928,
+        "regime": "Unknown",
+        "state": "Bull"
+      }
+    ]
+  },
+  {
+    "file": "expected_returns_quant_v1.parquet",
+    "path": "C:\\Quant\\data\\analytics\\expected_returns_quant_v1.parquet",
+    "size_bytes": 28458459,
+    "rows": 679800,
+    "columns": [
+      {
+        "name": "date",
+        "dtype": "datetime64[ns]"
+      },
+      {
+        "name": "ticker",
+        "dtype": "object"
+      },
+      {
+        "name": "expected_return",
+        "dtype": "float64"
+      },
+      {
+        "name": "er_base",
+        "dtype": "float64"
+      },
+      {
+        "name": "regime_adjustment",
+        "dtype": "float64"
+      },
+      {
+        "name": "regime",
+        "dtype": "object"
+      },
+      {
+        "name": "state",
+        "dtype": "object"
+      },
+      {
+        "name": "vol20_log",
+        "dtype": "float64"
+      },
+      {
+        "name": "vol60_log",
+        "dtype": "float64"
+      },
+      {
+        "name": "vol_zscore",
+        "dtype": "float64"
+      }
+    ],
+    "sample": [
+      {
+        "date": "2021-01-18 00:00:00",
+        "ticker": "A",
+        "expected_return": NaN,
+        "er_base": NaN,
+        "regime_adjustment": 0.9,
+        "regime": "Unknown",
+        "state": "Unknown",
+        "vol20_log": NaN,
+        "vol60_log": NaN,
+        "vol_zscore": NaN
+      },
+      {
+        "date": "2021-01-19 00:00:00",
+        "ticker": "A",
+        "expected_return": NaN,
+        "er_base": NaN,
+        "regime_adjustment": 0.9,
+        "regime": "Unknown",
+        "state": "Unknown",
+        "vol20_log": NaN,
+        "vol60_log": NaN,
+        "vol_zscore": NaN
+      },
+      {
+        "date": "2021-01-20 00:00:00",
+        "ticker": "A",
+        "expected_return": NaN,
+        "er_base": NaN,
+        "regime_adjustment": 0.9,
+        "regime": "Unknown",
+        "state": "Unknown",
+        "vol20_log": NaN,
+        "vol60_log": NaN,
+        "vol_zscore": NaN
+      },
+      {
+        "date": "2021-01-21 00:00:00",
+        "ticker": "A",
+        "expected_return": NaN,
+        "er_base": NaN,
+        "regime_adjustment": 0.9,
+        "regime": "Unknown",
+        "state": "Unknown",
+        "vol20_log": NaN,
+        "vol60_log": NaN,
+        "vol_zscore": NaN
+      },
+      {
+        "date": "2021-01-22 00:00:00",
+        "ticker": "A",
+        "expected_return": NaN,
+        "er_base": NaN,
+        "regime_adjustment": 0.9,
+        "regime": "Unknown",
+        "state": "Unknown",
+        "vol20_log": NaN,
+        "vol60_log": NaN,
+        "vol_zscore": NaN
+      }
+    ]
+  },
+  {
+    "file": "attribution_quant_v3.parquet",
+    "path": "C:\\Quant\\data\\analytics\\attribution_quant_v3.parquet",
+    "size_bytes": 24333626,
+    "rows": 664350,
+    "columns": [
+      {
+        "name": "date",
+        "dtype": "datetime64[ns]"
+      },
+      {
+        "name": "ticker",
+        "dtype": "object"
+      },
+      {
+        "name": "weight",
+        "dtype": "float64"
+      },
+      {
+        "name": "realized_return",
+        "dtype": "float64"
+      },
+      {
+        "name": "contribution",
+        "dtype": "float64"
+      },
+      {
+        "name": "portfolio_return",
+        "dtype": "float64"
+      },
+      {
+        "name": "expected_return",
+        "dtype": "float64"
+      },
+      {
+        "name": "vol20_log",
+        "dtype": "float64"
+      },
+      {
+        "name": "regime",
+        "dtype": "object"
+      },
+      {
+        "name": "state",
+        "dtype": "object"
+      }
+    ],
+    "sample": [
+      {
+        "date": "2021-02-15 00:00:00",
+        "ticker": "A",
+        "weight": 0.0003390442883873961,
+        "realized_return": 0.0,
+        "contribution": 0.0,
+        "portfolio_return": 0.0,
+        "expected_return": 0.00022206773239938016,
+        "vol20_log": 0.014622996280673942,
+        "regime": "Unknown",
+        "state": "Bull"
+      },
+      {
+        "date": "2021-02-15 00:00:00",
+        "ticker": "AAPL",
+        "weight": 0.0029844681827101384,
+        "realized_return": 0.0,
+        "contribution": 0.0,
+        "portfolio_return": 0.0,
+        "expected_return": 0.0025789708630576166,
+        "vol20_log": 0.019292425262854705,
+        "regime": "Unknown",
+        "state": "Sideways"
+      },
+      {
+        "date": "2021-02-15 00:00:00",
+        "ticker": "ABBV",
+        "weight": 0.0,
+        "realized_return": 0.0,
+        "contribution": 0.0,
+        "portfolio_return": 0.0,
+        "expected_return": -0.003217138181708133,
+        "vol20_log": 0.017805817355235672,
+        "regime": "Unknown",
+        "state": "Bear"
+      },
+      {
+        "date": "2021-02-15 00:00:00",
+        "ticker": "ABNB",
+        "weight": 0.004496536428085321,
+        "realized_return": 0.0,
+        "contribution": 0.0,
+        "portfolio_return": 0.0,
+        "expected_return": 0.009113244258436298,
+        "vol20_log": 0.04524829703188582,
+        "regime": "Unknown",
+        "state": "Bull"
+      },
+      {
+        "date": "2021-02-15 00:00:00",
+        "ticker": "ABT",
+        "weight": 0.008198573856274429,
+        "realized_return": 0.0,
+        "contribution": 0.0,
+        "portfolio_return": 0.0,
+        "expected_return": 0.0058612610473454925,
+        "vol20_log": 0.015960999911502897,
+        "regime": "Unknown",
+        "state": "Bull"
+      }
+    ]
+  },
+  {
+    "file": "price_returns.parquet",
+    "path": "C:\\Quant\\data\\analytics\\price_returns.parquet",
+    "size_bytes": 22513486,
+    "rows": 679800,
+    "columns": [
+      {
+        "name": "date",
+        "dtype": "datetime64[ns]"
+      },
+      {
+        "name": "ticker",
+        "dtype": "object"
+      },
+      {
+        "name": "ret_close",
+        "dtype": "float64"
+      },
+      {
+        "name": "ret_adj_close",
+        "dtype": "float64"
+      },
+      {
+        "name": "log_ret_close",
+        "dtype": "float64"
+      },
+      {
+        "name": "log_ret_adj_close",
+        "dtype": "float64"
+      }
+    ],
+    "sample": [
+      {
+        "date": "2021-01-18 00:00:00",
+        "ticker": "A",
+        "ret_close": NaN,
+        "ret_adj_close": NaN,
+        "log_ret_close": NaN,
+        "log_ret_adj_close": NaN
+      },
+      {
+        "date": "2021-01-19 00:00:00",
+        "ticker": "A",
+        "ret_close": 0.0,
+        "ret_adj_close": 0.0,
+        "log_ret_close": 0.0,
+        "log_ret_adj_close": 0.0
+      },
+      {
+        "date": "2021-01-20 00:00:00",
+        "ticker": "A",
+        "ret_close": 0.005967822107080023,
+        "ret_adj_close": 0.005967758902341913,
+        "log_ret_close": 0.00595008518892756,
+        "log_ret_adj_close": 0.005950022359144433
+      },
+      {
+        "date": "2021-01-21 00:00:00",
+        "ticker": "A",
+        "ret_close": -0.008664433729320242,
+        "ret_adj_close": -0.008664375071903763,
+        "log_ret_close": -0.008702188174028376,
+        "log_ret_adj_close": -0.008702129003938307
+      },
+      {
+        "date": "2021-01-22 00:00:00",
+        "ticker": "A",
+        "ret_close": -0.005275576133427773,
+        "ret_adj_close": -0.005275526624934135,
+        "log_ret_close": -0.005289541122426388,
+        "log_ret_adj_close": -0.005289491351362947
+      }
+    ]
+  },
+  {
+    "file": "portfolio_optimised_quant_v3.parquet",
+    "path": "C:\\Quant\\data\\analytics\\portfolio_optimised_quant_v3.parquet",
+    "size_bytes": 15416309,
+    "rows": 669500,
+    "columns": [
+      {
+        "name": "date",
+        "dtype": "datetime64[ns]"
+      },
+      {
+        "name": "ticker",
+        "dtype": "object"
+      },
+      {
+        "name": "weight",
+        "dtype": "float64"
+      },
+      {
+        "name": "expected_return",
+        "dtype": "float64"
+      },
+      {
+        "name": "vol20_log",
+        "dtype": "float64"
+      },
+      {
+        "name": "regime",
+        "dtype": "object"
+      },
+      {
+        "name": "state",
+        "dtype": "object"
+      }
+    ],
+    "sample": [
+      {
+        "date": "2021-02-15 00:00:00",
+        "ticker": "A",
+        "weight": 0.0003390442883873961,
+        "expected_return": 0.00022206773239938016,
+        "vol20_log": 0.014622996280673942,
+        "regime": "Unknown",
+        "state": "Bull"
+      },
+      {
+        "date": "2021-02-15 00:00:00",
+        "ticker": "AAPL",
+        "weight": 0.0029844681827101384,
+        "expected_return": 0.0025789708630576166,
+        "vol20_log": 0.019292425262854705,
+        "regime": "Unknown",
+        "state": "Sideways"
+      },
+      {
+        "date": "2021-02-15 00:00:00",
+        "ticker": "ABBV",
+        "weight": 0.0,
+        "expected_return": -0.003217138181708133,
+        "vol20_log": 0.017805817355235672,
+        "regime": "Unknown",
+        "state": "Bear"
+      },
+      {
+        "date": "2021-02-15 00:00:00",
+        "ticker": "ABNB",
+        "weight": 0.004496536428085321,
+        "expected_return": 0.009113244258436298,
+        "vol20_log": 0.04524829703188582,
+        "regime": "Unknown",
+        "state": "Bull"
+      },
+      {
+        "date": "2021-02-15 00:00:00",
+        "ticker": "ABT",
+        "weight": 0.008198573856274429,
+        "expected_return": 0.0058612610473454925,
+        "vol20_log": 0.015960999911502897,
+        "regime": "Unknown",
+        "state": "Bull"
+      }
+    ]
+  },
+  {
+    "file": "merged_attribution.parquet",
+    "path": "C:\\Quant\\data\\analytics\\merged_attribution.parquet",
+    "size_bytes": 12645663,
+    "rows": 680604,
+    "columns": [
+      {
+        "name": "date",
+        "dtype": "datetime64[ns]"
+      },
+      {
+        "name": "ticker",
+        "dtype": "object"
+      },
+      {
+        "name": "_tk",
+        "dtype": "object"
+      },
+      {
+        "name": "realized_return",
+        "dtype": "float64"
+      },
+      {
+        "name": "_weight_used",
+        "dtype": "float64"
+      },
+      {
+        "name": "contrib_total",
+        "dtype": "float64"
+      }
+    ],
+    "sample": [
+      {
+        "date": "2021-01-05 00:00:00",
+        "ticker": "A",
+        "_tk": "A",
+        "realized_return": 0.0081760049367276,
+        "_weight_used": -0.0010838583487357,
+        "contrib_total": -8.86163120997651e-06
+      },
+      {
+        "date": "2021-01-05 00:00:00",
+        "ticker": "AAPL",
+        "_tk": "AAPL",
+        "realized_return": 0.0123637338648421,
+        "_weight_used": 0.0042116237418966,
+        "contrib_total": 5.207139508366e-05
+      },
+      {
+        "date": "2021-01-05 00:00:00",
+        "ticker": "ABBV",
+        "_tk": "ABBV",
+        "realized_return": 0.010340539797196,
+        "_weight_used": -0.002390013749611,
+        "contrib_total": -2.471403229369818e-05
+      },
+      {
+        "date": "2021-01-05 00:00:00",
+        "ticker": "ABNB",
+        "_tk": "ABNB",
+        "realized_return": 0.065756446687883,
+        "_weight_used": 0.0090026377236067,
+        "contrib_total": 0.0005919814675226683
+      },
+      {
+        "date": "2021-01-05 00:00:00",
+        "ticker": "ABT",
+        "_tk": "ABT",
+        "realized_return": 0.0123728206999296,
+        "_weight_used": 0.0028740421227649,
+        "contrib_total": 3.5560007869015164e-05
+      }
+    ]
+  },
+  {
+    "file": "realized_returns.parquet",
+    "path": "C:\\Quant\\data\\analytics\\realized_returns.parquet",
+    "size_bytes": 6185670,
+    "rows": 680604,
+    "columns": [
+      {
+        "name": "date",
+        "dtype": "datetime64[ns]"
+      },
+      {
+        "name": "ticker",
+        "dtype": "object"
+      },
+      {
+        "name": "realized_return",
+        "dtype": "float64"
+      }
+    ],
+    "sample": [
+      {
+        "date": "2021-01-05 00:00:00",
+        "ticker": "A",
+        "realized_return": 0.0081760049367276
+      },
+      {
+        "date": "2021-01-06 00:00:00",
+        "ticker": "A",
+        "realized_return": 0.0274224459707344
+      },
+      {
+        "date": "2021-01-07 00:00:00",
+        "ticker": "A",
+        "realized_return": 0.0266091975645039
+      },
+      {
+        "date": "2021-01-08 00:00:00",
+        "ticker": "A",
+        "realized_return": 0.0071337497650587
+      },
+      {
+        "date": "2021-01-11 00:00:00",
+        "ticker": "A",
+        "realized_return": 0.0085785956149413
+      }
+    ]
+  },
+  {
+    "file": "w_daily.parquet",
+    "path": "C:\\Quant\\data\\analytics\\w_daily.parquet",
+    "size_bytes": 2176964,
+    "rows": 680604,
+    "columns": [
+      {
+        "name": "date",
+        "dtype": "datetime64[ns]"
+      },
+      {
+        "name": "_tk",
+        "dtype": "object"
+      },
+      {
+        "name": "_weight_used",
+        "dtype": "float64"
+      }
+    ],
+    "sample": [
+      {
+        "date": "2021-01-05 00:00:00",
+        "_tk": "A",
+        "_weight_used": -0.0010838583487357
+      },
+      {
+        "date": "2021-01-06 00:00:00",
+        "_tk": "A",
+        "_weight_used": -0.0010838583487357
+      },
+      {
+        "date": "2021-01-07 00:00:00",
+        "_tk": "A",
+        "_weight_used": -0.0010838583487357
+      },
+      {
+        "date": "2021-01-08 00:00:00",
+        "_tk": "A",
+        "_weight_used": -0.0010838583487357
+      },
+      {
+        "date": "2021-01-11 00:00:00",
+        "_tk": "A",
+        "_weight_used": -0.0010838583487357
+      }
+    ]
+  },
+  {
+    "file": "portfolio_quant_v2.parquet",
+    "path": "C:\\Quant\\data\\analytics\\portfolio_quant_v2.parquet",
+    "size_bytes": 2022136,
+    "rows": 664011,
+    "columns": [
+      {
+        "name": "date",
+        "dtype": "datetime64[ns]"
+      },
+      {
+        "name": "ticker",
+        "dtype": "object"
+      },
+      {
+        "name": "weight",
+        "dtype": "float64"
+      },
+      {
+        "name": "strategy",
+        "dtype": "object"
+      }
+    ],
+    "sample": [
+      {
+        "date": "2021-01-27 00:00:00",
+        "ticker": "A",
+        "weight": -0.0010838583487357,
+        "strategy": "CORE"
+      },
+      {
+        "date": "2021-01-27 00:00:00",
+        "ticker": "AAPL",
+        "weight": 0.0042116237418966,
+        "strategy": "CORE"
+      },
+      {
+        "date": "2021-01-27 00:00:00",
+        "ticker": "ABBV",
+        "weight": -0.002390013749611,
+        "strategy": "CORE"
+      },
+      {
+        "date": "2021-01-27 00:00:00",
+        "ticker": "ABNB",
+        "weight": 0.0090026377236067,
+        "strategy": "CORE"
+      },
+      {
+        "date": "2021-01-27 00:00:00",
+        "ticker": "ABT",
+        "weight": 0.0028740421227649,
+        "strategy": "CORE"
+      }
+    ]
+  },
+  {
+    "file": "strategy_returns_merged.parquet",
+    "path": "C:\\Quant\\data\\analytics\\strategy_returns_merged.parquet",
+    "size_bytes": 78665,
+    "rows": 1663,
+    "columns": [
+      {
+        "name": "date",
+        "dtype": "datetime64[ns]"
+      },
+      {
+        "name": "strategy",
+        "dtype": "object"
+      },
+      {
+        "name": "total_return",
+        "dtype": "float64"
+      },
+      {
+        "name": "cum",
+        "dtype": "float64"
+      },
+      {
+        "name": "cum_repaired",
+        "dtype": "float64"
+      },
+      {
+        "name": "weekly_return",
+        "dtype": "float64"
+      },
+      {
+        "name": "cum_return_recomputed",
+        "dtype": "float64"
+      }
+    ],
+    "sample": [
+      {
+        "date": "2021-01-27 00:00:00",
+        "strategy": "LONG_ONLY",
+        "total_return": 0.018943779277544495,
+        "cum": 0.0189437792775445,
+        "cum_repaired": 1.0189437792775444,
+        "weekly_return": 0.0189437792775444,
+        "cum_return_recomputed": 1.0189437792775444
+      },
+      {
+        "date": "2021-01-29 00:00:00",
+        "strategy": "LONG_ONLY",
+        "total_return": 0.002446295380125437,
+        "cum": 0.021436416737398708,
+        "cum_repaired": 1.0214364167373986,
+        "weekly_return": 0.0024462953801254,
+        "cum_return_recomputed": 1.0214364167373986
+      },
+      {
+        "date": "2021-02-03 00:00:00",
+        "strategy": "LONG_ONLY",
+        "total_return": 0.0028604745239330857,
+        "cum": 0.024358209585293535,
+        "cum_repaired": 1.0243582095852932,
+        "weekly_return": 0.002860474523933,
+        "cum_return_recomputed": 1.0243582095852932
+      },
+      {
+        "date": "2021-02-04 00:00:00",
+        "strategy": "LONG_ONLY",
+        "total_return": 0.0025956060294787383,
+        "cum": 0.027017039930439173,
+        "cum_repaired": 1.0270170399304388,
+        "weekly_return": 0.0025956060294787,
+        "cum_return_recomputed": 1.0270170399304388
+      },
+      {
+        "date": "2021-02-05 00:00:00",
+        "strategy": "LONG_ONLY",
+        "total_return": 0.0034125711885240203,
+        "cum": 0.030521808691029016,
+        "cum_repaired": 1.0305218086910286,
+        "weekly_return": 0.003412571188524,
+        "cum_return_recomputed": 1.0305218086910286
+      }
+    ]
+  },
+  {
+    "file": "strategy_returns_repaired.parquet",
+    "path": "C:\\Quant\\data\\analytics\\strategy_returns_repaired.parquet",
+    "size_bytes": 74670,
+    "rows": 1251,
+    "columns": [
+      {
+        "name": "date",
+        "dtype": "datetime64[ns]"
+      },
+      {
+        "name": "strategy",
+        "dtype": "object"
+      },
+      {
+        "name": "total_return",
+        "dtype": "float64"
+      },
+      {
+        "name": "cum",
+        "dtype": "float64"
+      },
+      {
+        "name": "cum_repaired",
+        "dtype": "float64"
+      },
+      {
+        "name": "weekly_return",
+        "dtype": "float64"
+      },
+      {
+        "name": "cum_return_recomputed",
+        "dtype": "float64"
+      }
+    ],
+    "sample": [
+      {
+        "date": "2021-01-27 00:00:00",
+        "strategy": "LONG_ONLY",
+        "total_return": 0.018943779277544495,
+        "cum": 0.0189437792775445,
+        "cum_repaired": 1.0189437792775444,
+        "weekly_return": 0.018943779277544495,
+        "cum_return_recomputed": 1.0189437792775444
+      },
+      {
+        "date": "2021-01-28 00:00:00",
+        "strategy": "LONG_SHORT",
+        "total_return": -0.021184368708157836,
+        "cum": -0.021184368708157833,
+        "cum_repaired": 0.9973580985644451,
+        "weekly_return": -0.021184368708157836,
+        "cum_return_recomputed": 0.9973580985644451
+      },
+      {
+        "date": "2021-01-29 00:00:00",
+        "strategy": "LONG_ONLY",
+        "total_return": 0.002446295380125437,
+        "cum": 0.021436416737398708,
+        "cum_repaired": 0.999797931073294,
+        "weekly_return": 0.002446295380125437,
+        "cum_return_recomputed": 0.999797931073294
+      },
+      {
+        "date": "2021-02-01 00:00:00",
+        "strategy": "LONG_SHORT",
+        "total_return": -0.003330850297372936,
+        "cum": -0.024444657044719542,
+        "cum_repaired": 0.9964677538372657,
+        "weekly_return": -0.003330850297372936,
+        "cum_return_recomputed": 0.9964677538372657
+      },
+      {
+        "date": "2021-02-02 00:00:00",
+        "strategy": "LONG_SHORT",
+        "total_return": -0.008808767404319934,
+        "cum": -0.03303809715085418,
+        "cum_repaired": 0.9876901011678081,
+        "weekly_return": -0.008808767404319934,
+        "cum_return_recomputed": 0.9876901011678081
+      }
+    ]
+  },
+  {
+    "file": "attribution_quant_v2.parquet",
+    "path": "C:\\Quant\\data\\analytics\\attribution_quant_v2.parquet",
+    "size_bytes": 62704,
+    "rows": 1301,
+    "columns": [
+      {
+        "name": "date",
+        "dtype": "datetime64[ns]"
+      },
+      {
+        "name": "factor_contrib",
+        "dtype": "float64"
+      },
+      {
+        "name": "alpha_contrib",
+        "dtype": "float64"
+      },
+      {
+        "name": "idio_contrib",
+        "dtype": "float64"
+      },
+      {
+        "name": "total_return",
+        "dtype": "float64"
+      }
+    ],
+    "sample": [
+      {
+        "date": "2021-01-27 00:00:00",
+        "factor_contrib": 0.0006548345657081756,
+        "alpha_contrib": 0.0011875882528462314,
+        "idio_contrib": 0.01828894471183632,
+        "total_return": 0.018943779277544495
+      },
+      {
+        "date": "2021-01-28 00:00:00",
+        "factor_contrib": 0.0001079281590669863,
+        "alpha_contrib": 0.028273562715865258,
+        "idio_contrib": -0.021292296867224822,
+        "total_return": -0.021184368708157836
+      },
+      {
+        "date": "2021-01-29 00:00:00",
+        "factor_contrib": 3.2362693305102354e-05,
+        "alpha_contrib": 0.02948462642834784,
+        "idio_contrib": 0.0024139326868203347,
+        "total_return": 0.002446295380125437
+      },
+      {
+        "date": "2021-02-01 00:00:00",
+        "factor_contrib": 0.000179979354668877,
+        "alpha_contrib": 0.043145541023547285,
+        "idio_contrib": -0.003510829652041813,
+        "total_return": -0.003330850297372936
+      },
+      {
+        "date": "2021-02-02 00:00:00",
+        "factor_contrib": 0.00039937247147517726,
+        "alpha_contrib": 0.08510874497091481,
+        "idio_contrib": -0.00920813987579511,
+        "total_return": -0.008808767404319934
+      }
+    ]
+  },
+  {
+    "file": "market_events_quant.parquet",
+    "path": "C:\\Quant\\data\\analytics\\market_events_quant.parquet",
+    "size_bytes": 61123,
+    "rows": 1482,
+    "columns": [
+      {
+        "name": "week_start",
+        "dtype": "datetime64[ns]"
+      },
+      {
+        "name": "ticker",
+        "dtype": "object"
+      },
+      {
+        "name": "event",
+        "dtype": "object"
+      },
+      {
+        "name": "zscore",
+        "dtype": "float64"
+      },
+      {
+        "name": "metric",
+        "dtype": "object"
+      },
+      {
+        "name": "value",
+        "dtype": "float64"
+      },
+      {
+        "name": "description",
+        "dtype": "object"
+      }
+    ],
+    "sample": [
+      {
+        "week_start": "2021-01-04 00:00:00",
+        "ticker": "CME",
+        "event": "price_spike",
+        "zscore": 3.95782841821362,
+        "metric": "weekly_return",
+        "value": 0.1110629454944088,
+        "description": "CME weekly return 11.11% (z=3.96)"
+      },
+      {
+        "week_start": "2021-01-04 00:00:00",
+        "ticker": "COR",
+        "event": "price_spike",
+        "zscore": 4.3746221340358975,
+        "metric": "weekly_return",
+        "value": 0.135474639400744,
+        "description": "COR weekly return 13.55% (z=4.37)"
+      },
+      {
+        "week_start": "2021-01-04 00:00:00",
+        "ticker": "CTVA",
+        "event": "price_spike",
+        "zscore": 3.191574980771642,
+        "metric": "weekly_return",
+        "value": 0.1226789227463333,
+        "description": "CTVA weekly return 12.27% (z=3.19)"
+      },
+      {
+        "week_start": "2021-01-04 00:00:00",
+        "ticker": "DD",
+        "event": "price_spike",
+        "zscore": 3.6656570159496544,
+        "metric": "weekly_return",
+        "value": 0.1545206937297258,
+        "description": "DD weekly return 15.45% (z=3.67)"
+      },
+      {
+        "week_start": "2021-01-04 00:00:00",
+        "ticker": "EOG",
+        "event": "price_spike",
+        "zscore": 3.222874228155596,
+        "metric": "weekly_return",
+        "value": 0.17149189009773189,
+        "description": "EOG weekly return 17.15% (z=3.22)"
+      }
+    ]
+  },
+  {
+    "file": "portfolio_performance_quant_v1.parquet",
+    "path": "C:\\Quant\\data\\analytics\\portfolio_performance_quant_v1.parquet",
+    "size_bytes": 38710,
+    "rows": 1315,
+    "columns": [
+      {
+        "name": "date",
+        "dtype": "datetime64[ns]"
+      },
+      {
+        "name": "portfolio_return",
+        "dtype": "float64"
+      },
+      {
+        "name": "regime",
+        "dtype": "object"
+      },
+      {
+        "name": "cumulative_return",
+        "dtype": "float64"
+      }
+    ],
+    "sample": [
+      {
+        "date": "2021-01-18 00:00:00",
+        "portfolio_return": 0.0,
+        "regime": "neutral",
+        "cumulative_return": 0.0
+      },
+      {
+        "date": "2021-01-19 00:00:00",
+        "portfolio_return": 0.005593426669800152,
+        "regime": "neutral",
+        "cumulative_return": 0.005593426669800117
+      },
+      {
+        "date": "2021-01-20 00:00:00",
+        "portfolio_return": 0.004262510207785828,
+        "regime": "neutral",
+        "cumulative_return": 0.009879778915862447
+      },
+      {
+        "date": "2021-01-21 00:00:00",
+        "portfolio_return": 0.0032280652489949315,
+        "regime": "neutral",
+        "cumulative_return": 0.013139736735843455
+      },
+      {
+        "date": "2021-01-22 00:00:00",
+        "portfolio_return": 0.0075578071604406535,
+        "regime": "neutral",
+        "cumulative_return": 0.02079685149267263
+      }
+    ]
+  },
+  {
+    "file": "performance_quant_v2.parquet",
+    "path": "C:\\Quant\\data\\analytics\\performance_quant_v2.parquet",
+    "size_bytes": 38708,
+    "rows": 1301,
+    "columns": [
+      {
+        "name": "strategy",
+        "dtype": "object"
+      },
+      {
+        "name": "date",
+        "dtype": "datetime64[ns]"
+      },
+      {
+        "name": "port_ret",
+        "dtype": "float64"
+      },
+      {
+        "name": "cum_growth",
+        "dtype": "float64"
+      }
+    ],
+    "sample": [
+      {
+        "strategy": "CORE",
+        "date": "2021-01-27 00:00:00",
+        "port_ret": 0.0007012553830475013,
+        "cum_growth": 1.0007012553830474
+      },
+      {
+        "strategy": "CORE",
+        "date": "2021-01-28 00:00:00",
+        "port_ret": 0.002758082285593901,
+        "cum_growth": 1.003461271788691
+      },
+      {
+        "strategy": "CORE",
+        "date": "2021-01-29 00:00:00",
+        "port_ret": 0.0018796092318727996,
+        "cum_growth": 1.0053473868589717
+      },
+      {
+        "strategy": "CORE",
+        "date": "2021-02-01 00:00:00",
+        "port_ret": 0.0077498908943046,
+        "cum_growth": 1.013138719418003
+      },
+      {
+        "strategy": "CORE",
+        "date": "2021-02-02 00:00:00",
+        "port_ret": 0.0272349410968681,
+        "cum_growth": 1.0407314927643088
+      }
+    ]
+  },
+  {
+    "file": "strategy_returns_backup_before_repair.parquet",
+    "path": "C:\\Quant\\data\\analytics\\strategy_returns_backup_before_repair.parquet",
+    "size_bytes": 38599,
+    "rows": 1251,
+    "columns": [
+      {
+        "name": "date",
+        "dtype": "datetime64[ns]"
+      },
+      {
+        "name": "strategy",
+        "dtype": "object"
+      },
+      {
+        "name": "total_return",
+        "dtype": "float64"
+      },
+      {
+        "name": "cum",
+        "dtype": "float64"
+      }
+    ],
+    "sample": [
+      {
+        "date": "2021-01-27 00:00:00",
+        "strategy": "LONG_ONLY",
+        "total_return": 0.018943779277544495,
+        "cum": 0.0189437792775445
+      },
+      {
+        "date": "2021-01-29 00:00:00",
+        "strategy": "LONG_ONLY",
+        "total_return": 0.002446295380125437,
+        "cum": 0.021436416737398708
+      },
+      {
+        "date": "2021-02-03 00:00:00",
+        "strategy": "LONG_ONLY",
+        "total_return": 0.0028604745239330857,
+        "cum": 0.024358209585293535
+      },
+      {
+        "date": "2021-02-04 00:00:00",
+        "strategy": "LONG_ONLY",
+        "total_return": 0.0025956060294787383,
+        "cum": 0.027017039930439173
+      },
+      {
+        "date": "2021-02-05 00:00:00",
+        "strategy": "LONG_ONLY",
+        "total_return": 0.0034125711885240203,
+        "cum": 0.030521808691029016
+      }
+    ]
+  },
+  {
+    "file": "strategy_returns.parquet",
+    "path": "C:\\Quant\\data\\analytics\\strategy_returns.parquet",
+    "size_bytes": 38156,
+    "rows": 1251,
+    "columns": [
+      {
+        "name": "date",
+        "dtype": "datetime64[ns]"
+      },
+      {
+        "name": "strategy",
+        "dtype": "object"
+      },
+      {
+        "name": "total_return",
+        "dtype": "float64"
+      },
+      {
+        "name": "cum",
+        "dtype": "float64"
+      }
+    ],
+    "sample": [
+      {
+        "date": "2021-01-27 00:00:00",
+        "strategy": "LONG_ONLY",
+        "total_return": 0.018943779277544495,
+        "cum": 0.0189437792775445
+      },
+      {
+        "date": "2021-01-29 00:00:00",
+        "strategy": "LONG_ONLY",
+        "total_return": 0.002446295380125437,
+        "cum": 0.021436416737398708
+      },
+      {
+        "date": "2021-02-03 00:00:00",
+        "strategy": "LONG_ONLY",
+        "total_return": 0.0028604745239330857,
+        "cum": 0.024358209585293535
+      },
+      {
+        "date": "2021-02-04 00:00:00",
+        "strategy": "LONG_ONLY",
+        "total_return": 0.0025956060294787383,
+        "cum": 0.027017039930439173
+      },
+      {
+        "date": "2021-02-05 00:00:00",
+        "strategy": "LONG_ONLY",
+        "total_return": 0.0034125711885240203,
+        "cum": 0.030521808691029016
+      }
+    ]
+  },
+  {
+    "file": "turnover_regime_quant_v1.parquet",
+    "path": "C:\\Quant\\data\\analytics\\turnover_regime_quant_v1.parquet",
+    "size_bytes": 26700,
+    "rows": 1315,
+    "columns": [
+      {
+        "name": "date",
+        "dtype": "datetime64[ns]"
+      },
+      {
+        "name": "regime",
+        "dtype": "object"
+      },
+      {
+        "name": "turnover",
+        "dtype": "float64"
+      }
+    ],
+    "sample": [
+      {
+        "date": "2021-01-18 00:00:00",
+        "regime": "neutral",
+        "turnover": 0.0
+      },
+      {
+        "date": "2021-01-19 00:00:00",
+        "regime": "neutral",
+        "turnover": 0.036363219029104596
+      },
+      {
+        "date": "2021-01-20 00:00:00",
+        "regime": "neutral",
+        "turnover": 0.03904237937213959
+      },
+      {
+        "date": "2021-01-21 00:00:00",
+        "regime": "neutral",
+        "turnover": 0.03953453484184958
+      },
+      {
+        "date": "2021-01-22 00:00:00",
+        "regime": "neutral",
+        "turnover": 0.033863673255630486
+      }
+    ]
+  },
+  {
+    "file": "strategy_returns_fixed.parquet",
+    "path": "C:\\Quant\\data\\analytics\\strategy_returns_fixed.parquet",
+    "size_bytes": 22609,
+    "rows": 1251,
+    "columns": [
+      {
+        "name": "date",
+        "dtype": "datetime64[ns]"
+      },
+      {
+        "name": "strategy",
+        "dtype": "object"
+      },
+      {
+        "name": "total_return",
+        "dtype": "float64"
+      }
+    ],
+    "sample": [
+      {
+        "date": "2021-01-01 00:00:00",
+        "strategy": "LONG_ONLY",
+        "total_return": 0.0
+      },
+      {
+        "date": "2021-01-02 00:00:00",
+        "strategy": "LONG_ONLY",
+        "total_return": 0.0008
+      },
+      {
+        "date": "2021-01-03 00:00:00",
+        "strategy": "LONG_ONLY",
+        "total_return": 0.0016
+      },
+      {
+        "date": "2021-01-04 00:00:00",
+        "strategy": "LONG_ONLY",
+        "total_return": 0.0024000000000000002
+      },
+      {
+        "date": "2021-01-05 00:00:00",
+        "strategy": "LONG_ONLY",
+        "total_return": 0.0032
+      }
+    ]
+  },
+  {
+    "file": "strategy_returns_weekly.parquet",
+    "path": "C:\\Quant\\data\\analytics\\strategy_returns_weekly.parquet",
+    "size_bytes": 15259,
+    "rows": 520,
+    "columns": [
+      {
+        "name": "strategy",
+        "dtype": "object"
+      },
+      {
+        "name": "date",
+        "dtype": "datetime64[ns]"
+      },
+      {
+        "name": "weekly_return",
+        "dtype": "float64"
+      },
+      {
+        "name": "cum_return",
+        "dtype": "float64"
+      }
+    ],
+    "sample": [
+      {
+        "strategy": "LONG_ONLY",
+        "date": "2021-02-15 00:00:00",
+        "weekly_return": -0.025053614626093595,
+        "cum_return": 0.9749463853739064
+      },
+      {
+        "strategy": "LONG_ONLY",
+        "date": "2021-02-22 00:00:00",
+        "weekly_return": -0.03454180195332912,
+        "cum_return": 0.9412699804152068
+      },
+      {
+        "strategy": "LONG_ONLY",
+        "date": "2021-03-01 00:00:00",
+        "weekly_return": 0.020952446015672477,
+        "cum_return": 0.9609918888660295
+      },
+      {
+        "strategy": "LONG_ONLY",
+        "date": "2021-03-08 00:00:00",
+        "weekly_return": -0.05543047423974812,
+        "cum_return": 0.9077236527256342
+      },
+      {
+        "strategy": "LONG_ONLY",
+        "date": "2021-03-15 00:00:00",
+        "weekly_return": 0.014057196272609318,
+        "cum_return": 0.9204837022732882
+      }
+    ]
+  },
+  {
+    "file": "factor_exposure_report_quant_v1.parquet",
+    "path": "C:\\Quant\\data\\analytics\\factor_exposure_report_quant_v1.parquet",
+    "size_bytes": 14446,
+    "rows": 1315,
+    "columns": [
+      {
+        "name": "date",
+        "dtype": "datetime64[ns]"
+      },
+      {
+        "name": "factor_1",
+        "dtype": "float64"
+      },
+      {
+        "name": "factor_2",
+        "dtype": "float64"
+      },
+      {
+        "name": "factor_3",
+        "dtype": "float64"
+      }
+    ],
+    "sample": [
+      {
+        "date": "2021-01-18 00:00:00",
+        "factor_1": 0.0,
+        "factor_2": 0.0,
+        "factor_3": 0.0
+      },
+      {
+        "date": "2021-01-19 00:00:00",
+        "factor_1": 0.0,
+        "factor_2": 0.0,
+        "factor_3": 0.0
+      },
+      {
+        "date": "2021-01-20 00:00:00",
+        "factor_1": 0.0,
+        "factor_2": 0.0,
+        "factor_3": 0.0
+      },
+      {
+        "date": "2021-01-21 00:00:00",
+        "factor_1": 0.0,
+        "factor_2": 0.0,
+        "factor_3": 0.0
+      },
+      {
+        "date": "2021-01-22 00:00:00",
+        "factor_1": 0.0,
+        "factor_2": 0.0,
+        "factor_3": 0.0
+      }
+    ]
+  },
+  {
+    "file": "perf_weekly.parquet",
+    "path": "C:\\Quant\\data\\analytics\\perf_weekly.parquet",
+    "size_bytes": 11399,
+    "rows": 264,
+    "columns": [
+      {
+        "name": "date",
+        "dtype": "datetime64[ns]"
+      },
+      {
+        "name": "period_return",
+        "dtype": "float64"
+      },
+      {
+        "name": "period_return_pct",
+        "dtype": "float64"
+      },
+      {
+        "name": "flag_suspicious",
+        "dtype": "bool"
+      },
+      {
+        "name": "flag_count",
+        "dtype": "int64"
+      },
+      {
+        "name": "unit_decision",
+        "dtype": "object"
+      }
+    ],
+    "sample": [
+      {
+        "date": "2021-01-10 00:00:00",
+        "period_return": 0.0007648754181480461,
+        "period_return_pct": 0.0764875418148046,
+        "flag_suspicious": false,
+        "flag_count": 0,
+        "unit_decision": "decimal"
+      },
+      {
+        "date": "2021-01-17 00:00:00",
+        "period_return": 0.028786007700786865,
+        "period_return_pct": 2.8786007700786866,
+        "flag_suspicious": false,
+        "flag_count": 0,
+        "unit_decision": "decimal"
+      },
+      {
+        "date": "2021-01-24 00:00:00",
+        "period_return": 0.021839323957948537,
+        "period_return_pct": 2.1839323957948538,
+        "flag_suspicious": false,
+        "flag_count": 0,
+        "unit_decision": "decimal"
+      },
+      {
+        "date": "2021-01-31 00:00:00",
+        "period_return": 0.023188957505037293,
+        "period_return_pct": 2.3188957505037293,
+        "flag_suspicious": false,
+        "flag_count": 0,
+        "unit_decision": "decimal"
+      },
+      {
+        "date": "2021-02-07 00:00:00",
+        "period_return": -0.003270965959757021,
+        "period_return_pct": -0.3270965959757021,
+        "flag_suspicious": false,
+        "flag_count": 0,
+        "unit_decision": "decimal"
+      }
+    ]
+  },
+  {
+    "file": "quant_weekly_picks_quant_v1.price_backfilled.parquet",
+    "path": "C:\\Quant\\data\\analytics\\quant_weekly_picks_quant_v1.price_backfilled.parquet",
+    "size_bytes": 5782,
+    "rows": 10,
+    "columns": [
+      {
+        "name": "as_of_date",
+        "dtype": "datetime64[ns]"
+      },
+      {
+        "name": "rank",
+        "dtype": "int64"
+      },
+      {
+        "name": "ticker",
+        "dtype": "object"
+      },
+      {
+        "name": "company_name",
+        "dtype": "object"
+      },
+      {
+        "name": "sector",
+        "dtype": "object"
+      },
+      {
+        "name": "weight",
+        "dtype": "float64"
+      },
+      {
+        "name": "monday_open",
+        "dtype": "float64"
+      },
+      {
+        "name": "friday_close",
+        "dtype": "float64"
+      }
+    ],
+    "sample": [
+      {
+        "as_of_date": "2026-01-30 00:00:00",
+        "rank": 1,
+        "ticker": "STX",
+        "company_name": "Seagate Technology Holdings plc",
+        "sector": "Technology",
+        "weight": 0.021022128769036252,
+        "monday_open": 358.2900085449219,
+        "friday_close": 446.5700073242188
+      },
+      {
+        "as_of_date": "2026-01-30 00:00:00",
+        "rank": 2,
+        "ticker": "WDC",
+        "company_name": "Western Digital Corporation",
+        "sector": "Technology",
+        "weight": 0.020601021756703287,
+        "monday_open": 240.8500061035156,
+        "friday_close": 278.4100036621094
+      },
+      {
+        "as_of_date": "2026-01-30 00:00:00",
+        "rank": 3,
+        "ticker": "MRNA",
+        "company_name": "Moderna, Inc.",
+        "sector": "Healthcare",
+        "weight": 0.019504184151946907,
+        "monday_open": 47.9900016784668,
+        "friday_close": 46.86000061035156
+      },
+      {
+        "as_of_date": "2026-01-30 00:00:00",
+        "rank": 4,
+        "ticker": "MU",
+        "company_name": "Micron Technology, Inc.",
+        "sector": "Technology",
+        "weight": 0.014391733725224093,
+        "monday_open": 389.0899963378906,
+        "friday_close": 435.7900085449219
+      },
+      {
+        "as_of_date": "2026-01-30 00:00:00",
+        "rank": 5,
+        "ticker": "LRCX",
+        "company_name": "Lam Research Corporation",
+        "sector": "Technology",
+        "weight": 0.009551537681790108,
+        "monday_open": 222.8699951171875,
+        "friday_close": 248.1699981689453
+      }
+    ]
+  },
+  {
+    "file": "quant_weekly_picks_quant_v1.backup.parquet",
+    "path": "C:\\Quant\\data\\analytics\\quant_weekly_picks_quant_v1.backup.parquet",
+    "size_bytes": 4381,
+    "rows": 10,
+    "columns": [
+      {
+        "name": "as_of_date",
+        "dtype": "object"
+      },
+      {
+        "name": "rank",
+        "dtype": "int64"
+      },
+      {
+        "name": "ticker",
+        "dtype": "object"
+      },
+      {
+        "name": "company_name",
+        "dtype": "object"
+      },
+      {
+        "name": "sector",
+        "dtype": "object"
+      },
+      {
+        "name": "weight",
+        "dtype": "float64"
+      }
+    ],
+    "sample": [
+      {
+        "as_of_date": "2026-01-30",
+        "rank": 1,
+        "ticker": "STX",
+        "company_name": "Seagate Technology Holdings plc",
+        "sector": "Technology",
+        "weight": 0.021022128769036252
+      },
+      {
+        "as_of_date": "2026-01-30",
+        "rank": 2,
+        "ticker": "WDC",
+        "company_name": "Western Digital Corporation",
+        "sector": "Technology",
+        "weight": 0.020601021756703287
+      },
+      {
+        "as_of_date": "2026-01-30",
+        "rank": 3,
+        "ticker": "MRNA",
+        "company_name": "Moderna, Inc.",
+        "sector": "Healthcare",
+        "weight": 0.019504184151946907
+      },
+      {
+        "as_of_date": "2026-01-30",
+        "rank": 4,
+        "ticker": "MU",
+        "company_name": "Micron Technology, Inc.",
+        "sector": "Technology",
+        "weight": 0.014391733725224093
+      },
+      {
+        "as_of_date": "2026-01-30",
+        "rank": 5,
+        "ticker": "LRCX",
+        "company_name": "Lam Research Corporation",
+        "sector": "Technology",
+        "weight": 0.009551537681790108
+      }
+    ]
+  },
+  {
+    "file": "quant_weekly_picks_quant_v1.parquet",
+    "path": "C:\\Quant\\data\\analytics\\quant_weekly_picks_quant_v1.parquet",
+    "size_bytes": 4381,
+    "rows": 10,
+    "columns": [
+      {
+        "name": "as_of_date",
+        "dtype": "object"
+      },
+      {
+        "name": "rank",
+        "dtype": "int64"
+      },
+      {
+        "name": "ticker",
+        "dtype": "object"
+      },
+      {
+        "name": "company_name",
+        "dtype": "object"
+      },
+      {
+        "name": "sector",
+        "dtype": "object"
+      },
+      {
+        "name": "weight",
+        "dtype": "float64"
+      }
+    ],
+    "sample": [
+      {
+        "as_of_date": "2026-01-30",
+        "rank": 1,
+        "ticker": "STX",
+        "company_name": "Seagate Technology Holdings plc",
+        "sector": "Technology",
+        "weight": 0.021022128769036252
+      },
+      {
+        "as_of_date": "2026-01-30",
+        "rank": 2,
+        "ticker": "WDC",
+        "company_name": "Western Digital Corporation",
+        "sector": "Technology",
+        "weight": 0.020601021756703287
+      },
+      {
+        "as_of_date": "2026-01-30",
+        "rank": 3,
+        "ticker": "MRNA",
+        "company_name": "Moderna, Inc.",
+        "sector": "Healthcare",
+        "weight": 0.019504184151946907
+      },
+      {
+        "as_of_date": "2026-01-30",
+        "rank": 4,
+        "ticker": "MU",
+        "company_name": "Micron Technology, Inc.",
+        "sector": "Technology",
+        "weight": 0.014391733725224093
+      },
+      {
+        "as_of_date": "2026-01-30",
+        "rank": 5,
+        "ticker": "LRCX",
+        "company_name": "Lam Research Corporation",
+        "sector": "Technology",
+        "weight": 0.009551537681790108
+      }
+    ]
+  }
+]

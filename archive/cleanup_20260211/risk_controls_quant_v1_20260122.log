@@ -1,0 +1,18 @@
+[2026-01-22 08:33:55 UTC] [risk_controls_quant_v1] Starting risk_controls_quant_v1 run (v1.0, max_pos_long=0.1, max_pos_short=-0.1, max_sector_weight=0.3).
+[2026-01-22 08:33:55 UTC] [risk_controls_quant_v1] Loading factor data from C:\Quant\data\analytics\quant_factors_composite.csv
+[2026-01-22 08:33:59 UTC] [risk_controls_quant_v1] No 'sector' column found in factor file; sector caps will be skipped.
+[2026-01-22 08:33:59 UTC] [risk_controls_quant_v1] Loaded 680604 factor rows after cleaning.
+[2026-01-22 08:34:00 UTC] [risk_controls_quant_v1] Loading weights from C:\Quant\data\analytics\quant_portfolio_weights_longshort.csv
+[2026-01-22 08:34:00 UTC] [risk_controls_quant_v1] Loaded 680604 rows from C:\Quant\data\analytics\quant_portfolio_weights_longshort.csv after cleaning.
+[2026-01-22 08:34:00 UTC] [risk_controls_quant_v1] Loading weights from C:\Quant\data\analytics\quant_portfolio_weights_longonly.csv
+[2026-01-22 08:34:00 UTC] [risk_controls_quant_v1] Loaded 680604 rows from C:\Quant\data\analytics\quant_portfolio_weights_longonly.csv after cleaning.
+[2026-01-22 08:34:00 UTC] [risk_controls_quant_v1] Applying risk controls for longshort on column weight_longshort: max_pos_long=0.1, max_pos_short=-0.1, max_sector_weight=0.3.
+[2026-01-22 08:34:02 UTC] [risk_controls_quant_v1] Risk controls applied for longshort: 680604 rows in risk-controlled weights.
+[2026-01-22 08:34:02 UTC] [risk_controls_quant_v1] Applying risk controls for longonly on column weight_longonly: max_pos_long=0.1, max_pos_short=-0.1, max_sector_weight=0.3.
+[2026-01-22 08:34:04 UTC] [risk_controls_quant_v1] Risk controls applied for longonly: 680604 rows in risk-controlled weights.
+[2026-01-22 08:34:04 UTC] [risk_controls_quant_v1] Computing performance from risk-controlled weights.
+[2026-01-22 08:34:05 UTC] [risk_controls_quant_v1] Risk-controlled performance computed for long-short and long-only.
+[2026-01-22 08:34:05 UTC] [risk_controls_quant_v1] Saving risk-controlled long-short weights to C:\Quant\data\analytics\quant_portfolio_weights_longshort_rc.csv
+[2026-01-22 08:34:06 UTC] [risk_controls_quant_v1] Saving risk-controlled long-only weights to C:\Quant\data\analytics\quant_portfolio_weights_longonly_rc.csv
+[2026-01-22 08:34:07 UTC] [risk_controls_quant_v1] Saving risk-controlled performance to C:\Quant\data\analytics\quant_portfolio_performance_rc.csv
+[2026-01-22 08:34:07 UTC] [risk_controls_quant_v1] risk_controls_quant_v1 run completed successfully.

@@ -1,0 +1,54 @@
+2026-01-24 14:26:31,796 [INFO] ------------------------------------------------------------
+2026-01-24 14:26:31,796 [INFO] Starting Reporting Engine v1.1
+2026-01-24 14:26:31,796 [INFO] Run timestamp: 2026-01-24 14:26:31 UTC
+2026-01-24 14:26:31,796 [INFO] ------------------------------------------------------------
+2026-01-24 14:26:31,839 [INFO] Stacked report written to C:\Quant\data\analytics\reporting\quant_report_v1.csv
+2026-01-24 14:26:31,839 [INFO] No usable daily summary section with date column; dashboard will omit PNL.
+2026-01-24 14:26:31,839 [INFO] Dashboard inputs written to C:\Quant\data\analytics\reporting\quant_dashboard_inputs_v1.csv
+2026-01-24 14:26:31,839 [INFO] Reporting Engine v1.1 completed.
+2026-01-24 14:26:31,839 [INFO] ------------------------------------------------------------
+2026-01-24 14:49:49,291 [INFO] ------------------------------------------------------------
+2026-01-24 14:49:49,291 [INFO] Starting Reporting Engine v1.1
+2026-01-24 14:49:49,291 [INFO] Run timestamp: 2026-01-24 14:49:49 UTC
+2026-01-24 14:49:49,291 [INFO] ------------------------------------------------------------
+2026-01-24 14:49:49,384 [INFO] Stacked report written to C:\Quant\data\analytics\reporting\quant_report_v1.csv
+2026-01-24 14:49:49,400 [INFO] No usable daily summary section with date column; dashboard will omit PNL.
+2026-01-24 14:49:49,408 [INFO] Dashboard inputs written to C:\Quant\data\analytics\reporting\quant_dashboard_inputs_v1.csv
+2026-01-24 14:49:49,408 [INFO] Reporting Engine v1.1 completed.
+2026-01-24 14:49:49,408 [INFO] ------------------------------------------------------------
+2026-01-25 10:24:09,689 [INFO] ------------------------------------------------------------
+2026-01-25 10:24:09,700 [INFO] Starting Reporting Engine v1.1
+2026-01-25 10:24:09,700 [INFO] Run timestamp: 2026-01-25 10:24:09 UTC
+2026-01-25 10:24:09,700 [INFO] ------------------------------------------------------------
+2026-01-25 10:24:09,786 [INFO] Stacked report written to C:\Quant\data\analytics\reporting\quant_report_v1.csv
+2026-01-25 10:24:09,790 [INFO] No usable daily summary section with date column; dashboard will omit PNL.
+2026-01-25 10:24:09,795 [INFO] Dashboard inputs written to C:\Quant\data\analytics\reporting\quant_dashboard_inputs_v1.csv
+2026-01-25 10:24:09,795 [INFO] Reporting Engine v1.1 completed.
+2026-01-25 10:24:09,795 [INFO] ------------------------------------------------------------
+2026-01-25 10:30:56,164 [INFO] ------------------------------------------------------------
+2026-01-25 10:30:56,164 [INFO] Starting Reporting Engine v1.1
+2026-01-25 10:30:56,164 [INFO] Run timestamp: 2026-01-25 10:30:56 UTC
+2026-01-25 10:30:56,164 [INFO] ------------------------------------------------------------
+2026-01-25 10:30:56,212 [INFO] Stacked report written to C:\Quant\data\analytics\reporting\quant_report_v1.csv
+2026-01-25 10:30:56,212 [INFO] No usable daily summary section with date column; dashboard will omit PNL.
+2026-01-25 10:30:56,228 [INFO] Dashboard inputs written to C:\Quant\data\analytics\reporting\quant_dashboard_inputs_v1.csv
+2026-01-25 10:30:56,228 [INFO] Reporting Engine v1.1 completed.
+2026-01-25 10:30:56,228 [INFO] ------------------------------------------------------------
+2026-01-25 10:36:56,065 [INFO] ------------------------------------------------------------
+2026-01-25 10:36:56,065 [INFO] Starting Reporting Engine v1.1
+2026-01-25 10:36:56,065 [INFO] Run timestamp: 2026-01-25 10:36:56 UTC
+2026-01-25 10:36:56,065 [INFO] ------------------------------------------------------------
+2026-01-25 10:36:56,105 [INFO] Stacked report written to C:\Quant\data\analytics\reporting\quant_report_v1.csv
+2026-01-25 10:36:56,105 [INFO] No usable daily summary section with date column; dashboard will omit PNL.
+2026-01-25 10:36:56,121 [INFO] Dashboard inputs written to C:\Quant\data\analytics\reporting\quant_dashboard_inputs_v1.csv
+2026-01-25 10:36:56,121 [INFO] Reporting Engine v1.1 completed.
+2026-01-25 10:36:56,121 [INFO] ------------------------------------------------------------
+2026-01-25 10:48:17,403 [INFO] ------------------------------------------------------------
+2026-01-25 10:48:17,403 [INFO] Starting Reporting Engine v1.1
+2026-01-25 10:48:17,403 [INFO] Run timestamp: 2026-01-25 10:48:17 UTC
+2026-01-25 10:48:17,403 [INFO] ------------------------------------------------------------
+2026-01-25 10:48:17,576 [INFO] Stacked report written to C:\Quant\data\analytics\reporting\quant_report_v1.csv
+2026-01-25 10:48:17,580 [INFO] No usable daily summary section with date column; dashboard will omit PNL.
+2026-01-25 10:48:17,586 [INFO] Dashboard inputs written to C:\Quant\data\analytics\reporting\quant_dashboard_inputs_v1.csv
+2026-01-25 10:48:17,586 [INFO] Reporting Engine v1.1 completed.
+2026-01-25 10:48:17,586 [INFO] ------------------------------------------------------------

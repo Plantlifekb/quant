@@ -1,0 +1,10 @@
+[2026-01-26 12:23:02 UTC] [quant_generate_historical_weights_ensemble_v1] Loading ensemble long-only weights
+[2026-01-26 12:25:19 UTC] [quant_generate_historical_weights_ensemble_v1] Loading ensemble long-only weights
+[2026-01-26 12:25:20 UTC] [quant_generate_historical_weights_ensemble_v1] Loading ensemble long-short weights
+[2026-01-26 12:25:21 UTC] [quant_generate_historical_weights_ensemble_v1] Loaded 1,361,208 daily weight rows
+[2026-01-26 12:25:21 UTC] [quant_generate_historical_weights_ensemble_v1] Converting to weekly snapshots
+[2026-01-26 12:25:22 UTC] [quant_generate_historical_weights_ensemble_v1] Weekly snapshots: 273,480 rows
+[2026-01-26 12:25:22 UTC] [quant_generate_historical_weights_ensemble_v1] Loading regime states
+[2026-01-26 12:25:22 UTC] [quant_generate_historical_weights_ensemble_v1] Merging regimes onto weekly weights
+[2026-01-26 12:25:22 UTC] [quant_generate_historical_weights_ensemble_v1] Writing historical weights to C:\Quant\data\analytics\quant_portfolio_weights_regime_history_v1.csv
+[2026-01-26 12:25:27 UTC] [quant_generate_historical_weights_ensemble_v1] Done

@@ -1,0 +1,22 @@
+﻿2026-02-07T02:00:02.2492674+00:00 INFO	START system freshness / lineage verification
+2026-02-07T02:00:02.2653162+00:00 INFO	[FRESHNESS] Ingestion (5y) => 2026-02-07T01:07:35
+2026-02-07T02:00:02.2653162+00:00 INFO	[FRESHNESS] Canonical prices => 2026-01-31T10:52:33
+2026-02-07T02:00:02.2653162+00:00 INFO	[FRESHNESS] Canonical fundamentals => 2026-01-31T10:58:17
+2026-02-07T02:00:02.2653162+00:00 INFO	[FRESHNESS] Canonical risk_model => 2026-01-31T11:51:29
+2026-02-07T02:00:02.2653162+00:00 INFO	[FRESHNESS] Analytics weekly picks => 2026-02-06T17:09:54
+2026-02-07T02:00:02.2653162+00:00 INFO	[FRESHNESS] Dashboard inputs v2 => 2026-01-25T22:53:54
+2026-02-07T02:00:02.2812433+00:00 INFO	[FRESHNESS] Canonical aggregate timestamp => 2026-01-31T11:51:29
+2026-02-07T02:00:02.2812433+00:00 WARN	[LINEAGE] Canonical (2026-01-31T11:51:29) is older than Ingestion (5y) (2026-02-07T01:07:35)
+2026-02-07T02:00:02.2812433+00:00 INFO	[LINEAGE] Canonical -> Analytics weekly picks OK
+2026-02-07T02:00:02.2969027+00:00 WARN	[LINEAGE] Dashboard inputs v2 (2026-01-25T22:53:54) is older than Analytics weekly picks (2026-02-06T17:09:54)
+2026-02-07T02:00:02.2969027+00:00 INFO	END system freshness / lineage verification
+2026-02-07T02:03:32.1861563+00:00 INFO	Imported predicted longshort rows: 664011
+2026-02-07T02:03:32.2430971+00:00 INFO	Imported realized longshort rows: 160
+2026-02-07T03:25:27.9969404+00:00 WARN	No matching predicted rows found for longshort (matches: 0).
+2026-02-07T03:27:20.1892344+00:00 WARN	Wrote predicted sample to C:\Quant\analysis\diagnostics\predicted_longshort_sample.20260207_020002.csv
+2026-02-07T03:27:20.2052928+00:00 WARN	Wrote realized sample to C:\Quant\analysis\diagnostics\realized_longshort_sample.20260207_020002.csv
+2026-02-07T03:27:20.2167455+00:00 INFO	Starting longonly verification steps...
+2026-02-07T03:27:20.2207677+00:00 INFO	Longonly verification completed.
+2026-02-07T03:27:20.2207677+00:00 INFO	Running verification runner...
+2026-02-07T03:27:20.2227729+00:00 INFO	Verification runner invoked.
+2026-02-07T03:27:20.2247806+00:00 INFO	END pipeline success

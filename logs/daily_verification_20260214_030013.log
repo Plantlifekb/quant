@@ -1,0 +1,24 @@
+﻿2026-02-14T03:00:13.1352050+00:00 INFO	START system freshness / lineage verification
+2026-02-14T03:00:13.3983504+00:00 INFO	[FRESHNESS] Ingestion (5y) => 2026-02-13T03:47:29
+2026-02-14T03:00:13.4053491+00:00 INFO	[FRESHNESS] Canonical prices => 2026-02-08T10:38:43
+2026-02-14T03:00:13.4117111+00:00 INFO	[FRESHNESS] Canonical fundamentals => 2026-02-08T10:38:45
+2026-02-14T03:00:13.4402691+00:00 INFO	[FRESHNESS] Canonical risk_model => 2026-02-07T11:52:41
+2026-02-14T03:00:13.6791407+00:00 INFO	[FRESHNESS] Analytics weekly picks => 2026-02-06T17:09:54
+2026-02-14T03:00:14.6484339+00:00 INFO	[FRESHNESS] Dashboard inputs v2 => 2026-02-07T11:52:41
+2026-02-14T03:00:15.6248120+00:00 INFO	[FRESHNESS] Canonical aggregate timestamp => 2026-02-08T10:38:45
+2026-02-14T03:00:15.6430415+00:00 WARN	[LINEAGE] Canonical (2026-02-08T10:38:45) is older than Ingestion (5y) (2026-02-13T03:47:29)
+2026-02-14T03:00:15.6857032+00:00 WARN	[LINEAGE] Analytics weekly picks (2026-02-06T17:09:54) is older than Canonical (2026-02-08T10:38:45)
+2026-02-14T03:00:15.7097613+00:00 INFO	[LINEAGE] Analytics weekly picks -> Dashboard inputs v2 OK
+2026-02-14T03:00:15.7536691+00:00 INFO	END system freshness / lineage verification
+2026-02-14T03:04:29.3539079+00:00 INFO	Imported predicted longshort rows: 664011
+2026-02-14T03:04:29.5606653+00:00 INFO	Imported realized longshort rows: 160
+2026-02-14T06:06:19.3951777+00:00 WARN	No matching predicted rows found for longshort (matches: 0).
+2026-02-14T06:10:21.9054086+00:00 WARN	Wrote predicted sample to C:\Quant\analysis\diagnostics\predicted_longshort_sample.20260214_030013.csv
+2026-02-14T06:10:21.9193681+00:00 WARN	Wrote realized sample to C:\Quant\analysis\diagnostics\realized_longshort_sample.20260214_030013.csv
+2026-02-14T06:10:21.9213816+00:00 INFO	Starting longonly verification steps...
+2026-02-14T06:10:21.9213816+00:00 INFO	Longonly verification completed.
+2026-02-14T06:10:21.9213816+00:00 INFO	Running verification runner...
+2026-02-14T06:10:21.9213816+00:00 INFO	Verification runner invoked.
+2026-02-14T06:10:21.9213816+00:00 INFO	Starting dashboard weekly parquet refresh via Python...
+2026-02-14T06:10:23.3812952+00:00 INFO	Dashboard weekly parquet refresh completed.
+2026-02-14T06:10:23.5239430+00:00 INFO	END pipeline success

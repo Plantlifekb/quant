@@ -1,0 +1,160 @@
+﻿#!/usr/bin/env python3
+# ==================================================================================================
+# Quant v1.0 â€” Backtest Engine
+# ==================================================================================================
+# Reads:
+#   C:\Quant\data\analytics\quant_factors.csv
+#
+# Writes:
+#   C:\Quant\data\analytics\quant_backtest.csv
+#
+# Logic:
+#   â€¢ Use model_signal_v3 if available, else model_signal_v2
+#   â€¢ Cross-sectional z-score per date
+#   â€¢ Linear weights proportional to signal z-score
+#   â€¢ Normalize to sum of absolute weights = 1 per date
+#   â€¢ Use next-day return (per ticker) as realized return
+#   â€¢ Compute daily portfolio return and PnL
+# ==================================================================================================
+
+import os
+import sys
+from datetime import datetime
+
+import numpy as np
+import pandas as pd
+
+# --------------------------------------------------------------------------------------------------
+# Ensure parent directory (C:\Quant\scripts) is on sys.path so we can import logging_quant_v1
+# --------------------------------------------------------------------------------------------------
+
+PARENT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+if PARENT_DIR not in sys.path:
+    sys.path.insert(0, PARENT_DIR)
+
+from logging_quant_v1 import get_logger  # type: ignore
+
+# --------------------------------------------------------------------------------------------------
+# CONFIG
+# --------------------------------------------------------------------------------------------------
+
+DATA_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "data", "analytics"))
+FACTOR_FILE = os.path.join(DATA_DIR, "quant_factors.csv")
+BACKTEST_FILE = os.path.join(DATA_DIR, "quant_backtest.csv")
+
+SIGNAL_COL_PRIMARY = "model_signal_v3"
+SIGNAL_COL_FALLBACK = "model_signal_v2"
+
+# --------------------------------------------------------------------------------------------------
+# HELPERS
+# --------------------------------------------------------------------------------------------------
+
+def _zscore(series: pd.Series) -> pd.Series:
+    m = series.mean()
+    s = series.std(ddof=0)
+    if s == 0 or np.isnan(s):
+        return pd.Series(0.0, index=series.index)
+    return (series - m) / (s + 1e-8)
+
+
+def _select_signal_column(df: pd.DataFrame, logger) -> str:
+    cols = df.columns.tolist()
+    if SIGNAL_COL_PRIMARY in cols:
+        logger.info(f"Using primary signal column: {SIGNAL_COL_PRIMARY}")
+        return SIGNAL_COL_PRIMARY
+    if SIGNAL_COL_FALLBACK in cols:
+        logger.info(f"Primary signal not found, using fallback: {SIGNAL_COL_FALLBACK}")
+        return SIGNAL_COL_FALLBACK
+    raise ValueError(
+        f"Neither {SIGNAL_COL_PRIMARY} nor {SIGNAL_COL_FALLBACK} found in factor file."
+    )
+
+# --------------------------------------------------------------------------------------------------
+# CORE BACKTEST LOGIC
+# --------------------------------------------------------------------------------------------------
+
+def run_backtest(logger):
+    logger.info("=== Starting backtest engine ===")
+
+    if not os.path.exists(FACTOR_FILE):
+        raise FileNotFoundError(f"Factor file not found: {FACTOR_FILE}")
+
+    df = pd.read_csv(FACTOR_FILE)
+    logger.info(f"Loaded factor dataset: {len(df):,} rows")
+
+    # Ensure date is datetime
+    df["date"] = pd.to_datetime(df["date"])
+
+    # Select signal column
+    signal_col = _select_signal_column(df, logger)
+
+    # Sort for stable operations
+    df = df.sort_values(["ticker", "date"]).reset_index(drop=True)
+
+    # Compute next-day return per ticker (forward-looking)
+    df["fwd_ret"] = (
+        df.groupby("ticker")["ret"]
+        .shift(-1)
+        .fillna(0.0)
+    )
+
+    # Cross-sectional z-score of signal per date
+    df["signal_raw"] = df[signal_col].astype(float).fillna(0.0)
+    df["signal_z"] = (
+        df.groupby("date")["signal_raw"]
+        .transform(_zscore)
+        .fillna(0.0)
+    )
+
+    # Linear weights proportional to signal_z, normalized so sum(|w|) = 1 per date
+    def _normalize_weights(group: pd.DataFrame) -> pd.Series:
+        s = group["signal_z"]
+        abs_sum = np.abs(s).sum()
+        if abs_sum == 0 or np.isnan(abs_sum):
+            return pd.Series(0.0, index=group.index)
+        return s / abs_sum
+
+    df["weight"] = (
+        df.groupby("date", group_keys=False)
+        .apply(_normalize_weights)
+    )
+
+    # Compute per-ticker PnL and portfolio return per date
+    df["pnl"] = df["weight"] * df["fwd_ret"]
+
+    daily = (
+        df.groupby("date", as_index=False)
+        .agg(
+            portfolio_ret=("pnl", "sum")
+        )
+        .sort_values("date")
+        .reset_index(drop=True)
+    )
+
+    # Merge daily portfolio return back to detail rows for full transparency
+    df = df.merge(daily, on="date", how="left")
+
+    # Add run metadata
+    run_date = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
+    df["backtest_run_date"] = run_date
+
+    # Write backtest file
+    os.makedirs(DATA_DIR, exist_ok=True)
+    df.to_csv(BACKTEST_FILE, index=False)
+    logger.info(f"Backtest dataset written: {BACKTEST_FILE}")
+    logger.info(f"Rows: {len(df):,}")
+    logger.info("=== Backtest engine done ===")
+
+    return df
+
+# --------------------------------------------------------------------------------------------------
+# ENTRY POINT
+# --------------------------------------------------------------------------------------------------
+
+if __name__ == "__main__":
+    logger = get_logger("backtest_engine_quant_v1")
+    try:
+        run_backtest(logger)
+    except Exception as e:
+        logger.exception(f"Backtest engine failed: {e}")
+        raise

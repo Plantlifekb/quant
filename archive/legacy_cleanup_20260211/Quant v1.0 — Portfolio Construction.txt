@@ -1,0 +1,209 @@
+Quant v1.0 — Portfolio Construction Specification
+
+Canonical, governed, non‑drifting
+
+Purpose
+
+Define the exact rules, constraints, weighting logic, and deterministic construction process for the Quant v1.0 weekly portfolio. This ensures that portfolio formation is transparent, reproducible, and aligned with the system’s governance and mathematical foundations.
+
+1. Construction Philosophy
+
+Quant v1.0 uses a simple, deterministic, equal‑weight portfolio built from the top 10 ranked tickers each Monday.
+
+The construction process must:
+
+use only governed inputs
+
+avoid randomness
+
+avoid optimization
+
+avoid external data
+
+produce identical results for identical inputs
+
+2. Inputs
+
+2.1 Required Files
+
+weekly_top10_quant_v1.csv
+
+enriched_daily.csv
+
+2.2 Required Fields
+
+From ranking output:
+
+ticker
+
+score
+
+rank
+
+From enrichment:
+
+ret_1d
+
+ret_20d
+
+vol_20d
+
+mkt_trend
+
+3. Selection Rules
+
+3.1 Universe
+
+The portfolio consists of:
+
+the top 10 tickers by score
+
+3.2 Deterministic Tie‑Breaking
+
+If two tickers have identical scores:
+
+the ticker with the alphabetically earlier symbol ranks higher
+
+3.3 No Overrides
+
+Forbidden:
+
+manual inclusion
+
+manual exclusion
+
+discretionary adjustments
+
+4. Weighting Rules
+
+4.1 Equal Weighting
+
+Each selected ticker receives: [ w_i = 0.1 ]
+
+4.2 Total Exposure
+
+Total portfolio exposure must equal: [ \sum_{i=1}^{10} w_i = 1 ]
+
+4.3 Forbidden Weighting Schemes
+
+risk parity
+
+volatility targeting
+
+score‑weighted portfolios
+
+optimization‑based weights
+
+leverage or margin
+
+5. Rebalancing Rules
+
+5.1 Weekly Rebalance
+
+Rebalance occurs:
+
+every Monday
+
+after ranking
+
+5.2 Full Rebalance
+
+All positions are reset to equal weight.
+
+5.3 No Partial Rebalances
+
+Forbidden:
+
+drift‑based rebalancing
+
+threshold rebalancing
+
+intraday rebalancing
+
+6. Transaction Rules
+
+6.1 No Transaction Costs
+
+Quant v1.0 assumes:
+
+zero commissions
+
+zero slippage
+
+6.2 No Shorting
+
+All weights must satisfy: [ w_i \ge 0 ]
+
+6.3 No Leverage
+
+Total exposure must not exceed 1.
+
+7. Portfolio Return Calculation
+
+7.1 Weekly Return
+
+[ ret_{1w}(t) = \frac{1}{10} \sum_{i=1}^{10} ret_{1w}^{(i)}(t) ]
+
+7.2 Cumulative Return
+
+[ cum(t) = (1 + ret_{1w}(t)) \cdot cum(t-1) ]
+
+8. Portfolio Invariants
+
+Exactly 10 tickers
+
+Equal weight only
+
+No leverage
+
+No shorting
+
+No optimization
+
+No external data
+
+No randomness
+
+No discretionary overrides
+
+9. Validation
+
+9.1 Schema Validator
+
+Ensures portfolio output contains:
+
+ticker
+
+weight
+
+rank
+
+score
+
+9.2 Compliance Checker
+
+Ensures:
+
+equal weighting
+
+no forbidden weighting schemes
+
+no leverage
+
+no shorting
+
+9.3 Directory Auditor
+
+Ensures no alternative portfolio files exist.
+
+10. Failure Handling
+
+If portfolio construction fails:
+
+pipeline stops
+
+no backtest may run
+
+incident must be declared
+
+End of Portfolio Construction Specification

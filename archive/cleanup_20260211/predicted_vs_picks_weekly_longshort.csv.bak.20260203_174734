@@ -1,0 +1,2 @@
+﻿week,ticker,score,side,target_weight,predicted_week_gain,close_start,close_end,realized_week_gain,tradeable_flag
+2026-02-03,EXAMPLE,0.5,longshort,0.01,0.0,100.0,101.0,0.01,True

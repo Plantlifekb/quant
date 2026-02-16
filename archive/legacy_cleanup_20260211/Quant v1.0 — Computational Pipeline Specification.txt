@@ -1,0 +1,323 @@
+Quant v1.0 — Computational Pipeline Specification
+
+Canonical, governed, non‑drifting
+
+Purpose
+
+Define the exact computational sequence, module interactions, data dependencies, and deterministic execution rules for the Quant v1.0 pipeline. This specification ensures that every run follows the same governed, reproducible, audit‑ready flow.
+
+1. Pipeline Overview
+
+Quant v1.0 executes a strictly linear, deterministic pipeline:
+
+Enrichment Layer
+
+Ranking Layer
+
+Backtest Layer
+
+Dashboard Layer
+
+Validation Layer
+
+Governance Enforcement Layer
+
+No parallelism, branching, or conditional paths are permitted.
+
+2. Module Execution Order
+
+2.1 Enrichment Stage
+
+Module: enrichment_daily_quant_v1.py
+
+Inputs:
+
+ingestion_5years.csv
+
+Outputs:
+
+enriched_daily.csv
+
+Computations:
+
+Daily returns
+
+20‑day returns
+
+20‑day volatility
+
+Market indicators (mkt_avg, mkt_ma200, mkt_trend)
+
+Composite score
+
+Monday flag
+
+Determinism Requirements:
+
+No randomness
+
+No external data
+
+No missing values
+
+2.2 Ranking Stage
+
+Module: ranking_weekly_quant_v1.py
+
+Inputs:
+
+enriched_daily.csv
+
+Outputs:
+
+weekly_top10_quant_v1.csv
+
+Computations:
+
+Cross‑sectional z‑scores
+
+Weekly score aggregation
+
+Deterministic ranking
+
+Alphabetical tie‑breaking
+
+Constraints:
+
+Exactly 10 tickers selected
+
+No ties in final rank
+
+2.3 Backtest Stage
+
+Module: backtest_weekly_quant_v1.py
+
+Inputs:
+
+weekly_top10_quant_v1.csv
+
+Outputs:
+
+weekly_backtest_quant_v1.csv
+
+Computations:
+
+Weekly portfolio return
+
+Cumulative return
+
+Constraints:
+
+Equal‑weight portfolio
+
+No transaction costs
+
+Deterministic compounding
+
+2.4 Dashboard Stage
+
+Modules:
+
+dashboard_top10_quant_v1.py
+
+dashboard_growth_quant_v1.py
+
+Inputs:
+
+Ranking outputs
+
+Backtest outputs
+
+Outputs:
+
+dashboard_top10_quant_v1.csv
+
+dashboard_growth_quant_v1.csv
+
+Computations:
+
+Presentation‑ready ranking table
+
+Presentation‑ready growth curve
+
+Constraints:
+
+No additional metrics
+
+No smoothing or transformations
+
+3. Validation Layer
+
+Validation occurs after every module.
+
+3.1 Schema Validation
+
+Module: schema_validator_quant_v1.py
+
+Checks:
+
+Column names
+
+Column order
+
+Data types
+
+ISO‑8601 dates
+
+No nulls
+
+No blank columns
+
+3.2 Directory Audit
+
+Module: directory_auditor_quant_v1.py
+
+Checks:
+
+No unapproved directories
+
+No unapproved files
+
+No legacy artefacts
+
+3.3 Full Compliance Check
+
+Module: compliance_checker_quant_v1.py
+
+Checks:
+
+All required modules exist
+
+All required outputs exist
+
+All schemas match
+
+No forbidden files
+
+No drift
+
+4. Logging Layer
+
+All modules must:
+
+Import get_logger
+
+Log start event
+
+Log end event
+
+Log errors
+
+Log Format:
+
+YYYY‑MM‑DDTHH:MM:SSZ | MODULE | LEVEL | MESSAGE
+
+Constraints:
+
+ASCII‑safe only
+
+No missing entries
+
+No silent failures
+
+5. Orchestration Layer
+
+Module: run_growth_pipeline_quant_v1.py
+
+Executes modules in strict order:
+
+enrichment
+
+ranking
+
+backtest
+
+dashboard_top10
+
+dashboard_growth
+
+schema validation
+
+directory audit
+
+compliance check
+
+Constraints:
+
+No skipping
+
+No reordering
+
+No parallel execution
+
+6. Determinism Requirements
+
+Quant v1.0 must:
+
+Produce identical outputs for identical inputs
+
+Avoid randomness
+
+Avoid non‑deterministic ordering
+
+Avoid external data sources
+
+Use only governed inputs
+
+If determinism is violated:
+
+Pipeline must stop
+
+Incident must be declared
+
+7. Purity Requirements
+
+The environment must contain:
+
+Only governed directories
+
+Only governed scripts
+
+Only governed outputs
+
+Only governed logs
+
+Forbidden:
+
+Temporary files
+
+JSON, pickle, parquet
+
+Notebooks
+
+Spreadsheets
+
+Legacy artefacts
+
+8. Failure Handling
+
+If any module fails:
+
+Stop pipeline immediately
+
+Freeze outputs
+
+Inspect logs
+
+Follow Incident Response Playbook
+
+9. Global Pipeline Invariants
+
+All modules must be deterministic
+
+All outputs must pass schema validation
+
+All runs must pass directory audit
+
+All logs must be complete
+
+No drift permitted
+
+No silent changes
+
+End of Computational Pipeline Specification

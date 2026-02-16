@@ -1,0 +1,24 @@
+[2026-01-22 08:49:46 UTC] [risk_model_quant_v1] Starting risk_model_quant_v1 run (v1.0).
+[2026-01-22 08:49:46 UTC] [risk_model_quant_v1] Loading ensemble factors from C:\Quant\data\analytics\quant_factors_ensemble_v1.csv
+[2026-01-22 08:49:46 UTC] [risk_model_quant_v1] Missing required columns in ensemble file for risk model: {'market_sector', 'volume_zscore', 'low_vol_252'}
+[2026-01-22 08:51:38 UTC] [risk_model_quant_v1] Starting risk_model_quant_v1 run (v1.0).
+[2026-01-22 08:51:38 UTC] [risk_model_quant_v1] Loading ensemble factors from C:\Quant\data\analytics\quant_factors_ensemble_v1.csv
+[2026-01-22 08:51:38 UTC] [risk_model_quant_v1] Missing required columns in ensemble file for risk model: {'market_sector', 'volume_zscore', 'low_vol_252'}
+[2026-01-22 08:59:34 UTC] [risk_model_quant_v1] Starting risk_model_quant_v1 run (v1.0).
+[2026-01-22 08:59:34 UTC] [risk_model_quant_v1] Loading ensemble factors from C:\Quant\data\analytics\quant_factors_ensemble_v1.csv
+[2026-01-22 08:59:35 UTC] [risk_model_quant_v1] Loaded 663977 rows for risk model after cleaning.
+[2026-01-22 08:59:35 UTC] [risk_model_quant_v1] Building style factors (size, volatility, liquidity).
+[2026-01-22 08:59:35 UTC] [risk_model_quant_v1] Building sector dummy factors.
+[2026-01-22 08:59:35 UTC] [risk_model_quant_v1] Computing factor-neutralised ensemble_signal_v1_resid via cross-sectional regression per date.
+[2026-01-22 08:59:36 UTC] [risk_model_quant_v1] Factor-neutralised residual signal computed.
+[2026-01-22 08:59:36 UTC] [risk_model_quant_v1] Saving risk-model-enhanced ensemble factors to C:\Quant\data\analytics\quant_factors_ensemble_risk_v1.csv
+[2026-01-22 08:59:50 UTC] [risk_model_quant_v1] risk_model_quant_v1 run completed successfully.
+[2026-01-22 09:00:02 UTC] [risk_model_quant_v1] Starting risk_model_quant_v1 run (v1.0).
+[2026-01-22 09:00:02 UTC] [risk_model_quant_v1] Loading ensemble factors from C:\Quant\data\analytics\quant_factors_ensemble_v1.csv
+[2026-01-22 09:00:03 UTC] [risk_model_quant_v1] Loaded 663977 rows for risk model after cleaning.
+[2026-01-22 09:00:03 UTC] [risk_model_quant_v1] Building style factors (size, volatility, liquidity).
+[2026-01-22 09:00:03 UTC] [risk_model_quant_v1] Building sector dummy factors.
+[2026-01-22 09:00:03 UTC] [risk_model_quant_v1] Computing factor-neutralised ensemble_signal_v1_resid via cross-sectional regression per date.
+[2026-01-22 09:00:05 UTC] [risk_model_quant_v1] Factor-neutralised residual signal computed.
+[2026-01-22 09:00:05 UTC] [risk_model_quant_v1] Saving risk-model-enhanced ensemble factors to C:\Quant\data\analytics\quant_factors_ensemble_risk_v1.csv
+[2026-01-22 09:00:17 UTC] [risk_model_quant_v1] risk_model_quant_v1 run completed successfully.

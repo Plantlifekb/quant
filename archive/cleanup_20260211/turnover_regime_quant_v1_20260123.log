@@ -1,0 +1,9 @@
+[2026-01-23 15:16:01 UTC] [turnover_regime_quant_v1] Starting turnover_regime_quant_v1 run (v1.0).
+[2026-01-23 15:16:01 UTC] [turnover_regime_quant_v1] Loading tradable weights from C:\Quant\data\analytics\quant_portfolio_weights_tradable_v1_osqp.csv
+[2026-01-23 15:16:02 UTC] [turnover_regime_quant_v1] Loading regime states from C:\Quant\data\analytics\quant_regime_states_v1.csv
+[2026-01-23 15:16:02 UTC] [turnover_regime_quant_v1] Loading portfolio controls from C:\Quant\data\analytics\quant_portfolio_controls_v1.csv
+[2026-01-23 15:16:02 UTC] [turnover_regime_quant_v1] Computing daily realised turnover.
+[2026-01-23 15:16:02 UTC] [turnover_regime_quant_v1] Merging turnover with regime states and controls.
+[2026-01-23 15:16:02 UTC] [turnover_regime_quant_v1] Applying regime scaling to turnover caps.
+[2026-01-23 15:16:02 UTC] [turnover_regime_quant_v1] Saving regime-aware turnover diagnostics to C:\Quant\data\analytics\quant_turnover_regime_v1.csv
+[2026-01-23 15:16:02 UTC] [turnover_regime_quant_v1] turnover_regime_quant_v1 run completed successfully.

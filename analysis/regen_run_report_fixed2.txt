@@ -1,0 +1,8 @@
+weekly build failed: No weekly returns could be computed from ingestion file.
+
+ingestion_5years.csv columns:
+date, ticker, company_name, market_sector, open, high, low, close, adj_close, volume, run_date
+
+sample rows:
+[{"date": "2021-01-11", "ticker": "A", "company_name": "Agilent Technologies, Inc.", "market_sector": "Healthcare", "open": 126.4499969482422, "high": 129.33999633789062, "low": 126.2300033569336, "close": 128.14999389648438, "adj_close": 123.85070037841795, "volume": 1746800.0, "run_date": "2026-01-31 11:28:23 UTC"}, {"date": "2021-01-12", "ticker": "A", "company_name": "Agilent Technologies, Inc.", "market_sector": "Healthcare", "open": 128.3300018310547, "high": 128.38999938964844, "low": 126.1999969482422, "close": 126.97000122070312, "adj_close": 122.7103042602539, "volume": 1826400.0, "run_date": "2026-01-31 11:28:23 UTC"}, {"date": "2021-01-13", "ticker": "A", "company_name": "Agilent Technologies, Inc.", "market_sector": "Healthcare", "open": 127.45999908447266, "high": 128.0500030517578, "low": 126.73999786376952, "close": 126.9800033569336, "adj_close": 122.71996307373048, "volume": 1530400.0, "run_date": "2026-01-31 11:28:23 UTC"}]
+

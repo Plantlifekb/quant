@@ -1,0 +1,11 @@
+﻿python.exe : Traceback (most recent call last):
+At C:\Quant\scripts\run_master_pipeline_wrapper.ps1:51 char:1
++ & $PY $CANONICAL > $CANONICAL_LOG 2>&1
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Traceback (most recent call last)::String) [], Remot 
+   eException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+  File "C:\Quant\scripts\canonical\canonical_pipeline_quant_v1.py", line 5, in <module>
+    from logging_quant_v1 import get_logger
+ModuleNotFoundError: No module named 'logging_quant_v1'

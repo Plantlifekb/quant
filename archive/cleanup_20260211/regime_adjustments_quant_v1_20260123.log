@@ -1,0 +1,7 @@
+[2026-01-23 13:09:21 UTC] [regime_adjustments_quant_v1] Starting regime_adjustments_quant_v1 run (v1.0).
+[2026-01-23 13:09:21 UTC] [regime_adjustments_quant_v1] Loading regime states from C:\Quant\data\analytics\quant_regime_states_v1.csv
+[2026-01-23 13:09:21 UTC] [regime_adjustments_quant_v1] Loaded 1301 regime observations.
+[2026-01-23 13:09:21 UTC] [regime_adjustments_quant_v1] Building regime-based risk and turnover controls.
+[2026-01-23 13:09:21 UTC] [regime_adjustments_quant_v1] Built adjustments for 1301 dates.
+[2026-01-23 13:09:21 UTC] [regime_adjustments_quant_v1] Saving regime adjustments to C:\Quant\data\analytics\quant_regime_adjustments_v1.csv
+[2026-01-23 13:09:21 UTC] [regime_adjustments_quant_v1] regime_adjustments_quant_v1 run completed successfully.

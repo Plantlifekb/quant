@@ -1,0 +1,13 @@
+[2026-01-22 08:46:16 UTC] [ensemble_portfolio_quant_v1] Starting ensemble_portfolio_quant_v1 run (v1.0).
+[2026-01-22 08:46:16 UTC] [ensemble_portfolio_quant_v1] Loading ensemble factors from C:\Quant\data\analytics\quant_factors_ensemble_v1.csv
+[2026-01-22 08:46:16 UTC] [ensemble_portfolio_quant_v1] Loaded 680604 ensemble factor rows after cleaning.
+[2026-01-22 08:46:16 UTC] [ensemble_portfolio_quant_v1] Building ensemble long-short weights using top/bottom quantiles: top=0.2, bottom=0.2.
+[2026-01-22 08:46:17 UTC] [ensemble_portfolio_quant_v1] Ensemble long-short weights built.
+[2026-01-22 08:46:17 UTC] [ensemble_portfolio_quant_v1] Building ensemble long-only weights using top quantile: top=0.2.
+[2026-01-22 08:46:18 UTC] [ensemble_portfolio_quant_v1] Ensemble long-only weights built.
+[2026-01-22 08:46:18 UTC] [ensemble_portfolio_quant_v1] Computing ensemble portfolio performance for long-short and long-only.
+[2026-01-22 08:46:19 UTC] [ensemble_portfolio_quant_v1] Ensemble portfolio performance computed.
+[2026-01-22 08:46:19 UTC] [ensemble_portfolio_quant_v1] Saving ensemble long-short weights to C:\Quant\data\analytics\quant_portfolio_weights_ensemble_longshort.csv
+[2026-01-22 08:46:20 UTC] [ensemble_portfolio_quant_v1] Saving ensemble long-only weights to C:\Quant\data\analytics\quant_portfolio_weights_ensemble_longonly.csv
+[2026-01-22 08:46:21 UTC] [ensemble_portfolio_quant_v1] Saving ensemble portfolio performance to C:\Quant\data\analytics\quant_portfolio_performance_ensemble.csv
+[2026-01-22 08:46:21 UTC] [ensemble_portfolio_quant_v1] ensemble_portfolio_quant_v1 run completed successfully.

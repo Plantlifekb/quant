@@ -1,0 +1,219 @@
+Quant v1.0 — Architectural Blueprint
+Canonical, governed, non‑drifting
+
+Purpose:
+Define the structural architecture of Quant v1.0, including
+modules, data flows, dependencies, validation layers, and
+governance boundaries. This blueprint is the authoritative
+representation of system design.
+
+──────────────────────────────────────────────────────────────
+1. High‑Level Architecture Overview
+
+Quant v1.0 consists of five architectural layers:
+
+1. Ingestion Layer
+2. Enrichment Layer
+3. Ranking Layer
+4. Backtest Layer
+5. Dashboard Layer
+
+Cross‑cutting layers:
+- Logging Layer
+- Validation Layer
+- Governance Layer
+- Orchestration Layer
+
+All layers are deterministic and governed.
+
+──────────────────────────────────────────────────────────────
+2. Data Flow Architecture
+
+The canonical data flow is:
+
+ingestion_5years.csv
+        ↓
+enrichment_daily_quant_v1.py
+        ↓
+enriched_daily.csv
+        ↓
+ranking_weekly_quant_v1.py
+        ↓
+weekly_top10_quant_v1.csv
+        ↓
+backtest_weekly_quant_v1.py
+        ↓
+weekly_backtest_quant_v1.csv
+        ↓
+dashboard_top10_quant_v1.py
+dashboard_growth_quant_v1.py
+        ↓
+dashboard_top10_quant_v1.csv
+dashboard_growth_quant_v1.csv
+
+No branches.  
+No forks.  
+No alternate paths.
+
+──────────────────────────────────────────────────────────────
+3. Module Architecture
+
+Enrichment Layer:
+- enrichment_daily_quant_v1.py  
+  Inputs: ingestion_5years.csv  
+  Outputs: enriched_daily.csv  
+
+Ranking Layer:
+- ranking_weekly_quant_v1.py  
+  Inputs: enriched_daily.csv  
+  Outputs: weekly_top10_quant_v1.csv  
+
+Backtest Layer:
+- backtest_weekly_quant_v1.py  
+  Inputs: weekly_top10_quant_v1.csv  
+  Outputs: weekly_backtest_quant_v1.csv  
+
+Dashboard Layer:
+- dashboard_top10_quant_v1.py  
+- dashboard_growth_quant_v1.py  
+  Inputs: ranking + backtest outputs  
+  Outputs: dashboard CSVs  
+
+Validation Layer:
+- schema_validator_quant_v1.py  
+- directory_auditor_quant_v1.py  
+- compliance_checker_quant_v1.py  
+
+Logging Layer:
+- logging_quant_v1.py  
+
+Orchestration Layer:
+- run_growth_pipeline_quant_v1.py  
+
+Bootstrap Layer:
+- bootstrap_quant_v1.py  
+
+Governance Layer:
+- manifest  
+- runbook  
+- playbook  
+- charter  
+- lifecycle  
+
+──────────────────────────────────────────────────────────────
+4. Directory Architecture
+
+C:\Quant\
+    data\
+        ingestion\
+        enriched\
+        ranking\
+        backtest\
+        dashboard\
+    scripts\
+        enrichment\
+        ranking\
+        backtest\
+        dashboard\
+        validation\
+        logs\
+        patches\
+        bootstrap\
+    logs\
+    archive\
+    runbook\
+    manifest\
+
+No additional directories permitted.
+
+──────────────────────────────────────────────────────────────
+5. Validation Architecture
+
+Validation is multi‑layered:
+
+1. Schema Validation  
+   Ensures all CSVs match canonical schemas.
+
+2. Directory Audit  
+   Ensures no forbidden files or folders exist.
+
+3. Compliance Check  
+   Ensures full system alignment with the manifest.
+
+4. Logging Validation  
+   Ensures every module logs start/end.
+
+Validation is mandatory after every pipeline run.
+
+──────────────────────────────────────────────────────────────
+6. Logging Architecture
+
+All modules must:
+- import get_logger
+- log start
+- log end
+- log errors
+- write to quant_v1.log
+
+Log format:
+YYYY‑MM‑DDTHH:MM:SSZ | MODULE | LEVEL | MESSAGE
+
+ASCII‑safe only.
+
+──────────────────────────────────────────────────────────────
+7. Governance Architecture
+
+Governance is enforced through:
+- Governance Charter
+- Master Manifest
+- Runbook
+- Incident Response Playbook
+- Operator Certification Test
+- Validators
+
+Governance is absolute and cannot be bypassed.
+
+──────────────────────────────────────────────────────────────
+8. Orchestration Architecture
+
+run_growth_pipeline_quant_v1.py executes modules in order:
+
+1. enrichment
+2. ranking
+3. backtest
+4. dashboard_top10
+5. dashboard_growth
+
+No parallelism.  
+No skipping.  
+No reordering.
+
+──────────────────────────────────────────────────────────────
+9. Determinism Architecture
+
+Quant v1.0 enforces:
+- deterministic transformations
+- deterministic ordering
+- deterministic schemas
+- deterministic outputs
+
+No randomness.  
+No external data.  
+No time‑dependent logic except run_date.
+
+──────────────────────────────────────────────────────────────
+10. Security & Purity Architecture
+
+Forbidden:
+- notebooks
+- spreadsheets
+- JSON, pickle, parquet
+- temporary files
+- legacy artefacts
+- unapproved scripts
+- unapproved directories
+
+Purity is mandatory.
+
+──────────────────────────────────────────────────────────────
+End of Architectural Blueprint

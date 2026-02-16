@@ -1,0 +1,21 @@
+[2026-01-26 08:48:10 UTC] [quant_weekly_10x10_v1] quant_weekly_10x10_v1.py — start
+[2026-01-26 08:48:10 UTC] [quant_weekly_10x10_v1] Loading ingestion data from C:\Quant\data\ingestion\ingestion_5years.csv
+[2026-01-26 08:48:11 UTC] [quant_weekly_10x10_v1] Loading regime weights from C:\Quant\data\analytics\quant_portfolio_weights_regime_v1.csv
+[2026-01-26 08:48:11 UTC] [quant_weekly_10x10_v1] Computing weekly returns from ingestion data
+[2026-01-26 08:48:19 UTC] [quant_weekly_10x10_v1] Computed weekly returns for 136224 ticker-week combinations
+[2026-01-26 08:48:19 UTC] [quant_weekly_10x10_v1] Found 1 common weeks between weights and returns
+[2026-01-26 08:48:19 UTC] [quant_weekly_10x10_v1] Wrote weekly 10x10 picks to C:\Quant\data\analytics\quant_weekly_10x10_picks_v1.csv (30 rows)
+[2026-01-26 08:48:19 UTC] [quant_weekly_10x10_v1] Wrote weekly 10x10 performance to C:\Quant\data\analytics\quant_weekly_10x10_perf_v1.csv (2 rows)
+[2026-01-26 08:48:19 UTC] [quant_weekly_10x10_v1] quant_weekly_10x10_v1.py — end
+[2026-01-26 12:13:11 UTC] [quant_weekly_10x10_v1] Start weekly engine
+[2026-01-26 12:13:21 UTC] [quant_weekly_10x10_v1] Wrote picks
+[2026-01-26 12:13:21 UTC] [quant_weekly_10x10_v1] Wrote performance
+[2026-01-26 12:13:21 UTC] [quant_weekly_10x10_v1] Done
+[2026-01-26 12:28:26 UTC] [quant_weekly_10x10_v1] Start weekly engine
+[2026-01-26 12:28:35 UTC] [quant_weekly_10x10_v1] Wrote picks
+[2026-01-26 12:28:35 UTC] [quant_weekly_10x10_v1] Wrote performance
+[2026-01-26 12:28:35 UTC] [quant_weekly_10x10_v1] Done
+[2026-01-26 12:56:48 UTC] [quant_weekly_10x10_v1] Start weekly engine
+[2026-01-26 12:57:03 UTC] [quant_weekly_10x10_v1] Wrote picks
+[2026-01-26 12:57:03 UTC] [quant_weekly_10x10_v1] Wrote performance
+[2026-01-26 12:57:03 UTC] [quant_weekly_10x10_v1] Done

@@ -1,0 +1,22 @@
+2026-02-06 08:27:13,720 INFO Audit snapshot written: rows perf=None contrib=None
+2026-02-06 08:28:29,410 INFO Audit snapshot written: rows perf=None contrib=None
+2026-02-06 08:28:29,424 INFO Audit snapshot written (fallback): rows perf=1301 contrib=516
+2026-02-06 08:31:28,853 INFO Audit snapshot written: rows perf=None contrib=None
+2026-02-06 08:31:28,865 INFO Audit snapshot written (fallback): rows perf=1301 contrib=516
+2026-02-06 08:32:52,408 INFO Audit snapshot written: rows perf=None contrib=None
+2026-02-06 08:32:52,419 INFO Audit snapshot written (fallback): rows perf=1301 contrib=516
+2026-02-06 08:41:05,303 INFO Audit snapshot written (fallback): rows perf=1301 contrib=516
+2026-02-06 08:42:16,010 INFO Audit snapshot written (fallback): rows perf=1301 contrib=516
+2026-02-06 08:46:55,628 INFO Audit snapshot written (fallback): rows perf=1301 contrib=516
+2026-02-06 08:50:10,700 INFO Audit snapshot written (fallback): rows perf=1301 contrib=516
+2026-02-06 08:51:00,266 INFO Audit snapshot written (fallback): rows perf=1301 contrib=516
+2026-02-06 08:52:05,433 INFO Audit snapshot written (fallback): rows perf=1301 contrib=516
+2026-02-06 08:54:02,545 INFO Audit snapshot written (fallback): rows perf=1301 contrib=516
+2026-02-06 08:55:20,922 INFO Audit snapshot written (fallback): rows perf=1301 contrib=516
+2026-02-06 18:36:35,850 INFO Audit snapshot written: rows perf=None contrib=None
+2026-02-07 10:19:44,271 INFO df_perf columns: ['ticker', 'cum_return_last', 'weekly_return_last', 'monthly_return_last', 'annual_return_last', 'vol_20d_last', 'ret', 'company_name', 'market_sector', 'signed_weight', 'contribution']
+2026-02-07 10:19:44,271 ERROR Neither 'date' nor 'week' present in df_perf; downstream metrics will be limited.
+2026-02-07 10:19:44,271 INFO After normalization, df_perf has 516 rows; non-null dates: 0; non-null weeks: 0
+2026-02-07 10:20:02,995 INFO df_perf columns: ['ticker', 'cum_return_last', 'weekly_return_last', 'monthly_return_last', 'annual_return_last', 'vol_20d_last', 'ret', 'company_name', 'market_sector', 'signed_weight', 'contribution']
+2026-02-07 10:20:02,995 ERROR Neither 'date' nor 'week' present in df_perf; downstream metrics will be limited.
+2026-02-07 10:20:02,995 INFO After normalization, df_perf has 516 rows; non-null dates: 0; non-null weeks: 0

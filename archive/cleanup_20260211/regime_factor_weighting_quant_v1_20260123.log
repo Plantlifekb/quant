@@ -1,0 +1,18 @@
+[2026-01-23 14:18:17 UTC] [regime_factor_weighting_quant_v1] Starting regime_factor_weighting_quant_v1 run (v1.0).
+[2026-01-23 14:18:17 UTC] [regime_factor_weighting_quant_v1] Loading factor returns from C:\Quant\data\analytics\quant_factors.csv
+[2026-01-23 14:21:17 UTC] [regime_factor_weighting_quant_v1] Starting regime_factor_weighting_quant_v1 run (v1.1).
+[2026-01-23 14:21:17 UTC] [regime_factor_weighting_quant_v1] Loading factor returns (wide format) from C:\Quant\data\analytics\quant_factors.csv
+[2026-01-23 14:21:20 UTC] [regime_factor_weighting_quant_v1] Using factor columns: mom_short, mom_medium, mom_long, cross_sectional_mom, mean_reversion, low_vol_252, volume_persistence, seasonality_12m, trend_vol_combo, model_signal_v2, model_signal_v3
+[2026-01-23 14:21:28 UTC] [regime_factor_weighting_quant_v1] Loading regime states from C:\Quant\data\analytics\quant_regime_states_v1.csv
+[2026-01-23 14:21:28 UTC] [regime_factor_weighting_quant_v1] Loading regime adjustments from C:\Quant\data\analytics\quant_regime_adjustments_v1.csv
+[2026-01-23 14:21:28 UTC] [regime_factor_weighting_quant_v1] Applying regime-based factor multipliers.
+[2026-01-23 14:22:26 UTC] [regime_factor_weighting_quant_v1] Saving regime-aware factor returns to C:\Quant\data\analytics\quant_factor_returns_regime_v1.csv
+[2026-01-23 14:23:25 UTC] [regime_factor_weighting_quant_v1] regime_factor_weighting_quant_v1 run completed successfully.
+[2026-01-23 14:32:05 UTC] [regime_factor_weighting_quant_v1] Starting regime_factor_weighting_quant_v1 run (v1.2).
+[2026-01-23 14:32:05 UTC] [regime_factor_weighting_quant_v1] Loading factor returns (wide format) from C:\Quant\data\analytics\quant_factors.csv
+[2026-01-23 14:32:08 UTC] [regime_factor_weighting_quant_v1] Using factor columns: mom_short, mom_medium, mom_long, cross_sectional_mom, mean_reversion, low_vol_252, volume_persistence, seasonality_12m, trend_vol_combo, model_signal_v2, model_signal_v3
+[2026-01-23 14:32:16 UTC] [regime_factor_weighting_quant_v1] Loading regime states from C:\Quant\data\analytics\quant_regime_states_v1.csv
+[2026-01-23 14:32:16 UTC] [regime_factor_weighting_quant_v1] Loading regime adjustments from C:\Quant\data\analytics\quant_regime_adjustments_v1.csv
+[2026-01-23 14:32:16 UTC] [regime_factor_weighting_quant_v1] Applying regime-based factor multipliers.
+[2026-01-23 14:33:13 UTC] [regime_factor_weighting_quant_v1] Saving regime-aware factor returns to C:\Quant\data\analytics\quant_factor_returns_regime_v1.csv
+[2026-01-23 14:34:11 UTC] [regime_factor_weighting_quant_v1] regime_factor_weighting_quant_v1 run completed successfully.

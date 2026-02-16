@@ -1,0 +1,54 @@
+2026-02-02 20:30:09,825 INFO === MASTER PIPELINE START ===
+2026-02-02 20:30:09,956 INFO Newest data file: C:\Quant\data\analytics\quant_weekly_picks_quant_v1.parquet (age 0:09:38.423434)
+2026-02-02 20:30:09,957 INFO Starting ingestion step
+2026-02-02 20:30:09,989 INFO === MASTER PIPELINE START ===
+2026-02-02 20:30:09,990 INFO === MASTER PIPELINE START ===
+2026-02-02 20:30:10,035 INFO Newest data file: C:\Quant\data\analytics\quant_weekly_picks_quant_v1.parquet (age 0:09:38.502834)
+2026-02-02 20:30:10,035 INFO Newest data file: C:\Quant\data\analytics\quant_weekly_picks_quant_v1.parquet (age 0:09:38.502834)
+2026-02-02 20:30:10,036 INFO Starting ingestion step
+2026-02-02 20:30:10,055 INFO Starting ingestion step
+2026-02-02 20:35:04,622 INFO Starting build_strategy_returns
+2026-02-02 20:35:04,932 INFO Attribution appears aggregated; using aggregated attribution fallback
+2026-02-02 20:35:05,060 INFO WROTE strategy returns (1251 rows) and manifest (method=aggregated_attribution)
+2026-02-02 20:35:05,061 INFO Verifying strategy returns
+2026-02-02 20:35:05,148 INFO Strategy final cum values: {'LONG_ONLY': 236.73374604180978, 'LONG_SHORT': -0.8905938112554276}
+2026-02-02 20:35:05,148 INFO Strategy verification OK
+2026-02-02 20:35:05,149 INFO Starting build_weekly_picks
+2026-02-02 20:35:06,661 INFO WROTE weekly picks (10 rows) for 2026-01-30
+2026-02-02 20:35:06,721 INFO Verifying weekly picks
+2026-02-02 20:35:06,740 INFO Weekly picks verification OK rows: 10
+2026-02-02 20:35:06,750 INFO Running cleanup/archive of old generated files
+2026-02-02 20:35:06,769 INFO Archived 0 files
+2026-02-02 20:35:06,772 INFO === MASTER PIPELINE COMPLETED SUCCESSFULLY ===
+2026-02-02 20:35:06,773 INFO Manifest: {'rows': 1251, 'unit_converted': False, 'clip_value': 0.5, 'date_min': '2021-01-27 00:00:00', 'date_max': '2026-01-20 00:00:00', 'long_rows': 839, 'short_rows': 412, 'generated_at': '2026-02-02T20:35:05.058420Z', 'method': 'aggregated_attribution', 'provenance': {'attribution_file': 'C:\\Quant\\data\\analytics\\attribution_quant_v2.parquet'}}
+2026-02-02 20:35:06,774 INFO Archived files: []
+2026-02-02 20:35:11,249 INFO Starting build_strategy_returns
+2026-02-02 20:35:11,389 INFO Attribution appears aggregated; using aggregated attribution fallback
+2026-02-02 20:35:11,459 INFO WROTE strategy returns (1251 rows) and manifest (method=aggregated_attribution)
+2026-02-02 20:35:11,460 INFO Verifying strategy returns
+2026-02-02 20:35:11,520 INFO Strategy final cum values: {'LONG_ONLY': 236.73374604180978, 'LONG_SHORT': -0.8905938112554276}
+2026-02-02 20:35:11,521 INFO Strategy verification OK
+2026-02-02 20:35:11,522 INFO Starting build_weekly_picks
+2026-02-02 20:35:12,534 INFO WROTE weekly picks (10 rows) for 2026-01-30
+2026-02-02 20:35:12,567 INFO Verifying weekly picks
+2026-02-02 20:35:12,575 INFO Weekly picks verification OK rows: 10
+2026-02-02 20:35:12,576 INFO Running cleanup/archive of old generated files
+2026-02-02 20:35:12,584 INFO Archived 0 files
+2026-02-02 20:35:12,585 INFO === MASTER PIPELINE COMPLETED SUCCESSFULLY ===
+2026-02-02 20:35:12,586 INFO Manifest: {'rows': 1251, 'unit_converted': False, 'clip_value': 0.5, 'date_min': '2021-01-27 00:00:00', 'date_max': '2026-01-20 00:00:00', 'long_rows': 839, 'short_rows': 412, 'generated_at': '2026-02-02T20:35:11.458505Z', 'method': 'aggregated_attribution', 'provenance': {'attribution_file': 'C:\\Quant\\data\\analytics\\attribution_quant_v2.parquet'}}
+2026-02-02 20:35:12,586 INFO Archived files: []
+2026-02-02 20:35:12,846 INFO Starting build_strategy_returns
+2026-02-02 20:35:12,940 INFO Attribution appears aggregated; using aggregated attribution fallback
+2026-02-02 20:35:13,002 INFO WROTE strategy returns (1251 rows) and manifest (method=aggregated_attribution)
+2026-02-02 20:35:13,002 INFO Verifying strategy returns
+2026-02-02 20:35:13,056 INFO Strategy final cum values: {'LONG_ONLY': 236.73374604180978, 'LONG_SHORT': -0.8905938112554276}
+2026-02-02 20:35:13,056 INFO Strategy verification OK
+2026-02-02 20:35:13,056 INFO Starting build_weekly_picks
+2026-02-02 20:35:14,092 INFO WROTE weekly picks (10 rows) for 2026-01-30
+2026-02-02 20:35:14,121 INFO Verifying weekly picks
+2026-02-02 20:35:14,129 INFO Weekly picks verification OK rows: 10
+2026-02-02 20:35:14,129 INFO Running cleanup/archive of old generated files
+2026-02-02 20:35:14,137 INFO Archived 0 files
+2026-02-02 20:35:14,139 INFO === MASTER PIPELINE COMPLETED SUCCESSFULLY ===
+2026-02-02 20:35:14,139 INFO Manifest: {'rows': 1251, 'unit_converted': False, 'clip_value': 0.5, 'date_min': '2021-01-27 00:00:00', 'date_max': '2026-01-20 00:00:00', 'long_rows': 839, 'short_rows': 412, 'generated_at': '2026-02-02T20:35:13.000999Z', 'method': 'aggregated_attribution', 'provenance': {'attribution_file': 'C:\\Quant\\data\\analytics\\attribution_quant_v2.parquet'}}
+2026-02-02 20:35:14,139 INFO Archived files: []

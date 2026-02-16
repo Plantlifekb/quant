@@ -1,0 +1,18 @@
+2026-02-05 16:12:17,901 INFO === MASTER PIPELINE START ===
+2026-02-05 16:12:17,915 INFO Newest data file: C:\Quant\data\analytics\quant_weekly_picks_quant_v1.parquet (age 0:00:02.038840)
+2026-02-05 16:12:17,915 INFO Starting ingestion step
+2026-02-05 16:12:52,623 INFO Starting build_strategy_returns
+2026-02-05 16:12:52,658 INFO Attribution appears aggregated; using aggregated attribution fallback
+2026-02-05 16:12:52,689 INFO WROTE strategy returns (1251 rows) and manifest (method=aggregated_attribution)
+2026-02-05 16:12:52,689 INFO Verifying strategy returns
+2026-02-05 16:12:52,741 INFO Strategy final cum values: {'LONG_ONLY': 236.73374604180978, 'LONG_SHORT': -0.8905938112554276}
+2026-02-05 16:12:52,741 INFO Strategy verification OK
+2026-02-05 16:12:52,741 INFO Starting build_weekly_picks
+2026-02-05 16:12:53,024 INFO WROTE weekly picks (10 rows) for 2026-01-30
+2026-02-05 16:12:53,024 INFO Verifying weekly picks
+2026-02-05 16:12:53,040 INFO Weekly picks verification OK rows: 10
+2026-02-05 16:12:53,040 INFO Running cleanup/archive of old generated files
+2026-02-05 16:12:53,040 INFO Archived 0 files
+2026-02-05 16:12:53,040 INFO === MASTER PIPELINE COMPLETED SUCCESSFULLY ===
+2026-02-05 16:12:53,040 INFO Manifest: {'rows': 1251, 'unit_converted': False, 'clip_value': 0.5, 'date_min': '2021-01-27 00:00:00', 'date_max': '2026-01-20 00:00:00', 'long_rows': 839, 'short_rows': 412, 'generated_at': '2026-02-05T16:12:52.689801+00:00', 'method': 'aggregated_attribution', 'provenance': {'attribution_file': 'C:\\Quant\\data\\analytics\\attribution_quant_v2.parquet'}}
+2026-02-05 16:12:53,040 INFO Archived files: []

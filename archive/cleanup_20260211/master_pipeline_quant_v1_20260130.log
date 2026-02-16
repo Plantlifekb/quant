@@ -1,0 +1,19 @@
+[2026-01-30 01:00:01 UTC] [master_pipeline_quant_v1] Starting master_pipeline_quant_v1 (v1.1)
+[2026-01-30 01:00:01 UTC] [master_pipeline_quant_v1] Run timestamp: 2026-01-30 01:00:01 UTC
+[2026-01-30 01:00:01 UTC] [master_pipeline_quant_v1] STEP 1 — Running legacy weekly pipeline
+[2026-01-30 01:00:01 UTC] [master_pipeline_quant_v1] Running module: run_pipeline_10stock_weekly
+[2026-01-30 01:08:33 UTC] [master_pipeline_quant_v1] Completed module: run_pipeline_10stock_weekly
+[2026-01-30 01:08:33 UTC] [master_pipeline_quant_v1] STEP 2 — Running regime-aware analytics suite
+[2026-01-30 01:08:33 UTC] [master_pipeline_quant_v1] Running module: analytics.regime_factor_weighting_quant_v1
+[2026-01-30 01:10:54 UTC] [master_pipeline_quant_v1] Completed module: analytics.regime_factor_weighting_quant_v1
+[2026-01-30 01:10:54 UTC] [master_pipeline_quant_v1] Running module: analytics.risk_regime_quant_v1
+[2026-01-30 01:11:08 UTC] [master_pipeline_quant_v1] Completed module: analytics.risk_regime_quant_v1
+[2026-01-30 01:11:08 UTC] [master_pipeline_quant_v1] Running module: analytics.factor_exposure_report_quant_v1
+[2026-01-30 01:11:22 UTC] [master_pipeline_quant_v1] Completed module: analytics.factor_exposure_report_quant_v1
+[2026-01-30 01:11:22 UTC] [master_pipeline_quant_v1] Running module: analytics.turnover_regime_quant_v1
+[2026-01-30 01:11:22 UTC] [master_pipeline_quant_v1] Completed module: analytics.turnover_regime_quant_v1
+[2026-01-30 01:11:22 UTC] [master_pipeline_quant_v1] Running module: analytics.attribution_regime_quant_v1
+[2026-01-30 01:11:37 UTC] [master_pipeline_quant_v1] Completed module: analytics.attribution_regime_quant_v1
+[2026-01-30 01:11:37 UTC] [master_pipeline_quant_v1] Running module: analytics.optimiser_regime_quant_v1
+[2026-01-30 01:11:40 UTC] [master_pipeline_quant_v1] Completed module: analytics.optimiser_regime_quant_v1
+[2026-01-30 01:11:40 UTC] [master_pipeline_quant_v1] master_pipeline_quant_v1 completed successfully.

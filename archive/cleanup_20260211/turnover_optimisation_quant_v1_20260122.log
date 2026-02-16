@@ -1,0 +1,17 @@
+[2026-01-22 08:26:51 UTC] [turnover_optimisation_quant_v1] Starting turnover_optimisation_quant_v1 run (v1.0, rebalance every 5 days).
+[2026-01-22 08:26:51 UTC] [turnover_optimisation_quant_v1] Loading factor data from C:\Quant\data\analytics\quant_factors_composite.csv
+[2026-01-22 08:26:58 UTC] [turnover_optimisation_quant_v1] Loaded 680604 factor rows after cleaning.
+[2026-01-22 08:26:58 UTC] [turnover_optimisation_quant_v1] Loading weights from C:\Quant\data\analytics\quant_portfolio_weights_longshort.csv
+[2026-01-22 08:26:58 UTC] [turnover_optimisation_quant_v1] Loaded 680604 rows from C:\Quant\data\analytics\quant_portfolio_weights_longshort.csv after cleaning.
+[2026-01-22 08:26:58 UTC] [turnover_optimisation_quant_v1] Loading weights from C:\Quant\data\analytics\quant_portfolio_weights_longonly.csv
+[2026-01-22 08:26:59 UTC] [turnover_optimisation_quant_v1] Loaded 680604 rows from C:\Quant\data\analytics\quant_portfolio_weights_longonly.csv after cleaning.
+[2026-01-22 08:26:59 UTC] [turnover_optimisation_quant_v1] Applying rebalance schedule (every 5 days) for weight_longshort.
+[2026-01-22 08:26:59 UTC] [turnover_optimisation_quant_v1] Rebalance schedule applied for weight_longshort: 680604 rows in optimised weights.
+[2026-01-22 08:26:59 UTC] [turnover_optimisation_quant_v1] Applying rebalance schedule (every 5 days) for weight_longonly.
+[2026-01-22 08:27:00 UTC] [turnover_optimisation_quant_v1] Rebalance schedule applied for weight_longonly: 680604 rows in optimised weights.
+[2026-01-22 08:27:00 UTC] [turnover_optimisation_quant_v1] Computing performance from turnover-optimised weights.
+[2026-01-22 08:27:01 UTC] [turnover_optimisation_quant_v1] Turnover-optimised performance computed for long-short and long-only.
+[2026-01-22 08:27:01 UTC] [turnover_optimisation_quant_v1] Saving turnover-optimised long-short weights to C:\Quant\data\analytics\quant_portfolio_weights_longshort_to.csv
+[2026-01-22 08:27:03 UTC] [turnover_optimisation_quant_v1] Saving turnover-optimised long-only weights to C:\Quant\data\analytics\quant_portfolio_weights_longonly_to.csv
+[2026-01-22 08:27:04 UTC] [turnover_optimisation_quant_v1] Saving turnover-optimised performance to C:\Quant\data\analytics\quant_portfolio_performance_to.csv
+[2026-01-22 08:27:04 UTC] [turnover_optimisation_quant_v1] turnover_optimisation_quant_v1 run completed successfully.

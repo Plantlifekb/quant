@@ -1,0 +1,147 @@
+Quant v1.0 — Incident Response Playbook
+Canonical, governed, non‑drifting
+
+Purpose:
+Define the mandatory steps an operator must follow when any
+Quant v1.0 module fails, produces unexpected output, or violates
+governance rules. No deviations permitted.
+
+──────────────────────────────────────────────────────────────
+1. Incident Definition
+
+An incident is any of the following:
+- A module exits with an error.
+- A governed CSV is missing or incomplete.
+- Schema validation fails.
+- Directory audit fails.
+- Logging shows missing start/end markers.
+- Outputs appear stale or inconsistent.
+- Forbidden files or legacy artefacts appear.
+- Any behaviour deviates from deterministic expectations.
+
+──────────────────────────────────────────────────────────────
+2. Immediate Operator Actions (STOP THE PIPELINE)
+
+Upon detecting an incident:
+[ ] Stop the pipeline immediately.
+[ ] Do not re‑run the orchestrator.
+[ ] Do not modify any files manually.
+[ ] Freeze the current outputs.
+
+Freezing means:
+- No further writes to C:\Quant\data\
+- No further writes to C:\Quant\logs\
+- No further writes to C:\Quant\scripts\
+
+──────────────────────────────────────────────────────────────
+3. Log Inspection Procedure
+
+Operator must:
+[ ] Open C:\Quant\logs\quant_v1.log
+[ ] Identify the last module that logged "start" without "end"
+[ ] Capture the full error block
+[ ] Confirm timestamp and module name
+[ ] Record the failure in the incident log (external system)
+
+No interpretation or assumptions permitted.
+
+──────────────────────────────────────────────────────────────
+4. Module‑Level Recovery Procedure
+
+For the failing module:
+[ ] Run the module manually (python <module>.py)
+[ ] Capture stdout and stderr
+[ ] Confirm whether the failure is reproducible
+[ ] If reproducible, proceed to Section 5
+[ ] If not reproducible, proceed to Section 6
+
+──────────────────────────────────────────────────────────────
+5. Reproducible Failure Path (HARD FAILURE)
+
+If the failure repeats:
+[ ] Freeze all governed outputs
+[ ] Do not attempt workarounds
+[ ] Do not modify code
+[ ] Do not modify data
+[ ] Escalate to system owner with:
+      - failing module name
+      - log excerpt
+      - stdout/stderr
+      - timestamp
+      - operator name
+
+No further action permitted until escalation is resolved.
+
+──────────────────────────────────────────────────────────────
+6. Non‑Reproducible Failure Path (SOFT FAILURE)
+
+If the failure does NOT repeat:
+[ ] Re‑run schema_validator_quant_v1.py
+[ ] Re‑run directory_auditor_quant_v1.py
+[ ] Confirm no drift
+[ ] Confirm no partial outputs
+[ ] Confirm logs are complete
+
+If all checks pass:
+[ ] Resume pipeline from the failing module only
+[ ] Do not re‑run earlier modules
+
+If any check fails:
+[ ] Treat as HARD FAILURE (return to Section 5)
+
+──────────────────────────────────────────────────────────────
+7. Forbidden Actions (NEVER PERMITTED)
+
+Operator must never:
+- Edit governed CSVs manually
+- Edit scripts manually
+- Delete or rename files
+- Add new files
+- Change directory structure
+- Install new dependencies
+- Modify logging
+- Modify schemas
+- Attempt “quick fixes”
+- Skip validation steps
+
+Any violation requires escalation.
+
+──────────────────────────────────────────────────────────────
+8. Post‑Incident Verification
+
+After recovery:
+[ ] Run full compliance_checker_quant_v1.py
+[ ] Confirm all modules pass
+[ ] Confirm all outputs pass schema validation
+[ ] Confirm directory audit passes
+[ ] Confirm logs show complete start/end pairs
+[ ] Confirm no drift occurred during incident
+
+──────────────────────────────────────────────────────────────
+9. Closure Requirements
+
+To close an incident:
+[ ] Document root cause
+[ ] Document recovery steps
+[ ] Document operator actions
+[ ] Document timestamps
+[ ] Document affected modules
+[ ] Confirm system returned to governed state
+
+──────────────────────────────────────────────────────────────
+10. Versioning Rules
+
+If the incident reveals:
+- schema issues
+- structural issues
+- logic issues
+- dependency issues
+- governance gaps
+
+Then:
+[ ] Quant v1.1 must be created
+[ ] Manifest, runbook, validators must be updated
+[ ] All operators must be re‑certified
+
+──────────────────────────────────────────────────────────────
+End of Playbook

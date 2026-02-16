@@ -1,0 +1,2 @@
+date,daily_volatility,factor_risk,beta,liquidity_risk,turnover_risk,regime_risk,rolling_volatility_mean,rolling_factor_risk_mean,rolling_beta_mean,rolling_turnover_pressure_mean,rolling_liquidity_pressure_mean
+2026-01-21,0.0204006674581406,0.8812321975490851,-0.0061578707797767,-0.1060933176761209,-2240.0654286574118,0.5913355399246265,0.46432992241991916,0.7884437558490379,-0.0060415954801396644,2.1829223937286484,0.01460508990052054

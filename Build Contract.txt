@@ -1,0 +1,268 @@
+1. Scope and intent
+Objective:
+A single, governed, provenance‑preserving Quant v1.0 platform from ingestion → signals → optimiser → attribution → weekly picks → dashboard, with:
+- one canonical architecture
+- explicit data contracts
+- automated verification
+- no legacy drift
+- dashboard as a pure view, never a second logic engine
+Anything outside this architecture is legacy and must be archived.
+
+2. Directory structure (canonical)
+All governed components live under C:\Quant:
+- Code
+- C:\Quant\scripts\ingestion\...
+- C:\Quant\scripts\signals\...
+- C:\Quant\scripts\analytics\...
+- C:\Quant\scripts\reporting\...
+- C:\Quant\scripts\dashboard\...
+- Data
+- C:\Quant\data\ingestion\...
+- C:\Quant\data\signals\...
+- C:\Quant\data\analytics\...
+- C:\Quant\data\reference\...
+- Logs
+- C:\Quant\logs\...
+- Archive
+- C:\Quant\archive\legacy_*/... (all retired systems)
+No dashboard page may read from archive.
+
+3. Pipeline stages and contracts
+3.1 Ingestion layer
+Purpose:
+Bring in raw market and reference data, clean and standardise it.
+Inputs:
+- External price feeds
+- External fundamentals
+- External risk model
+- Universe definition
+- Security master source
+Outputs (examples):
+- data/ingestion/prices.parquet
+- data/ingestion/fundamentals.parquet
+- data/ingestion/risk_model.parquet
+- data/reference/securities_master.parquet
+Contracts:
+- prices.parquet:
+- date (date), ticker (string), price (float), return (float)
+- securities_master.parquet:
+- ticker, company_name, sector, industry, country, currency
+Invariants:
+- No duplicate (date, ticker)
+- No NaNs in required fields
+- All universe tickers present in securities_master
+- Latest date is consistent across ingestion outputs
+
+3.2 Signal layer
+Purpose:
+Generate expected returns and related signals.
+Inputs:
+- data/ingestion/prices.parquet
+- data/ingestion/fundamentals.parquet
+- data/ingestion/risk_model.parquet
+- Regime classifier outputs (if separate)
+Outputs:
+- data/signals/expected_returns_quant_v1.parquet
+Contract:
+- Columns:
+- date (date)
+- ticker (string)
+- expected_return (float)
+- regime (string or categorical)
+- signal_version (string)
+Invariants:
+- No missing expected_return
+- All universe tickers present for each date
+- Outliers beyond configured z‑score threshold flagged or clipped
+- Latest date matches ingestion latest date
+
+3.3 Optimiser layer
+Purpose:
+Produce optimal portfolio weights under constraints.
+Inputs:
+- data/signals/expected_returns_quant_v1.parquet
+- data/ingestion/risk_model.parquet
+- Factor exposures (if separate)
+- Turnover, liquidity, regime constraints (config)
+Outputs:
+- data/analytics/optimiser_regime_quant_v1.parquet
+Contract:
+- Columns:
+- date (date)
+- ticker (string)
+- weight (float)
+- portfolio_type (e.g. "long_only", "long_short")
+- optional: risk_contrib, factor_contrib, regime
+Invariants:
+- For portfolio_type == "long_only":
+- weight >= 0
+- sum(weight) ≈ 1.0 (within tolerance)
+- No NaNs
+- All tickers in portfolio belong to universe
+- Latest date matches signals latest date
+
+3.4 Attribution layer
+Purpose:
+Explain performance and risk.
+Inputs:
+- data/analytics/optimiser_regime_quant_v1.parquet
+- Realised returns (from ingestion)
+- Factor returns (from risk model)
+Outputs:
+- data/analytics/attribution_regime_quant_v1.parquet
+Contract:
+- Columns:
+- date
+- ticker
+- portfolio_return
+- benchmark_return (if applicable)
+- factor_attrib
+- specific_attrib
+- total_attrib
+Invariants:
+- sum(factor_attrib + specific_attrib) ≈ portfolio_return - benchmark_return
+- No NaNs
+- Dates aligned with optimiser
+
+3.5 Weekly picks layer
+Purpose:
+Produce a weekly selection directly from optimiser weights, with full metadata.
+Inputs:
+- data/analytics/optimiser_regime_quant_v1.parquet
+- data/reference/securities_master.parquet
+Outputs:
+- data/analytics/quant_weekly_picks_quant_v1.parquet
+Contract:
+- Columns:
+- as_of_date (date)
+- rank (int)
+- ticker (string)
+- company_name (string)
+- sector (string)
+- weight (float)
+Logic:
+- Filter optimiser to portfolio_type == "long_only"
+- Take latest date
+- Sort by weight descending
+- Take top N (e.g. 10)
+- Join on securities_master for company_name, sector
+- Assign rank = 1..N
+Invariants:
+- Latest as_of_date == optimiser latest date
+- All company_name and sector non‑null
+- rank strictly increasing from 1
+- weight sorted descending
+- No reference to any quant_weekly_10x10_* or weekly_selection.csv
+
+3.6 Reporting layer
+Purpose:
+Produce aggregate performance and risk summaries for dashboard.
+Inputs:
+- Optimiser output
+- Attribution output
+- Realised returns
+Outputs (examples):
+- data/analytics/portfolio_performance_quant_v1.parquet
+- data/analytics/factor_exposure_report_quant_v1.parquet
+- data/analytics/turnover_regime_quant_v1.parquet
+Contracts:
+Each file has a clearly defined schema (dates, metrics, grouping keys).
+Invariants:
+- Dates aligned with optimiser
+- No NaNs in key metrics
+- Aggregations consistent with underlying data
+
+4. Dashboard layer
+Purpose:
+Display governed outputs only. No business logic.
+Rules:
+- Dashboard scripts live in scripts/dashboard and scripts/dashboard/pages.
+- They may only read from:
+- data/analytics/*.parquet
+- data/reference/*.parquet
+- They may not read from:
+- data/analytics/quant_weekly_10x10_*
+- data/signals/weekly_selection*.csv
+- data/dashboard/dashboard_10stock_weekly.csv
+- anything under archive
+Weekly picks page:
+- Reads only quant_weekly_picks_quant_v1.parquet
+- Displays:
+- rank, ticker, company_name, sector, weight
+- Optionally shows date and simple summaries
+- If file missing or fails verification → show error, not stale data
+
+5. Verification harness
+A script, e.g. scripts/verify_quant_v1_build.py, run after the pipeline and before dashboard use.
+Checks:
+- Date alignment
+- Latest date in:
+- ingestion prices
+- expected returns
+- optimiser
+- weekly picks
+must all match.
+- Weight sanity
+- For long‑only optimiser:
+- sum(weight) ≈ 1.0
+- no negative weights
+- Metadata completeness
+- Weekly picks:
+- no null company_name
+- no null sector
+- Legacy detection
+- No dashboard script imports or reads:
+- quant_weekly_10x10_*
+- weekly_selection*.csv
+- dashboard_10stock_weekly.csv
+- File existence
+- All required governed outputs exist:
+- optimiser
+- attribution
+- weekly picks
+- performance summaries
+Outcome:
+- If all checks pass → pipeline marked VERIFIED
+- If any check fails → pipeline marked FAILED, dashboard should display a clear failure state and not show misleading tiles.
+
+6. Legacy cleanup
+All legacy weekly systems are to be archived:
+Move to:
+- C:\Quant\archive\legacy_weekly_system_YYYYMMDD\
+Files to move include (non‑exhaustive):
+- data/analytics/quant_weekly_10x10_*.csv
+- data/signals/weekly_selection*.csv
+- data/dashboard/dashboard_10stock_weekly.csv
+- scripts/quant_weekly_10x10_v1.py
+- scripts/ranking/ranking_10stock_weekly.py
+- scripts/selection/build_weekly_selection_longonly.py
+- scripts/selection/build_weekly_selection_longshort.py
+- scripts/dashboard/dashboard_10stock_weekly.py
+- old pages/1_Weekly_Picks.py that references those files
+After this, no governed code may import from or read these paths.
+
+7. Execution order
+The canonical run sequence:
+- master_pipeline_quant_v1.py
+- ingestion
+- signals
+- optimiser
+- attribution
+- weekly picks
+- reporting
+- verify_quant_v1_build.py
+- run all invariants and contract checks
+- streamlit run streamlit_quant_dashboard_v1.py
+- only if verification passes
+
+8. Change control
+Any change to:
+- data contracts
+- file paths
+- module responsibilities
+- dashboard data sources
+must be:
+- explicitly stated
+- reflected in this architecture spec
+- and, ideally, versioned (e.g. quant_v1.1)
+No silent changes.

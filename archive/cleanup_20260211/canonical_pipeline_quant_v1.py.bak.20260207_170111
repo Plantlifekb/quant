@@ -1,0 +1,60 @@
+﻿"""Canonical pipeline (minimal, import-safe)."""
+
+from __future__ import annotations
+import os, sys
+
+# Bootstrap sys.path so project scripts and canonical are importable
+_here = os.path.dirname(os.path.abspath(__file__))
+_repo_root = os.path.dirname(_here)
+_scripts = os.path.join(_repo_root, "scripts")
+_scripts_canonical = os.path.join(_scripts, "canonical")
+for _p in (_scripts, _scripts_canonical):
+    try:
+        if _p and _p not in sys.path:
+            sys.path.insert(0, _p)
+    except Exception:
+        pass
+
+# Try normal import first, then load from file, then fallback to stdlib shim
+get_logger = None
+log = None
+
+try:
+    from logging_quant_v1 import get_logger, log  # type: ignore
+except Exception:
+    try:
+        import importlib.util as _specmod
+        _mod_path = os.path.join(_scripts_canonical, "logging_quant_v1.py")
+        if os.path.exists(_mod_path):
+            spec = _specmod.spec_from_file_location("logging_quant_v1", _mod_path)
+            if spec and spec.loader:
+                logging_quant_v1 = _specmod.module_from_spec(spec)
+                spec.loader.exec_module(logging_quant_v1)  # type: ignore
+                get_logger = getattr(logging_quant_v1, "get_logger", None)
+                log = getattr(logging_quant_v1, "log", None)
+    except Exception:
+        pass
+
+if get_logger is None:
+    import logging as _logging
+    def get_logger(name: str = "canonical_v1"):
+        logger = _logging.getLogger(name)
+        if not logger.handlers:
+            handler = _logging.StreamHandler()
+            formatter = _logging.Formatter("%(asctime)s %(levelname)s %(name)s: %(message)s")
+            handler.setFormatter(formatter)
+            logger.addHandler(handler)
+            logger.setLevel(_logging.INFO)
+        return logger
+    class _LogProxy:
+        def info(self, *a, **k): get_logger().info(*a, **k)
+        def warning(self, *a, **k): get_logger().warning(*a, **k)
+        def error(self, *a, **k): get_logger().error(*a, **k)
+        def debug(self, *a, **k): get_logger().debug(*a, **k)
+    log = _LogProxy()
+
+# Minimal entrypoint to exercise imports
+if __name__ == "__main__":
+    logger = get_logger("canonical_pipeline_quant_v1")
+    logger.info("Canonical pipeline bootstrap successful")
+    print("CANONICAL_OK")

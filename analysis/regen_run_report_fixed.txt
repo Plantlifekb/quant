@@ -1,0 +1,8 @@
+weekly build failed: No weekly returns could be computed from ingestion file.
+ingestion_5years.csv columns:
+date, ticker, company_name, market_sector, open, high, low, close, adj_close, volume, run_date
+sample rows:
+date,ticker,company_name,market_sector,open,high,low,close,adj_close,volume,run_date
+2021-01-11,A,"Agilent Technologies, Inc.",Healthcare,126.4499969482422,129.33999633789062,126.2300033569336,128.14999389648438,123.85070037841795,1746800.0,2026-01-31 11:28:23 UTC
+2021-01-12,A,"Agilent Technologies, Inc.",Healthcare,128.3300018310547,128.38999938964844,126.1999969482422,126.97000122070312,122.7103042602539,1826400.0,2026-01-31 11:28:23 UTC
+2021-01-13,A,"Agilent Technologies, Inc.",Healthcare,127.45999908447266,128.0500030517578,126.73999786376952,126.9800033569336,122.71996307373048,1530400.0,2026-01-31 11:28:23 UTC

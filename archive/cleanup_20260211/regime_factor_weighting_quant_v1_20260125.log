@@ -1,0 +1,4 @@
+[2026-01-25 21:28:12 UTC] [regime_factor_weighting_quant_v1] Starting regime_factor_weighting_quant_v1 (v1.3)
+[2026-01-25 21:28:12 UTC] [regime_factor_weighting_quant_v1] Loading factor returns from C:\Quant\data\analytics\quant_factors.csv
+[2026-01-25 21:28:25 UTC] [regime_factor_weighting_quant_v1] Applying regime × trend factor multipliers
+[2026-01-25 21:30:18 UTC] [regime_factor_weighting_quant_v1] Completed regime_factor_weighting_quant_v1 (v1.3)

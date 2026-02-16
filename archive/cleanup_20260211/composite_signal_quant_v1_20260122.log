@@ -1,0 +1,10 @@
+[2026-01-22 08:01:38 UTC] [composite_signal_quant_v1] Starting composite_signal_quant_v1 run (v1.0).
+[2026-01-22 08:01:38 UTC] [composite_signal_quant_v1] Loading factor data from C:\Quant\data\analytics\quant_factors.csv
+[2026-01-22 08:01:41 UTC] [composite_signal_quant_v1] Missing required columns: {'trend_strength'}
+[2026-01-22 08:03:36 UTC] [composite_signal_quant_v1] Starting composite_signal_quant_v1 run (v1.0).
+[2026-01-22 08:03:36 UTC] [composite_signal_quant_v1] Loading factor data from C:\Quant\data\analytics\quant_factors.csv
+[2026-01-22 08:03:40 UTC] [composite_signal_quant_v1] Loaded 681120 rows.
+[2026-01-22 08:03:40 UTC] [composite_signal_quant_v1] Building component signals.
+[2026-01-22 08:03:40 UTC] [composite_signal_quant_v1] Building composite_signal_v1.
+[2026-01-22 08:03:40 UTC] [composite_signal_quant_v1] Saving composite factors to C:\Quant\data\analytics\quant_factors_composite.csv
+[2026-01-22 08:04:17 UTC] [composite_signal_quant_v1] composite_signal_quant_v1 run completed successfully.

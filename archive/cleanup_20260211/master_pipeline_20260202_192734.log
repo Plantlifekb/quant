@@ -1,0 +1,17 @@
+2026-02-02 19:27:34,557 INFO === MASTER PIPELINE START ===
+2026-02-02 19:27:34,563 INFO Newest data file: C:\Quant\data\analytics\price_returns.parquet (age 0:00:10.874157)
+2026-02-02 19:27:34,564 INFO No ingestion script found; skipping ingestion.
+2026-02-02 19:27:34,564 INFO Starting build_strategy_returns (optimiser x price returns)
+2026-02-02 19:27:35,466 INFO WROTE strategy returns (927 rows) and manifest using optimiser x price returns
+2026-02-02 19:27:35,494 INFO Verifying strategy returns
+2026-02-02 19:27:35,536 INFO Strategy final cum values: {'LONG_ONLY': 53.963360105760806, 'LONG_SHORT': -0.8404616814252482}
+2026-02-02 19:27:35,549 INFO Strategy verification OK
+2026-02-02 19:27:35,549 INFO Starting build_weekly_picks
+2026-02-02 19:27:35,793 INFO WROTE weekly picks (10 rows) for 2026-01-30
+2026-02-02 19:27:35,806 INFO Verifying weekly picks
+2026-02-02 19:27:35,857 INFO Weekly picks verification OK rows: 10
+2026-02-02 19:27:35,857 INFO Running cleanup/archive of old generated files
+2026-02-02 19:27:35,860 INFO Archived 0 files
+2026-02-02 19:27:35,861 INFO === MASTER PIPELINE COMPLETED SUCCESSFULLY ===
+2026-02-02 19:27:35,862 INFO Manifest: {'rows': 927, 'unit_converted': False, 'clip_value': 0.5, 'date_min': '2021-12-03', 'date_max': '2026-01-30', 'long_rows': 576, 'short_rows': 351, 'generated_at': '2026-02-02T19:27:35.466944Z', 'method': 'optimiser_x_price_returns'}
+2026-02-02 19:27:35,862 INFO Archived files: []

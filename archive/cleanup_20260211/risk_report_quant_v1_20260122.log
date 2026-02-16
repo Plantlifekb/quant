@@ -1,0 +1,10 @@
+[2026-01-22 09:47:32 UTC] [risk_report_quant_v1] Starting risk_report_quant_v1 run (v1.0).
+[2026-01-22 09:47:32 UTC] [risk_report_quant_v1] Loading risk-neutral portfolio performance from C:\Quant\data\analytics\quant_portfolio_performance_ensemble_risk.csv
+[2026-01-22 09:47:32 UTC] [risk_report_quant_v1] Loaded 2602 performance rows after cleaning.
+[2026-01-22 09:47:32 UTC] [risk_report_quant_v1] Computing time series risk metrics for risk-neutral portfolios.
+[2026-01-22 09:47:32 UTC] [risk_report_quant_v1] Time series risk metrics computed.
+[2026-01-22 09:47:32 UTC] [risk_report_quant_v1] Computing summary risk metrics for risk-neutral portfolios.
+[2026-01-22 09:47:32 UTC] [risk_report_quant_v1] Summary risk metrics computed.
+[2026-01-22 09:47:32 UTC] [risk_report_quant_v1] Saving risk time series to C:\Quant\data\analytics\quant_risk_timeseries_ensemble_risk.csv
+[2026-01-22 09:47:32 UTC] [risk_report_quant_v1] Saving risk summary to C:\Quant\data\analytics\quant_risk_summary_ensemble_risk.csv
+[2026-01-22 09:47:32 UTC] [risk_report_quant_v1] risk_report_quant_v1 run completed successfully.

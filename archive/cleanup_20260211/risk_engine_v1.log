@@ -1,0 +1,28 @@
+[2026-01-24 14:13:49 UTC] [risk_engine_v1] Starting risk_engine_v1 run.
+[2026-01-24 14:13:49 UTC] [risk_engine_v1] quant_factor_exposures_v1.csv not found — using empty DataFrame.
+[2026-01-24 14:13:49 UTC] [risk_engine_v1] quant_factor_returns_v1.csv not found — using empty DataFrame.
+[2026-01-24 14:13:49 UTC] [risk_engine_v1] quant_attribution_rolling_v1.csv not found — using empty DataFrame.
+[2026-01-24 14:13:50 UTC] [risk_engine_v1] Computing DAILY risk model.
+[2026-01-24 14:13:50 UTC] [risk_engine_v1] Computing regime-aware risk.
+[2026-01-24 14:13:50 UTC] [risk_engine_v1] Risk model written to C:\Quant\data\analytics\risk\quant_risk_model_v1.csv
+[2026-01-24 14:13:50 UTC] [risk_engine_v1] risk_engine_v1 completed successfully.
+2026-01-24 14:17:20,883 [INFO] ------------------------------------------------------------
+2026-01-24 14:17:20,883 [INFO] Starting Risk Engine v1.1
+2026-01-24 14:17:20,883 [INFO] Run timestamp: 2026-01-24 14:17:20 UTC
+2026-01-24 14:17:20,883 [INFO] ------------------------------------------------------------
+2026-01-24 14:18:24,695 [INFO] ------------------------------------------------------------
+2026-01-24 14:18:24,695 [INFO] Starting Risk Engine v1.1
+2026-01-24 14:18:24,695 [INFO] Run timestamp: 2026-01-24 14:18:24 UTC
+2026-01-24 14:18:24,695 [INFO] ------------------------------------------------------------
+2026-01-24 14:21:05,927 [INFO] ------------------------------------------------------------
+2026-01-24 14:21:05,927 [INFO] Starting Risk Engine v1.1
+2026-01-24 14:21:05,927 [INFO] Run timestamp: 2026-01-24 14:21:05 UTC
+2026-01-24 14:21:05,927 [INFO] ------------------------------------------------------------
+2026-01-24 14:22:05,088 [INFO] ------------------------------------------------------------
+2026-01-24 14:22:05,088 [INFO] Starting Risk Engine v1.1
+2026-01-24 14:22:05,088 [INFO] Run timestamp: 2026-01-24 14:22:05 UTC
+2026-01-24 14:22:05,088 [INFO] ------------------------------------------------------------
+2026-01-24 14:22:05,452 [INFO] Full rolling risk model written to C:\Quant\data\analytics\risk\quant_risk_model_v1.csv
+2026-01-24 14:22:05,472 [INFO] Daily risk summary written to C:\Quant\data\analytics\risk\quant_risk_daily_v1.csv
+2026-01-24 14:22:05,472 [INFO] Risk Engine v1.1 completed.
+2026-01-24 14:22:05,472 [INFO] ------------------------------------------------------------

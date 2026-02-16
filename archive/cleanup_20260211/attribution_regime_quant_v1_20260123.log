@@ -1,0 +1,42 @@
+[2026-01-23 15:21:23 UTC] [attribution_regime_quant_v1] Starting attribution_regime_quant_v1 run (v1.0).
+[2026-01-23 15:21:23 UTC] [attribution_regime_quant_v1] Starting attribution assembly.
+[2026-01-23 15:21:23 UTC] [attribution_regime_quant_v1] Loading realised returns from C:\Quant\data\analytics\quant_realized_returns_v1.csv
+[2026-01-23 15:21:23 UTC] [attribution_regime_quant_v1] Loading regime-aware weights from C:\Quant\data\analytics\quant_portfolio_weights_regime_v1.csv
+[2026-01-23 15:21:23 UTC] [attribution_regime_quant_v1] Loading factor exposures from C:\Quant\data\analytics\quant_factor_exposures_timeseries.csv
+[2026-01-23 15:21:26 UTC] [attribution_regime_quant_v1] Loading regime-aware factor returns from C:\Quant\data\analytics\quant_factor_returns_regime_v1.csv
+[2026-01-23 15:21:34 UTC] [attribution_regime_quant_v1] Loading turnover diagnostics from C:\Quant\data\analytics\quant_turnover_regime_v1.csv
+[2026-01-23 15:21:34 UTC] [attribution_regime_quant_v1] Loading liquidity costs from C:\Quant\data\analytics\quant_liquidity_costs_timeseries.csv
+[2026-01-23 15:25:18 UTC] [attribution_regime_quant_v1] Starting attribution_regime_quant_v1 run (v1.0).
+[2026-01-23 15:25:18 UTC] [attribution_regime_quant_v1] Starting attribution assembly.
+[2026-01-23 15:25:18 UTC] [attribution_regime_quant_v1] Loading realised returns from C:\Quant\data\analytics\quant_realized_returns_v1.csv
+[2026-01-23 15:25:18 UTC] [attribution_regime_quant_v1] Loading regime-aware weights from C:\Quant\data\analytics\quant_portfolio_weights_regime_v1.csv
+[2026-01-23 15:25:18 UTC] [attribution_regime_quant_v1] Loading factor exposures from C:\Quant\data\analytics\quant_factor_exposures_timeseries.csv
+[2026-01-23 15:25:21 UTC] [attribution_regime_quant_v1] Loading regime-aware factor returns from C:\Quant\data\analytics\quant_factor_returns_regime_v1.csv
+[2026-01-23 15:25:29 UTC] [attribution_regime_quant_v1] Loading turnover diagnostics from C:\Quant\data\analytics\quant_turnover_regime_v1.csv
+[2026-01-23 15:25:29 UTC] [attribution_regime_quant_v1] Loading liquidity costs from C:\Quant\data\analytics\quant_liquidity_costs_timeseries.csv
+[2026-01-23 15:25:30 UTC] [attribution_regime_quant_v1] Loading market liquidity from C:\Quant\data\analytics\quant_market_liquidity_timeseries.csv
+[2026-01-23 15:29:26 UTC] [attribution_regime_quant_v1] Starting attribution_regime_quant_v1 run (v1.0).
+[2026-01-23 15:33:03 UTC] [attribution_regime_quant_v1] Starting attribution_regime_quant_v1 run (v1.0).
+[2026-01-23 15:33:03 UTC] [attribution_regime_quant_v1] Starting attribution assembly.
+[2026-01-23 15:33:03 UTC] [attribution_regime_quant_v1] Loading realised returns from C:\Quant\data\analytics\quant_realized_returns_v1.csv
+[2026-01-23 15:33:03 UTC] [attribution_regime_quant_v1] Loading regime-aware weights from C:\Quant\data\analytics\quant_portfolio_weights_regime_v1.csv
+[2026-01-23 15:33:03 UTC] [attribution_regime_quant_v1] Loading factor exposures from C:\Quant\data\analytics\quant_factor_exposures_timeseries.csv
+[2026-01-23 15:33:08 UTC] [attribution_regime_quant_v1] Loading regime-aware factor returns from C:\Quant\data\analytics\quant_factor_returns_regime_v1.csv
+[2026-01-23 15:33:18 UTC] [attribution_regime_quant_v1] Loading turnover diagnostics from C:\Quant\data\analytics\quant_turnover_regime_v1.csv
+[2026-01-23 15:33:18 UTC] [attribution_regime_quant_v1] Loading liquidity costs from C:\Quant\data\analytics\quant_liquidity_costs_timeseries.csv
+[2026-01-23 15:33:20 UTC] [attribution_regime_quant_v1] Loading regime states from C:\Quant\data\analytics\quant_regime_states_v1.csv
+[2026-01-23 15:33:20 UTC] [attribution_regime_quant_v1] Using 11 factors for attribution: cross_sectional_mom, low_vol_252, mean_reversion, model_signal_v2, model_signal_v3, mom_long, mom_medium, mom_short, seasonality_12m, trend_vol_combo, volume_persistence
+[2026-01-23 15:36:13 UTC] [attribution_regime_quant_v1] Starting attribution_regime_quant_v1 run (v1.0).
+[2026-01-23 15:36:13 UTC] [attribution_regime_quant_v1] Starting attribution assembly.
+[2026-01-23 15:36:13 UTC] [attribution_regime_quant_v1] Loading realised returns from C:\Quant\data\analytics\quant_realized_returns_v1.csv
+[2026-01-23 15:36:13 UTC] [attribution_regime_quant_v1] Loading regime-aware weights from C:\Quant\data\analytics\quant_portfolio_weights_regime_v1.csv
+[2026-01-23 15:36:13 UTC] [attribution_regime_quant_v1] Loading factor exposures from C:\Quant\data\analytics\quant_factor_exposures_timeseries.csv
+[2026-01-23 15:36:16 UTC] [attribution_regime_quant_v1] Loading regime-aware factor returns from C:\Quant\data\analytics\quant_factor_returns_regime_v1.csv
+[2026-01-23 15:36:23 UTC] [attribution_regime_quant_v1] Loading turnover diagnostics from C:\Quant\data\analytics\quant_turnover_regime_v1.csv
+[2026-01-23 15:36:23 UTC] [attribution_regime_quant_v1] Loading liquidity costs from C:\Quant\data\analytics\quant_liquidity_costs_timeseries.csv
+[2026-01-23 15:36:24 UTC] [attribution_regime_quant_v1] Loading regime states from C:\Quant\data\analytics\quant_regime_states_v1.csv
+[2026-01-23 15:36:24 UTC] [attribution_regime_quant_v1] Using 11 factors for attribution: cross_sectional_mom, low_vol_252, mean_reversion, model_signal_v2, model_signal_v3, mom_long, mom_medium, mom_short, seasonality_12m, trend_vol_combo, volume_persistence
+[2026-01-23 15:36:24 UTC] [attribution_regime_quant_v1] Computing per-ticker turnover cost.
+[2026-01-23 15:36:24 UTC] [attribution_regime_quant_v1] Computing per-ticker liquidity cost.
+[2026-01-23 15:36:24 UTC] [attribution_regime_quant_v1] Saving regime-aware attribution to C:\Quant\data\analytics\quant_attribution_regime_v1.csv
+[2026-01-23 15:36:24 UTC] [attribution_regime_quant_v1] attribution_regime_quant_v1 run completed successfully.

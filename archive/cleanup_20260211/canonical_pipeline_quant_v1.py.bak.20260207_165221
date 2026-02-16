@@ -1,0 +1,258 @@
+﻿import sys
+sys.path.insert(0, r'C:\Quant\scripts')
+sys.path.insert(0, r'C:\Quant\scripts\canonical')
+# --- Local import bootstrap (inserted to ensure local scripts are importable) ---
+import os, sys
+_here = os.path.dirname(os.path.abspath(__file__))
+_repo_root = os.path.dirname(_here)
+_scripts = os.path.join(_repo_root, "scripts")
+_scripts_canonical = os.path.join(_scripts, "canonical")
+for _p in (_scripts, _scripts_canonical):
+    if _p and _p not in sys.path:
+        sys.path.insert(0, _p)
+# --- end bootstrap ---
+$path = "C:\Quant\scripts\canonical\canonical_pipeline_quant_v1.py"
+if (-not (Test-Path (Split-Path $path -Parent))) { New-Item -ItemType Directory -Path (Split-Path $path -Parent) -Force | Out-Null }
+if (Test-Path $path) { Copy-Item $path "$path.bak.$((Get-Date).ToString('yyyyMMdd_HHmmss'))" -Force }
+#!/usr/bin/env python3
+"""
+canonical_pipeline_quant_v1.py
+
+Canonical pipeline for Quant (regression- and import-safe).
+This script is intentionally self-contained and defensive about imports so it
+works whether invoked directly or via a wrapper that doesn't set PYTHONPATH.
+
+Exit codes:
+  0 - success
+  1 - runtime error
+  2 - validation/import error
+"""
+
+from __future__ import annotations
+
+import argparse
+import json
+import os
+import sys
+import traceback
+from datetime import datetime
+from typing import Optional, Any
+
+# -------------------------
+# Bootstrap sys.path early
+# -------------------------
+# Ensure repository scripts, scripts/logs, and scripts/canonical are importable
+_here = os.path.dirname(os.path.abspath(__file__))
+_repo_root = os.path.dirname(_here)
+_scripts = os.path.join(_repo_root, "scripts")
+_scripts_logs = os.path.join(_scripts, "logs")
+_scripts_canonical = os.path.join(_scripts, "canonical")
+
+for _p in (_scripts, _scripts_logs, _scripts_canonical):
+    try:
+        if _p and _p not in sys.path:
+            sys.path.insert(0, _p)
+    except Exception:
+        # defensive: do not fail bootstrap if sys.path manipulation raises
+        pass
+
+# -------------------------
+# Robust import of local logging facade
+# -------------------------
+# Preferred: import logging_quant_v1 from normal import path.
+# Fallback: load logging_quant_v1.py directly from scripts/canonical if present.
+get_logger = None  # type: Optional[Any]
+log = None  # type: Optional[Any]
+
+try:
+    # Normal import (works when PYTHONPATH or sys.path already includes scripts)
+    # -------------------------
+# Robust import of local logging facade
+# -------------------------
+get_logger = None  # type: Optional[Any]
+log = None  # type: Optional[Any]
+
+try:
+    # Normal import (works when PYTHONPATH or sys.path already includes scripts)
+    from logging_quant_v1 import get_logger, log  # type: ignore
+except Exception:
+    try:
+        import importlib.util as _specmod
+        _mod_path = os.path.join(_scripts_canonical, "logging_quant_v1.py")
+        if os.path.exists(_mod_path):
+            spec = _specmod.spec_from_file_location("logging_quant_v1", _mod_path)
+            if spec and spec.loader:
+                logging_quant_v1 = _specmod.module_from_spec(spec)
+                spec.loader.exec_module(logging_quant_v1)  # type: ignore
+                get_logger = getattr(logging_quant_v1, "get_logger", None)
+                log = getattr(logging_quant_v1, "log", None)
+    except Exception:
+        # swallow and fall through to stdlib fallback
+        pass
+
+# Final fallback: minimal stdlib logging facade
+if get_logger is None:
+    import logging as _logging
+
+    def get_logger(name: str = "canonical_v1"):
+        logger = _logging.getLogger(name)
+        if not logger.handlers:
+            handler = _logging.StreamHandler()
+            formatter = _logging.Formatter("%(asctime)s %(levelname)s %(name)s: %(message)s")
+            handler.setFormatter(formatter)
+            logger.addHandler(handler)
+            logger.setLevel(_logging.INFO)
+        return logger
+
+    class _LogProxy:
+        def info(self, *a, **k): get_logger().info(*a, **k)
+        def warning(self, *a, **k): get_logger().warning(*a, **k)
+        def error(self, *a, **k): get_logger().error(*a, **k)
+        def debug(self, *a, **k): get_logger().debug(*a, **k)
+
+    log = _LogProxy()except Exception:
+    try:
+        import importlib.util as _specmod
+        _mod_path = os.path.join(_scripts_canonical, "logging_quant_v1.py")
+        if os.path.exists(_mod_path):
+            spec = _specmod.spec_from_file_location("logging_quant_v1", _mod_path)
+            if spec and spec.loader:
+                logging_quant_v1 = _specmod.module_from_spec(spec)
+                spec.loader.exec_module(logging_quant_v1)  # type: ignore
+                get_logger = getattr(logging_quant_v1, "get_logger", None)
+                log = getattr(logging_quant_v1, "log", None)
+    except Exception:
+        # swallow and fall through to stdlib fallback
+        pass
+
+# Final fallback: minimal stdlib logging facade
+if get_logger is None:
+    import logging as _logging
+
+    def get_logger(name: str = "canonical_v1"):
+        logger = _logging.getLogger(name)
+        if not logger.handlers:
+            handler = _logging.StreamHandler()
+            formatter = _logging.Formatter("%(asctime)s %(levelname)s %(name)s: %(message)s")
+            handler.setFormatter(formatter)
+            logger.addHandler(handler)
+            logger.setLevel(_logging.INFO)
+        return logger
+
+    class _LogProxy:
+        def info(self, *a, **k): get_logger().info(*a, **k)
+        def warning(self, *a, **k): get_logger().warning(*a, **k)
+        def error(self, *a, **k): get_logger().error(*a, **k)
+        def debug(self, *a, **k): get_logger().debug(*a, **k)
+
+    log = _LogProxy()
+
+logger = get_logger("canonical_pipeline_quant_v1")
+
+# -------------------------
+# Utility helpers
+# -------------------------
+def now_iso() -> str:
+    return datetime.utcnow().isoformat() + "Z"
+
+def safe_write(path: str, data: str) -> None:
+    d = os.path.dirname(path)
+    if d and not os.path.exists(d):
+        os.makedirs(d, exist_ok=True)
+    with open(path, "w", encoding="utf-8") as f:
+        f.write(data)
+
+# -------------------------
+# Core pipeline logic (placeholder)
+# -------------------------
+def validate_environment() -> None:
+    # Example validation: ensure data directory exists or is creatable
+    data_dir = os.path.join(_repo_root, "data", "canonical")
+    try:
+        os.makedirs(data_dir, exist_ok=True)
+    except Exception as e:
+        logger.error("Environment validation failed: %s", e)
+        raise
+
+def run_canonical(dry_run: bool = False) -> int:
+    """
+    Main canonical pipeline entry. Returns exit code (0 success, 1 runtime error).
+    """
+    logger.info("Canonical pipeline started at %s", now_iso())
+    try:
+        validate_environment()
+        # --- Example canonical work (replace with real steps) ---
+        out_dir = os.path.join(_repo_root, "data", "canonical")
+        timestamp = datetime.utcnow().strftime("%Y%m%dT%H%M%SZ")
+        artifact_path = os.path.join(out_dir, f"canonical_artifact_{timestamp}.json")
+
+        payload = {
+            "generated_at": now_iso(),
+            "repo_root": _repo_root,
+            "notes": "This is a placeholder canonical artifact."
+        }
+
+        if dry_run:
+            logger.info("Dry run enabled; would write artifact to %s", artifact_path)
+        else:
+            safe_write(artifact_path, json.dumps(payload, indent=2))
+            logger.info("Wrote canonical artifact: %s", artifact_path)
+
+        logger.info("Canonical pipeline completed successfully")
+        return 0
+    except Exception as exc:
+        logger.error("Canonical pipeline runtime error: %s", exc)
+        logger.debug("Traceback:\n%s", traceback.format_exc())
+        return 1
+
+# -------------------------
+# CLI
+# -------------------------
+def parse_args(argv: Optional[list[str]] = None) -> argparse.Namespace:
+    p = argparse.ArgumentParser(prog="canonical_pipeline_quant_v1.py")
+    p.add_argument("--dry-run", action="store_true", help="Do not write persistent outputs")
+    p.add_argument("--verbose", action="store_true", help="Enable debug logging")
+    return p.parse_args(argv)
+
+def main(argv: Optional[list[str]] = None) -> int:
+    args = parse_args(argv)
+    if args.verbose:
+        try:
+            # attempt to set debug level on logger if supported
+            lg = get_logger()
+            try:
+                lg.setLevel(10)
+            except Exception:
+                pass
+        except Exception:
+            pass
+
+    # Run pipeline and map return codes
+    rc = run_canonical(dry_run=args.dry_run)
+    return rc
+
+# -------------------------
+# Entrypoint
+# -------------------------
+if __name__ == "__main__":
+    try:
+        exit_code = main(sys.argv[1:])
+    except Exception as e:
+        # Unexpected top-level error
+        try:
+            logger.error("Top-level exception in canonical pipeline: %s", e)
+            logger.debug("Traceback:\n%s", traceback.format_exc())
+        except Exception:
+            # logger may not be available; print minimal info
+            print("Top-level exception:", e, file=sys.stderr)
+        exit_code = 1
+    # Ensure a clean integer exit
+    try:
+        sys.exit(int(exit_code))
+    except Exception:
+        sys.exit(1)
+
+Write-Host "Wrote regenerated canonical script to $path"
+Get-Content $path -TotalCount 60 | Out-String | Write-Host
+
+

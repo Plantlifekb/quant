@@ -1,0 +1,272 @@
+﻿#!/usr/bin/env python3
+"""
+canonical_pipeline_quant_v1.py
+
+Canonical pipeline for Quant (regression- and import-safe).
+This script is intentionally self-contained and defensive about imports so it
+works whether invoked directly or via a wrapper that doesn't set PYTHONPATH.
+
+Features
+- Bootstraps sys.path to include repo scripts and scripts/logs
+- Uses logging_quant_v1.get_logger and supports legacy `log` proxy
+- Supports --dry-run to avoid writing persistent outputs
+- Writes canonical artifacts to data/canonical and creates timestamped backups
+- Emits clear exit codes: 0 success, 1 runtime error, 2 validation/import error
+"""
+
+import os
+import sys
+
+# -------------------------
+# Bootstrap sys.path
+# -------------------------
+_here = os.path.dirname(os.path.abspath(__file__))
+_repo_root = os.path.dirname(_here)
+_scripts = os.path.join(_repo_root, "scripts")
+_scripts_logs = os.path.join(_scripts, "logs")
+for _p in (_scripts, _scripts_logs):
+    if _p not in sys.path:
+        sys.path.insert(0, _p)
+
+# Now safe to import local logging facade
+try:
+    from logging_quant_v1 import get_logger, log  # type: ignore
+except Exception:
+    # Fallback: minimal stdlib logging if the local module is still missing
+    import logging as _logging
+
+    def get_logger(name: str = "canonical_v1"):
+        logger = _logging.getLogger(name)
+        if not logger.handlers:
+            handler = _logging.StreamHandler(sys.stdout)
+            fmt = _logging.Formatter("[%(asctime)s UTC] [%(name)s] %(message)s")
+            handler.setFormatter(fmt)
+            logger.addHandler(handler)
+        logger.setLevel(_logging.INFO)
+        return logger
+
+    class _FallbackLogProxy:
+        def __init__(self):
+            self._logger = get_logger("canonical_v1")
+
+        def info(self, *a, **k):
+            self._logger.info(*a, **k)
+
+        def warning(self, *a, **k):
+            self._logger.warning(*a, **k)
+
+        def error(self, *a, **k):
+            self._logger.error(*a, **k)
+
+        def debug(self, *a, **k):
+            self._logger.debug(*a, **k)
+
+        def exception(self, *a, **k):
+            self._logger.exception(*a, **k)
+
+    log = _FallbackLogProxy()
+
+# Acquire a logger for this module
+logger = get_logger("canonical_v1")
+
+# -------------------------
+# Standard library imports
+# -------------------------
+import argparse
+import shutil
+import time
+from datetime import datetime
+from typing import Optional
+
+# Optional third-party imports (guarded)
+try:
+    import pandas as pd  # type: ignore
+except Exception:
+    pd = None  # type: ignore
+
+# -------------------------
+# Constants and helpers
+# -------------------------
+DATA_DIR = os.path.join(_repo_root, "data")
+CANONICAL_DIR = os.path.join(DATA_DIR, "canonical")
+os.makedirs(CANONICAL_DIR, exist_ok=True)
+
+
+def timestamp() -> str:
+    return datetime.utcnow().strftime("%Y%m%d_%H%M%S")
+
+
+def backup_file(path: str) -> Optional[str]:
+    """
+    If path exists, create a timestamped .bak.<ts> copy and return the backup path.
+    """
+    if not os.path.exists(path):
+        return None
+    bak = f"{path}.bak.{timestamp()}"
+    try:
+        shutil.copy2(path, bak)
+        logger.info("Backed up %s -> %s", path, bak)
+        return bak
+    except Exception:
+        logger.exception("Failed to back up %s", path)
+        return None
+
+
+def write_parquet(df, path: str, dry_run: bool = False) -> None:
+    """
+    Write a pandas DataFrame to parquet. If pandas or pyarrow are missing,
+    raise a RuntimeError so the wrapper/CI can detect the failure.
+    """
+    if dry_run:
+        logger.info("Dry-run: would write parquet to %s (rows=%s)", path, len(df) if hasattr(df, "__len__") else "unknown")
+        return
+
+    if pd is None:
+        raise RuntimeError("pandas is required to write parquet files")
+
+    # Ensure parent dir exists
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+
+    # Backup existing file
+    backup_file(path)
+
+    # Write
+    try:
+        df.to_parquet(path, index=False)
+        logger.info("Wrote canonical file: %s", path)
+    except Exception:
+        logger.exception("Failed to write parquet to %s", path)
+        raise
+
+
+def write_csv(df, path: str, dry_run: bool = False) -> None:
+    if dry_run:
+        logger.info("Dry-run: would write CSV to %s (rows=%s)", path, len(df) if hasattr(df, "__len__") else "unknown")
+        return
+
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    backup_file(path)
+    try:
+        if pd is None:
+            raise RuntimeError("pandas is required to write CSV files")
+        df.to_csv(path, index=False)
+        logger.info("Wrote canonical dashboard inputs: %s", path)
+    except Exception:
+        logger.exception("Failed to write CSV to %s", path)
+        raise
+
+
+# -------------------------
+# Canonical pipeline logic
+# -------------------------
+def build_risk_model() -> "pd.DataFrame":
+    """
+    Build a small risk model DataFrame as an example canonical artifact.
+    Replace with real logic in production.
+    """
+    if pd is None:
+        raise RuntimeError("pandas is required to build canonical artifacts")
+    df = pd.DataFrame(
+        {
+            "factor": ["size", "value", "momentum"],
+            "exposure": [0.1, 0.2, -0.05],
+        }
+    )
+    return df
+
+
+def build_expected_returns() -> "pd.DataFrame":
+    if pd is None:
+        raise RuntimeError("pandas is required to build canonical artifacts")
+    df = pd.DataFrame(
+        {
+            "asset": ["AAA", "BBB", "CCC"],
+            "expected_return": [0.02, 0.015, 0.03],
+        }
+    )
+    return df
+
+
+def build_alpha() -> "pd.DataFrame":
+    if pd is None:
+        raise RuntimeError("pandas is required to build canonical artifacts")
+    df = pd.DataFrame(
+        {
+            "asset": ["AAA", "BBB", "CCC"],
+            "alpha": [0.001, -0.0005, 0.002],
+        }
+    )
+    return df
+
+
+def build_dashboard_inputs() -> "pd.DataFrame":
+    if pd is None:
+        raise RuntimeError("pandas is required to build canonical artifacts")
+    df = pd.DataFrame(
+        {
+            "date": [datetime.utcnow().date().isoformat()],
+            "metric_a": [123],
+            "metric_b": [456],
+        }
+    )
+    return df
+
+
+def run_canonical(dry_run: bool = False) -> int:
+    """
+    Run the canonical pipeline. Returns exit code: 0 success, 1 runtime error.
+    """
+    logger.info("=== Starting canonical pipeline ===")
+    start = time.time()
+    try:
+        # Build artifacts
+        risk_model = build_risk_model()
+        expected_returns = build_expected_returns()
+        alpha = build_alpha()
+        dashboard_inputs = build_dashboard_inputs()
+
+        # Paths
+        risk_model_path = os.path.join(CANONICAL_DIR, "risk_model.parquet")
+        expected_returns_path = os.path.join(CANONICAL_DIR, "expected_returns_quant_v1.parquet")
+        alpha_path = os.path.join(CANONICAL_DIR, "alpha_quant_v2.parquet")
+        dashboard_path = os.path.join(CANONICAL_DIR, "quant_dashboard_inputs_v2.csv")
+
+        # Write artifacts
+        write_parquet(risk_model, risk_model_path, dry_run=dry_run)
+        write_parquet(expected_returns, expected_returns_path, dry_run=dry_run)
+        write_parquet(alpha, alpha_path, dry_run=dry_run)
+        write_csv(dashboard_inputs, dashboard_path, dry_run=dry_run)
+
+        elapsed = time.time() - start
+        logger.info("=== Canonical pipeline completed successfully ===")
+        logger.info("Duration: %.2f seconds", elapsed)
+        return 0
+    except RuntimeError as e:
+        logger.exception("Runtime error in canonical pipeline: %s", e)
+        return 1
+    except Exception as e:
+        logger.exception("Unexpected error in canonical pipeline: %s", e)
+        return 1
+
+
+# -------------------------
+# CLI
+# -------------------------
+def parse_args(argv):
+    p = argparse.ArgumentParser(prog="canonical_pipeline_quant_v1.py", description="Canonical pipeline (quant_v1)")
+    p.add_argument("--dry-run", action="store_true", help="Run without writing persistent outputs")
+    return p.parse_args(argv)
+
+
+def main(argv=None):
+    args = parse_args(argv or sys.argv[1:])
+    logger.info("Starting canonical_pipeline_quant_v1.py (dry_run=%s)", args.dry_run)
+    rc = run_canonical(dry_run=args.dry_run)
+    # Ensure the process exit code reflects the pipeline result
+    if rc != 0:
+        logger.error("Canonical pipeline failed with exit code %d", rc)
+    sys.exit(rc)
+
+
+if __name__ == "__main__":
+    main()

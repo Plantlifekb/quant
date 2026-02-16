@@ -1,0 +1,443 @@
+﻿#!/usr/bin/env python3
+# ==================================================================================================
+# Quant v1.0 â€” 5-Year Ingestion (Governed, Robust, Ticker-Aware)
+# ==================================================================================================
+# PURPOSE:
+#   Ingest 5 years (+buffer) of daily OHLCV data for the governed ticker universe, using Yahoo as
+#   primary source and Alpha Vantage as fallback, and write a normalized, ticker-aware CSV suitable
+#   for all downstream Quant v1.0 modules.
+#
+# INPUTS:
+#   C:\Quant\config\ticker_reference.csv
+#
+# OUTPUTS:
+#   C:\Quant\data\ingestion\ingestion_5years.csv
+#
+# SCHEMA (Quant v1.0, lowercase, non-drifting):
+#   date        (YYYY-MM-DD)
+#   ticker
+#   company_name
+#   market_sector
+#   open
+#   high
+#   low
+#   close
+#   adj_close
+#   volume
+#   run_date   (YYYY-MM-DD HH:MM:SS UTC)
+#
+# GOVERNANCE:
+#   â€¢ No schema drift permitted.
+#   â€¢ No column renaming or reordering without explicit version bump.
+#   â€¢ All column names must be lowercase.
+#   â€¢ All dates must be ISO-8601 (YYYY-MM-DD).
+#   â€¢ run_date must be UTC timestamp (YYYY-MM-DD HH:MM:SS UTC).
+#   â€¢ No writing outside C:\Quant\data\ingestion\.
+#   â€¢ Deterministic, reproducible behaviour required.
+#   â€¢ If OHLCV is missing for a ticker, that ticker is marked failed and excluded.
+#   â€¢ If no tickers succeed, the script raises a hard error and writes nothing.
+#
+# LOGGING:
+#   â€¢ Must use logging_quant_v1.py
+#   â€¢ Logs start, end, per-ticker status, and all failures.
+#
+# ENCODING:
+#   â€¢ All CSV outputs must be UTF-8 encoded.
+#   â€¢ All logs must be ASCII-safe.
+#
+# DEPENDENCIES:
+#   â€¢ numpy, pandas, yfinance, requests
+#
+# PROVENANCE:
+#   â€¢ This script participates in the governed Quant v1.0 pipeline.
+#   â€¢ All changes must be documented and versioned.
+#
+# ==================================================================================================
+# END OF HEADER â€” IMPLEMENTATION BEGINS BELOW
+# ==================================================================================================
+
+import os
+import time
+from datetime import datetime, timedelta
+from io import StringIO
+from typing import Optional, List
+
+import numpy as np
+import pandas as pd
+import yfinance as yf
+import requests
+
+import sys
+sys.path.append(os.path.dirname(os.path.dirname(__file__)))
+from logging_quant_v1 import log
+
+# ==================================================================================================
+# PATHS
+# ==================================================================================================
+
+ROOT = r"C:\Quant"
+CONFIG_DIR = os.path.join(ROOT, "config")
+DATA_DIR = os.path.join(ROOT, "data", "ingestion")
+
+TICKER_REF = os.path.join(CONFIG_DIR, "ticker_reference.csv")
+OUT_CSV = os.path.join(DATA_DIR, "ingestion_5years.csv")
+
+# ==================================================================================================
+# CALENDAR
+# ==================================================================================================
+
+def last_trading_day(d: datetime.date) -> datetime.date:
+    while d.weekday() >= 5:
+        d -= timedelta(days=1)
+    return d
+
+def calendar_5y_with_buffer(end: datetime.date, periods: int = 1260, buffer_days: int = 60) -> pd.DatetimeIndex:
+    cal = pd.bdate_range(end=end, periods=periods + buffer_days)
+    return cal
+
+# ==================================================================================================
+# NORMALIZATION (ticker-aware, upgraded)
+# ==================================================================================================
+
+def normalize(df: pd.DataFrame, ticker: str) -> pd.DataFrame:
+    """
+    Normalize Yahoo/Alpha Vantage frames into:
+    Date, ticker, Open, High, Low, Close, Adj_Close, Volume
+
+    Handles:
+    - MultiIndex columns
+    - *_<ticker> suffixes
+    - Price_* prefixes
+    - Alpha Vantage CSV structure
+    """
+
+    if isinstance(df.columns, pd.MultiIndex):
+        df.columns = ["_".join([c for c in col if c]) for col in df.columns]
+
+    df = df.reset_index()
+
+    if "Date" not in df.columns:
+        df.rename(columns={df.columns[0]: "Date"}, inplace=True)
+
+    df["Date"] = pd.to_datetime(df["Date"], errors="coerce")
+    df["ticker"] = str(ticker).strip().upper()
+
+    cols = list(df.columns)
+    rename = {}
+
+    suffix = f"_{ticker}"
+    for c in cols:
+        base = c
+        if c.endswith(suffix):
+            base = c[: -len(suffix)]
+
+        if base.startswith("Price_"):
+            base = base.replace("Price_", "")
+
+        base_stripped = base.strip()
+
+        if base_stripped in ["Open", "High", "Low", "Close", "Adj Close", "AdjClose", "Volume"]:
+            if base_stripped in ["Adj Close", "AdjClose"]:
+                rename[c] = "Adj_Close"
+            else:
+                rename[c] = base_stripped
+
+    static_map = {
+        "Adj Close": "Adj_Close",
+        "AdjClose": "Adj_Close",
+    }
+    for k, v in static_map.items():
+        if k in df.columns and k not in rename:
+            rename[k] = v
+
+    df = df.rename(columns=rename)
+
+    for col in ["Open", "High", "Low", "Close", "Adj_Close", "Volume"]:
+        if col not in df.columns:
+            df[col] = np.nan
+
+    for col in ["Open", "High", "Low", "Close", "Adj_Close", "Volume"]:
+        df[col] = pd.to_numeric(df[col], errors="coerce")
+
+    log.info(f"[ingestion_5years_quant_v1] {ticker}: After normalize, cols={list(df.columns)}")
+
+    return df[["Date", "ticker", "Open", "High", "Low", "Close", "Adj_Close", "Volume"]]
+
+# ==================================================================================================
+# FETCHERS (with retries)
+# ==================================================================================================
+
+def fetch_yahoo(t: str, start: str, end: str, retries: int = 3, delay: float = 1.0) -> Optional[pd.DataFrame]:
+    for attempt in range(1, retries + 1):
+        try:
+            df = yf.download(t, start=start, end=end, progress=False, auto_adjust=False)
+
+            if df is None or df.empty:
+                log.info(f"[ingestion_5years_quant_v1] {t}: Yahoo returned EMPTY (attempt {attempt}/{retries})")
+            else:
+                log.info(f"[ingestion_5years_quant_v1] {t}: Yahoo OK ({len(df)} rows, attempt {attempt})")
+                return normalize(df, t)
+
+        except Exception as e:
+            log.info(f"[ingestion_5years_quant_v1] {t}: Yahoo error on attempt {attempt}/{retries} -> {e}")
+
+        time.sleep(delay)
+
+    return None
+
+
+def fetch_alpha_vantage(t: str, start: str, end: str, key: str, retries: int = 2, delay: float = 1.5) -> Optional[pd.DataFrame]:
+    for attempt in range(1, retries + 1):
+        try:
+            url = (
+                "https://www.alphavantage.co/query"
+                "?function=TIME_SERIES_DAILY_ADJUSTED"
+                f"&symbol={t}&apikey={key}&outputsize=full&datatype=csv"
+            )
+            r = requests.get(url, timeout=30)
+            if r.status_code != 200:
+                log.info(f"[ingestion_5years_quant_v1] {t}: Alpha Vantage HTTP {r.status_code} (attempt {attempt}/{retries})")
+                time.sleep(delay)
+                continue
+
+            df = pd.read_csv(StringIO(r.text))
+            if "timestamp" not in df.columns:
+                log.info(f"[ingestion_5years_quant_v1] {t}: Alpha Vantage malformed (attempt {attempt}/{retries})")
+                time.sleep(delay)
+                continue
+
+            df.rename(
+                columns={
+                    "timestamp": "Date",
+                    "open": "Open",
+                    "high": "High",
+                    "low": "Low",
+                    "close": "Close",
+                    "adjusted_close": "Adj_Close",
+                    "volume": "Volume",
+                },
+                inplace=True,
+            )
+
+            df["Date"] = pd.to_datetime(df["Date"], errors="coerce")
+            df = df[(df["Date"] >= pd.to_datetime(start)) & (df["Date"] <= pd.to_datetime(end))]
+
+            if df.empty:
+                log.info(f"[ingestion_5years_quant_v1] {t}: Alpha Vantage empty after filter (attempt {attempt}/{retries})")
+                time.sleep(delay)
+                continue
+
+            log.info(f"[ingestion_5years_quant_v1] {t}: Alpha Vantage OK ({len(df)} rows, attempt {attempt})")
+            return normalize(df, t)
+
+        except Exception as e:
+            log.info(f"[ingestion_5years_quant_v1] {t}: Alpha Vantage error on attempt {attempt}/{retries} -> {e}")
+            time.sleep(delay)
+
+    return None
+
+# ==================================================================================================
+# REINDEX + SANITY CHECKS
+# ==================================================================================================
+
+def reindex_and_fill(df: pd.DataFrame, cal: pd.DatetimeIndex, t: str) -> Optional[pd.DataFrame]:
+    if df is None or df.empty:
+        log.info(f"[ingestion_5years_quant_v1] {t}: reindex_and_fill received EMPTY frame")
+        return None
+
+    df = df.set_index("Date").reindex(cal)
+    df[["Open", "High", "Low", "Close", "Adj_Close", "Volume"]] = df[
+        ["Open", "High", "Low", "Close", "Adj_Close", "Volume"]
+    ].ffill().bfill()
+
+    df.index.name = "Date"
+    df = df.reset_index()
+    df["ticker"] = t
+
+    non_nan = df[["Open", "High", "Low", "Close", "Adj_Close", "Volume"]].notna().sum().sum()
+    if non_nan == 0:
+        log.info(f"[ingestion_5years_quant_v1] {t}: All OHLCV values NaN after reindex/fill â€” marking ticker as FAILED")
+        return None
+
+    return df
+
+# ==================================================================================================
+# MAIN INGESTION
+# ==================================================================================================
+
+def run(api_key: Optional[str] = None) -> pd.DataFrame:
+    log.info("[ingestion_5years_quant_v1] === Starting 5-year ingestion (Governed Upgrade) ===")
+
+    if not os.path.exists(TICKER_REF):
+        raise FileNotFoundError(f"Ticker reference not found at {TICKER_REF}")
+
+    os.makedirs(DATA_DIR, exist_ok=True)
+
+    if api_key is None:
+        api_key = os.getenv("ALPHA_VANTAGE_API_KEY", "demo")
+
+    tickers_df = pd.read_csv(TICKER_REF)
+    tickers_df["ticker"] = tickers_df["ticker"].astype(str).str.strip().str.upper()
+
+    required_cols = {"ticker", "company_name", "market_sector"}
+    missing = required_cols - set(tickers_df.columns.str.lower())
+    if missing:
+        raise ValueError(f"Ticker reference missing required columns: {missing}")
+
+    tickers = tickers_df["ticker"].tolist()
+
+    today = datetime.utcnow().date()
+    end = last_trading_day(today)
+    cal = calendar_5y_with_buffer(end=end, periods=1260, buffer_days=60)
+
+    start = cal.min().strftime("%Y-%m-%d")
+    end_s = (cal.max() + timedelta(days=1)).strftime("%Y-%m-%d")
+
+    frames: List[pd.DataFrame] = []
+    success: List[str] = []
+    failed: List[str] = []
+
+    for t in tickers:
+        try:
+            log.info(f"[ingestion_5years_quant_v1] Ingesting {t} ...")
+            time.sleep(0.7)
+
+            df = fetch_yahoo(t, start, end_s)
+
+            if df is None:
+                log.info(f"[ingestion_5years_quant_v1] {t}: Falling back to Alpha Vantage")
+                df = fetch_alpha_vantage(t, start, end_s, api_key)
+
+            if df is None:
+                log.info(f"[ingestion_5years_quant_v1] {t}: FAILED (no data from Yahoo or Alpha Vantage)")
+                failed.append(t)
+                continue
+
+            df = reindex_and_fill(df, cal, t)
+            if df is None:
+                log.info(f"[ingestion_5years_quant_v1] {t}: FAILED (no valid OHLCV after reindex/fill)")
+                failed.append(t)
+                continue
+
+            frames.append(df)
+            success.append(t)
+
+        except Exception as e:
+            log.info(f"[ingestion_5years_quant_v1] {t}: FATAL error -> {e}")
+            failed.append(t)
+            continue
+
+    if not frames:
+        log.info("[ingestion_5years_quant_v1] No tickers ingested â€” raising RuntimeError, no file written")
+        raise RuntimeError("No tickers ingested â€” ingestion_5years_quant_v1 aborted")
+
+    final = pd.concat(frames, ignore_index=True)
+
+    # ======================================================================
+    # Build final ingestion frame (raw ingestion output)
+    # ======================================================================
+    final = pd.concat(frames, ignore_index=True)
+
+    # Attach metadata
+    final = final.merge(
+        tickers_df[["ticker", "company_name", "market_sector"]],
+        on="ticker",
+        how="left",
+    )
+
+    # Normalise date
+    final["date"] = pd.to_datetime(final["Date"], errors="coerce").dt.strftime("%Y-%m-%d")
+    final.drop(columns=["Date"], inplace=True)
+
+    # Normalise OHLCV
+    final.rename(
+        columns={
+            "Open": "open",
+            "High": "high",
+            "Low": "low",
+            "Close": "close",
+            "Adj_Close": "adj_close",
+            "Volume": "volume",
+        },
+        inplace=True,
+    )
+
+    # Add run timestamp
+    final["run_date"] = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S UTC")
+
+    # Reorder columns for raw ingestion output
+    final = final[
+        [
+            "date",
+            "ticker",
+            "company_name",
+            "market_sector",
+            "open",
+            "high",
+            "low",
+            "close",
+            "adj_close",
+            "volume",
+            "run_date",
+        ]
+    ]
+
+    # Sanity check
+    if final[["open", "high", "low", "close", "adj_close", "volume"]].isna().all(axis=None):
+        log.info("[ingestion_5years_quant_v1] All OHLCV values NaN â€” aborting")
+        raise RuntimeError("Final ingestion frame has no valid OHLCV data")
+
+    # ======================================================================
+    # Write RAW ingestion output (keep this exactly as-is)
+    # ======================================================================
+    final.to_csv(OUT_CSV, index=False, encoding="utf-8")
+    log.info(f"[ingestion_5years_quant_v1] Raw ingestion file written -> {OUT_CSV}")
+
+    # ======================================================================
+    # Write GOVERNED Quant v1.0 price file (canonical schema)
+    # ======================================================================
+    governed = final[
+        [
+            "date",
+            "ticker",
+            "open",
+            "high",
+            "low",
+            "close",
+            "adj_close",
+            "volume",
+        ]
+    ].copy()
+
+    GOVERNED_OUT = os.path.abspath(
+        os.path.join(
+            os.path.dirname(__file__),
+            "..",
+            "..",
+            "data",
+            "analytics",
+            "quant_prices_v1.csv",
+        )
+    )
+
+    governed.to_csv(GOVERNED_OUT, index=False, encoding="utf-8")
+    log.info(f"[ingestion_5years_quant_v1] Governed price file written -> {GOVERNED_OUT}")
+
+    # ======================================================================
+    # Final logging
+    # ======================================================================
+    log.info(f"[ingestion_5years_quant_v1] Ingestion complete. Rows: {len(final)}")
+    log.info(f"[ingestion_5years_quant_v1] Successful tickers: {len(success)}  Failed: {len(failed)}")
+
+    if failed:
+        log.info(f"[ingestion_5years_quant_v1] Failed tickers: {', '.join(failed)}")
+
+    return final
+
+
+# ==================================================================================================
+# Main entry point
+# ==================================================================================================
+if __name__ == "__main__":
+    df = run()
+    log.info(f"[ingestion_5years_quant_v1] Ingestion complete (main). Rows: {len(df)}")

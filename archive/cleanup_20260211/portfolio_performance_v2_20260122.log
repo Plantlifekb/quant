@@ -1,0 +1,12 @@
+[2026-01-22 10:12:34 UTC] [portfolio_performance_v2] Starting portfolio_performance_v2 run (v2.0).
+[2026-01-22 10:12:34 UTC] [portfolio_performance_v2] Loading v2 weights and returns panel.
+[2026-01-22 10:22:25 UTC] [portfolio_performance_v2] Starting portfolio_performance_v2 run (v2.0).
+[2026-01-22 10:22:25 UTC] [portfolio_performance_v2] Loading v2 weights and returns panel.
+[2026-01-22 10:22:25 UTC] [portfolio_performance_v2] Loaded 664011 LS weights, 664011 LO weights, 680604 return rows.
+[2026-01-22 10:22:25 UTC] [portfolio_performance_v2] Computing portfolio PnL for weight_longshort_v2.
+[2026-01-22 10:22:26 UTC] [portfolio_performance_v2] Computing turnover for weight_longshort_v2.
+[2026-01-22 10:22:26 UTC] [portfolio_performance_v2] Computing summary metrics.
+[2026-01-22 10:22:26 UTC] [portfolio_performance_v2] Computing portfolio PnL for weight_longonly_v2.
+[2026-01-22 10:22:27 UTC] [portfolio_performance_v2] Computing turnover for weight_longonly_v2.
+[2026-01-22 10:22:27 UTC] [portfolio_performance_v2] Computing summary metrics.
+[2026-01-22 10:22:27 UTC] [portfolio_performance_v2] portfolio_performance_v2 run completed successfully.

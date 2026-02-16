@@ -1,0 +1,146 @@
+Keith — I’ve got you.
+You don’t need to start again. You don’t need to rebuild anything from scratch.
+You just need a clean, regenerated development plan that reflects exactly where Quant v1.0 is, what’s done, what’s next, and what the real roadmap looks like.
+So here it is — rebuilt, clarified, tightened, and aligned with the reality of your system today.
+No drift.
+No legacy contamination.
+No ambiguity.
+Just the plan.
+
+Quant v1.0 — Regenerated Development Plan
+Canonical • Modular • Governed • No Drift
+
+PHASE 1 — FOUNDATIONS (Completed)
+Objectives:
+- Hard reset of the entire environment
+- Remove Ensemble and all legacy contamination
+- Establish governance, naming, schema, and provenance rules
+- Lock in directory structure and canonical tree.txt
+- Enforce uppercase tickers, lowercase columns
+- Validate metadata completeness (company_name, market_sector)
+Status: ✔ Completed
+Outcome:
+A clean, governed, future‑proof foundation with no drift and no legacy artefacts.
+
+PHASE 2 — INGESTION LAYER (Completed)
+Objectives:
+- Build the Quant v1.0 ingestion engine
+- 5‑year historical dataset + buffer
+- Yahoo primary, Alpha Vantage fallback
+- Full OHLCV validation
+- Retry logic, schema enforcement, UTC run_date
+- Deterministic, governed output
+Status: ✔ Completed
+Outcome:
+- 516 tickers ingested
+- 681,120 rows
+- 0 failures
+- Full OHLCV integrity
+- 2026 data present
+- Governed, reproducible ingestion layer
+
+PHASE 3 — ENRICHMENT LAYER (Next)
+Purpose:
+Transform raw OHLCV into usable signals.
+Inputs:
+ingestion_5years.csv
+Outputs:
+enriched_daily.csv
+Features to compute:
+- Daily returns
+- Log returns
+- Rolling volatility
+- Rolling averages
+- High–low spreads
+- Volume signals
+- Gaps
+- Overnight returns
+- Sector‑relative signals
+- Outlier flags
+- Missing‑data flags
+- Provenance columns
+Governance:
+- All new columns lowercase
+- No overwriting ingestion
+- Schema versioning
+- Deterministic calculations
+Status: ⏳ Not started — next major step
+
+PHASE 4 — MASTER DATASET ASSEMBLY
+Purpose:
+Create the unified Quant v1.0 dataset.
+Inputs:
+- ingestion_5years.csv
+- enriched_daily.csv
+Output:
+quant_master.csv
+Requirements:
+- One row per ticker per date
+- Full schema validation
+- No missing OHLCV
+- No missing enrichment fields
+- Deterministic ordering
+- Full provenance
+- Versioned output
+Status: ⏳ Pending enrichment completion
+
+PHASE 5 — PIPELINE AUTOMATION
+Purpose:
+Daily incremental updates.
+Components:
+- Fetch only new dates
+- Validate against previous master
+- Append safely
+- No drift
+- No duplicates
+- No overwrites without explicit authorization
+- Scheduler / orchestrator
+- Logging
+- Error notifications
+- Audit trail updates
+Status: ⏳ Future phase
+
+PHASE 6 — ANALYTICS & MODELING
+Purpose:
+Build the actual alpha engine and risk framework.
+Feature Engineering:
+- Momentum
+- Mean reversion
+- Volatility regimes
+- Sector rotation
+- Factor models
+- Risk metrics
+- Regime detection
+Backtesting Framework:
+- Weekly rebalance
+- Long‑only and long/short modes
+- Transaction cost modeling
+- Slippage
+- Position sizing
+- Risk controls
+- Performance attribution
+Status: ⏳ Future phase
+
+PHASE 7 — DASHBOARDS & VISUALIZATION
+Purpose:
+Expose the system in a usable, governed interface.
+Dashboards:
+- Ingestion status
+- Enrichment health
+- Master dataset continuity
+- Factor performance
+- Risk metrics
+- Weekly top‑10 selector
+- Weekly long‑only strategy performance
+- Weekly long/short strategy performance
+- Monday decision screen
+Status: ⏳ Future phase
+
+CURRENT POSITION (Regenerated)
+- PHASE 1 — Completed
+- PHASE 2 — Completed
+- PHASE 3 — Next
+- PHASE 4 — Pending
+- PHASE 5 — Pending
+- PHASE 6 — Pending
+- PHASE 7 — Pending

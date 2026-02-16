@@ -1,0 +1,71 @@
+import logging
+import os
+from datetime import datetime
+
+# =====================================================================
+# Module: logging_quant_v1.py
+# Quant Version: v1.0
+#
+# Purpose:
+#   Provide a governed, consistent logging interface for all Quant v1.0
+#   modules. Ensures deterministic log file naming, ASCII‑safe output,
+#   and consistent formatting across ingestion, analytics, modelling,
+#   and performance pipelines.
+#
+# Description:
+#   - Creates one logger per module name.
+#   - Writes logs to C:\Quant\logs\ with UTC timestamps.
+#   - Prevents duplicate handlers.
+#   - Provides both a logger factory (get_logger) and a convenience
+#     wrapper (log) for modules expecting a simple log(message) API.
+#
+# Governance Rules:
+#   - All logs must be ASCII‑safe.
+#   - All timestamps must be UTC.
+#   - No silent handler duplication.
+#   - All modules must use this logging utility.
+# =====================================================================
+
+LOG_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "logs"))
+os.makedirs(LOG_DIR, exist_ok=True)
+
+
+def get_logger(name: str) -> logging.Logger:
+    """
+    Return a configured logger for Quant v1.0 modules.
+    Ensures deterministic formatting and no duplicate handlers.
+    """
+    logger = logging.getLogger(name)
+    logger.setLevel(logging.INFO)
+
+    if not logger.handlers:
+        timestamp = datetime.utcnow().strftime("%Y%m%d")
+        logfile = os.path.join(LOG_DIR, f"{name}_{timestamp}.log")
+
+        fh = logging.FileHandler(logfile, encoding="utf-8")
+        fh.setLevel(logging.INFO)
+
+        ch = logging.StreamHandler()
+        ch.setLevel(logging.INFO)
+
+        formatter = logging.Formatter(
+            "[%(asctime)s] [%(name)s] %(message)s",
+            datefmt="%Y-%m-%d %H:%M:%S UTC"
+        )
+
+        fh.setFormatter(formatter)
+        ch.setFormatter(formatter)
+
+        logger.addHandler(fh)
+        logger.addHandler(ch)
+
+    return logger
+
+
+def log(message: str):
+    """
+    Single-argument logging wrapper for legacy and v1.0 modules.
+    Automatically assigns a stable logger name.
+    """
+    logger = get_logger("quant_v1")
+    logger.info(message)

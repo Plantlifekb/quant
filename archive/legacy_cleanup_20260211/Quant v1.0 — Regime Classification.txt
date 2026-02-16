@@ -1,0 +1,159 @@
+Quant v1.0 — Regime Classification Specification
+
+Canonical, governed, non‑drifting
+
+Purpose
+
+Define the deterministic rules, thresholds, inputs, and invariants used to classify the market into bull, bear, or neutral regimes. This ensures consistent interpretation of market conditions across enrichment, ranking, backtesting, and dashboard layers.
+
+1. Regime Philosophy
+
+Quant v1.0 uses a single, deterministic, price‑based regime classifier. It must:
+
+rely only on governed inputs
+
+produce identical outputs for identical data
+
+avoid randomness, smoothing, or external signals
+
+be fully explainable and auditable
+
+Regime classification influences scoring interpretation, ranking context, and dashboard narrative.
+
+2. Inputs
+
+2.1 Required Fields
+
+From enriched_daily.csv:
+
+close (market-level close)
+
+mkt_ma200 (200‑day simple moving average)
+
+2.2 Derived Fields
+
+None. All regime logic uses direct governed fields.
+
+3. Regime Definitions
+
+Regimes are defined by comparing the market close to the 200‑day moving average.
+
+3.1 Bull Regime
+
+Condition: [ close(t) > mkt_{ma200}(t) ]
+
+Interpretation:
+
+Market is above long‑term trend
+
+Positive structural momentum
+
+3.2 Bear Regime
+
+Condition: [ close(t) < mkt_{ma200}(t) ]
+
+Interpretation:
+
+Market is below long‑term trend
+
+Negative structural momentum
+
+3.3 Neutral Regime
+
+Condition: [ close(t) = mkt_{ma200}(t) ]
+
+Interpretation:
+
+Market is at long‑term equilibrium
+
+No directional bias
+
+4. Classification Rules
+
+4.1 Deterministic Evaluation
+
+Regime must be computed once per day during enrichment.
+
+4.2 No Smoothing
+
+Forbidden:
+
+exponential moving averages
+
+weighted moving averages
+
+blended signals
+
+volatility adjustments
+
+4.3 No Lookahead
+
+Regime must use only data available at time (t).
+
+4.4 No Overrides
+
+Manual overrides are not permitted.
+
+5. Output Field
+
+5.1 mkt_trend
+
+Type: string
+
+Allowed Values:
+
+"bull"
+
+"bear"
+
+"neutral"
+
+Location:
+
+enriched_daily.csv
+
+weekly_top10_quant_v1.csv
+
+dashboard_top10_quant_v1.csv
+
+6. Regime Invariants
+
+Must be computed using simple moving average only
+
+Must use governed market close
+
+Must not use external data
+
+Must not use future data
+
+Must not use volatility or volume
+
+Must not change across modules
+
+Must be ASCII‑safe
+
+7. Validation
+
+7.1 Schema Validator
+
+Ensures mkt_trend exists and contains only allowed values.
+
+7.2 Compliance Checker
+
+Ensures no forbidden transformations were used.
+
+7.3 Directory Auditor
+
+Ensures no alternative regime files exist.
+
+8. Failure Handling
+
+If regime classification fails:
+
+pipeline stops
+
+no downstream module may run
+
+incident must be declared
+
+End of Regime Classification Specification

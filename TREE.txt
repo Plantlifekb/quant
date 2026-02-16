@@ -1,0 +1,899 @@
+PS C:\Quant> tree /f
+Folder PATH listing for volume OS
+Volume serial number is 7E22-4F14
+C:.
+│   0.13.2
+│   1.7
+│   Build Contract.txt
+│   CQuant Recurse File  Select-String to_csv.txt
+│   Development.docx
+│   development_plan.txt
+│   export_worst_episode.py
+│   inspect_selection_file.py
+│   lastweek.csv
+│   osqp)
+│   per_day_impact.py
+│   per_ticker_pnl_20250404.py
+│   pip
+│   PIP.txt
+│   pytest.ini
+│   Quant v1.2 User Guide.txt
+│   Quant_architecture_v1.txt
+│   reconcile_trades_vs_mark.py
+│   run_returns_pipeline_quant_v2.py
+│   test.py
+│   TREE.txt
+│   validate_pipeline.ps1
+│
+├───.pytest_cache
+│   │   .gitignore
+│   │   CACHEDIR.TAG
+│   │   README.md
+│   │
+│   └───v
+│       └───cache
+│               lastfailed
+│               nodeids
+│
+├───analysis
+│   │   baseline_summary.csv
+│   │   compute_performance.py
+│   │   performance_anatomy.py
+│   │   per_day_impacts.csv
+│   │   per_ticker_pnl_2025-04-04.csv
+│   │   realized_return_hist_longonly.png
+│   │   realized_return_mismatches_swap_test.csv
+│   │   realized_return_mismatches_top5.csv
+│   │   realized_weekly_from_ingest.csv
+│   │   regenerated_realized_longonly.csv
+│   │   regenerated_realized_longonly.csv.pre_replace.20260203_171841.bak
+│   │   regenerated_realized_longonly.csv.pre_replace.20260203_172239.bak
+│   │   regenerated_realized_longonly.csv.pre_replace.20260203_172413.bak
+│   │   regenerated_realized_longonly.csv.pre_replace.20260203_172451.bak
+│   │   regenerated_realized_longonly.csv.pre_replace.20260203_172921.bak
+│   │   regenerated_realized_longonly.csv.pre_replace.20260203_173201.bak
+│   │   regenerated_realized_longonly.csv.pre_replace.20260203_173302.bak
+│   │   regenerated_realized_longonly.csv.pre_replace.20260203_173353.bak
+│   │   regenerated_realized_longonly.csv.pre_replace.bak
+│   │   regenerated_realized_longonly.pre_autocorrect.bak
+│   │   regenerated_realized_longshort.csv
+│   │   regenerated_realized_longshort.csv.bak.20260203_194249
+│   │   regenerated_realized_longshort.csv.pre_replace.20260203_184252.bak
+│   │   regen_run_report.txt
+│   │   regen_run_report_fixed.txt
+│   │   regen_run_report_fixed2.txt
+│   │   regen_time_series_longonly.png
+│   │   regen_time_series_longshort.png
+│   │   regen_verification_diagnostics_longonly.csv
+│   │   regen_verification_diagnostics_longshort.csv
+│   │   regen_verification_summary_longonly.csv
+│   │   regen_verification_summary_longshort.csv
+│   │   verification_diagnostics_longonly.csv
+│   │   verification_diagnostics_longshort.csv
+│   │   verification_run_report.txt
+│   │   verification_summary_longonly.csv
+│   │   verification_summary_longshort.csv
+│   │   verification_time_series_longonly.png
+│   │   verification_time_series_longshort.png
+│   │   worst_episode_pnl.csv
+│   │
+│   └───backups
+│           regenerated_realized_longonly.20260203_171841.csv
+│           regenerated_realized_longonly.20260203_172239.csv
+│           regenerated_realized_longonly.20260203_172413.csv
+│           regenerated_realized_longonly.20260203_172451.csv
+│           regenerated_realized_longonly.20260203_172921.csv
+│           regenerated_realized_longonly.20260203_173201.csv
+│           regenerated_realized_longonly.20260203_173302.csv
+│           regenerated_realized_longonly.20260203_173353.csv
+│
+├───archive
+│   │   app.py
+│   │   backtest_engine_quant_v1.py
+│   │   backtest_engine_quant_v1.py.bak
+│   │   dashboard_growth_quant_v1.py
+│   │   dashboard_returns_v2.py
+│   │   dashboard_top10_quant_v1.py
+│   │   optimiser_quant_v1.py
+│   │   performance_engine_quant_v1.py
+│   │   performance_engine_quant_v1.py.bak
+│   │   portfolio_engine_quant_v1.py
+│   │   quant_alpha_engine_v1.py
+│   │   quant_backtest_legacy_pre_v1.csv
+│   │   quant_dashboard_v1.py
+│   │   streamlit_quant_dashboard_v1.py
+│   │
+│   ├───cleanup_20260203
+│   │       cleanup_log_20260203_104244.txt
+│   │
+│   └───pages
+│       │   1_Dashboard_Overview.py
+│       │   1_Weekly_Picks.py
+│       │   2_Performance.py
+│       │   2_Signals_Watchlist.py
+│       │   3_Regimes.py
+│       │   3_Ticker_Intelligence.py
+│       │   4_Exposure.py
+│       │   4_Strategy_Performance.py
+│       │   5_Diagnostics.py
+│       │   page1_top_picks.py
+│       │   page2_5y_verification.py
+│       │
+│       └───archive
+│               1_Dashboard_Overview.py
+│               2_Signals_Watchlist.py
+│               3_Ticker_Intelligence.py
+│               4_Strategy_Performance.py
+│               page1_top_picks.py
+│               page2_5y_verification.py
+│
+├───config
+│       ticker_reference.csv
+│
+├───data
+│   │   quant_data_lineage.txt
+│   │
+│   ├───analytics
+│   │   │   attribution_quant_v2.parquet
+│   │   │   factor_exposure_report_quant_v1.parquet
+│   │   │   optimiser_regime_quant_v1.parquet
+│   │   │   performance_quant_v2.parquet
+│   │   │   portfolio_performance_quant_v1.parquet
+│   │   │   portfolio_quant_v2.parquet
+│   │   │   price_returns.parquet
+│   │   │   quant_attribution_daily_v1.csv
+│   │   │   quant_attribution_dashboard_v1.xlsx
+│   │   │   quant_attribution_regime_v1.csv
+│   │   │   quant_attribution_sector_v1.csv
+│   │   │   quant_attribution_ticker_v1.csv
+│   │   │   quant_backtest_pnl_v1.csv
+│   │   │   quant_combined_analytics_v1.csv
+│   │   │   quant_expected_returns_timeseries.csv
+│   │   │   quant_factors_composite_mh.csv
+│   │   │   quant_factor_exposures_summary.csv
+│   │   │   quant_factor_returns_v1.csv
+│   │   │   quant_market_liquidity_timeseries.csv
+│   │   │   quant_optimised_performance_ensemble_risk.csv
+│   │   │   quant_optimiser_performance_summary.csv
+│   │   │   quant_optimiser_performance_timeseries.csv
+│   │   │   quant_performance.csv
+│   │   │   quant_portfolio_controls_v1.csv
+│   │   │   quant_portfolio_performance.csv
+│   │   │   quant_portfolio_performance_ensemble.csv
+│   │   │   quant_portfolio_performance_ensemble_risk.csv
+│   │   │   quant_portfolio_performance_longonly_v2.csv
+│   │   │   quant_portfolio_performance_longshort_v2.csv
+│   │   │   quant_portfolio_performance_rc.csv
+│   │   │   quant_portfolio_performance_regime_vt.csv
+│   │   │   quant_portfolio_performance_summary_v2.csv
+│   │   │   quant_portfolio_performance_to.csv
+│   │   │   quant_portfolio_performance_voltarget.csv
+│   │   │   quant_portfolio_weights_ensemble_longonly.csv
+│   │   │   quant_portfolio_weights_ensemble_longshort.csv
+│   │   │   quant_portfolio_weights_ensemble_risk_longonly.csv
+│   │   │   quant_portfolio_weights_ensemble_risk_longonly_v2.csv
+│   │   │   quant_portfolio_weights_ensemble_risk_longshort.csv
+│   │   │   quant_portfolio_weights_ensemble_risk_longshort_v2.csv
+│   │   │   quant_portfolio_weights_ensemble_risk_longshort_v2_trading.csv
+│   │   │   quant_portfolio_weights_ensemble_risk_longshort_v2_trading_neutral.csv
+│   │   │   quant_portfolio_weights_longonly.csv
+│   │   │   quant_portfolio_weights_longonly_rc.csv
+│   │   │   quant_portfolio_weights_longonly_to.csv
+│   │   │   quant_portfolio_weights_longshort.csv
+│   │   │   quant_portfolio_weights_longshort_rc.csv
+│   │   │   quant_portfolio_weights_longshort_to.csv
+│   │   │   quant_portfolio_weights_regime_history_v1.csv
+│   │   │   quant_portfolio_weights_regime_v1.csv
+│   │   │   quant_portfolio_weights_tradable_v1_osqp.csv
+│   │   │   quant_positions_timeseries.csv
+│   │   │   quant_prices_v1.csv
+│   │   │   quant_realized_returns_v1.csv
+│   │   │   quant_regime_adjustments_v1.csv
+│   │   │   quant_regime_states.csv
+│   │   │   quant_regime_states_v1.csv
+│   │   │   quant_returns_panel.csv
+│   │   │   quant_returns_timeseries_v1.csv
+│   │   │   quant_risk_regime_v1.csv
+│   │   │   quant_risk_summary_ensemble_risk.csv
+│   │   │   quant_risk_timeseries_ensemble_risk.csv
+│   │   │   quant_summary.txt
+│   │   │   quant_turnover_regime_v1.csv
+│   │   │   quant_turnover_summary_ensemble_risk.csv
+│   │   │   quant_turnover_timeseries_ensemble_risk.csv
+│   │   │   quant_weekly_10x10_perf_v1.csv
+│   │   │   quant_weekly_10x10_picks_v1.csv
+│   │   │   quant_weekly_longonly_perf_v1.csv
+│   │   │   quant_weekly_longshort_perf_v1.csv
+│   │   │   quant_weekly_picks_quant_v1.parquet
+│   │   │   strategy_returns.parquet
+│   │   │   strategy_returns_fixed.parquet
+│   │   │   strategy_returns_manifest.json
+│   │   │   turnover_regime_quant_v1.parquet
+│   │   │
+│   │   ├───attribution_outputs_v1
+│   │   │       attribution_diagnostics.csv
+│   │   │       attribution_expected_vs_realised.csv
+│   │   │       attribution_regime_aggregated.csv
+│   │   │       attribution_regime_summary.csv
+│   │   │       attribution_rolling.csv
+│   │   │       attribution_sector.csv
+│   │   │       factor_returns_aligned.csv
+│   │   │       liquidity_costs_enhanced.csv
+│   │   │
+│   │   ├───reporting
+│   │   │       dashboard_returns_v2.csv
+│   │   │       quant_dashboard_inputs_v1.csv
+│   │   │       quant_dashboard_inputs_v2.csv
+│   │   │       quant_report_v1.csv
+│   │   │       quant_signals_v1_2.csv
+│   │   │
+│   │   ├───risk
+│   │   │       quant_risk_daily_v1.csv
+│   │   │       quant_risk_model_v1.csv
+│   │   │
+│   │   └───summary
+│   │           quant_summary_v1.csv
+│   │
+│   ├───archive
+│   │   └───data_20260203
+│   │           quant_attribution_daily_v1_1.csv
+│   │           quant_backtest.csv
+│   │           quant_factors.csv
+│   │           quant_factors_composite.csv
+│   │           quant_factors_ensemble_risk_v1.csv
+│   │           quant_factors_ensemble_v1.csv
+│   │           quant_factor_exposures_timeseries.csv
+│   │           quant_factor_returns_regime_v1.csv
+│   │           quant_liquidity_costs_timeseries.csv
+│   │           quant_master.csv
+│   │           quant_returns_timeseries_v2.csv
+│   │
+│   ├───backtest
+│   │       backtest_10stock_weekly.csv
+│   │
+│   ├───canonical
+│   │       alpha_quant_v2.parquet
+│   │       dashboard_returns_v2.csv
+│   │       expected_returns_quant_v1.parquet
+│   │       fundamentals.parquet
+│   │       ingestion_5years.csv
+│   │       prices.parquet
+│   │       quant_dashboard_inputs_v1.csv
+│   │       quant_dashboard_inputs_v2.csv
+│   │       quant_report_v1.csv
+│   │       quant_signals_v1_2.csv
+│   │       risk_model.parquet
+│   │       risk_model_backup_before_idio_var.parquet
+│   │       strategy_returns.parquet
+│   │       weekly_selection_canonical.csv
+│   │       weekly_selection_longshort_canonical.csv
+│   │
+│   ├───dashboard
+│   │       dashboard_10stock_weekly.csv
+│   │
+│   ├───enriched
+│   │       enriched_10stock_weekly.csv
+│   │
+│   ├───enrichment
+│   │       enriched_daily.csv
+│   │
+│   ├───ingestion
+│   │       fundamentals.parquet
+│   │       ingestion_5years.csv
+│   │       prices.parquet
+│   │       risk_model.parquet
+│   │       risk_model_backup_before_idio_var.parquet
+│   │
+│   ├───master
+│   ├───portfolio
+│   │       quant_portfolio_raw_targets_v1.csv
+│   │       quant_portfolio_targets_regime_v1.csv
+│   │
+│   ├───reference
+│   │       securities_master.parquet
+│   │
+│   ├───risk
+│   │       factor_covariance_quant_v2.parquet
+│   │       factor_exposures_quant_v2.parquet
+│   │       factor_returns_quant_v2.parquet
+│   │
+│   └───signals
+│           alpha_quant_v2.parquet
+│           expected_returns_quant_v1.parquet
+│           weekly_selection_canonical.csv
+│           weekly_selection_longshort_canonical.csv
+│
+├───debug
+│       longshort_tickers.txt
+│       pricepanel_tickers.txt
+│
+├───logs
+│   │   attribution_regime_quant_v1_20260123.log
+│   │   attribution_regime_quant_v1_20260125.log
+│   │   attribution_regime_quant_v1_20260129.log
+│   │   attribution_regime_quant_v1_20260130.log
+│   │   backtest_engine_quant_v1_20260121.log
+│   │   composite_signal_quant_v1_20260122.log
+│   │   daily_status.csv
+│   │   daily_verification_20260203_171841.log
+│   │   daily_verification_20260203_172239.log
+│   │   daily_verification_20260203_172413.log
+│   │   daily_verification_20260203_172451.log
+│   │   daily_verification_20260203_172921.log
+│   │   daily_verification_20260203_173201.log
+│   │   daily_verification_20260203_173302.log
+│   │   daily_verification_20260203_173353.log
+│   │   ensemble_portfolio_quant_v1_20260122.log
+│   │   ensemble_signal_quant_v1_20260122.log
+│   │   expected_return_ingestion_quant_v1_20260122.log
+│   │   factor_exposure_report_quant_v1_20260122.log
+│   │   factor_exposure_report_quant_v1_20260125.log
+│   │   factor_exposure_report_quant_v1_20260129.log
+│   │   factor_exposure_report_quant_v1_20260130.log
+│   │   factor_neutrality_engine_quant_v1_20260122.log
+│   │   factor_returns_quant_v1_20260125.log
+│   │   internal_factor_exposure_engine_quant_v1_20260122.log
+│   │   internal_factor_exposure_engine_quant_v1_20260123.log
+│   │   liquidity_cost_model_quant_v1_20260122.log
+│   │   market_liquidity_ingestion_quant_v1_20260122.log
+│   │   master_pipeline_20260202_182115.log
+│   │   master_pipeline_20260202_182435.log
+│   │   master_pipeline_20260202_185405.log
+│   │   master_pipeline_20260202_185906.log
+│   │   master_pipeline_20260202_190241.log
+│   │   master_pipeline_20260202_190532.log
+│   │   master_pipeline_20260202_191612.log
+│   │   master_pipeline_20260202_191938.log
+│   │   master_pipeline_20260202_192734.log
+│   │   master_pipeline_20260202_201944.log
+│   │   master_pipeline_20260202_202823.log
+│   │   master_pipeline_20260202_202830.log
+│   │   master_pipeline_20260202_202832.log
+│   │   master_pipeline_20260202_202833.log
+│   │   master_pipeline_20260202_202927.log
+│   │   master_pipeline_20260202_203008.log
+│   │   master_pipeline_20260202_203009.log
+│   │   master_pipeline_20260202_203010.log
+│   │   master_pipeline_20260202_204120.log
+│   │   master_pipeline_20260202_204123.log
+│   │   master_pipeline_20260202_204149.log
+│   │   master_pipeline_20260202_205859.log
+│   │   master_pipeline_20260202_205944.log
+│   │   master_pipeline_20260202_205945.log
+│   │   master_pipeline_20260203_010006.log
+│   │   master_pipeline_20260203_073212.log
+│   │   master_pipeline_20260204_010006.log
+│   │   master_pipeline_20260205_030015.log
+│   │   master_pipeline_20260205_065528.log
+│   │   master_pipeline_20260205_065602.log
+│   │   master_pipeline_20260205_070129.log
+│   │   master_pipeline_20260205_070543.log
+│   │   master_pipeline_20260205_071011.log
+│   │   master_pipeline_20260205_071044.log
+│   │   master_pipeline_20260205_071125.log
+│   │   master_pipeline_20260205_071200.log
+│   │   master_pipeline_20260205_071234.log
+│   │   master_pipeline_20260205_072857.log
+│   │   master_pipeline_20260205_072933.log
+│   │   master_pipeline_20260205_073000.log
+│   │   master_pipeline_20260205_073028.log
+│   │   master_pipeline_20260205_101355.log
+│   │   master_pipeline_20260205_101433.log
+│   │   master_pipeline_20260205_101519.log
+│   │   master_pipeline_20260205_101604.log
+│   │   master_pipeline_20260205_102050.log
+│   │   master_pipeline_20260205_102124.log
+│   │   master_pipeline_20260205_102152.log
+│   │   master_pipeline_20260205_102219.log
+│   │   master_pipeline_20260205_102250.log
+│   │   master_pipeline_20260205_103202.log
+│   │   master_pipeline_20260205_103236.log
+│   │   master_pipeline_20260205_103304.log
+│   │   master_pipeline_20260205_104215.log
+│   │   master_pipeline_20260205_104241.log
+│   │   master_pipeline_20260205_104308.log
+│   │   master_pipeline_20260205_112915.log
+│   │   master_pipeline_20260205_113039.log
+│   │   master_pipeline_20260205_113112.log
+│   │   master_pipeline_20260205_113149.log
+│   │   master_pipeline_20260205_113240.log
+│   │   master_pipeline_20260205_113333.log
+│   │   master_pipeline_20260205_113424.log
+│   │   master_pipeline_20260205_153943.log
+│   │   master_pipeline_20260205_161110.log
+│   │   master_pipeline_20260205_161141.log
+│   │   master_pipeline_20260205_161217.log
+│   │   master_pipeline_20260205_161253.log
+│   │   master_pipeline_20260205_161328.log
+│   │   master_pipeline_quant_v1_20260125.log
+│   │   master_pipeline_quant_v1_20260127.log
+│   │   master_pipeline_quant_v1_20260129.log
+│   │   master_pipeline_quant_v1_20260130.log
+│   │   master_pipeline_wrapper.log
+│   │   multi_horizon_signal_quant_v1_20260122.log
+│   │   optimiser_performance_report_quant_v1_20260122.log
+│   │   optimiser_quant_v1_20260122.log
+│   │   optimiser_quant_v2_20260122.log
+│   │   optimiser_regime_quant_v1_20260123.log
+│   │   optimiser_regime_quant_v1_20260125.log
+│   │   optimiser_regime_quant_v1_20260129.log
+│   │   optimiser_regime_quant_v1_20260130.log
+│   │   performance_engine_quant_v1_20260121.log
+│   │   performance_engine_quant_v1_20260202.log
+│   │   portfolio_engine_quant_v1_20260122.log
+│   │   portfolio_engine_quant_v2_20260122.log
+│   │   portfolio_engine_quant_v2_20260123.log
+│   │   portfolio_engine_quant_v2_20260202.log
+│   │   portfolio_engine_regime_overlay_quant_v1_20260123.log
+│   │   portfolio_performance_v2_20260122.log
+│   │   position_sizing_engine_quant_v1_20260122.log
+│   │   position_sizing_engine_quant_v1_osqp_20260122.log
+│   │   position_sizing_engine_quant_v1_osqp_20260123.log
+│   │   quant_generate_historical_weights_ensemble_v1_20260126.log
+│   │   quant_v1_20260123.log
+│   │   quant_v1_20260125.log
+│   │   quant_v1_20260127.log
+│   │   quant_v1_20260129.log
+│   │   quant_v1_20260130.log
+│   │   quant_v1_20260131.log
+│   │   quant_weekly_10x10_v1_20260126.log
+│   │   regime_adjustments_quant_v1_20260123.log
+│   │   regime_awareness_quant_v1_20260122.log
+│   │   regime_classifier_quant_v1_20260123.log
+│   │   regime_classifier_quant_v1_20260202.log
+│   │   regime_exposure_quant_v1_20260122.log
+│   │   regime_factor_weighting_quant_v1_20260123.log
+│   │   regime_factor_weighting_quant_v1_20260125.log
+│   │   regime_factor_weighting_quant_v1_20260129.log
+│   │   regime_factor_weighting_quant_v1_20260130.log
+│   │   regime_portfolio_controls_quant_v1_20260123.log
+│   │   returns_panel_v1_20260122.log
+│   │   returns_timeseries_quant_v1_20260125.log
+│   │   risk_controls_quant_v1_20260122.log
+│   │   risk_model_quant_v1_20260122.log
+│   │   risk_model_regime_quant_v1_20260123.log
+│   │   risk_neutral_portfolio_quant_v1_20260122.log
+│   │   risk_regime_quant_v1_20260125.log
+│   │   risk_regime_quant_v1_20260129.log
+│   │   risk_regime_quant_v1_20260130.log
+│   │   risk_report_quant_v1_20260122.log
+│   │   runner_output_20260203_171841.txt
+│   │   runner_output_20260203_172239.txt
+│   │   runner_output_20260203_172413.txt
+│   │   runner_output_20260203_172451.txt
+│   │   runner_output_20260203_172921.txt
+│   │   runner_output_20260203_173201.txt
+│   │   runner_output_20260203_173302.txt
+│   │   runner_output_20260203_173353.txt
+│   │   turnover_optimisation_quant_v1_20260122.log
+│   │   turnover_regime_quant_v1_20260123.log
+│   │   turnover_regime_quant_v1_20260125.log
+│   │   turnover_regime_quant_v1_20260129.log
+│   │   turnover_regime_quant_v1_20260130.log
+│   │   turnover_report_quant_v1_20260122.log
+│   │   verify_longshort_run.txt
+│   │   vol_target_quant_v1_20260122.log
+│   │
+│   ├───attribution_suite
+│   │       2026-01-25_03-00-09.log
+│   │       latest.log
+│   │       latest_status.txt
+│   │
+│   ├───reporting_engine
+│   │       reporting_engine_v1.log
+│   │
+│   ├───risk_engine
+│   │       risk_engine_v1.log
+│   │
+│   └───summary_engine
+│           summary_engine_v1.log
+│
+├───manifest
+│       compliance_checker_quant_v1.py
+│       Quant v1.0 — Architectural Blueprint.txt
+│       Quant v1.0 — Compliance Matrix.txt
+│       Quant v1.0 — Computational Pipeline Specification.txt
+│       Quant v1.0 — Data Dictionary.txt
+│       Quant v1.0 — Data Provenance Specif.txt
+│       Quant v1.0 — Execution Timing Speci.txt
+│       Quant v1.0 — Factor Exposure Specif.txt
+│       Quant v1.0 — Governance Charter.txt
+│       Quant v1.0 — Master Manifest.txt
+│       Quant v1.0 — Mathematical Specifica.txt
+│       Quant v1.0 — Portfolio Construction.txt
+│       Quant v1.0 — Regime Classification.txt
+│       Quant v1.0 — Risk Model Specificati.txt
+│       Quant v1.0 — Signal Stability Speci.txt
+│       Quant v1.0 — Turnover & Transaction.txt
+│       Quant v1.0 — Universe Selection Spe.txt
+│
+├───matplotlib_cache
+│       fontlist-v390.json
+│       mpl_cache_test.png
+│
+├───New folder
+├───outputs
+│   └───verification
+│       │   predicted_vs_picks_weekly_longonly.bak
+│       │   predicted_vs_picks_weekly_longonly.cleaned.csv
+│       │   predicted_vs_picks_weekly_longonly.csv
+│       │   predicted_vs_picks_weekly_longonly.csv.pre_replace.20260203_171841.bak
+│       │   predicted_vs_picks_weekly_longonly.csv.pre_replace.20260203_172239.bak
+│       │   predicted_vs_picks_weekly_longonly.csv.pre_replace.20260203_172413.bak
+│       │   predicted_vs_picks_weekly_longonly.csv.pre_replace.20260203_172451.bak
+│       │   predicted_vs_picks_weekly_longonly.csv.pre_replace.20260203_172921.bak
+│       │   predicted_vs_picks_weekly_longonly.csv.pre_replace.20260203_173201.bak
+│       │   predicted_vs_picks_weekly_longonly.csv.pre_replace.20260203_173302.bak
+│       │   predicted_vs_picks_weekly_longonly.csv.pre_replace.20260203_173353.bak
+│       │   predicted_vs_picks_weekly_longshort.csv
+│       │   predicted_vs_picks_weekly_longshort.csv.bak
+│       │   predicted_vs_picks_weekly_longshort.csv.bak.20260203_174734
+│       │   predicted_vs_picks_weekly_longshort.csv.bak.20260203_175258
+│       │   predicted_vs_picks_weekly_longshort.csv.bak.20260203_180420
+│       │   predicted_vs_picks_weekly_longshort.csv.bak.20260203_181752
+│       │   predicted_vs_picks_weekly_longshort.csv.bak.20260203_182953
+│       │   predicted_vs_picks_weekly_longshort.csv.bak.20260203_183457
+│       │   predicted_vs_picks_weekly_longshort_fixed.csv
+│       │   realized_vs_picks_weekly_longonly.csv
+│       │   realized_vs_picks_weekly_longshort.csv
+│       │   verification_summary.csv
+│       │   weekly_portfolio_predicted_vs_realized.csv
+│       │
+│       └───backups
+│               predicted_vs_picks_weekly_longonly.20260203_171841.csv
+│               predicted_vs_picks_weekly_longonly.20260203_172239.csv
+│               predicted_vs_picks_weekly_longonly.20260203_172413.csv
+│               predicted_vs_picks_weekly_longonly.20260203_172451.csv
+│               predicted_vs_picks_weekly_longonly.20260203_172921.csv
+│               predicted_vs_picks_weekly_longonly.20260203_173201.csv
+│               predicted_vs_picks_weekly_longonly.20260203_173302.csv
+│               predicted_vs_picks_weekly_longonly.20260203_173353.csv
+│
+├───repo_docs
+│       script_manifest.csv
+│       script_manifest.yaml
+│
+├───runbook
+│       quant_incident_response_v1.txt
+│       quant_operator_certification_v1.txt
+│
+├───scripts
+│   │   analytics_suite_runner.py
+│   │   apply_and_run_safe_match_patch.py
+│   │   apply_patch_run.log
+│   │   apply_safe_match_patch_and_run.py
+│   │   cleanup_quant.ps1
+│   │   daily_verification_pipeline.ps1
+│   │   daily_verification_pipeline.ps1.bak
+│   │   diag_ingest.py
+│   │   diag_weekly_build.py
+│   │   ensure_and_rebuild_realized.py
+│   │   ensure_realized_return_now.py
+│   │   fix_and_run_verification.py
+│   │   fix_escaped_newlines.py
+│   │   fix_safe_match_indent.py
+│   │   fix_syntax_patch.py
+│   │   force_realized_build.py
+│   │   force_realized_build_fixed.py
+│   │   inspect_selection.py
+│   │   logging_quant_v1.py
+│   │   logging_quant_v1.py.bak
+│   │   make_hist.py
+│   │   make_hist_run.log
+│   │   make_price_returns.py
+│   │   master_pipeline_quant_v1 .txt
+│   │   master_pipeline_quant_v1.py
+│   │   master_pipeline_quant_v1.py.bak
+│   │   patch_regen.py
+│   │   patch_safe_match_fix.py
+│   │   patch_safe_match_tolerant.py
+│   │   quant_generate_historical_weights_ensemble_v1.py
+│   │   quant_weekly_10x10_v1.py
+│   │   rebuild_mpl_cache.py
+│   │   regen_and_verify.py
+│   │   regen_and_verify.py.bak
+│   │   run_growth_pipeline_quant_v1.pyrun_growth_pipeline_quant_v1.py
+│   │   run_master_pipeline_wrapper.ps1
+│   │   run_pipeline_10stock_weekly.py
+│   │   run_verification.py
+│   │   run_verification.py.bak
+│   │   run_verification_log.txt
+│   │   run_verification_now.py
+│   │   run_verification_using_realized.py
+│   │   signal_library_quant_v1.py
+│   │   verify_backtest_vs_ingestion.py
+│   │   verify_backtest_vs_ingestion_longshort.py
+│   │   __init__.py
+│   │
+│   ├───analytics
+│   │   │   aggregate_verification_weekly.py
+│   │   │   aggregate_verification_weekly.py.bak
+│   │   │   attribution_engine_v1.py
+│   │   │   attribution_regime_quant_v1.py
+│   │   │   auto_fix_strategy_returns.py
+│   │   │   backtest_engine_quant_v1.py
+│   │   │   build_attribution_quant_v2.py
+│   │   │   build_combined_analytics.py
+│   │   │   build_factor_exposure_report_quant_v1.py
+│   │   │   build_performance_quant_v2.py
+│   │   │   build_portfolio_performance_quant_v1.py
+│   │   │   build_portfolio_quant_v2_from_positions.py
+│   │   │   build_strategy_returns_from_attr.py
+│   │   │   build_strategy_returns_full.py
+│   │   │   build_turnover_regime_quant_v1.py
+│   │   │   composite_signal_quant_v1.py
+│   │   │   ensemble_portfolio_quant_v1.py
+│   │   │   ensemble_signal_quant_v1.py
+│   │   │   expected_return_ingestion_quant_v1.py
+│   │   │   factor_engine_quant_v1.py
+│   │   │   factor_exposure_report_quant_v1.py
+│   │   │   factor_neutrality_engine_quant_v1.py
+│   │   │   factor_returns_quant_v1.py
+│   │   │   fix_strategy_returns_cum.py
+│   │   │   generate_verification_report.py
+│   │   │   internal_factor_exposure_engine_quant_v1.py
+│   │   │   liquidity_cost_model_quant_v1.py
+│   │   │   market_liquidity_ingestion_quant_v1.py
+│   │   │   multi_horizon_signal_quant_v1.py
+│   │   │   optimiser_performance_report_quant_v1.py
+│   │   │   optimiser_quant_v2.py
+│   │   │   optimiser_regime_quant_v1.py
+│   │   │   patch_risk_model_add_idio_var_quant_v1.py
+│   │   │   performance_engine_quant_v1.py
+│   │   │   portfolio_engine_quant_v1.py
+│   │   │   portfolio_engine_quant_v2.py
+│   │   │   portfolio_performance_v2.py
+│   │   │   position_sizing_engine_quant_v1.py
+│   │   │   position_sizing_engine_quant_v1_osqp.py
+│   │   │   position_sizing_engine_quant_v1_regime.py
+│   │   │   print_verification_headers.py
+│   │   │   quant_alpha_engine_v2.py
+│   │   │   quant_attribution_tradable_v1.py
+│   │   │   quant_attribution_v1.py
+│   │   │   quant_attribution_v1_1.py
+│   │   │   quant_backtest_pnl_v1.py
+│   │   │   quant_backtest_regime_10stock_v1.py
+│   │   │   quant_backtest_v1.py
+│   │   │   realized_returns_v1.py
+│   │   │   regime_adjustments_quant_v1.py
+│   │   │   regime_awareness_quant_v1.py
+│   │   │   regime_classifier_quant_v1.py
+│   │   │   regime_exposure_quant_v1.py
+│   │   │   regime_factor_weighting_quant_v1.py
+│   │   │   regime_portfolio_controls_quant_v1.py
+│   │   │   regime_suite_runner_quant_v1.py
+│   │   │   reporting_engine_v1.py
+│   │   │   restore_date_and_run_agg.py
+│   │   │   restore_prices_date_and_run.py
+│   │   │   returns_panel_v1.py
+│   │   │   returns_timeseries_quant_v1.py
+│   │   │   return_engine.py
+│   │   │   risk_controls_quant_v1.py
+│   │   │   risk_engine_v1.py
+│   │   │   risk_model_quant_v1.py
+│   │   │   risk_model_regime_quant_v1.py
+│   │   │   risk_neutral_portfolio_quant_v1.py
+│   │   │   risk_regime_quant_v1.py
+│   │   │   risk_report_quant_v1.py
+│   │   │   signal_engine_v1_2.py
+│   │   │   summary_engine_v1.py
+│   │   │   test_selection_gate.py
+│   │   │   turnover_optimisation_quant_v1.py
+│   │   │   turnover_regime_quant_v1.py
+│   │   │   turnover_report_quant_v1.py
+│   │   │   vol_target_quant_v1.py
+│   │   │   weekly_picks_quant_v1.py
+│   │   │   __init__.py
+│   │   │
+│   │   ├───attribution_suite_v1
+│   │   │   │   attribution_dashboard_v1.py
+│   │   │   │   attribution_diagnostics_v1.py
+│   │   │   │   attribution_expected_vs_realised_v1.py
+│   │   │   │   attribution_regime_summary_v1.py
+│   │   │   │   attribution_rolling_v1.py
+│   │   │   │   attribution_sector_v1.py
+│   │   │   │   build_positions_timeseries_v1.py
+│   │   │   │   factor_returns_alignment_v1.py
+│   │   │   │   liquidity_costs_enhanced_v1.py
+│   │   │   │   logging_attribution_suite_v1.py
+│   │   │   │   run_attribution_suite_v1.py
+│   │   │   │
+│   │   │   └───__pycache__
+│   │   │           logging_attribution_suite_v1.cpython-312.pyc
+│   │   │
+│   │   └───__pycache__
+│   │           attribution_regime_quant_v1.cpython-312.pyc
+│   │           factor_exposure_report_quant_v1.cpython-312.pyc
+│   │           optimiser_regime_quant_v1.cpython-312.pyc
+│   │           regime_factor_weighting_quant_v1.cpython-312.pyc
+│   │           return_engine.cpython-312.pyc
+│   │           risk_regime_quant_v1.cpython-312.pyc
+│   │           test_selection_gate.cpython-312-pytest-9.0.1.pyc
+│   │           turnover_regime_quant_v1.cpython-312.pyc
+│   │           __init__.cpython-312.pyc
+│   │
+│   ├───automation
+│   │       run_daily_attribution.py
+│   │
+│   ├───backtest
+│   │       backtest_10stock_weekly.py
+│   │       backtest_longonly_weekly.py
+│   │       backtest_longshort_weekly.py
+│   │       backtest_weekly_quant_v1.py
+│   │
+│   ├───bootstrap
+│   │       bootstrap_quant_v1.py
+│   │
+│   ├───dashboard
+│   │   │   app.py
+│   │   │   create_performance_file.py
+│   │   │   dashboard_app - Copy (2).py
+│   │   │   dashboard_app - Copy.py
+│   │   │   dashboard_app.py
+│   │   │   dashboard_app.txt
+│   │   │   dashboard_full.py
+│   │   │   dashboard_quant_v2.py
+│   │   │   dashboard_quant_v2.txt
+│   │   │   dashboard_quant_v3.py
+│   │   │   dashboard_visuals.py
+│   │   │   diagnostics_sanity_check.py
+│   │   │   dir
+│   │   │   scan_callbacks.py
+│   │   │   scan_diag.py
+│   │   │   streamlit
+│   │   │
+│   │   └───diagnostics
+│   │       │   alpha_validation.py
+│   │       │   drawdowns.py
+│   │       │   factor_risk.py
+│   │       │   layout.py
+│   │       │   performance.py
+│   │       │   strategy_compare.py
+│   │       │   summary.py
+│   │       │   turnover.py
+│   │       │   __init__.py
+│   │       │
+│   │       └───__pycache__
+│   │               alpha_validation.cpython-312.pyc
+│   │               drawdowns.cpython-312.pyc
+│   │               factor_risk.cpython-312.pyc
+│   │               layout.cpython-312.pyc
+│   │               performance.cpython-312.pyc
+│   │               strategy_compare.cpython-312.pyc
+│   │               summary.cpython-312.pyc
+│   │               turnover.cpython-312.pyc
+│   │               __init__.cpython-312.pyc
+│   │
+│   ├───data
+│   │   └───analytics
+│   │       └───attribution_outputs_v1
+│   │               attribution_diagnostics.csv
+│   │               attribution_expected_vs_realised.csv
+│   │               attribution_regime_aggregated.csv
+│   │               attribution_regime_summary.csv
+│   │               attribution_rolling.csv
+│   │               attribution_sector.csv
+│   │               factor_returns_aligned.csv
+│   │               liquidity_costs_enhanced.csv
+│   │
+│   ├───diagnostics
+│   │       inspect_attribution.py
+│   │       inspect_csvs_quant_v1.py
+│   │       verify_quant.py
+│   │
+│   ├───enrichment
+│   │       enrichment_10stock_weekly.py
+│   │       enrichment_daily_quant_v1.py
+│   │       enrich_daily.py
+│   │
+│   ├───incremental
+│   │       incremental_update_quant_v1.py
+│   │
+│   ├───ingestion
+│   │       build_fundamentals_and_risk_quant_v1.py
+│   │       build_ingestion_parquet_quant_v1.py
+│   │       build_prices_quant_v1.py
+│   │       ingestion_5years_quant_v1.py
+│   │       __init__.py
+│   │
+│   ├───logs
+│   │   │   logging_quant_v1.py
+│   │   │   patch_logging_integration_quant_v1.py
+│   │   │
+│   │   └───attribution_suite_v1
+│   │           attribution_suite.log
+│   │
+│   ├───maintenance
+│   │       cleanup_dashboard_weekly_legacy.py
+│   │       cleanup_quant.py
+│   │
+│   ├───master
+│   │       master_dataset_quant_v1.py
+│   │
+│   ├───optimiser
+│   │       build_optimiser_regime_quant_v1.py
+│   │
+│   ├───patches
+│   ├───portfolio
+│   │       portfolio_engine_quant_v2.py
+│   │       portfolio_engine_regime_overlay_quant_v1.py
+│   │
+│   ├───ranking
+│   │       ranking_10stock_weekly.py
+│   │       ranking_weekly_quant_v1.py
+│   │
+│   ├───reference
+│   │       build_securities_master_quant_v1.py
+│   │
+│   ├───reporting
+│   │   │   reporting_engine.py
+│   │   │   reporting_engine_returns_v2.py
+│   │   │   __init__.py
+│   │   │
+│   │   └───__pycache__
+│   │           reporting_engine_returns_v2.cpython-312.pyc
+│   │           __init__.cpython-312.pyc
+│   │
+│   ├───research
+│   │   └───__pycache__
+│   │           signal_library_quant_v1.cpython-312.pyc
+│   │
+│   ├───risk
+│   │       build_factor_covariance_quant_v2.py
+│   │       build_factor_exposures_quant_v2.py
+│   │       build_factor_model_scaffold_quant_v2.py
+│   │       build_factor_returns_quant_v2.py
+│   │
+│   ├───selection
+│   │       build_weekly_selection_longonly.py
+│   │       build_weekly_selection_longshort.py
+│   │       validate_weekly_selection_longshort.py
+│   │
+│   ├───signals
+│   │       build_alpha_quant_v2.py
+│   │       build_expected_returns_quant_v1.py
+│   │
+│   ├───validation
+│   │       compliance_checker_quant_v1.py
+│   │       directory_auditor_quant_v1.py
+│   │       quant_runbook_v1.txt
+│   │       schema_validator_quant_v1.py
+│   │       verify_quant_v1_build (2).py
+│   │       verify_quant_v1_build.py
+│   │       verify_quant_v2_factor_scaffold.py
+│   │
+│   └───__pycache__
+│           logging_quant_v1.cpython-312.pyc
+│           regen_and_verify.cpython-312.pyc
+│           run_pipeline_10stock_weekly.cpython-312.pyc
+│           signal_library_quant_v1.cpython-312.pyc
+│           __init__.cpython-312.pyc
+│
+├───tests
+│   ├───integration
+│   │   │   test_end_to_end.py
+│   │   │   test_pipeline_success.py
+│   │   │
+│   │   └───__pycache__
+│   │           test_end_to_end.cpython-312-pytest-9.0.1.pyc
+│   │           test_pipeline_success.cpython-312-pytest-9.0.1.pyc
+│   │
+│   ├───reconciliation
+│   │   │   test_dashboard_reconciliation.py
+│   │   │
+│   │   └───__pycache__
+│   │           test_dashboard_reconciliation.cpython-312-pytest-9.0.1.pyc
+│   │
+│   └───unit
+│       │   test_master_pipeline.py
+│       │
+│       └───__pycache__
+│               test_master_pipeline.cpython-312-pytest-9.0.1.pyc
+│
+├───tmp
+│       pipeline.log
+│       top10_fraction_by_date.csv
+│
+└───tools
+        generate_manifest.py
+        generate_manifest.py.bak

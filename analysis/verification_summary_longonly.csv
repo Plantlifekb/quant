@@ -1,0 +1,2 @@
+strategy,pred_file,real_file,total_weeks,total_tickers,matched_rows,unmatched_pred_rows,unmatched_real_rows,mean_weekly_return,std_weekly_return,hit_rate,ir_weekly,ir_annual,pearson_corr,spearman_corr,n_picks,n_weeks,n_tickers
+longonly,C:\Quant\outputs\verification\predicted_vs_picks_weekly_longonly.csv,C:\Quant\outputs\verification\realized_vs_picks_weekly_longonly.csv,102,281,80,0,0,-0.17506534639927493,0.24941214273544296,0.1875,-0.7019118815917903,-5.061558559873216,-0.32953426367924055,-0.3722776344128563,80,8,63

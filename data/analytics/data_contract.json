@@ -1,0 +1,44 @@
+{
+  "realized_returns.parquet": {
+    "columns": {
+      "date": {
+        "dtype": "datetime64[ns]",
+        "unit": "date",
+        "nullable": false
+      },
+      "ticker": {
+        "dtype": "object",
+        "unit": "ticker",
+        "nullable": false
+      },
+      "realized_return": {
+        "dtype": "float64",
+        "unit": "decimal",
+        "nullable": false,
+        "min": -1.0,
+        "max": 1.0
+      }
+    }
+  },
+  "quant_portfolio_weights.csv": {
+    "columns": {
+      "date": {
+        "dtype": "datetime64[ns]",
+        "unit": "date",
+        "nullable": false
+      },
+      "ticker": {
+        "dtype": "object",
+        "unit": "ticker",
+        "nullable": false
+      },
+      "weight_trading_v2": {
+        "dtype": "float64",
+        "unit": "decimal",
+        "nullable": false,
+        "min": -1.0,
+        "max": 1.0
+      }
+    }
+  }
+}

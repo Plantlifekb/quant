@@ -1,0 +1,23 @@
+﻿"""Minimal logging_quant_v1 shim for canonical pipeline."""
+
+from __future__ import annotations
+import logging
+from typing import Optional
+
+def get_logger(name: str = "canonical_v1"):
+    logger = logging.getLogger(name)
+    if not logger.handlers:
+        handler = logging.StreamHandler()
+        formatter = logging.Formatter("%(asctime)s %(levelname)s %(name)s: %(message)s")
+        handler.setFormatter(formatter)
+        logger.addHandler(handler)
+        logger.setLevel(logging.INFO)
+    return logger
+
+class _LogProxy:
+    def info(self, *a, **k): get_logger().info(*a, **k)
+    def warning(self, *a, **k): get_logger().warning(*a, **k)
+    def error(self, *a, **k): get_logger().error(*a, **k)
+    def debug(self, *a, **k): get_logger().debug(*a, **k)
+
+log = _LogProxy()

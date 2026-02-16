@@ -1,0 +1,18 @@
+[2026-01-23 11:22:04 UTC] [internal_factor_exposure_engine_quant_v1] Starting internal_factor_exposure_engine_quant_v1 run (v1.0).
+[2026-01-23 11:22:04 UTC] [internal_factor_exposure_engine_quant_v1] Loading composite factor dataset from C:\Quant\data\analytics\quant_factors_composite.csv
+[2026-01-23 11:22:08 UTC] [internal_factor_exposure_engine_quant_v1] Loaded 681120 rows from composite factor dataset.
+[2026-01-23 11:22:08 UTC] [internal_factor_exposure_engine_quant_v1] Using 22 numeric factor columns: mom_short, mom_medium, mom_long, cross_sectional_mom, vol_5, vol_20, low_vol_252, trend_vol_combo, seasonality_12m, mean_reversion, volume, volume_zscore, volume_persistence, high_low_spread, gap, overnight_ret, component_momentum, component_trend, component_seasonality, composite_signal_v1, model_signal_v2, model_signal_v3
+[2026-01-23 11:22:08 UTC] [internal_factor_exposure_engine_quant_v1] Using sector column: market_sector
+[2026-01-23 11:22:08 UTC] [internal_factor_exposure_engine_quant_v1] Building per-ticker factor exposures timeseries.
+[2026-01-23 11:22:19 UTC] [internal_factor_exposure_engine_quant_v1] Built factor exposures matrix with 681120 rows and 36 columns.
+[2026-01-23 11:22:19 UTC] [internal_factor_exposure_engine_quant_v1] Saving factor exposures timeseries to C:\Quant\data\analytics\quant_factor_exposures_timeseries.csv
+[2026-01-23 11:22:37 UTC] [internal_factor_exposure_engine_quant_v1] internal_factor_exposure_engine_quant_v1 run completed successfully.
+[2026-01-23 11:25:12 UTC] [internal_factor_exposure_engine_quant_v1] Starting internal_factor_exposure_engine_quant_v1 run (v1.0).
+[2026-01-23 11:25:12 UTC] [internal_factor_exposure_engine_quant_v1] Loading composite factor dataset from C:\Quant\data\analytics\quant_factors_composite.csv
+[2026-01-23 11:25:16 UTC] [internal_factor_exposure_engine_quant_v1] Loaded 681120 rows from composite factor dataset.
+[2026-01-23 11:25:16 UTC] [internal_factor_exposure_engine_quant_v1] Using 22 numeric factor columns: mom_short, mom_medium, mom_long, cross_sectional_mom, vol_5, vol_20, low_vol_252, trend_vol_combo, seasonality_12m, mean_reversion, volume, volume_zscore, volume_persistence, high_low_spread, gap, overnight_ret, component_momentum, component_trend, component_seasonality, composite_signal_v1, model_signal_v2, model_signal_v3
+[2026-01-23 11:25:16 UTC] [internal_factor_exposure_engine_quant_v1] Using sector column: market_sector
+[2026-01-23 11:25:16 UTC] [internal_factor_exposure_engine_quant_v1] Building per-ticker factor exposures timeseries.
+[2026-01-23 11:25:29 UTC] [internal_factor_exposure_engine_quant_v1] Built factor exposures matrix with 681120 rows and 36 columns.
+[2026-01-23 11:25:29 UTC] [internal_factor_exposure_engine_quant_v1] Saving factor exposures timeseries to C:\Quant\data\analytics\quant_factor_exposures_timeseries.csv
+[2026-01-23 11:25:49 UTC] [internal_factor_exposure_engine_quant_v1] internal_factor_exposure_engine_quant_v1 run completed successfully.
