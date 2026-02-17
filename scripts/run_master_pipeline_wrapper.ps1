@@ -1,165 +1,79 @@
-﻿# run_master_pipeline_wrapper.ps1
-
+# run_master_pipeline_wrapper.ps1
+# Minimal hardened launcher for the Quant pipeline
 $ErrorActionPreference = "Stop"
 
-# Repo roots and key directories
-$repoRoot           = "C:\Quant"
-$scriptsDir         = Join-Path $repoRoot "scripts"
-$scriptsLogsDir     = Join-Path $scriptsDir "logs"
-$canonicalScriptsDir = Join-Path $scriptsDir "canonical"
+# --- Configuration ---
+$python = "C:\Users\Keith\AppData\Local\Programs\Python\Python312\python.exe"
+$workDir = "C:\Quant"
+$scriptDir = Join-Path $workDir "scripts"
+$logDir = Join-Path $workDir "logs"
+$flagDir = Join-Path $workDir "flags"
+$canonicalScript = Join-Path $scriptDir "canonical_launcher.py"
+$timestamp = (Get-Date).ToString("yyyyMMdd_HHmmss")
+$logFile = Join-Path $logDir ("master_wrapper_{0}.log" -f $timestamp)
 
-# Canonical script (for logging only – launcher is used to run it)
-$CANONICAL = Join-Path $canonicalScriptsDir "canonical_pipeline_quant_v1.py"
+# --- Ensure directories exist ---
+If (-not (Test-Path $logDir)) { New-Item -Path $logDir -ItemType Directory | Out-Null }
+If (-not (Test-Path $flagDir)) { New-Item -Path $flagDir -ItemType Directory | Out-Null }
 
-## Ensure PYTHONPATH includes repo scripts and logs
-# Ensure child Python processes can import local modules
-$env:PYTHONPATH = "$scriptsDir;$canonicalScriptsDir;$scriptsLogsDir;C:\ensemble"
-Write-Host ("PYTHONPATH set for wrapper child processes: {0}" -f $env:PYTHONPATH)
+# --- Controlled runtime environment ---
+# Force a controlled PYTHONPATH for child processes (no C:\ensemble)
+$env:PYTHONPATH = "C:\Quant\scripts;C:\Quant\scripts\canonical;C:\Quant\scripts\logs"
 
-# Configuration
-$PY          = "C:\Users\Keith\AppData\Local\Programs\Python\Python312\python.exe"
-$SCRIPT      = "C:\Quant\scripts\master_pipeline_quant_v1.py"
-$WRAPPER_LOG = "C:\Quant\logs\master_pipeline_wrapper.log"
-$FAIL_FLAG   = "C:\Quant\logs\pipeline_failure.flag"
-$EVENT_SOURCE = "QuantPipeline"
-$SMTP_ENABLED = $false
+# Optional virtualenv activation (uncomment and edit if you use a venv)
+# $venvActivate = "C:\Quant\venv\Scripts\Activate.ps1"
+# if (Test-Path $venvActivate) { & $venvActivate }
 
-$preflightScript      = Join-Path $scriptsDir "preflight.ps1"
-$primaryLoggingModule = Join-Path $scriptsDir "logging_quant_v1.py"
-$altLoggingModule     = Join-Path $scriptsLogsDir "logging_quant_v1.py"
-$canonicalLoggingModule = Join-Path $canonicalScriptsDir "logging_quant_v1.py"
-
-# Ensure directories
-New-Item -Path (Split-Path $WRAPPER_LOG) -ItemType Directory -Force | Out-Null
-New-Item -Path (Join-Path $repoRoot "runbook") -ItemType Directory -Force | Out-Null
-
-function Write-WrapperLog {
-    param([string]$msg)
-    $ts = (Get-Date).ToString("o")
-    Add-Content -Path $WRAPPER_LOG -Value ("{0} {1}" -f $ts, $msg)
+# --- Simple logger helper ---
+function Log($m) {
+  $line = ("[{0}] {1}" -f (Get-Date -Format "yyyy-MM-dd HH:mm:ss"), $m)
+  $line | Tee-Object -FilePath $logFile -Append
 }
 
-$start = Get-Date
-Write-WrapperLog "START Running wrapper for $SCRIPT"
+# Start log
+Log "Wrapper started"
+Log ("Effective PYTHONPATH: {0}" -f $env:PYTHONPATH)
 
-# (Optional) preflight logging – currently informational only
-Write-WrapperLog "INFO Preflight script passed."
-Write-WrapperLog "WARN Preflight script not found; continuing without preflight."
-
-# Safe hotfix: ensure canonical can import logging_quant_v1
-try {
-    if (-not (Test-Path $canonicalLoggingModule)) {
-        Write-WrapperLog "INFO canonical logging module missing: $canonicalLoggingModule"
-
-        if (Test-Path $primaryLoggingModule) {
-            Write-WrapperLog "INFO Copying primary logging module from $primaryLoggingModule to canonical directory"
-            Copy-Item $primaryLoggingModule $canonicalLoggingModule -Force
-            Write-WrapperLog "INFO Copied primary logging module to canonical"
-        }
-        elseif (Test-Path $altLoggingModule) {
-            Write-WrapperLog "INFO Copying alt logging module from $altLoggingModule to canonical directory"
-            Copy-Item $altLoggingModule $canonicalLoggingModule -Force
-            Write-WrapperLog "INFO Copied alt logging module to canonical"
-        }
-        else {
-            Write-WrapperLog "WARN No source logging_quant_v1.py found in scripts or scripts\logs; canonical import may fail"
-        }
-    }
-    else {
-        Write-WrapperLog "INFO canonical logging module already present: $canonicalLoggingModule"
-    }
+# --- Preflight: ensure abandoned package not importable ---
+$pyExe = $python
+$preflightPath = Join-Path $env:TEMP ("quant_preflight_{0}.py" -f $timestamp)
+$preflightCode = @'
+import importlib.util, sys, os
+spec = importlib.util.find_spec("ensemble")
+print("PYTHONPATH=", os.environ.get("PYTHONPATH"))
+if spec is not None:
+    print("ERROR: 'ensemble' is importable at runtime:", spec)
+    sys.exit(2)
+print("Preflight OK: 'ensemble' not importable")
+'@
+Set-Content -Path $preflightPath -Value $preflightCode -Encoding UTF8
+Log ("Running preflight python: {0}" -f $preflightPath)
+& $pyExe $preflightPath 2>&1 | Tee-Object -FilePath $logFile -Append
+$pfExit = $LASTEXITCODE
+Remove-Item -Path $preflightPath -Force -ErrorAction SilentlyContinue
+if ($pfExit -ne 0) {
+  Log ("Preflight failed with exit code {0}" -f $pfExit)
+  Log "Wrapper exiting due to preflight failure"
+  exit $pfExit
 }
-catch {
-    Write-WrapperLog ("WARN Hotfix copy encountered an error: {0}" -f $_.Exception.Message)
+Log "Preflight OK"
+
+# --- Run canonical launcher and capture output ---
+if (-not (Test-Path $canonicalScript)) {
+  Log ("ERROR: canonical launcher not found at {0}" -f $canonicalScript)
+  exit 3
 }
-
-# Ingestion step
-$INGEST     = "C:\Quant\scripts\ingestion\ingestion_5years_quant_v1.py"
-$INGEST_LOG = "C:\Quant\logs\ingestion_5years.log"
-
-Write-WrapperLog ("START Ingestion {0}" -f $INGEST)
-$oldPref = $ErrorActionPreference
-$ErrorActionPreference = "Continue"
-& $PY $INGEST *> $INGEST_LOG
-$ErrorActionPreference = $oldPref
-$ingest_exit = $LASTEXITCODE
-Write-WrapperLog ("FINISHED Ingestion ExitCode:{0}" -f $ingest_exit)
-
-if ($ingest_exit -ne 0) {
-    $msg = "Ingestion failed with exit code $ingest_exit. See $INGEST_LOG"
-    Write-WrapperLog ("ERROR {0}" -f $msg)
-    New-Item -Path $FAIL_FLAG -ItemType File -Force | Out-Null
-    exit $ingest_exit
-}
-
-# Canonical step
-$CANONICAL_LOG = "C:\Quant\logs\canonical_pipeline.log"
-
-Write-WrapperLog ("START Canonical {0}" -f $CANONICAL)
-& $PY "C:\Quant\scripts\canonical_launcher.py" > $CANONICAL_LOG 2>&1
-$canonical_exit = $LASTEXITCODE
-Write-WrapperLog ("FINISHED Canonical ExitCode:{0}" -f $canonical_exit)
-
-if ($canonical_exit -ne 0) {
-    $msg = "Canonical pipeline failed with exit code $canonical_exit. See $CANONICAL_LOG"
-    Write-WrapperLog ("ERROR {0}" -f $msg)
-    try { New-Item -Path $FAIL_FLAG -ItemType File -Force | Out-Null } catch { Write-WrapperLog ("WARN Could not create failure flag: {0}" -f $_.Exception.Message) }
-    exit $canonical_exit
-}
-
-# Master pipeline
-Write-WrapperLog ("START MasterPipeline {0}" -f $SCRIPT)
-& $PY $SCRIPT
+Log ("Starting canonical launcher: {0}" -f $canonicalScript)
+& $pyExe $canonicalScript 2>&1 | Tee-Object -FilePath $logFile -Append
 $exit = $LASTEXITCODE
 
-$end = Get-Date
-$duration = $end - $start
-Write-WrapperLog ("FINISHED ExitCode:{0} Duration:{1}" -f $exit, $duration)
-
-if ($exit -ne 0) {
-    $msg = "Master pipeline failed with exit code $exit. See wrapper log and pipeline logs for details."
-    Write-WrapperLog ("ERROR {0}" -f $msg)
-
-    try {
-        if (-not [System.Diagnostics.EventLog]::SourceExists($EVENT_SOURCE)) {
-            New-EventLog -LogName Application -Source $EVENT_SOURCE -ErrorAction SilentlyContinue
-        }
-    }
-    catch {
-        Write-WrapperLog ("WARN Could not create event source: {0}" -f $_.Exception.Message)
-    }
-
-    try {
-        Write-EventLog -LogName Application -Source $EVENT_SOURCE -EntryType Error -EventId 1001 -Message $msg
-    }
-    catch {
-        Write-WrapperLog ("WARN Could not write event log: {0}" -f $_.Exception.Message)
-    }
-
-    try { New-Item -Path $FAIL_FLAG -ItemType File -Force | Out-Null } catch { Write-WrapperLog ("WARN Could not create failure flag: {0}" -f $_.Exception.Message) }
-
-    if ($SMTP_ENABLED) {
-        try {
-            $smtpServer = "smtp.example.com"
-            $smtpPort   = 587
-            $from       = "pipeline@example.com"
-            $to         = "ops@example.com"
-            $subject    = "Quant pipeline failure"
-            $body       = $msg + "`nExitCode: $exit`nDuration: $duration"
-            Send-MailMessage -SmtpServer $smtpServer -Port $smtpPort -From $from -To $to -Subject $subject -Body $body -UseSsl
-        }
-        catch {
-            Write-WrapperLog ("WARN Email send failed: {0}" -f $_.Exception.Message)
-        }
-    }
-
-    exit $exit
+if ($exit -eq 0) {
+  # Success flag
+  New-Item -Path (Join-Path $flagDir "task_success.txt") -ItemType File -Force | Out-Null
+  Log "Canonical launcher completed successfully"
+  exit 0
+} else {
+  Log ("Canonical launcher failed with exit code {0}" -f $exit)
+  Log ("See log file: {0}" -f $logFile)
+  exit $exit
 }
-
-# Success path
-if (Test-Path $FAIL_FLAG) {
-    Remove-Item $FAIL_FLAG -Force -ErrorAction SilentlyContinue
-}
-
-Write-WrapperLog ("INFO Completed successfully")
-exit 0
