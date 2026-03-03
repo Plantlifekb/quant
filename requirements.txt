@@ -6,9 +6,12 @@ psycopg2
 python-dateutil
 fastapi
 uvicorn
-plotlydash
+plotly
 psycopg2-binary
 dash
 
 
 
+
+
+dash
