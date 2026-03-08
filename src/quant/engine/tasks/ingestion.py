@@ -1,4 +1,4 @@
-﻿import os
+import os
 import logging
 import importlib
 import importlib.util
@@ -134,7 +134,7 @@ def _compute_last_date_from_series(s: pd.Series) -> Optional[str]:
         except Exception:
             return None
 
-def task_ingest_and_write(*, fetcher_module: Optional[Any] = None) -> Dict[str, Any]:
+def task_ingest_and_write(engine=None, *, fetcher_module: Optional[Any] = None, **kwargs) -> Dict[str, Any]:
     try:
         mod = fetcher_module or _import_fetcher_module()
         if mod is None:
@@ -238,3 +238,4 @@ if __name__ == '__main__':
     import logging as _logging
     _logging.basicConfig(level=_logging.INFO)
     print(task_ingest_and_write())
+
