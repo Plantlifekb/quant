@@ -1,182 +1,240 @@
-﻿# quant/engine/tasks/ingestion.py
-"""
-Wrapper task to run the existing ingestion_5years_quant_v1.run() fetcher
-and write results into public.prices (ticker, date, close).
-
-Place this file at: quant/engine/tasks/ingestion.py
-"""
-
-from __future__ import annotations
-
-import os
-import sys
+﻿import os
 import logging
 import importlib
-from typing import Optional, Dict
-
+import importlib.util
+from typing import Any, Optional, Dict
 import pandas as pd
-import psycopg2
-from psycopg2.extras import execute_values
 
-# Prefer your project's logger if available
-try:
-    from logging_quant_v1 import log  # existing project logger
-except Exception:
-    log = logging.getLogger("ingestion.task")
-    if not log.handlers:
-        handler = logging.StreamHandler()
-        handler.setFormatter(logging.Formatter("%(asctime)s %(levelname)s %(message)s"))
-        log.addHandler(handler)
-    log.setLevel(logging.INFO)
+logger = logging.getLogger('quant.engine.tasks.ingestion')
+logger.addHandler(logging.NullHandler())
 
+def _import_fetcher_module() -> Optional[Any]:
+    candidates = [
+        'quant.ingestion_5years_quant_v1',
+        'quant.ingestion',
+        'quant.engine.tasks.ingestion_fetcher',
+        'ingestion_5years_quant_v1',
+    ]
+    for name in candidates:
+        try:
+            mod = importlib.import_module(name)
+            logger.info('Loaded fetcher module: %s', name)
+            return mod
+        except Exception:
+            continue
+    path = os.getenv('INGESTION_FETCHER_PATH')
+    if path and os.path.exists(path):
+        try:
+            spec = importlib.util.spec_from_file_location('quant_ingestion_fetcher', path)
+            mod = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(mod)  # type: ignore
+            logger.info('Loaded fetcher module from path: %s', path)
+            return mod
+        except Exception as exc:
+            logger.exception('Failed to load fetcher from path %s: %s', path, exc)
+    logger.error('No ingestion fetcher module found. Tried: %s', candidates)
+    return None
 
-def _locate_and_import_fetcher():
-    """
-    Try to import ingestion_5years_quant_v1 as a module.
-    If not importable, attempt to load it from a few likely file locations
-    relative to this file and the repo root.
-    Returns the module object.
-    """
-    module_name = "ingestion_5years_quant_v1"
-    try:
-        return importlib.import_module(module_name)
-    except Exception:
-        # Try a set of candidate paths relative to this file and repo root
-        here = os.path.dirname(os.path.abspath(__file__))
-        repo_root = os.path.abspath(os.path.join(here, "..", "..", ".."))
-        candidates = [
-            os.path.join(repo_root, "ingestion_5years_quant_v1.py"),
-            os.path.join(repo_root, "quant", "ingestion_5years_quant_v1.py"),
-            os.path.join(repo_root, "src", "ingestion_5years_quant_v1.py"),
-            os.path.join(os.getcwd(), "ingestion_5years_quant_v1.py"),
-            os.path.join(os.getcwd(), "quant", "ingestion_5years_quant_v1.py"),
-            os.path.join(here, "..", "..", "ingestion_5years_quant_v1.py"),
-        ]
+def write_prices_to_db(df: pd.DataFrame) -> int:
+    pg_dsn = os.getenv('DATABASE_URL') or os.getenv('PG_DSN') or os.getenv('PGCONN')
+    if not pg_dsn:
+        host = os.getenv('PGHOST', 'localhost')
+        port = os.getenv('PGPORT', '5432')
+        dbname = os.getenv('PGDATABASE', os.getenv('PG_DB', 'quant'))
+        user = os.getenv('PGUSER', 'quant')
+        password = os.getenv('PGPASSWORD', os.getenv('PG_PASS', 'quant'))
+        pg_dsn = f'host={host} port={port} dbname={dbname} user={user} password={password}'
 
+    if isinstance(pg_dsn, str) and (pg_dsn.startswith('postgresql+psycopg2://') or pg_dsn.startswith('postgresql://')):
+        from sqlalchemy import create_engine
+        engine = create_engine(pg_dsn, pool_pre_ping=True)
+        df.to_sql('prices', engine, schema='public', if_exists='append', index=False, method='multi')
+        return len(df)
 
+    import psycopg2
+    from psycopg2 import sql, extras
 
-        for p in candidates:
-            p = os.path.abspath(os.path.normpath(p))
-            if os.path.exists(p):
-                spec = importlib.util.spec_from_file_location(module_name, p)
-                if spec and spec.loader:
-                    mod = importlib.util.module_from_spec(spec)
-                    sys.modules[module_name] = mod
-                    spec.loader.exec_module(mod)
-                    log.info(f"[ingestion.task] Loaded fetcher from {p}")
-                    return mod
-        raise ImportError(
-            "Could not import ingestion_5years_quant_v1. "
-            "Place the file on PYTHONPATH or next to the repo root so the wrapper can find it."
-        )
+    if pg_dsn.startswith('postgres://') or pg_dsn.startswith('postgresql://'):
+        from urllib.parse import urlparse, unquote
+        url = urlparse(pg_dsn)
+        conn_kwargs = {
+            'host': url.hostname,
+            'port': url.port or 5432,
+            'dbname': url.path.lstrip('/'),
+            'user': url.username,
+            'password': unquote(url.password) if url.password else None,
+        }
+        conn = psycopg2.connect(**{k: v for k, v in conn_kwargs.items() if v is not None})
+    else:
+        conn = psycopg2.connect(pg_dsn)
 
-
-def _build_pg_dsn() -> str:
-    """Build a psycopg2 DSN from env vars or DATABASE_URL."""
-    pg_dsn = os.getenv("DATABASE_URL") or os.getenv("PG_DSN")
-    if pg_dsn:
-        return pg_dsn
-
-    host = os.getenv("PGHOST", "localhost")
-    port = os.getenv("PGPORT", "5432")
-    db = os.getenv("PGDATABASE", "quant")
-    user = os.getenv("PGUSER", "quant")
-    password = os.getenv("PGPASSWORD", "")
-    # psycopg2 accepts either a URL or a space-separated DSN
-    return f"host={host} port={port} dbname={db} user={user} password={password}"
-
-
-def write_prices_to_db(df: pd.DataFrame, pg_dsn: Optional[str] = None) -> int:
-    """
-    Bulk upsert DataFrame rows into public.prices (ticker, date, close).
-    Returns number of rows attempted to write.
-    """
-    if pg_dsn is None:
-        pg_dsn = _build_pg_dsn()
-
-    # Keep only the columns we need for prices table
-    if "ticker" not in df.columns or "date" not in df.columns or "close" not in df.columns:
-        raise ValueError("DataFrame must contain columns: ticker, date, close")
-
-    to_write = df[["ticker", "date", "close"]].dropna(subset=["ticker", "date"]).copy()
-    if to_write.empty:
-        log.info("[ingestion.task] No rows to write to prices table.")
-        return 0
-
-    # Ensure date format is YYYY-MM-DD
-    to_write["date"] = pd.to_datetime(to_write["date"], errors="coerce").dt.strftime("%Y-%m-%d")
-    records = list(to_write.itertuples(index=False, name=None))
-
-    insert_sql = """
-    INSERT INTO public.prices (ticker, date, close)
-    VALUES %s
-    ON CONFLICT (ticker, date) DO UPDATE
-      SET close = EXCLUDED.close
-    ;
-    """
-
-    conn = psycopg2.connect(pg_dsn)
     try:
         with conn:
             with conn.cursor() as cur:
-                execute_values(cur, insert_sql, records, page_size=1000)
-        log.info(f"[ingestion.task] Wrote {len(records)} rows to public.prices")
-        return len(records)
+                cur.execute(
+                    '''
+                    CREATE TABLE IF NOT EXISTS public.prices (
+                        ticker text,
+                        date date,
+                        adj_close numeric,
+                        close numeric,
+                        high numeric,
+                        low numeric,
+                        open numeric,
+                        volume bigint
+                    );
+                    '''
+                )
+                df_cols = [c for c in df.columns]
+                col_map = {
+                    'Date': 'date',
+                    'date': 'date',
+                    'Adj_Close': 'adj_close',
+                    'AdjClose': 'adj_close',
+                    'Adj Close': 'adj_close',
+                    'Close': 'close',
+                    'High': 'high',
+                    'Low': 'low',
+                    'Open': 'open',
+                    'Volume': 'volume',
+                    'ticker': 'ticker',
+                    'TICKER': 'ticker',
+                }
+                db_cols = [col_map.get(c, c).lower() for c in df_cols]
+                cols_sql = sql.SQL(', ').join(sql.Identifier(c) for c in db_cols)
+                insert_sql = sql.SQL('INSERT INTO public.prices ({cols}) VALUES %s').format(cols=cols_sql)
+
+                values = [tuple(None if pd.isna(x) else x for x in row) for row in df.itertuples(index=False, name=None)]
+                batch_size = 1000
+                for i in range(0, len(values), batch_size):
+                    batch = values[i:i+batch_size]
+                    extras.execute_values(cur, insert_sql.as_string(cur), batch, template=None, page_size=batch_size)
+        return len(df)
     finally:
-        conn.close()
+        try:
+            conn.close()
+        except Exception:
+            pass
 
-
-def task_ingest_and_write(api_key: Optional[str] = None) -> Dict[str, object]:
-    """
-    Task wrapper the orchestrator can call.
-    - runs the fetcher (ingestion_5years_quant_v1.run)
-    - writes results to public.prices
-    - returns a small status dict
-    """
-    log.info("[ingestion.task] Starting ingestion wrapper")
-    mod = _locate_and_import_fetcher()
-
-    if not hasattr(mod, "run"):
-        raise AttributeError("Fetcher module does not expose run(api_key: Optional[str]) -> pd.DataFrame")
-
-    # Ensure TICKER_REFERENCE_PATH defaults to the repo config if not set
-    if not os.getenv("TICKER_REFERENCE_PATH"):
-        repo_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", ".."))
-        candidate = os.path.join(repo_root, "quant", "config", "ticker_reference.csv")
-        if os.path.exists(candidate):
-            os.environ["TICKER_REFERENCE_PATH"] = candidate
-            log.info(f"[ingestion.task] Set TICKER_REFERENCE_PATH={candidate}")
-
+def _compute_last_date_from_series(s: pd.Series) -> Optional[str]:
     try:
-        df = mod.run(api_key=api_key)
-    except Exception as e:
-        log.exception(f"[ingestion.task] Fetcher run() failed -> {e}")
-        return {"status": "fetch_failed", "rows_written": 0, "last_date": None, "error": str(e)}
+        ts = pd.to_datetime(s, errors='coerce').max()
+        if pd.isna(ts):
+            return None
+        try:
+            return ts.date().isoformat()
+        except Exception:
+            return pd.to_datetime(ts).strftime('%Y-%m-%d')
+    except Exception:
+        try:
+            m = s.max()
+            if m is None:
+                return None
+            return str(m)
+        except Exception:
+            return None
 
-    if df is None or df.empty:
-        log.info("[ingestion.task] Ingestion returned no data")
-        return {"status": "no_data", "rows_written": 0, "last_date": None}
-
+def task_ingest_and_write(*, fetcher_module: Optional[Any] = None) -> Dict[str, Any]:
     try:
-        rows = write_prices_to_db(df)
-    except Exception as e:
-        log.exception(f"[ingestion.task] DB write failed -> {e}")
-        return {"status": "db_write_failed", "rows_written": 0, "last_date": None, "error": str(e)}
+        mod = fetcher_module or _import_fetcher_module()
+        if mod is None:
+            msg = 'No fetcher module available'
+            logger.error(msg)
+            return {'status': 'fetcher_missing', 'error': msg}
 
-    last_date = df["date"].max() if "date" in df.columns else None
-    status = {"status": "ok", "rows_written": rows, "last_date": last_date}
-    log.info(f"[ingestion.task] Completed ingestion wrapper: {status}")
-    return status
+        fetch_fns = ['fetch_all', 'ingest', 'run', 'fetch_prices', 'get_prices']
+        df = None
+        for fn in fetch_fns:
+            if hasattr(mod, fn):
+                try:
+                    df = getattr(mod, fn)()
+                    logger.info('Fetched data using %s.%s', mod.__name__, fn)
+                    break
+                except TypeError:
+                    try:
+                        df = getattr(mod, fn)(None)
+                        logger.info('Fetched data using %s.%s with None arg', mod.__name__, fn)
+                        break
+                    except Exception:
+                        continue
 
+        # If fetcher returned a DataFrame, normalize common lowercase column names to canonical names
+        if df is not None and isinstance(df, pd.DataFrame):
+            df.rename(
+                columns={
+                    'date': 'Date',
+                    'adj_close': 'Adj_Close',
+                    'adjclose': 'Adj_Close',
+                    'adj close': 'Adj_Close',
+                    'close': 'Close',
+                    'high': 'High',
+                    'low': 'Low',
+                    'open': 'Open',
+                    'volume': 'Volume',
+                    'ticker': 'ticker',
+                    'ticker_symbol': 'ticker',
+                },
+                inplace=True,
+            )
 
-# CLI entry for manual testing
-if __name__ == "__main__":
-    import json
-    api_key = os.getenv("ALPHA_VANTAGE_API_KEY", None)
-    result = task_ingest_and_write(api_key=api_key)
-    print(json.dumps(result, indent=2))
+        if df is None and hasattr(mod, 'DATAFRAME'):
+            df = getattr(mod, 'DATAFRAME')
 
-# Backwards-compatible entrypoint expected by orchestrator
+        if df is None:
+            msg = 'Fetcher module did not return a DataFrame'
+            logger.error(msg)
+            return {'status': 'fetch_failed', 'error': msg}
+
+        # Ensure Date column is canonical and converted to plain date objects
+        if 'Date' in df.columns and len(df) > 0:
+            df['Date'] = pd.to_datetime(df['Date'], errors='coerce')
+            try:
+                if df['Date'].dt.tz is not None:
+                    df['Date'] = df['Date'].dt.tz_convert(None)
+            except Exception:
+                pass
+            df['Date'] = df['Date'].dt.date
+
+        expected = {
+            'Date': 'Date',
+            'Adj_Close': 'Adj_Close',
+            'Close': 'Close',
+            'High': 'High',
+            'Low': 'Low',
+            'Open': 'Open',
+            'Volume': 'Volume',
+            'ticker': 'ticker',
+            'Ticker': 'ticker',
+        }
+        normalized = {}
+        for src, dst in expected.items():
+            if src in df.columns:
+                normalized[dst] = df[src]
+
+        if 'ticker' not in normalized:
+            ticker = getattr(mod, 'TICKER', None) or os.getenv('INGESTION_TICKER')
+            if ticker:
+                normalized['ticker'] = pd.Series([ticker] * len(df))
+
+        final = pd.DataFrame(normalized)
+
+        # Compute last_date robustly from the Date column before DB write
+        last_date = None
+        if 'Date' in final.columns and len(final) > 0:
+            last_date = _compute_last_date_from_series(final['Date'])
+
+        rows = write_prices_to_db(final)
+
+        logger.info('Completed ingestion wrapper: %s', {'status': 'ok', 'rows_written': rows, 'last_date': last_date})
+        return {'status': 'ok', 'rows_written': rows, 'last_date': last_date}
+    except Exception as exc:
+        logger.exception('DB write failed -> %s', exc)
+        return {'status': 'db_write_failed', 'error': str(exc)}
+
 def run(*args, **kwargs):
     return task_ingest_and_write(*args, **kwargs)
 
+if __name__ == '__main__':
+    import logging as _logging
+    _logging.basicConfig(level=_logging.INFO)
+    print(task_ingest_and_write())
