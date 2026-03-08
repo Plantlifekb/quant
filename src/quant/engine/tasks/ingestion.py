@@ -1,4 +1,4 @@
-import os
+﻿import os
 import logging
 import importlib
 import importlib.util
@@ -238,4 +238,5 @@ if __name__ == '__main__':
     import logging as _logging
     _logging.basicConfig(level=_logging.INFO)
     print(task_ingest_and_write())
+
 
