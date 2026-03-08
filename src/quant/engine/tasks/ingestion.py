@@ -9,8 +9,11 @@ from psycopg2 import sql
 
 logger = logging.getLogger("quant.engine.tasks.ingestion")
 
-# Keep a small helper to import fetcher modules dynamically
+
 def _load_fetcher(module_name: str):
+    """
+    Dynamically import a fetcher module that exposes a run() function.
+    """
     logger.info("Loaded fetcher module: %s", module_name)
     module = __import__(module_name, fromlist=["run"])
     return module
@@ -20,12 +23,12 @@ def write_prices_to_db(df: pd.DataFrame) -> int:
     """
     Write normalized prices to Postgres. Returns number of rows written.
 
-    This function is defensive about the connection source:
-    - It prefers DATABASE_URL / PG_DSN / PGCONN if provided and looks like a Postgres URL.
-    - It will ignore sqlite:// style URLs and instead build a psycopg2 connection
+    Behavior:
+    - Prefer DATABASE_URL / PG_DSN / PGCONN if provided and looks like Postgres.
+    - Ignore sqlite:// style URLs and instead build a psycopg2 connection
       from PGHOST/PGPORT/PGDATABASE/PGUSER/PGPASSWORD.
-    - If a SQLAlchemy-style postgres URL is provided (postgresql:// or postgresql+psycopg2://),
-      it will use SQLAlchemy's to_sql path for bulk writes.
+    - If a SQLAlchemy-style Postgres URL is provided, use SQLAlchemy's to_sql path for bulk writes.
+    - Normalize incoming DataFrame column names to tolerate common variants.
     """
     # Prefer common env vars (DATABASE_URL first)
     pg_dsn = os.getenv("DATABASE_URL") or os.getenv("PG_DSN") or os.getenv("PGCONN")
@@ -55,7 +58,6 @@ def write_prices_to_db(df: pd.DataFrame) -> int:
 
             logger.info("Using SQLAlchemy engine for bulk write")
             engine = create_engine(pg_dsn, pool_pre_ping=True)
-            # Use to_sql for bulk append; method='multi' speeds up inserts
             df.to_sql("prices", engine, schema="public", if_exists="append", index=False, method="multi")
             return len(df)
         except Exception as e:
@@ -65,7 +67,6 @@ def write_prices_to_db(df: pd.DataFrame) -> int:
     # Try to connect with psycopg2. Prefer explicit kwargs; if that fails, try pg_dsn as libpq string.
     conn = None
     try:
-        # Try explicit kwargs first (safer when envs are set)
         logger.debug("Attempting psycopg2 connect with explicit kwargs")
         conn = psycopg2.connect(**{k: v for k, v in conn_kwargs.items() if v is not None})
     except Exception as first_exc:
@@ -86,18 +87,86 @@ def write_prices_to_db(df: pd.DataFrame) -> int:
     try:
         with conn:
             with conn.cursor() as cur:
-                # Convert DataFrame to list of tuples in the expected column order.
-                # The ingestion normalizer should ensure columns match the DB schema.
-                # Adjust columns/order here to match your actual table schema.
+                # Canonical expected columns (DB order)
                 expected_cols = ["Date", "Adj_Close", "Close", "High", "Low", "Open", "Volume", "ticker"]
-                missing = [c for c in expected_cols if c not in df.columns]
-                if missing:
-                    logger.warning("DataFrame missing expected columns: %s", missing)
 
-                # Prepare rows for insertion; convert pandas types to Python native types
+                # Make a tolerant copy of the DataFrame with normalized column names
+                df_norm = df.copy()
+                # create a mapping from lower-case stripped names to actual columns
+                col_map = {c.strip().lower(): c for c in df_norm.columns}
+
+                # helper to find a column by possible variants
+                def find_col(*variants):
+                    for v in variants:
+                        key = v.strip().lower()
+                        if key in col_map:
+                            return col_map[key]
+                    return None
+
+                # Build a rename mapping to canonical names
+                rename_map = {}
+                # Date variants
+                dcol = find_col("date", "day", "trade_date")
+                if dcol:
+                    rename_map[dcol] = "Date"
+                # Adj_Close variants
+                acol = find_col("adj_close", "adjclose", "adjusted_close", "adj close")
+                if acol:
+                    rename_map[acol] = "Adj_Close"
+                # Close, High, Low, Open, Volume
+                for name in ["close", "high", "low", "open", "volume", "ticker"]:
+                    found = find_col(name)
+                    if found:
+                        if name == "ticker":
+                            rename_map[found] = "ticker"
+                        elif name == "volume":
+                            rename_map[found] = "Volume"
+                        else:
+                            rename_map[found] = name.capitalize()
+
+                # If ticker missing, try 'symbol' or 'tick'
+                if "ticker" not in [v for v in rename_map.values()]:
+                    sym = find_col("symbol", "sym", "tick")
+                    if sym:
+                        rename_map[sym] = "ticker"
+
+                # Apply renames
+                if rename_map:
+                    df_norm = df_norm.rename(columns=rename_map)
+
+                # Ensure ticker exists; if not, add a default
+                if "ticker" not in df_norm.columns:
+                    logger.warning("No ticker column found in DataFrame; filling with 'UNKNOWN'")
+                    df_norm["ticker"] = "UNKNOWN"
+
+                # Ensure Date is in a DB-friendly format (ISO string or date)
+                if "Date" in df_norm.columns:
+                    try:
+                        df_norm["Date"] = pd.to_datetime(df_norm["Date"]).dt.date
+                    except Exception:
+                        df_norm["Date"] = pd.to_datetime(df_norm["Date"], errors="coerce").dt.strftime("%Y-%m-%d")
+                else:
+                    logger.warning("No Date column found after normalization")
+
+                # Verify all expected columns exist now; if not, log and raise a helpful error
+                missing = [c for c in expected_cols if c not in df_norm.columns]
+                if missing:
+                    logger.error("After normalization, DataFrame still missing expected columns: %s", missing)
+                    raise KeyError(f"Missing expected columns for DB write: {missing}")
+
+                # Prepare rows for insertion
                 rows = []
-                for _, r in df[expected_cols].iterrows():
-                    rows.append(tuple(r.tolist()))
+                for _, r in df_norm[expected_cols].iterrows():
+                    # Convert numpy types to native Python types where necessary
+                    row = []
+                    for val in r.tolist():
+                        if pd.isna(val):
+                            row.append(None)
+                        elif hasattr(val, "isoformat"):
+                            row.append(val.isoformat())
+                        else:
+                            row.append(val)
+                    rows.append(tuple(row))
 
                 # Example insert statement; replace with your actual upsert logic
                 insert_sql = sql.SQL(
@@ -109,7 +178,6 @@ def write_prices_to_db(df: pd.DataFrame) -> int:
                 )
                 if rows:
                     cur.executemany(insert_sql.as_string(conn), rows)
-                # rowcount may be -1 for executemany depending on driver; return len(rows) as conservative count
                 written = len(rows)
                 logger.info("Wrote %d rows to DB", written)
                 return written
@@ -127,7 +195,6 @@ def task_ingest_and_write() -> Dict[str, Any]:
     Loads the configured fetcher, runs ingestion, normalizes data, and writes to DB.
     Returns a dict with status and metadata.
     """
-    # Which fetcher module to use? Default to a known fetcher used in tests.
     fetcher_module = os.getenv("QUANT_FETCHER", "quant.ingestion_5years_quant_v1")
     logger.info("Loaded fetcher module: %s", fetcher_module)
 
@@ -138,7 +205,6 @@ def task_ingest_and_write() -> Dict[str, Any]:
         return {"status": "fetcher_import_failed", "fetcher": fetcher_module}
 
     try:
-        # The fetcher.run() is expected to return a normalized pandas DataFrame
         final = fetcher.run()
         if not isinstance(final, pd.DataFrame):
             logger.error("Fetcher did not return a DataFrame")
