@@ -1,2 +1,0 @@
-strategy,pred_file,real_file,total_weeks,total_tickers,matched_rows,unmatched_pred_rows,unmatched_real_rows,mean_weekly_return,std_weekly_return,hit_rate,ir_weekly,ir_annual,pearson_corr,spearman_corr,n_picks,n_weeks,n_tickers
-longshort,C:\Quant\outputs\verification\predicted_vs_picks_weekly_longshort.csv,C:\Quant\outputs\verification\realized_vs_picks_weekly_longshort.csv,102,371,160,0,2040,-0.0004497019392989576,0.4053902170834599,0.38125,-0.0011093063432420596,-0.007999321801513403,,,160,8,113

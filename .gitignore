@@ -1,1 +1,19 @@
-archive/dashboard_versions/2026-02-11/
+# Ignore all Postgres internal data
+postgres/
+postgres/**
+
+# Ignore Python cache
+__pycache__/
+**/__pycache__/
+
+# Ignore virtual environments
+venv/
+.env/
+
+# Ignore OS junk
+.DS_Store
+Thumbs.db
+
+# Ignore editor/project files
+.vscode/
+.idea/

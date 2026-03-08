@@ -1,6 +1,0 @@
-[2026-01-21 20:25:08 UTC] [backtest_engine_quant_v1] === Starting backtest engine ===
-[2026-01-21 20:25:15 UTC] [backtest_engine_quant_v1] Loaded factor dataset: 681,120 rows
-[2026-01-21 20:25:15 UTC] [backtest_engine_quant_v1] Using primary signal column: model_signal_v3
-[2026-01-21 20:25:48 UTC] [backtest_engine_quant_v1] Backtest dataset written: C:\Quant\data\analytics\quant_backtest.csv
-[2026-01-21 20:25:48 UTC] [backtest_engine_quant_v1] Rows: 681,120
-[2026-01-21 20:25:48 UTC] [backtest_engine_quant_v1] === Backtest engine done ===

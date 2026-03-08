@@ -1,8 +1,0 @@
-[2026-01-22 08:19:34 UTC] [regime_awareness_quant_v1] Starting regime_awareness_quant_v1 run (v1.0).
-[2026-01-22 08:19:34 UTC] [regime_awareness_quant_v1] Loading factor data from C:\Quant\data\analytics\quant_factors_composite.csv
-[2026-01-22 08:19:42 UTC] [regime_awareness_quant_v1] Loaded 680604 rows after cleaning.
-[2026-01-22 08:19:42 UTC] [regime_awareness_quant_v1] Building cross-sectional market proxy series.
-[2026-01-22 08:19:42 UTC] [regime_awareness_quant_v1] Classifying regimes with trend_lookback=60, vol_lookback=60.
-[2026-01-22 08:19:42 UTC] [regime_awareness_quant_v1] Regime classification completed.
-[2026-01-22 08:19:42 UTC] [regime_awareness_quant_v1] Saving regime states to C:\Quant\data\analytics\quant_regime_states.csv
-[2026-01-22 08:19:42 UTC] [regime_awareness_quant_v1] regime_awareness_quant_v1 run completed successfully.

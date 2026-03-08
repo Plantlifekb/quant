@@ -1,0 +1,66 @@
+*** Begin Patch
+*** Add File: src/dashboard.py
++#!/usr/bin/env python3
++"""
++Minimal dashboard entrypoint for local development.
++This file is intentionally small and dependency-free so it can be run immediately.
++"""
++from typing import Dict
++
++def get_dashboard_status() -> Dict[str, str]:
++    """
++    Return a minimal status payload for the dashboard.
++    Keep this function simple so tests can exercise it without external deps.
++    """
++    return {"status": "ok", "message": "Dashboard placeholder"}
++
++def main() -> None:
++    """Run a tiny console dashboard for local checks."""
++    status = get_dashboard_status()
++    print(f"Status: {status['status']} - {status['message']}")
++
++if __name__ == "__main__":
++    main()
++
+*** End Patch
+*** Begin Patch
+*** Add File: tests/test_dashboard.py
++import importlib.util
++import sys
++
++def test_get_dashboard_status_returns_expected_keys():
++    """
++    Import the dashboard module and assert the status payload shape.
++    This test uses a direct import so it works with the repo layout as-is.
++    """
++    spec = importlib.util.spec_from_file_location("dashboard", "src/dashboard.py")
++    module = importlib.util.module_from_spec(spec)
++    sys.modules["dashboard"] = module
++    spec.loader.exec_module(module)  # type: ignore
++
++    payload = module.get_dashboard_status()
++    assert isinstance(payload, dict)
++    assert payload.get("status") == "ok"
++    assert "message" in payload
++
+*** End Patch
+*** Begin Patch
+*** Add File: README.md
++# quant
++
++Minimal local dashboard and test added for quick verification.
++
++**Run locally**
++
++```powershell
++python src/dashboard.py
++```
++
++**Run tests**
++
++```powershell
++pip install pytest
++pytest -q
++```
++
+*** End Patch

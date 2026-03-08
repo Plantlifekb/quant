@@ -1,9 +1,0 @@
-[2026-01-22 08:21:49 UTC] [regime_exposure_quant_v1] Starting regime_exposure_quant_v1 run (v1.0).
-[2026-01-22 08:21:49 UTC] [regime_exposure_quant_v1] Loading volatility-targeted performance from C:\Quant\data\analytics\quant_portfolio_performance_voltarget.csv
-[2026-01-22 08:21:49 UTC] [regime_exposure_quant_v1] Loaded 2638 rows after cleaning vol-target performance.
-[2026-01-22 08:21:49 UTC] [regime_exposure_quant_v1] Loading regime states from C:\Quant\data\analytics\quant_regime_states.csv
-[2026-01-22 08:21:49 UTC] [regime_exposure_quant_v1] Loaded 1319 regime rows after cleaning.
-[2026-01-22 08:21:49 UTC] [regime_exposure_quant_v1] Applying regime-adaptive exposure scaling.
-[2026-01-22 08:21:49 UTC] [regime_exposure_quant_v1] Regime-adaptive exposure scaling applied.
-[2026-01-22 08:21:49 UTC] [regime_exposure_quant_v1] Saving regime- and vol-targeted performance to C:\Quant\data\analytics\quant_portfolio_performance_regime_vt.csv
-[2026-01-22 08:21:49 UTC] [regime_exposure_quant_v1] regime_exposure_quant_v1 run completed successfully.

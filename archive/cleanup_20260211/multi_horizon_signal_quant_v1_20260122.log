@@ -1,9 +1,0 @@
-[2026-01-22 08:37:05 UTC] [multi_horizon_signal_quant_v1] Starting multi_horizon_signal_quant_v1 run (v1.0).
-[2026-01-22 08:37:05 UTC] [multi_horizon_signal_quant_v1] Loading factor data from C:\Quant\data\analytics\quant_factors_composite.csv
-[2026-01-22 08:37:10 UTC] [multi_horizon_signal_quant_v1] Loaded 680604 rows after cleaning.
-[2026-01-22 08:37:10 UTC] [multi_horizon_signal_quant_v1] Building multi-horizon signals: short=10, medium=30, long=90.
-[2026-01-22 08:37:10 UTC] [multi_horizon_signal_quant_v1] Raw horizon signals computed per ticker.
-[2026-01-22 08:37:10 UTC] [multi_horizon_signal_quant_v1] Normalising horizon signals cross-sectionally and blending into composite_mh_signal.
-[2026-01-22 08:37:12 UTC] [multi_horizon_signal_quant_v1] Multi-horizon signals normalised and blended.
-[2026-01-22 08:37:12 UTC] [multi_horizon_signal_quant_v1] Saving multi-horizon composite factors to C:\Quant\data\analytics\quant_factors_composite_mh.csv
-[2026-01-22 08:37:15 UTC] [multi_horizon_signal_quant_v1] multi_horizon_signal_quant_v1 run completed successfully.

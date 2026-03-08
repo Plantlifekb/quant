@@ -1,0 +1,3 @@
+# quant.common/version.py
+PLATFORM_VERSION = "2026_02_27_01"
+SCHEMA_VERSION = "2026_02_27_01"

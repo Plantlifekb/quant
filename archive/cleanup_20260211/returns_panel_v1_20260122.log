@@ -1,7 +1,0 @@
-[2026-01-22 10:22:20 UTC] [returns_panel_v1] Starting returns_panel_v1 run (v1.0).
-[2026-01-22 10:22:20 UTC] [returns_panel_v1] Loading ingested price history from C:\Quant\data\ingestion\ingestion_5years.csv
-[2026-01-22 10:22:21 UTC] [returns_panel_v1] Loaded 681120 rows from ingested prices using column 'adj_close'.
-[2026-01-22 10:22:21 UTC] [returns_panel_v1] Building daily returns panel from price history.
-[2026-01-22 10:22:21 UTC] [returns_panel_v1] Built 680604 daily return rows.
-[2026-01-22 10:22:21 UTC] [returns_panel_v1] Saving returns panel to C:\Quant\data\analytics\quant_returns_panel.csv
-[2026-01-22 10:22:23 UTC] [returns_panel_v1] returns_panel_v1 run completed successfully.

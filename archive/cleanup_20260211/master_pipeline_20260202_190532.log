@@ -1,9 +1,0 @@
-2026-02-02 19:05:32,459 INFO === MASTER PIPELINE START ===
-2026-02-02 19:05:32,472 INFO Newest data file: C:\Quant\data\analytics\quant_prices_v1.csv (age 0:00:01.161874)
-2026-02-02 19:05:32,472 INFO No ingestion script found; skipping ingestion.
-2026-02-02 19:05:32,473 INFO Starting build_strategy_returns (optimiser x price returns)
-2026-02-02 19:05:32,473 ERROR Price returns file not found: C:\Quant\data\analytics\price_returns.parquet
-2026-02-02 19:05:32,473 ERROR Exiting with code 3
-2026-02-02 19:05:32,474 ERROR build_strategy_returns failed
-2026-02-02 19:05:32,474 ERROR Exception: 3
-2026-02-02 19:05:32,486 ERROR Exiting with code 3

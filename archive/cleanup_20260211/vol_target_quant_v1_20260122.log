@@ -1,7 +1,0 @@
-[2026-01-22 08:16:49 UTC] [vol_target_quant_v1] Starting vol_target_quant_v1 run (v1.0).
-[2026-01-22 08:16:49 UTC] [vol_target_quant_v1] Loading portfolio performance from C:\Quant\data\analytics\quant_portfolio_performance.csv
-[2026-01-22 08:16:49 UTC] [vol_target_quant_v1] Loaded 2638 rows after cleaning.
-[2026-01-22 08:16:49 UTC] [vol_target_quant_v1] Applying volatility targeting: target_annual_vol=0.2, window=60 days.
-[2026-01-22 08:16:49 UTC] [vol_target_quant_v1] Volatility targeting applied to all portfolio types.
-[2026-01-22 08:16:49 UTC] [vol_target_quant_v1] Saving volatility-targeted performance to C:\Quant\data\analytics\quant_portfolio_performance_voltarget.csv
-[2026-01-22 08:16:49 UTC] [vol_target_quant_v1] vol_target_quant_v1 run completed successfully.

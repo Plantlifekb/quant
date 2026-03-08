@@ -1,4 +1,0 @@
-﻿2026-02-06T17:23:17.2491062+00:00 INFO	START system freshness / lineage verification
-2026-02-06T17:23:17.3859722+00:00 INFO	END system freshness / lineage verification
-2026-02-06T17:23:23.7534177+00:00 INFO	Backed up C:\Quant\outputs\verification\predicted_vs_picks_weekly_longshort.csv -> C:\Quant\outputs\verification\predicted_vs_picks_weekly_longshort.csv.pre_replace.20260206_172317.bak
-2026-02-06T17:23:37.6118019+00:00 INFO	Normalized header week_start -> week in C:\Quant\outputs\verification\predicted_vs_picks_weekly_longshort.csv

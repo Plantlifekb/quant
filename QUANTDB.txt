@@ -1,0 +1,7 @@
+      POSTGRES_DB: quantdb
+      POSTGRES_USER: quant
+      POSTGRES_PASSWORD: quantpass
+
+      POSTGRES_USER: quant
+      POSTGRES_PASSWORD: quant
+      POSTGRES_DB: quant

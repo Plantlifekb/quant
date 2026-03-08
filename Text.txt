@@ -1,0 +1,201 @@
+ id | task_name |        run_started         |        run_finished        | status |                                            error_text
+----+-----------+----------------------------+----------------------------+--------+---------------------------------------------------------------------------------------------------
+  1 | ingestion | 2026-03-06 07:17:35.765735 | 2026-03-06 07:17:35.776182 | failed | Traceback (most recent call last):                                                               +
+    |           |                            |                            |        |   File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1415, in execute+
+    |           |                            |                            |        |     meth = statement._execute_on_connection                                                      +
+    |           |                            |                            |        |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^                                                      +
+    |           |                            |                            |        | AttributeError: 'str' object has no attribute '_execute_on_connection'                           +
+    |           |                            |                            |        |                                                                                                  +
+    |           |                            |                            |        | The above exception was the direct cause of the following exception:                             +
+    |           |                            |                            |        |                                                                                                  +
+    |           |                            |                            |        | Traceback (most recent call last):                                                               +
+    |           |                            |                            |        |   File "/app/quant/engine/orchestrator.py", line 28, in run_task                                 +
+    |           |                            |                            |        |     TASK_MAP[task_name]()                                                                        +
+    |           |                            |                            |        |   File "/app/quant/engine/tasks/ingestion.py", line 5, in run                                    +
+    |           |                            |                            |        |     ingest_prices()                                                                              +
+    |           |                            |                            |        |   File "/app/quant/engine/stages/ingest_prices.py", line 7, in ingest_prices                     +
+    |           |                            |                            |        |     conn.execute("SELECT 1")                                                                     +
+    |           |                            |                            |        |   File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1417, in execute+
+    |           |                            |                            |        |     raise exc.ObjectNotExecutableError(statement) from err                                       +
+    |           |                            |                            |        | sqlalchemy.exc.ObjectNotExecutableError: Not an executable object: 'SELECT 1'                    +
+    |           |                            |                            |        |
+  2 | prices    | 2026-03-06 07:17:35.795415 | 2026-03-06 07:17:35.805385 | failed | Traceback (most recent call last):                                                               +
+    |           |                            |                            |        |   File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1415, in execute+
+    |           |                            |                            |        |     meth = statement._execute_on_connection                                                      +
+    |           |                            |                            |        |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^                                                      +
+    |           |                            |                            |        | AttributeError: 'str' object has no attribute '_execute_on_connection'                           +
+    |           |                            |                            |        |                                                                                                  +
+    |           |                            |                            |        | The above exception was the direct cause of the following exception:                             +
+    |           |                            |                            |        |                                                                                                  +
+    |           |                            |                            |        | Traceback (most recent call last):                                                               +
+    |           |                            |                            |        |   File "/app/quant/engine/orchestrator.py", line 28, in run_task                                 +
+    |           |                            |                            |        |     TASK_MAP[task_name]()                                                                        +
+    |           |                            |                            |        |   File "/app/quant/engine/tasks/prices.py", line 5, in run                                       +
+    |           |                            |                            |        |     compute_prices()                                                                             +
+    |           |                            |                            |        |   File "/app/quant/engine/stages/prices.py", line 7, in compute_prices                           +
+    |           |                            |                            |        |     conn.execute("SELECT 1")                                                                     +
+    |           |                            |                            |        |   File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1417, in execute+
+    |           |                            |                            |        |     raise exc.ObjectNotExecutableError(statement) from err                                       +
+    |           |                            |                            |        | sqlalchemy.exc.ObjectNotExecutableError: Not an executable object: 'SELECT 1'                    +
+    |           |                            |                            |        |
+  3 | returns   | 2026-03-06 07:17:35.807199 | 2026-03-06 07:17:35.817336 | failed | Traceback (most recent call last):                                                               +
+    |           |                            |                            |        |   File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1415, in execute+
+    |           |                            |                            |        |     meth = statement._execute_on_connection                                                      +
+    |           |                            |                            |        |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^                                                      +
+    |           |                            |                            |        | AttributeError: 'str' object has no attribute '_execute_on_connection'                           +
+    |           |                            |                            |        |                                                                                                  +
+    |           |                            |                            |        | The above exception was the direct cause of the following exception:                             +
+    |           |                            |                            |        |                                                                                                  +
+    |           |                            |                            |        | Traceback (most recent call last):                                                               +
+    |           |                            |                            |        |   File "/app/quant/engine/orchestrator.py", line 28, in run_task                                 +
+    |           |                            |                            |        |     TASK_MAP[task_name]()                                                                        +
+    |           |                            |                            |        |   File "/app/quant/engine/tasks/returns.py", line 5, in run                                      +
+    |           |                            |                            |        |     compute_returns()                                                                            +
+    |           |                            |                            |        |   File "/app/quant/engine/stages/returns.py", line 7, in compute_returns                         +
+    |           |                            |                            |        |     conn.execute("SELECT 1")                                                                     +
+    |           |                            |                            |        |   File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1417, in execute+
+    |           |                            |                            |        |     raise exc.ObjectNotExecutableError(statement) from err                                       +
+    |           |                            |                            |        | sqlalchemy.exc.ObjectNotExecutableError: Not an executable object: 'SELECT 1'                    +
+    |           |                            |                            |        |
+  4 | dashboard | 2026-03-06 07:17:35.819914 | 2026-03-06 07:17:35.830509 | failed | Traceback (most recent call last):                                                               +
+    |           |                            |                            |        |   File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1415, in execute+
+    |           |                            |                            |        |     meth = statement._execute_on_connection                                                      +
+    |           |                            |                            |        |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^                                                      +
+    |           |                            |                            |        | AttributeError: 'str' object has no attribute '_execute_on_connection'                           +
+    |           |                            |                            |        |                                                                                                  +
+    |           |                            |                            |        | The above exception was the direct cause of the following exception:                             +
+    |           |                            |                            |        |                                                                                                  +
+
+ id | task_name |        run_started         |        run_finished        | status |                                            error_text
+----+-----------+----------------------------+----------------------------+--------+---------------------------------------------------------------------------------------------------
+  1 | ingestion | 2026-03-06 07:17:35.765735 | 2026-03-06 07:17:35.776182 | failed | Traceback (most recent call last):                                                               +
+    |           |                            |                            |        |   File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1415, in execute+
+    |           |                            |                            |        |     meth = statement._execute_on_connection                                                      +
+    |           |                            |                            |        |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^                                                      +
+    |           |                            |                            |        | AttributeError: 'str' object has no attribute '_execute_on_connection'                           +
+    |           |                            |                            |        |                                                                                                  +
+    |           |                            |                            |        | The above exception was the direct cause of the following exception:                             +
+    |           |                            |                            |        |                                                                                                  +
+    |           |                            |                            |        | Traceback (most recent call last):                                                               +
+    |           |                            |                            |        |   File "/app/quant/engine/orchestrator.py", line 28, in run_task                                 +
+    |           |                            |                            |        |     TASK_MAP[task_name]()                                                                        +
+    |           |                            |                            |        |   File "/app/quant/engine/tasks/ingestion.py", line 5, in run                                    +
+    |           |                            |                            |        |     ingest_prices()                                                                              +
+    |           |                            |                            |        |   File "/app/quant/engine/stages/ingest_prices.py", line 7, in ingest_prices                     +
+    |           |                            |                            |        |     conn.execute("SELECT 1")                                                                     +
+    |           |                            |                            |        |   File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1417, in execute+
+    |           |                            |                            |        |     raise exc.ObjectNotExecutableError(statement) from err                                       +
+    |           |                            |                            |        | sqlalchemy.exc.ObjectNotExecutableError: Not an executable object: 'SELECT 1'                    +
+    |           |                            |                            |        |
+  2 | prices    | 2026-03-06 07:17:35.795415 | 2026-03-06 07:17:35.805385 | failed | Traceback (most recent call last):                                                               +
+    |           |                            |                            |        |   File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1415, in execute+
+    |           |                            |                            |        |     meth = statement._execute_on_connection                                                      +
+    |           |                            |                            |        |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^                                                      +
+    |           |                            |                            |        | AttributeError: 'str' object has no attribute '_execute_on_connection'                           +
+    |           |                            |                            |        |                                                                                                  +
+    |           |                            |                            |        | The above exception was the direct cause of the following exception:                             +
+    |           |                            |                            |        |                                                                                                  +
+    |           |                            |                            |        | Traceback (most recent call last):                                                               +
+    |           |                            |                            |        |   File "/app/quant/engine/orchestrator.py", line 28, in run_task                                 +
+    |           |                            |                            |        |     TASK_MAP[task_name]()                                                                        +
+    |           |                            |                            |        |   File "/app/quant/engine/tasks/prices.py", line 5, in run                                       +
+    |           |                            |                            |        |     compute_prices()                                                                             +
+    |           |                            |                            |        |   File "/app/quant/engine/stages/prices.py", line 7, in compute_prices                           +
+    |           |                            |                            |        |     conn.execute("SELECT 1")                                                                     +
+    |           |                            |                            |        |   File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1417, in execute+
+    |           |                            |                            |        |     raise exc.ObjectNotExecutableError(statement) from err                                       +
+    |           |                            |                            |        | sqlalchemy.exc.ObjectNotExecutableError: Not an executable object: 'SELECT 1'                    +
+    |           |                            |                            |        |
+  3 | returns   | 2026-03-06 07:17:35.807199 | 2026-03-06 07:17:35.817336 | failed | Traceback (most recent call last):                                                               +
+    |           |                            |                            |        |   File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1415, in execute+
+    |           |                            |                            |        |     meth = statement._execute_on_connection                                                      +
+    |           |                            |                            |        |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^                                                      +
+    |           |                            |                            |        | AttributeError: 'str' object has no attribute '_execute_on_connection'                           +
+    |           |                            |                            |        |                                                                                                  +
+    |           |                            |                            |        | The above exception was the direct cause of the following exception:                             +
+    |           |                            |                            |        |                                                                                                  +
+    |           |                            |                            |        | Traceback (most recent call last):                                                               +
+    |           |                            |                            |        |   File "/app/quant/engine/orchestrator.py", line 28, in run_task                                 +
+    |           |                            |                            |        |     TASK_MAP[task_name]()                                                                        +
+    |           |                            |                            |        |   File "/app/quant/engine/tasks/returns.py", line 5, in run                                      +
+    |           |                            |                            |        |     compute_returns()                                                                            +
+    |           |                            |                            |        |   File "/app/quant/engine/stages/returns.py", line 7, in compute_returns                         +
+    |           |                            |                            |        |     conn.execute("SELECT 1")                                                                     +
+    |           |                            |                            |        |   File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1417, in execute+
+    |           |                            |                            |        |     raise exc.ObjectNotExecutableError(statement) from err                                       +
+    |           |                            |                            |        | sqlalchemy.exc.ObjectNotExecutableError: Not an executable object: 'SELECT 1'                    +
+    |           |                            |                            |        |
+  4 | dashboard | 2026-03-06 07:17:35.819914 | 2026-03-06 07:17:35.830509 | failed | Traceback (most recent call last):                                                               +
+    |           |                            |                            |        |   File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1415, in execute+
+    |           |                            |                            |        |     meth = statement._execute_on_connection                                                      +
+    |           |                            |                            |        |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^                                                      +
+    |           |                            |                            |        | AttributeError: 'str' object has no attribute '_execute_on_connection'                           +
+    |           |                            |                            |        |                                                                                                  +
+    |           |                            |                            |        | The above exception was the direct cause of the following exception:                             +
+    |           |                            |                            |        |                                                                                                  +
+    |           |                            |                            |        |   File "/app/quant/engine/tasks/ingestion.py", line 5, in run                                    +
+    |           |                            |                            |        |     ingest_prices()                                                                              +
+    |           |                            |                            |        |   File "/app/quant/engine/stages/ingest_prices.py", line 7, in ingest_prices                     +
+    |           |                            |                            |        |     conn.execute("SELECT 1")                                                                     +
+    |           |                            |                            |        |   File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1417, in execute+
+    |           |                            |                            |        |     raise exc.ObjectNotExecutableError(statement) from err                                       +
+    |           |                            |                            |        | sqlalchemy.exc.ObjectNotExecutableError: Not an executable object: 'SELECT 1'                    +
+    |           |                            |                            |        |
+ 14 | prices    | 2026-03-06 07:22:57.673401 | 2026-03-06 07:22:57.684677 | failed | Traceback (most recent call last):                                                               +
+    |           |                            |                            |        |   File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1415, in execute+
+    |           |                            |                            |        |     meth = statement._execute_on_connection                                                      +
+    |           |                            |                            |        |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^                                                      +
+    |           |                            |                            |        | AttributeError: 'str' object has no attribute '_execute_on_connection'                           +
+    |           |                            |                            |        |                                                                                                  +
+    |           |                            |                            |        | The above exception was the direct cause of the following exception:                             +
+    |           |                            |                            |        |                                                                                                  +
+    |           |                            |                            |        | Traceback (most recent call last):                                                               +
+    |           |                            |                            |        |   File "/app/quant/engine/orchestrator.py", line 28, in run_task                                 +
+    |           |                            |                            |        |     TASK_MAP[task_name]()                                                                        +
+    |           |                            |                            |        |   File "/app/quant/engine/tasks/prices.py", line 5, in run                                       +
+    |           |                            |                            |        |     compute_prices()                                                                             +
+    |           |                            |                            |        |   File "/app/quant/engine/stages/prices.py", line 7, in compute_prices                           +
+    |           |                            |                            |        |     conn.execute("SELECT 1")                                                                     +
+    |           |                            |                            |        |   File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1417, in execute+
+    |           |                            |                            |        |     raise exc.ObjectNotExecutableError(statement) from err                                       +
+    |           |                            |                            |        | sqlalchemy.exc.ObjectNotExecutableError: Not an executable object: 'SELECT 1'                    +
+    |           |                            |                            |        |
+ 15 | returns   | 2026-03-06 07:22:57.68801  | 2026-03-06 07:22:57.698879 | failed | Traceback (most recent call last):                                                               +
+    |           |                            |                            |        |   File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1415, in execute+
+    |           |                            |                            |        |     meth = statement._execute_on_connection                                                      +
+    |           |                            |                            |        |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^                                                      +
+    |           |                            |                            |        | AttributeError: 'str' object has no attribute '_execute_on_connection'                           +
+    |           |                            |                            |        |                                                                                                  +
+    |           |                            |                            |        | The above exception was the direct cause of the following exception:                             +
+    |           |                            |                            |        |                                                                                                  +
+    |           |                            |                            |        | Traceback (most recent call last):                                                               +
+    |           |                            |                            |        |   File "/app/quant/engine/orchestrator.py", line 28, in run_task                                 +
+    |           |                            |                            |        |     TASK_MAP[task_name]()                                                                        +
+    |           |                            |                            |        |   File "/app/quant/engine/tasks/returns.py", line 5, in run                                      +
+    |           |                            |                            |        |     compute_returns()                                                                            +
+    |           |                            |                            |        |   File "/app/quant/engine/stages/returns.py", line 7, in compute_returns                         +
+    |           |                            |                            |        |     conn.execute("SELECT 1")                                                                     +
+    |           |                            |                            |        |   File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1417, in execute+
+    |           |                            |                            |        |     raise exc.ObjectNotExecutableError(statement) from err                                       +
+    |           |                            |                            |        | sqlalchemy.exc.ObjectNotExecutableError: Not an executable object: 'SELECT 1'                    +
+    |           |                            |                            |        |
+ 16 | dashboard | 2026-03-06 07:22:57.701572 | 2026-03-06 07:22:57.712181 | failed | Traceback (most recent call last):                                                               +
+    |           |                            |                            |        |   File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1415, in execute+
+    |           |                            |                            |        |     meth = statement._execute_on_connection                                                      +
+    |           |                            |                            |        |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^                                                      +
+    |           |                            |                            |        | AttributeError: 'str' object has no attribute '_execute_on_connection'                           +
+    |           |                            |                            |        |                                                                                                  +
+    |           |                            |                            |        | The above exception was the direct cause of the following exception:                             +
+    |           |                            |                            |        |                                                                                                  +
+    |           |                            |                            |        | Traceback (most recent call last):                                                               +
+    |           |                            |                            |        |   File "/app/quant/engine/orchestrator.py", line 28, in run_task                                 +
+    |           |                            |                            |        |     TASK_MAP[task_name]()                                                                        +
+    |           |                            |                            |        |   File "/app/quant/engine/tasks/dashboard.py", line 5, in run                                    +
+    |           |                            |                            |        |     build_dashboard()                                                                            +
+    |           |                            |                            |        |   File "/app/quant/engine/stages/dashboard.py", line 7, in build_dashboard                       +
+    |           |                            |                            |        |     conn.execute("SELECT 1")                                                                     +
+    |           |                            |                            |        |   File "/usr/local/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1417, in execute+
+    |           |                            |                            |        |     raise exc.ObjectNotExecutableError(statement) from err                                       +
+    |           |                            |                            |        | sqlalchemy.exc.ObjectNotExecutableError: Not an executable object: 'SELECT 1'                    +
+    |           |                            |                            |        |
+:

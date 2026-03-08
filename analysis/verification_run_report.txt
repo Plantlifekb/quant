@@ -1,4 +1,0 @@
-Verification run at 2026-02-03T15:55:03.672958Z
-
-{"strategy": "longonly", "pred_file": "C:\\Quant\\outputs\\verification\\predicted_vs_picks_weekly_longonly.csv", "real_file": "C:\\Quant\\outputs\\verification\\realized_vs_picks_weekly_longonly.csv", "status": "ok", "summary_csv": "C:\\Quant\\analysis\\verification_summary_longonly.csv", "diag_csv": "C:\\Quant\\analysis\\verification_diagnostics_longonly.csv", "timeseries_png": "C:\\Quant\\analysis\\verification_time_series_longonly.png"}
-{"strategy": "longshort", "pred_file": "C:\\Quant\\outputs\\verification\\predicted_vs_picks_weekly_longshort.csv", "real_file": "C:\\Quant\\outputs\\verification\\realized_vs_picks_weekly_longshort.csv", "status": "ok", "summary_csv": "C:\\Quant\\analysis\\verification_summary_longshort.csv", "diag_csv": "C:\\Quant\\analysis\\verification_diagnostics_longshort.csv", "timeseries_png": "C:\\Quant\\analysis\\verification_time_series_longshort.png"}

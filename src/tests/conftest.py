@@ -4,9 +4,9 @@ import pytest
 
 @pytest.fixture(autouse=True)
 def ensure_ticker_reference(tmp_path, monkeypatch):
-    fixture = Path(__file__).parent / "fixtures" / "ticker_reference.csv"
-    if fixture.exists():
-        monkeypatch.setenv("INGESTION_TICKER_REF", str(fixture))
+    repo_fixture = Path(__file__).parent / "fixtures" / "ticker_reference.csv"
+    if repo_fixture.exists():
+        monkeypatch.setenv("INGESTION_TICKER_REF", str(repo_fixture))
     else:
         cfg = tmp_path / "ticker_reference.csv"
         cfg.write_text(

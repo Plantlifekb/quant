@@ -1,9 +1,0 @@
-[2026-01-22 10:30:20 UTC] [portfolio_engine_quant_v2] Starting portfolio_engine_quant_v2 run (v2.0).
-[2026-01-22 10:30:20 UTC] [portfolio_engine_quant_v2] Loading v2 long-short weights and returns panel.
-[2026-01-22 10:30:21 UTC] [portfolio_engine_quant_v2] Loaded 664011 weight rows and 680604 return rows.
-[2026-01-22 10:30:21 UTC] [portfolio_engine_quant_v2] Building trade-ready v2 long-short weights.
-[2026-01-22 10:30:21 UTC] [portfolio_engine_quant_v2] Computing base portfolio PnL for realised vol estimation.
-[2026-01-22 10:30:21 UTC] [portfolio_engine_quant_v2] Computing volatility targeting scalers.
-[2026-01-22 10:30:26 UTC] [portfolio_engine_quant_v2] Built 664011 trade-ready weight rows.
-[2026-01-22 10:30:26 UTC] [portfolio_engine_quant_v2] Saving trade-ready weights to C:\Quant\data\analytics\quant_portfolio_weights_ensemble_risk_longshort_v2_trading.csv
-[2026-01-22 10:30:27 UTC] [portfolio_engine_quant_v2] portfolio_engine_quant_v2 run completed successfully.
