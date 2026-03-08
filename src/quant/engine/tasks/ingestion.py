@@ -1,248 +1,166 @@
-# quant/engine/tasks/ingestion.py
+﻿# quant/engine/tasks/ingestion.py
 import os
 import logging
-from typing import Dict, Any, List
+from datetime import datetime
+from typing import Dict, Any
 
 import pandas as pd
 import psycopg2
-from psycopg2 import sql
+from psycopg2.extras import execute_values
 
-logger = logging.getLogger("quant.engine.tasks.ingestion")
+from quant.ingestion_5years_quant_v1 import run as fetch_run
 
-
-def _load_fetcher(module_name: str):
-    logger.info("Loaded fetcher module: %s", module_name)
-    module = __import__(module_name, fromlist=["run"])
-    return module
+LOG = logging.getLogger("quant.engine.tasks.ingestion")
+logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s [%(name)s] %(message)s")
 
 
-def _normalize_dataframe(df: pd.DataFrame) -> pd.DataFrame:
-    """
-    Normalize incoming DataFrame column names to canonical names expected by DB.
-    Returns a new DataFrame with canonical columns:
-      Date, Adj_Close, Close, High, Low, Open, Volume, ticker
-    Raises KeyError if required columns cannot be found after normalization.
-    """
-    df_norm = df.copy()
-    # map lower-stripped column name -> original column name
-    col_map = {c.strip().lower(): c for c in df_norm.columns}
+def _db_conn():
+    host = os.getenv("PGHOST", "localhost")
+    port = int(os.getenv("PGPORT", "5432"))
+    dbname = os.getenv("PGDATABASE", "quant")
+    user = os.getenv("PGUSER", "quant")
+    password = os.getenv("PGPASSWORD", "quant")
+    return psycopg2.connect(host=host, port=port, dbname=dbname, user=user, password=password)
 
-    def find_col(*variants: str):
-        for v in variants:
-            key = v.strip().lower()
-            if key in col_map:
-                return col_map[key]
-        return None
 
-    rename_map = {}
+def _normalize_df(df: pd.DataFrame) -> pd.DataFrame:
+    col_map = {}
+    for c in df.columns:
+        lc = c.lower()
+        if lc in ("date", "index"):
+            col_map[c] = "Date"
+        elif lc in ("adj_close", "adjclose"):
+            col_map[c] = "Adj_Close"
+        elif lc in ("close",):
+            col_map[c] = "Close"
+        elif lc in ("high",):
+            col_map[c] = "High"
+        elif lc in ("low",):
+            col_map[c] = "Low"
+        elif lc in ("open",):
+            col_map[c] = "Open"
+        elif lc in ("volume", "vol"):
+            col_map[c] = "Volume"
+        elif lc in ("ticker", "symbol"):
+            col_map[c] = "ticker"
+    df = df.rename(columns=col_map)
 
-    # Date
-    dcol = find_col("date", "day", "trade_date", "timestamp")
-    if dcol:
-        rename_map[dcol] = "Date"
+    if "Date" not in df.columns and df.index.name in (None, "Date", "date"):
+        df = df.reset_index()
 
-    # Adjusted close
-    acol = find_col("adj_close", "adjclose", "adjusted_close", "adjustedclose", "adj close")
-    if acol:
-        rename_map[acol] = "Adj_Close"
+    if "ticker" not in df.columns:
+        if hasattr(df, "name") and isinstance(df.name, str):
+            df["ticker"] = df.name
+        else:
+            df["ticker"] = df.get("Symbol") or df.get("symbol") or "UNKNOWN"
 
-    # Close, High, Low, Open, Volume
-    for name, canonical in [
-        ("close", "Close"),
-        ("high", "High"),
-        ("low", "Low"),
-        ("open", "Open"),
-        ("volume", "Volume"),
-    ]:
-        found = find_col(name)
-        if found:
-            rename_map[found] = canonical
+    if "Date" in df.columns:
+        df["Date"] = pd.to_datetime(df["Date"]).dt.date
 
-    # Ticker / symbol
-    tcol = find_col("ticker", "symbol", "sym", "tick")
-    if tcol:
-        rename_map[tcol] = "ticker"
+    for col in ("Adj_Close", "Close", "High", "Low", "Open"):
+        if col in df.columns:
+            df[col] = pd.to_numeric(df[col], errors="coerce")
 
-    if rename_map:
-        df_norm = df_norm.rename(columns=rename_map)
+    if "Volume" in df.columns:
+        df["Volume"] = pd.to_numeric(df["Volume"], errors="coerce").astype("Int64")
 
-    # Ensure ticker exists
-    if "ticker" not in df_norm.columns:
-        logger.warning("No ticker column found in DataFrame; filling with 'UNKNOWN'")
-        df_norm["ticker"] = "UNKNOWN"
-
-    # Ensure Date exists and is converted to date
-    if "Date" in df_norm.columns:
-        try:
-            df_norm["Date"] = pd.to_datetime(df_norm["Date"]).dt.date
-        except Exception:
-            df_norm["Date"] = pd.to_datetime(df_norm["Date"], errors="coerce").dt.strftime("%Y-%m-%d")
-    else:
-        logger.error("No Date column found after normalization")
-        raise KeyError("Missing Date column after normalization")
-
-    # Ensure Adj_Close exists; if not, try to fall back to Close
-    if "Adj_Close" not in df_norm.columns and "Close" in df_norm.columns:
-        logger.info("Adj_Close missing; using Close as Adj_Close")
-        df_norm["Adj_Close"] = df_norm["Close"]
-
-    expected_cols = ["Date", "Adj_Close", "Close", "High", "Low", "Open", "Volume", "ticker"]
-    missing = [c for c in expected_cols if c not in df_norm.columns]
-    if missing:
-        logger.error("After normalization, DataFrame missing expected columns: %s", missing)
-        raise KeyError(f"Missing expected columns for DB write: {missing}")
-
-    # Reorder to canonical order
-    return df_norm[expected_cols]
+    LOG.info("%s: After normalize, cols=%s", df["ticker"].iat[0] if "ticker" in df.columns and len(df) else "df", list(df.columns))
+    return df
 
 
 def write_prices_to_db(df: pd.DataFrame) -> int:
+    if df.empty:
+        LOG.info("No rows to write")
+        return 0
+
+    expected = ["Date", "Adj_Close", "Close", "High", "Low", "Open", "Volume", "ticker"]
+    for c in expected:
+        if c not in df.columns:
+            df[c] = None
+
+    rows = []
+    for _, r in df.iterrows():
+        rows.append(
+            (
+                r["Date"],
+                None if pd.isna(r["Adj_Close"]) else float(r["Adj_Close"]),
+                None if pd.isna(r["Close"]) else float(r["Close"]),
+                None if pd.isna(r["High"]) else float(r["High"]),
+                None if pd.isna(r["Low"]) else float(r["Low"]),
+                None if pd.isna(r["Open"]) else float(r["Open"]),
+                None if pd.isna(r["Volume"]) else int(r["Volume"]),
+                str(r["ticker"]),
+            )
+        )
+
+    insert_sql = """
+    INSERT INTO public.prices (date, adj_close, close, high, low, open, volume, ticker)
+    VALUES %s
+    ON CONFLICT (date, ticker) DO UPDATE
+      SET adj_close = EXCLUDED.adj_close,
+          close = EXCLUDED.close,
+          high = EXCLUDED.high,
+          low = EXCLUDED.low,
+          open = EXCLUDED.open,
+          volume = EXCLUDED.volume
+    ;
     """
-    Write normalized prices to Postgres. Returns number of rows written.
 
-    Behavior:
-    - Prefer DATABASE_URL / PG_DSN / PGCONN if provided and looks like Postgres.
-    - Ignore sqlite:// style URLs and instead build a psycopg2 connection
-      from PGHOST/PGPORT/PGDATABASE/PGUSER/PGPASSWORD.
-    - If a SQLAlchemy-style Postgres URL is provided, use SQLAlchemy's to_sql path for bulk writes.
-    - Ensure the target table exists before inserting.
-    """
-    # Prefer common env vars (DATABASE_URL first)
-    pg_dsn = os.getenv("DATABASE_URL") or os.getenv("PG_DSN") or os.getenv("PGCONN")
-
-    # Build explicit connection kwargs from env vars (libpq style)
-    conn_kwargs = {
-        "host": os.getenv("PGHOST", "localhost"),
-        "port": os.getenv("PGPORT", "5432"),
-        "dbname": os.getenv("PGDATABASE", os.getenv("PG_DB", "quant")),
-        "user": os.getenv("PGUSER", "quant"),
-        "password": os.getenv("PGPASSWORD", os.getenv("PG_PASS", "quant")),
-    }
-
-    # If pg_dsn looks like a sqlite URL, ignore it
-    if isinstance(pg_dsn, str) and pg_dsn.strip().lower().startswith("sqlite://"):
-        logger.debug("Ignoring sqlite PG_DSN: %s", pg_dsn)
-        pg_dsn = None
-
-    # If pg_dsn is a SQLAlchemy-friendly Postgres URL, use to_sql path
-    if isinstance(pg_dsn, str) and (
-        pg_dsn.startswith("postgresql+psycopg2://")
-        or pg_dsn.startswith("postgresql://")
-        or pg_dsn.startswith("postgres://")
-    ):
-        try:
-            from sqlalchemy import create_engine
-
-            logger.info("Using SQLAlchemy engine for bulk write")
-            engine = create_engine(pg_dsn, pool_pre_ping=True)
-            df.to_sql("prices", engine, schema="public", if_exists="append", index=False, method="multi")
-            return len(df)
-        except Exception as e:
-            logger.exception("SQLAlchemy bulk write failed, will fall back to psycopg2: %s", e)
-            # fall through to psycopg2 path
-
-    # Normalize DataFrame columns to canonical set
-    df_norm = _normalize_dataframe(df)
-
-    # Try to connect with psycopg2. Prefer explicit kwargs; if that fails, try pg_dsn as libpq string.
-    conn = None
-    try:
-        logger.debug("Attempting psycopg2 connect with explicit kwargs")
-        conn = psycopg2.connect(**{k: v for k, v in conn_kwargs.items() if v is not None})
-    except Exception as first_exc:
-        logger.debug("psycopg2 connect with kwargs failed: %s", first_exc)
-        if pg_dsn:
-            try:
-                logger.debug("Attempting psycopg2 connect with PG_DSN")
-                conn = psycopg2.connect(pg_dsn)
-            except Exception as second_exc:
-                logger.exception("psycopg2 connect with PG_DSN failed: %s", second_exc)
-                raise
-        else:
-            raise
-
+    conn = _db_conn()
     try:
         with conn:
             with conn.cursor() as cur:
-                # Ensure the target table exists (create if missing)
-                cur.execute(
-                    """
-                    CREATE TABLE IF NOT EXISTS public.prices (
-                      date date NOT NULL,
-                      adj_close numeric,
-                      close numeric,
-                      high numeric,
-                      low numeric,
-                      open numeric,
-                      volume bigint,
-                      ticker text,
-                      PRIMARY KEY (date, ticker)
-                    );
-                    """
-                )
-
-                # Prepare rows for insertion
-                rows: List[tuple] = []
-                for _, r in df_norm.iterrows():
-                    row = []
-                    for val in r.tolist():
-                        if pd.isna(val):
-                            row.append(None)
-                        elif hasattr(val, "isoformat"):
-                            row.append(val.isoformat())
-                        else:
-                            row.append(val)
-                    rows.append(tuple(row))
-
-                # Insert using parameterized query; ON CONFLICT DO NOTHING to avoid duplicates
-                insert_sql = sql.SQL(
-                    """
-                    INSERT INTO public.prices (date, adj_close, close, high, low, open, volume, ticker)
-                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
-                    ON CONFLICT DO NOTHING
-                    """
-                )
-                if rows:
-                    cur.executemany(insert_sql.as_string(conn), rows)
-                written = len(rows)
-                logger.info("Wrote %d rows to DB", written)
-                return written
+                execute_values(cur, insert_sql, rows, template=None, page_size=100)
+        LOG.info("Wrote %d rows to DB", len(rows))
+        return len(rows)
     finally:
-        try:
-            if conn:
-                conn.close()
-        except Exception:
-            logger.debug("Error closing connection", exc_info=True)
+        conn.close()
 
 
-def task_ingest_and_write() -> Dict[str, Any]:
-    """
-    Top-level task wrapper used by tests and orchestration.
-    Loads the configured fetcher, runs ingestion, normalizes data, and writes to DB.
-    Returns a dict with status and metadata.
-    """
-    fetcher_module = os.getenv("QUANT_FETCHER", "quant.ingestion_5years_quant_v1")
-    logger.info("Loaded fetcher module: %s", fetcher_module)
+def task_ingest_and_write(*args, **kwargs) -> Dict[str, Any]:
+    LOG.info("Starting ingestion task")
+    try:
+        fetched = fetch_run()
+        LOG.info("Fetched data using quant.ingestion_5years_quant_v1.run")
+    except Exception:
+        LOG.exception("Fetcher failed")
+        return {"status": "fetch_failed"}
 
     try:
-        fetcher = _load_fetcher(fetcher_module)
+        if isinstance(fetched, list):
+            dfs = []
+            for df in fetched:
+                dfs.append(_normalize_df(df))
+            final = pd.concat(dfs, ignore_index=True)
+        elif isinstance(fetched, pd.DataFrame):
+            final = _normalize_df(fetched)
+        else:
+            if isinstance(fetched, dict):
+                dfs = []
+                for t, df in fetched.items():
+                    df["ticker"] = t
+                    dfs.append(_normalize_df(df))
+                final = pd.concat(dfs, ignore_index=True)
+            else:
+                LOG.error("Unexpected fetcher return type: %s", type(fetched))
+                return {"status": "fetch_unexpected_type"}
+
+        if final.empty:
+            LOG.info("Ingestion returned no rows")
+            return {"status": "no_data"}
     except Exception:
-        logger.exception("Failed to import fetcher module: %s", fetcher_module)
-        return {"status": "fetcher_import_failed", "fetcher": fetcher_module}
+        LOG.exception("Normalization failed")
+        return {"status": "normalize_failed"}
 
     try:
-        final = fetcher.run()
-        if not isinstance(final, pd.DataFrame):
-            logger.error("Fetcher did not return a DataFrame")
-            return {"status": "fetcher_return_invalid", "type": type(final).__name__}
-        logger.info("Fetched data using %s.run", fetcher_module)
+        rows_written = write_prices_to_db(final)
+        last_date = None
+        if "Date" in final.columns and not final["Date"].isna().all():
+            last_date = str(max(final["Date"]))
+        return {"status": "ok", "rows_written": rows_written, "last_date": last_date}
     except Exception:
-        logger.exception("Fetcher run failed")
-        return {"status": "fetch_failed", "fetcher": fetcher_module}
-
-    try:
-        rows = write_prices_to_db(final)
-        return {"status": "ok", "rows_written": rows}
-    except Exception:
-        logger.exception("DB write failed")
-        return {"status": "db_write_failed"}
+        LOG.exception("DB write failed")
+        last_date = None
+        if "Date" in final.columns and not final["Date"].isna().all():
+            last_date = str(max(final["Date"]))
+        return {"status": "db_write_failed", "last_date": last_date}
