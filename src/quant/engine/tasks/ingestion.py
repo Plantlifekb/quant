@@ -15,12 +15,10 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s [%(nam
 
 
 def _db_conn():
-    host = os.getenv("PGHOST", "localhost")
-    port = int(os.getenv("PGPORT", "5432"))
-    dbname = os.getenv("PGDATABASE", "quant")
-    user = os.getenv("PGUSER", "quant")
-    password = os.getenv("PGPASSWORD", "quant")
-    return psycopg2.connect(host=host, port=port, dbname=dbname, user=user, password=password)
+    url = os.getenv("DATABASE_URL")
+    if not url:
+        raise RuntimeError("DATABASE_URL is not set")
+    return psycopg2.connect(url)
 
 
 def _normalize_df(df: pd.DataFrame) -> pd.DataFrame:

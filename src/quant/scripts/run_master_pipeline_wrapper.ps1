@@ -1,17 +1,17 @@
-﻿# --- Hardened Quant Pipeline Wrapper ---
+# --- Hardened Quant Pipeline Wrapper ---
 
 $ErrorActionPreference = "Stop"
 
 # --- Environment ---
 $env:PYTHONPATH = "C:\Quant\src"
-$env:DATABASE_URL = "postgresql+psycopg2://quant:quant@localhost:5432/quant"
+$env:DATABASE_URL = "postgresql+psycopg2://quant:quant@localhost:5433/quant"
 
 # --- Paths ---
-$python = "C:\Quant\.venv\Scripts\python.exe"
+$python   = "C:\Quant\.venv\Scripts\python.exe"
 $launcher = "C:\Quant\src\quant\engine\launcher.py"
-$logDir = "C:\Quant\logs"
+$logDir   = "C:\Quant\logs"
 $timestamp = (Get-Date).ToString("yyyyMMdd_HHmmss")
-$logFile = Join-Path $logDir ("pipeline_run_{0}.log" -f $timestamp)
+$logFile  = Join-Path $logDir ("pipeline_run_{0}.log" -f $timestamp)
 
 # --- Logging helper ---
 function Log($msg) {
@@ -37,4 +37,29 @@ if ($exitCode -ne 0) {
 }
 
 Log "Pipeline completed successfully"
+
+# --- Generate tickers_table.md (3 real CSV columns only) ---
+try {
+    $csvPath = "C:\Quant\src\quant\config\ticker_reference.csv"
+    $outPath = "C:\Quant\src\tickers_table.md"
+
+    Log "Generating tickers_table.md from $csvPath"
+
+    $csv = Import-Csv $csvPath
+
+    $md = "| ticker | company_name | market_sector |`n"
+    $md += "| --- | --- | --- |`n"
+
+    $csv | ForEach-Object {
+        $md += "| $($_.ticker) | $($_.company_name) | $($_.market_sector) |`n"
+    }
+
+    Set-Content -Path $outPath -Value $md
+
+    Log "tickers_table.md generated successfully"
+}
+catch {
+    Log "ERROR generating tickers_table.md: $_"
+}
+
 exit 0

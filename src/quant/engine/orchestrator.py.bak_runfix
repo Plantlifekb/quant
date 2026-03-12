@@ -1,0 +1,19 @@
+﻿import logging
+from typing import Optional, Sequence
+
+logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s %(message)s')
+log = logging.getLogger('orchestrator')
+
+def main(argv: Optional[Sequence[str]] = None) -> int:
+    """Minimal orchestrator entrypoint used by launcher.
+    Replace or extend this file with your real orchestrator logic.
+    This stub is idempotent and safe to keep while you iterate.
+    """
+    log.info('Orchestrator stub started')
+    # Place orchestration startup here if needed
+    log.info('Orchestrator stub finished')
+    return 0
+
+if __name__ == '__main__':
+    raise SystemExit(main())
+

@@ -1,0 +1,169 @@
+﻿import os
+import sys
+import time
+import subprocess
+import logging
+from pathlib import Path
+# Ensure project src is on sys.path so 'quant' package is importable when running launcher directly
+from pathlib import Path as _Path_for_sys
+import sys as _sys_for_path
+_project_root = _Path_for_sys(__file__).resolve().parents[3]
+_src_path = str(_project_root / 'src')
+if _src_path not in _sys_for_path.path:
+    _sys_for_path.path.insert(0, _src_path)
+from sqlalchemy import create_engine, text, inspect
+
+logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
+log = logging.getLogger("launcher")
+
+DB_URL = os.environ.get("DATABASE_URL", "postgresql+psycopg2://quant:quant@localhost:5433/quant")
+FALLBACK_SQL = """
+CREATE TABLE IF NOT EXISTS public.strategy_selections (
+  id serial PRIMARY KEY,
+  selection_date date,
+  strategy_id text,
+  ticker text,
+  weight numeric
+);
+CREATE TABLE IF NOT EXISTS public.prices (
+  id serial PRIMARY KEY,
+  ticker text,
+  date date,
+  price_date date,
+  close numeric,
+  adj_close numeric,
+  volume numeric
+);
+ALTER TABLE public.strategy_selections ADD COLUMN IF NOT EXISTS ticker text;
+ALTER TABLE public.strategy_selections ADD COLUMN IF NOT EXISTS weight numeric;
+ALTER TABLE public.prices ADD COLUMN IF NOT EXISTS date date;
+"""
+
+def wait_for_db(url, timeout=120, interval=3):
+    log.info("Waiting for DB readiness")
+    engine = create_engine(url)
+    start = time.time()
+    while time.time() - start < timeout:
+        try:
+            with engine.connect() as conn:
+                conn.execute(text("SELECT 1"))
+            log.info("DB is ready")
+            return engine
+        except Exception as e:
+            log.debug("DB not ready yet: %s", e)
+            time.sleep(interval)
+    raise RuntimeError("DB not ready after timeout")
+
+def run_alembic_if_present(project_root):
+    alembic_ini = Path(project_root) / "alembic.ini"
+    alembic_dir = Path(project_root) / "alembic"
+    if alembic_ini.exists() and alembic_dir.exists():
+        log.info("Alembic detected, running migrations")
+        try:
+            subprocess.check_call([sys.executable, "-m", "alembic", "upgrade", "head"], cwd=str(project_root))
+            log.info("Alembic migrations applied")
+            return True
+        except subprocess.CalledProcessError as e:
+            log.error("Alembic failed: %s", e)
+            raise
+    log.info("No Alembic environment detected")
+    return False
+
+def apply_fallback_schema(engine):
+    log.info("Applying fallback idempotent schema")
+    with engine.begin() as conn:
+        conn.execute(text(FALLBACK_SQL))
+    log.info("Fallback schema applied")
+
+def preflight_check(engine):
+    insp = inspect(engine)
+    required = {
+        "strategy_selections": ["id", "selection_date", "strategy_id", "ticker", "weight"],
+        "prices": ["id", "ticker", "date", "price_date", "close", "adj_close", "volume"]
+    }
+    missing = []
+    for table, cols in required.items():
+        if table not in insp.get_table_names():
+            missing.append(f"missing table {table}")
+            continue
+        existing = {c["name"] for c in insp.get_columns(table)}
+        for c in cols:
+            if c not in existing:
+                missing.append(f"missing column {table}.{c}")
+    if missing:
+        log.warning("Preflight found missing items:")
+        for m in missing:
+            log.warning(m)
+        return False, missing
+    log.info("Preflight OK")
+    return True, []
+
+def create_materialized_views_with_retry(engine, retries=3, delay=3):
+    from quant.engine.stages.materialize_dashboard import create_materialized_views
+    last_exc = None
+    for attempt in range(1, retries + 1):
+        try:
+            log.info("Creating materialized views attempt %d", attempt)
+            create_materialized_views(engine)
+            log.info("Materialized views created")
+            return True
+        except Exception as e:
+            log.error("Materialize attempt %d failed: %s", attempt, e)
+            last_exc = e
+            time.sleep(delay)
+    log.error("Materialize failed after %d attempts", retries)
+    raise last_exc
+
+def main(argv):
+    project_root = Path(__file__).resolve().parents[2]
+    preflight_only = "--preflight" in argv
+    engine = wait_for_db(DB_URL)
+    # Try migrations first
+    migrated = False
+    try:
+        migrated = run_alembic_if_present(project_root)
+    except Exception:
+        log.exception("Alembic migration failed")
+        # fall through to fallback schema
+    if not migrated:
+        try:
+            apply_fallback_schema(engine)
+        except Exception:
+            log.exception("Fallback schema application failed")
+            raise
+    ok, missing = preflight_check(engine)
+    if preflight_only:
+        if ok:
+            print("PREFLIGHT_OK")
+            return 0
+        else:
+            print("PREFLIGHT_FAIL")
+            for m in missing:
+                print(m)
+            return 2
+    if not ok:
+        log.warning("Preflight reported missing items but continuing to materialize to surface errors")
+    # Run materialize with retry
+    try:
+        create_materialized_views_with_retry(engine)
+    except Exception:
+        log.exception("Materialize failed")
+        raise
+    # After materialize, import and run the normal launcher logic if present
+    launcher_path = project_root / "quant" / "engine" / "orchestrator.py"
+    if launcher_path.exists():
+        log.info("Running orchestrator main")
+        from quant.engine.orchestrator import Orchestrator
+        Orchestrator(engine)
+    else:
+        log.info("No orchestrator entrypoint found, exiting")
+    return 0
+
+if __name__ == "__main__":
+    try:
+        sys.exit(main(sys.argv[1:]))
+    except Exception as e:
+        log.exception("Launcher failed")
+        sys.exit(1)
+
+

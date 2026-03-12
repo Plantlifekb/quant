@@ -52,11 +52,16 @@ def apply_fallback(engine):
     log.info("Applying fallback idempotent schema")
     with engine.connect() as c:
         if engine.dialect.name == "sqlite":
-            sql = FALLBACK_SQL.replace("public.","")
-            for _stmt in [s.strip() for s in sql.split(";") if s.strip()]:
-                c.execute(text(_stmt))
-        else:
-            c.execute(text(FALLBACK_SQL))
+    sql = FALLBACK_SQL.replace("public.","")
+    for _stmt in [s.strip() for s in sql.split(";") if s.strip()]:
+        c.execute(text(_stmt))
+else:
+    if engine.dialect.name == "sqlite":
+    sql = FALLBACK_SQL.replace("public.","")
+    for _stmt in [s.strip() for s in sql.split(";") if s.strip()]:
+        c.execute(text(_stmt))
+else:
+    c.execute(text(FALLBACK_SQL))
     log.info("Fallback schema applied")
 
 def try_alembic_upgrade(project_root):
@@ -110,7 +115,5 @@ if __name__ == "__main__":
     except Exception as e:
         log.exception("Launcher failed")
         sys.exit(1)
-
-
 
 

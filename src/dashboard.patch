@@ -1,0 +1,320 @@
+﻿*** Begin Patch
+*** Add File: quant/dashboard/db.py
++import pandas as pd
++from quant.common.db import get_engine
++
++_engine = None
++
++def engine():
++    global _engine
++    if _engine is None:
++        _engine = get_engine()
++    return _engine
++
++def query(sql, params=None):
++    return pd.read_sql(sql, engine(), params=params)
++
++def get_health_summary():
++    sql = """
++    SELECT
++      (SELECT MAX(date)::text FROM prices) AS prices_date,
++      (SELECT MAX(updated_at)::text FROM fundamentals) AS fundamentals_date
++    """
++    df = query(sql)
++    return {
++        "prices_date": df.at[0, "prices_date"],
++        "fundamentals_date": df.at[0, "fundamentals_date"],
++    }
++
+*** End Patch
+*** Begin Patch
+*** Update File: quant/dashboard/app.py
+@@
+-from dash import Dash
+-from quant.dashboard.layout import serve_layout
+-from quant.dashboard import callbacks
+-from quant.logging_quant_v1 import log
+-
+-def create_app():
+-    app = Dash(
+-        __name__,
+-        suppress_callback_exceptions=True,
+-        meta_tags=[{"name": "viewport", "content": "width=device-width, initial-scale=1"}],
+-    )
+-    app.title = "Quant Dashboard"
+-    app.layout = serve_layout()
+-    callbacks.register_callbacks(app)
+-    return app
+-
+-app = create_app()
+-server = app.server
+-
+-if __name__ == "__main__":
+-    app.run_server(host="0.0.0.0", port=8050, debug=False)
++from dash import Dash
++from quant.dashboard.layout import serve_layout
++from quant.dashboard import callbacks
++
++def create_app():
++    app = Dash(
++        __name__,
++        suppress_callback_exceptions=True,
++        meta_tags=[{"name": "viewport", "content": "width=device-width, initial-scale=1"}],
++    )
++    app.title = "Quant Dashboard"
++    app.layout = serve_layout()
++    callbacks.register_callbacks(app)
++    return app
++
++app = create_app()
++server = app.server
++
++if __name__ == "__main__":
++    app.run_server(host="0.0.0.0", port=8050, debug=False)
+*** End Patch
+*** Begin Patch
+*** Update File: quant/dashboard/layout.py
+@@
+-from dash import html, dcc
+-import dash_bootstrap_components as dbc
+-
+-NAV_ITEMS = [
+-    {"label": "Overview", "id": "tab-overview"},
+-    {"label": "Prices", "id": "tab-prices"},
+-    {"label": "Returns", "id": "tab-returns"},
+-    {"label": "Signals", "id": "tab-signals"},
+-    {"label": "Strategies", "id": "tab-strategies"},
+-]
+-
+-def serve_layout():
+-    nav = dbc.Nav(
+-        [dbc.NavItem(dbc.NavLink(item["label"], href="#", id=item["id"])) for item in NAV_ITEMS],
+-        pills=True,
+-        horizontal="center",
+-    )
+-
+-    header = dbc.Container(
+-        [
+-            html.H2("Quant Dashboard", className="me-auto"),
+-            html.Div(id="last-run", style={"textAlign": "right"}),
+-        ],
+-        fluid=True,
+-        className="py-2",
+-    )
+-
+-    content = html.Div(id="page-content", style={"padding": "1rem"})
+-
+-    return html.Div([nav, header, dcc.Location(id="url"), content])
++from dash import html, dcc
++import dash_bootstrap_components as dbc
++
++NAV_ITEMS = [
++    {"label": "Overview", "id": "tab-overview"},
++    {"label": "Prices", "id": "tab-prices"},
++    {"label": "Returns", "id": "tab-returns"},
++    {"label": "Signals", "id": "tab-signals"},
++    {"label": "Strategies", "id": "tab-strategies"},
++]
++
++def serve_layout():
++    nav = dbc.Nav(
++        [dbc.NavItem(dbc.NavLink(item["label"], href="#", id=item["id"])) for item in NAV_ITEMS],
++        pills=True,
++        horizontal="center",
++        class_name="mb-2",
++    )
++
++    header = dbc.Container(
++        dbc.Row(
++            [
++                dbc.Col(html.H2("Quant Dashboard"), width=8),
++                dbc.Col(html.Div(id="last-run", style={"textAlign": "right"}), width=4),
++            ],
++            align="center",
++        ),
++        fluid=True,
++        className="py-2",
++    )
++
++    content = html.Div(id="page-content", style={"padding": "1rem"})
++
++    return html.Div([dcc.Location(id="url"), nav, header, content])
+*** End Patch
+*** Begin Patch
+*** Update File: quant/dashboard/callbacks.py
+@@
+-from dash import Input, Output, State
+-from dash import html
+-from quant.dashboard import db as dashboard_db
+-from quant.dashboard.tabs import overview, prices, returns, signals, strategies
+-
+-def register_callbacks(app):
+-    @app.callback(Output("page-content", "children"), [Input("tab-overview", "n_clicks"),
+-                                                      Input("tab-prices", "n_clicks"),
+-                                                      Input("tab-returns", "n_clicks"),
+-                                                      Input("tab-signals", "n_clicks"),
+-                                                      Input("tab-strategies", "n_clicks")])
+-    def render_tab(n_overview, n_prices, n_returns, n_signals, n_strategies):
+-        ctx = dash.callback_context
+-        if not ctx.triggered:
+-            return overview.layout()
+-        button_id = ctx.triggered[0]["prop_id"].split(".")[0]
+-        if button_id == "tab-prices":
+-            return prices.layout()
+-        if button_id == "tab-returns":
+-            return returns.layout()
+-        if button_id == "tab-signals":
+-            return signals.layout()
+-        if button_id == "tab-strategies":
+-            return strategies.layout()
+-        return overview.layout()
+-
+-    @app.callback(Output("last-run", "children"), [], [])
+-    def last_run():
+-        info = dashboard_db.get_health_summary()
+-        return html.Div([
+-            html.Small(f"Prices: {info['prices_date']}  Fundamentals: {info['fundamentals_date']}")
+-        ])
++from dash import Input, Output, html, callback_context
++from quant.dashboard import db as dashboard_db
++from quant.dashboard.tabs import overview, prices, returns, signals, strategies
++
++def register_callbacks(app):
++    @app.callback(
++        Output("page-content", "children"),
++        [
++            Input("tab-overview", "n_clicks"),
++            Input("tab-prices", "n_clicks"),
++            Input("tab-returns", "n_clicks"),
++            Input("tab-signals", "n_clicks"),
++            Input("tab-strategies", "n_clicks"),
++        ],
++    )
++    def render_tab(n_overview, n_prices, n_returns, n_signals, n_strategies):
++        ctx = callback_context
++        if not ctx.triggered:
++            return overview.layout()
++        button_id = ctx.triggered[0]["prop_id"].split(".")[0]
++        if button_id == "tab-prices":
++            return prices.layout()
++        if button_id == "tab-returns":
++            return returns.layout()
++        if button_id == "tab-signals":
++            return signals.layout()
++        if button_id == "tab-strategies":
++            return strategies.layout()
++        return overview.layout()
++
++    @app.callback(Output("last-run", "children"), [])
++    def last_run():
++        try:
++            info = dashboard_db.get_health_summary()
++            return html.Div([html.Small(f"Prices: {info['prices_date']}  Fundamentals: {info['fundamentals_date']}")])
++        except Exception:
++            return html.Div([html.Small("Health: unavailable")])
+*** End Patch
+*** Begin Patch
+*** Add File: quant/dashboard/tabs/overview.py
++from dash import html
++from quant.dashboard import db
++
++def layout():
++    info = {"prices_date": "unknown", "fundamentals_date": "unknown"}
++    try:
++        info = db.get_health_summary()
++    except Exception:
++        pass
++
++    cards = html.Div(
++        [
++            html.H4("Platform Health"),
++            html.Div(f"Prices last date: {info.get('prices_date')}"),
++            html.Div(f"Fundamentals last date: {info.get('fundamentals_date')}"),
++        ],
++        style={"maxWidth": "900px"},
++    )
++    return cards
++
+*** End Patch
+*** Begin Patch
+*** Add File: quant/dashboard/tabs/prices.py
++from dash import html, dcc
++import plotly.express as px
++from quant.dashboard import db
++
++def layout():
++    try:
++        df = db.query("SELECT date, ticker, close FROM prices WHERE ticker IN ('AAPL','MSFT') ORDER BY date")
++    except Exception:
++        df = None
++
++    if df is None or df.empty:
++        return html.Div("No price data available.")
++
++    fig = px.line(df, x="date", y="close", color="ticker", title="Sample Prices")
++    return html.Div([dcc.Graph(figure=fig)])
++
+*** End Patch
+*** Begin Patch
+*** Add File: quant/dashboard/tabs/returns.py
++from dash import html, dcc
++import plotly.express as px
++from quant.dashboard import db
++
++def layout():
++    try:
++        df = db.query("SELECT date, ticker, returns FROM returns_daily WHERE ticker IN ('AAPL','MSFT') ORDER BY date")
++    except Exception:
++        df = None
++
++    if df is None or df.empty:
++        return html.Div("No returns data available.")
++
++    fig = px.line(df, x="date", y="returns", color="ticker", title="Sample Returns")
++    return html.Div([dcc.Graph(figure=fig)])
++
+*** End Patch
+*** Begin Patch
+*** Add File: quant/dashboard/tabs/signals.py
++from dash import html, dcc
++import plotly.express as px
++from quant.dashboard import db
++
++def layout():
++    try:
++        df = db.query("SELECT date, ticker, signal_value FROM signals_daily WHERE ticker IN ('AAPL','MSFT') ORDER BY date")
++    except Exception:
++        df = None
++
++    if df is None or df.empty:
++        return html.Div("No signals data available.")
++
++    fig = px.line(df, x="date", y="signal_value", color="ticker", title="Sample Signals")
++    return html.Div([dcc.Graph(figure=fig)])
++
+*** End Patch
+*** Begin Patch
+*** Add File: quant/dashboard/tabs/strategies.py
++from dash import html, dcc
++import plotly.express as px
++from quant.dashboard import db
++
++def layout():
++    try:
++        df = db.query("SELECT date, strategy_name, pnl FROM strategy_pnl_daily ORDER BY date LIMIT 1000")
++    except Exception:
++        df = None
++
++    if df is None or df.empty:
++        return html.Div("No strategy PnL data available.")
++
++    # pivot for plotting
++    try:
++        df_pivot = df.pivot(index="date", columns="strategy_name", values="pnl").reset_index()
++        fig = px.line(df_pivot, x="date", y=df_pivot.columns.drop("date"), title="Strategy PnL (sample)")
++    except Exception:
++        fig = {}
++
++    return html.Div([dcc.Graph(figure=fig)])
++
+*** End Patch

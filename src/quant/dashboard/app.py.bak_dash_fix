@@ -1,4 +1,4 @@
-﻿import dash
+import dash
 from dash import html, dcc
 from quant.common.db import create_db_engine
 
@@ -47,7 +47,7 @@ def create_app():
 
 def main():
     app = create_app()
-    app.run(host="0.0.0.0", port=8000)
+    app.run_server(host="0.0.0.0", port=8050)
 
 
 if __name__ == "__main__":

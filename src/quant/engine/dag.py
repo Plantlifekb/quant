@@ -6,8 +6,7 @@ logger = logging.getLogger("quant.engine.dag")
 
 class DAG:
     """
-    Minimal deterministic DAG executor.
-    Each task is a callable that accepts a DB engine.
+    Minimal deterministic DAG executor. Each task is a callable that accepts a DB engine.
     """
 
     def __init__(self, tasks: Dict[str, Callable], dependencies: Dict[str, List[str]], engine):
@@ -37,7 +36,12 @@ class DAG:
 
         for t in order:
             logger.info("Running task: %s", t)
-            self.tasks[t](self.engine)
+            try:
+                self.tasks[t](self.engine)
+            except Exception as e:
+                logger.exception("Task %s FAILED: %s", t, e)
+                # Fail fast — stop the DAG and surface the error to the caller/orchestrator
+                raise
 
     def run_all(self) -> None:
         """
@@ -53,7 +57,11 @@ class DAG:
 
         for t in order:
             logger.info("Running task: %s", t)
-            self.tasks[t](self.engine)
+            try:
+                self.tasks[t](self.engine)
+            except Exception as e:
+                logger.exception("Task %s FAILED: %s", t, e)
+                raise
 
 
 def build_dag(task_registry: Dict[str, Callable], engine):

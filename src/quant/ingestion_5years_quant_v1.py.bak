@@ -1,42 +1,28 @@
 ﻿#!/usr/bin/env python3
-# Quant v1.0 — 5-Year Ingestion (Fetcher + DB Write, Container-Safe)
+# Quant v1.0 â€” 5-Year Ingestion (Fetcher Only, Container-Safe)
 
 import os
 import time
-from datetime import datetime, timedelta, date
+from datetime import datetime, timedelta
 from io import StringIO
-from pathlib import Path
 from typing import Optional, List
 
 import numpy as np
 import pandas as pd
 import yfinance as yf
 import requests
-from sqlalchemy import text
 
-from quant.logging_quant_v1 import log
-
-
-# ----------------------------------------------------------------------
-# Calendar helpers
-# ----------------------------------------------------------------------
+from logging_quant_v1 import log
 
 
-def last_trading_day(d: date) -> date:
+def last_trading_day(d: datetime.date) -> datetime.date:
     while d.weekday() >= 5:
         d -= timedelta(days=1)
     return d
 
 
-def calendar_5y_with_buffer(
-    end: date, periods: int = 1260, buffer_days: int = 60
-) -> pd.DatetimeIndex:
+def calendar_5y_with_buffer(end: datetime.date, periods: int = 1260, buffer_days: int = 60) -> pd.DatetimeIndex:
     return pd.bdate_range(end=end, periods=periods + buffer_days)
-
-
-# ----------------------------------------------------------------------
-# Normalization
-# ----------------------------------------------------------------------
 
 
 def normalize(df: pd.DataFrame, ticker: str) -> pd.DataFrame:
@@ -87,35 +73,22 @@ def normalize(df: pd.DataFrame, ticker: str) -> pd.DataFrame:
     return df[["Date", "ticker", "Open", "High", "Low", "Close", "Adj_Close", "Volume"]]
 
 
-# ----------------------------------------------------------------------
-# Fetchers
-# ----------------------------------------------------------------------
-
-
 def fetch_yahoo(t: str, start: str, end: str, retries: int = 3, delay: float = 1.0) -> Optional[pd.DataFrame]:
     for attempt in range(1, retries + 1):
         try:
             df = yf.download(t, start=start, end=end, progress=False, auto_adjust=False)
             if df is None or df.empty:
-                log.info(
-                    f"[ingestion_5years_quant_v1] {t}: Yahoo returned EMPTY (attempt {attempt}/{retries})"
-                )
+                log.info(f"[ingestion_5years_quant_v1] {t}: Yahoo returned EMPTY (attempt {attempt}/{retries})")
             else:
-                log.info(
-                    f"[ingestion_5years_quant_v1] {t}: Yahoo OK ({len(df)} rows, attempt {attempt})"
-                )
+                log.info(f"[ingestion_5years_quant_v1] {t}: Yahoo OK ({len(df)} rows, attempt {attempt})")
                 return normalize(df, t)
         except Exception as e:
-            log.info(
-                f"[ingestion_5years_quant_v1] {t}: Yahoo error on attempt {attempt}/{retries} -> {e}"
-            )
+            log.info(f"[ingestion_5years_quant_v1] {t}: Yahoo error on attempt {attempt}/{retries} -> {e}")
         time.sleep(delay)
     return None
 
 
-def fetch_alpha_vantage(
-    t: str, start: str, end: str, key: str, retries: int = 2, delay: float = 1.5
-) -> Optional[pd.DataFrame]:
+def fetch_alpha_vantage(t: str, start: str, end: str, key: str, retries: int = 2, delay: float = 1.5) -> Optional[pd.DataFrame]:
     for attempt in range(1, retries + 1):
         try:
             url = (
@@ -125,19 +98,13 @@ def fetch_alpha_vantage(
             )
             r = requests.get(url, timeout=30)
             if r.status_code != 200:
-                log.info(
-                    f"[ingestion_5years_quant_v1] {t}: Alpha Vantage HTTP {r.status_code} "
-                    f"(attempt {attempt}/{retries})"
-                )
+                log.info(f"[ingestion_5years_quant_v1] {t}: Alpha Vantage HTTP {r.status_code} (attempt {attempt}/{retries})")
                 time.sleep(delay)
                 continue
 
             df = pd.read_csv(StringIO(r.text))
             if "timestamp" not in df.columns:
-                log.info(
-                    f"[ingestion_5years_quant_v1] {t}: Alpha Vantage malformed "
-                    f"(attempt {attempt}/{retries})"
-                )
+                log.info(f"[ingestion_5years_quant_v1] {t}: Alpha Vantage malformed (attempt {attempt}/{retries})")
                 time.sleep(delay)
                 continue
 
@@ -158,28 +125,16 @@ def fetch_alpha_vantage(
             df = df[(df["Date"] >= pd.to_datetime(start)) & (df["Date"] <= pd.to_datetime(end))]
 
             if df.empty:
-                log.info(
-                    f"[ingestion_5years_quant_v1] {t}: Alpha Vantage empty after filter "
-                    f"(attempt {attempt}/{retries})"
-                )
+                log.info(f"[ingestion_5years_quant_v1] {t}: Alpha Vantage empty after filter (attempt {attempt}/{retries})")
                 time.sleep(delay)
                 continue
 
-            log.info(
-                f"[ingestion_5years_quant_v1] {t}: Alpha Vantage OK ({len(df)} rows, attempt {attempt})"
-            )
+            log.info(f"[ingestion_5years_quant_v1] {t}: Alpha Vantage OK ({len(df)} rows, attempt {attempt})")
             return normalize(df, t)
         except Exception as e:
-            log.info(
-                f"[ingestion_5years_quant_v1] {t}: Alpha Vantage error on attempt {attempt}/{retries} -> {e}"
-            )
+            log.info(f"[ingestion_5years_quant_v1] {t}: Alpha Vantage error on attempt {attempt}/{retries} -> {e}")
             time.sleep(delay)
     return None
-
-
-# ----------------------------------------------------------------------
-# Reindex / fill
-# ----------------------------------------------------------------------
 
 
 def reindex_and_fill(df: pd.DataFrame, cal: pd.DatetimeIndex, t: str) -> Optional[pd.DataFrame]:
@@ -198,27 +153,19 @@ def reindex_and_fill(df: pd.DataFrame, cal: pd.DatetimeIndex, t: str) -> Optiona
 
     non_nan = df[["Open", "High", "Low", "Close", "Adj_Close", "Volume"]].notna().sum().sum()
     if non_nan == 0:
-        log.info(
-            "[ingestion_5years_quant_v1] "
-            f"{t}: All OHLCV values NaN after reindex/fill — marking ticker as FAILED"
-        )
+        log.info(f"[ingestion_5years_quant_v1] {t}: All OHLCV values NaN after reindex/fill â€” marking ticker as FAILED")
         return None
 
     return df
 
 
-# ----------------------------------------------------------------------
-# Main run: fetch + DB write
-# ----------------------------------------------------------------------
+def run(api_key: Optional[str] = None) -> pd.DataFrame:
+    log.info("[ingestion_5years_quant_v1] === Starting 5-year ingestion (Fetcher Only) ===")
 
-
-def run(engine, api_key: Optional[str] = None) -> None:
-    log.info("[ingestion_5years_quant_v1] === Starting 5-year ingestion ===")
-
-    base_dir = Path(__file__).resolve().parent
-    default_ref = base_dir / "config" / "ticker_reference.csv"
-
-    ticker_ref_path = os.getenv("TICKER_REFERENCE_PATH", str(default_ref))
+    ticker_ref_path = os.getenv(
+        "TICKER_REFERENCE_PATH",
+        "/app/config/ticker_reference.csv",
+    )
 
     if not os.path.exists(ticker_ref_path):
         raise FileNotFoundError(f"Ticker reference not found at {ticker_ref_path}")
@@ -230,19 +177,9 @@ def run(engine, api_key: Optional[str] = None) -> None:
     tickers_df["ticker"] = tickers_df["ticker"].astype(str).str.strip().str.upper()
 
     required_cols = {"ticker", "company_name", "market_sector"}
-    lower_cols = {c.lower(): c for c in tickers_df.columns}
-    missing = required_cols - set(lower_cols.keys())
+    missing = required_cols - set(tickers_df.columns.str.lower())
     if missing:
         raise ValueError(f"Ticker reference missing required columns: {missing}")
-
-    # Normalize column names to expected ones
-    tickers_df = tickers_df.rename(
-        columns={
-            lower_cols["ticker"]: "ticker",
-            lower_cols["company_name"]: "company_name",
-            lower_cols["market_sector"]: "market_sector",
-        }
-    )
 
     tickers = tickers_df["ticker"].tolist()
 
@@ -268,17 +205,13 @@ def run(engine, api_key: Optional[str] = None) -> None:
                 df = fetch_alpha_vantage(t, start, end_s, api_key)
 
             if df is None:
-                log.info(
-                    f"[ingestion_5years_quant_v1] {t}: FAILED (no data from Yahoo or Alpha Vantage)"
-                )
+                log.info(f"[ingestion_5years_quant_v1] {t}: FAILED (no data from Yahoo or Alpha Vantage)")
                 failed.append(t)
                 continue
 
             df = reindex_and_fill(df, cal, t)
             if df is None:
-                log.info(
-                    f"[ingestion_5years_quant_v1] {t}: FAILED (no valid OHLCV after reindex/fill)"
-                )
+                log.info(f"[ingestion_5years_quant_v1] {t}: FAILED (no valid OHLCV after reindex/fill)")
                 failed.append(t)
                 continue
 
@@ -290,8 +223,8 @@ def run(engine, api_key: Optional[str] = None) -> None:
             continue
 
     if not frames:
-        log.info("[ingestion_5years_quant_v1] No tickers ingested — raising RuntimeError")
-        raise RuntimeError("No tickers ingested — ingestion_5years_quant_v1 aborted")
+        log.info("[ingestion_5years_quant_v1] No tickers ingested â€” raising RuntimeError")
+        raise RuntimeError("No tickers ingested â€” ingestion_5years_quant_v1 aborted")
 
     final = pd.concat(frames, ignore_index=True)
 
@@ -338,62 +271,9 @@ def run(engine, api_key: Optional[str] = None) -> None:
     if failed:
         log.info(f"[ingestion_5years_quant_v1] Failed tickers: {', '.join(failed)}")
 
-    # ------------------------------------------------------------------
-    # DB write with upsert into prices
-    # ------------------------------------------------------------------
-    insert_sql = text(
-        """
-        INSERT INTO prices (
-            date,
-            ticker,
-            company_name,
-            market_sector,
-            open,
-            high,
-            low,
-            close,
-            adj_close,
-            volume,
-            run_date
-        )
-        VALUES (
-            :date,
-            :ticker,
-            :company_name,
-            :market_sector,
-            :open,
-            :high,
-            :low,
-            :close,
-            :adj_close,
-            :volume,
-            :run_date
-        )
-        ON CONFLICT (ticker, date) DO UPDATE SET
-            company_name   = EXCLUDED.company_name,
-            market_sector  = EXCLUDED.market_sector,
-            open           = EXCLUDED.open,
-            high           = EXCLUDED.high,
-            low            = EXCLUDED.low,
-            close          = EXCLUDED.close,
-            adj_close      = EXCLUDED.adj_close,
-            volume         = EXCLUDED.volume,
-            run_date       = EXCLUDED.run_date
-        """
-    )
-
-    records = final.to_dict(orient="records")
-    with engine.begin() as conn:
-        for row in records:
-            conn.execute(insert_sql, row)
-
-    log.info(
-        f"[ingestion_5years_quant_v1] DB write complete. Upserted {len(records)} rows into prices."
-    )
+    return final
 
 
 if __name__ == "__main__":
-    from quant.engine.db import create_db_engine
-
-    eng = create_db_engine()
-    run(eng)
+    df = run()
+    log.info(f"[ingestion_5years_quant_v1] Ingestion complete (main). Rows: {len(df)}")

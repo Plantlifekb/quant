@@ -21,7 +21,8 @@ log = logging.getLogger("launcher")
 
 DB_URL = os.environ.get("DATABASE_URL", "postgresql+psycopg2://quant:quant@localhost:5433/quant")
 
-FALLBACK_SQL = """-- fallback idempotent schema
+# Fallback SQL should be idempotent; keep existing content or extend as needed.
+FALLBACK_SQL = \"\"\"-- fallback idempotent schema
 CREATE TABLE IF NOT EXISTS strategy_selections (
     strategy_id TEXT PRIMARY KEY
 );
@@ -30,8 +31,8 @@ CREATE TABLE IF NOT EXISTS strategy_weekly_realized (
     week_start DATE,
     realized NUMERIC
 );
--- end fallback
-"""
+-- add other minimal fallback objects here if required
+\"\"\"
 
 def wait_for_db(engine_url, timeout=60):
     start = time.time()
@@ -51,12 +52,7 @@ def wait_for_db(engine_url, timeout=60):
 def apply_fallback(engine):
     log.info("Applying fallback idempotent schema")
     with engine.connect() as c:
-        if engine.dialect.name == "sqlite":
-            sql = FALLBACK_SQL.replace("public.","")
-            for _stmt in [s.strip() for s in sql.split(";") if s.strip()]:
-                c.execute(text(_stmt))
-        else:
-            c.execute(text(FALLBACK_SQL))
+        c.execute(text(FALLBACK_SQL))
     log.info("Fallback schema applied")
 
 def try_alembic_upgrade(project_root):
@@ -74,6 +70,7 @@ def try_alembic_upgrade(project_root):
 def create_materialized_views_with_retry(engine, attempts=3, delay=1.0):
     for attempt in range(1, attempts + 1):
         try:
+            # import here so package resolution uses patched sys.path
             from quant.engine.stages.materialize_dashboard import create_materialized_views
             log.info("Creating materialized views attempt %d", attempt)
             create_materialized_views(engine)
@@ -96,6 +93,7 @@ def main(argv):
     apply_fallback(engine)
     preflight_check(engine)
     create_materialized_views_with_retry(engine)
+    # Start orchestrator if present
     try:
         from quant.engine.orchestrator import main as orchestrator_main
         log.info("Running orchestrator main")
@@ -110,7 +108,3 @@ if __name__ == "__main__":
     except Exception as e:
         log.exception("Launcher failed")
         sys.exit(1)
-
-
-
-

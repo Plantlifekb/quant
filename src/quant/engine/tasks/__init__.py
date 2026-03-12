@@ -11,7 +11,7 @@ from quant.engine.tasks import (
 
 def get_task_registry():
     return {
-        "ingestion": ingestion_task.run,
+        "ingestion": ingestion_task.task_ingest_and_write,
         "prices": prices_task.run,
         "returns": returns_task.run,
         "signals": signals_task.run,

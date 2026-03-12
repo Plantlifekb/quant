@@ -1,10 +1,6 @@
-"""
-Quant engine package.
+# quant/engine/__init__.py
 
-Deterministic, import‑safe, and aligned with the orchestrator/DAG architecture.
-This module intentionally does NOT import the orchestrator at top level.
-"""
+from .db import create_db_engine
 
-__all__ = []
-from .orchestrator import run_all, run_task
-
+# Do NOT import anything from orchestrator here.
+# The orchestrator module is executed directly by the container entrypoint.

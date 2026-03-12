@@ -1,0 +1,29 @@
+name: Orchestrator Smoke Test
+
+on:
+  push:
+    paths:
+      - 'quant/**'
+      - '.github/workflows/orchestrator-smoke.yml'
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    env:
+      DATABASE_URL: sqlite:///tmp/quant_dev.sqlite
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+      - name: Install deps
+        run: pip install -r requirements.txt
+      - name: Create DB file
+        run: mkdir -p /tmp && touch /tmp/quant_dev.sqlite
+      - name: Import tickers
+        run: python import_tickers.py
+      - name: Run orchestrator
+        run: python -m quant.engine.orchestrator
+      - name: Validate tables
+        run: python check_tables.py

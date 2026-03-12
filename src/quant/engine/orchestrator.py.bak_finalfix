@@ -1,0 +1,28 @@
+﻿import logging
+from typing import Optional, Sequence
+
+logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s %(message)s')
+log = logging.getLogger('orchestrator')
+
+def main(argv: Optional[Sequence[str]] = None) -> int:
+    """Minimal orchestrator entrypoint used by launcher.
+    Replace or extend this file with your real orchestrator logic.
+    This stub is idempotent and safe to keep while you iterate.
+    """
+    log.info('Orchestrator stub started')
+    # Place orchestration startup here if needed
+    log.info('Orchestrator stub finished')
+    return 0
+
+if __name__ == '__main__':
+    raise SystemExit(main())
+
+def run_all() -> int:
+    \"\"\"Compatibility shim: run all orchestrator tasks.\"\"\"
+    log.info('run_all shim invoked')
+    return main()
+
+def run_task(name: str, *args, **kwargs) -> int:
+    \"\"\"Compatibility shim: run a named task. Currently a no-op that calls main.\"\"\"
+    log.info('run_task shim invoked for %s', name)
+    return main()
