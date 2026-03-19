@@ -1,0 +1,113 @@
+﻿#!/usr/bin/env python3
+import os
+import sys
+import time
+import subprocess
+import logging
+from pathlib import Path
+
+# Ensure project src is on sys.path so 'quant' package is importable when running launcher directly
+from pathlib import Path as _Path_for_sys
+import sys as _sys_for_path
+_project_root = _Path_for_sys(__file__).resolve().parents[3]
+_src_path = str(_project_root / 'src')
+if _src_path not in _sys_for_path.path:
+    _sys_for_path.path.insert(0, _src_path)
+
+from sqlalchemy import create_engine, text, inspect
+
+logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
+log = logging.getLogger("launcher")
+
+DB_URL = os.environ.get("DATABASE_URL", "postgresql+psycopg2://quant:quant@localhost:5433/quant")
+
+FALLBACK_SQL = """-- fallback idempotent schema
+CREATE TABLE IF NOT EXISTS strategy_selections (
+    strategy_id TEXT PRIMARY KEY
+);
+CREATE TABLE IF NOT EXISTS strategy_weekly_realized (
+    strategy_id TEXT,
+    week_start DATE,
+    realized NUMERIC
+);
+-- end fallback
+"""
+
+def wait_for_db(engine_url, timeout=60):
+    start = time.time()
+    while True:
+        try:
+            e = create_engine(engine_url)
+            with e.connect() as c:
+                c.execute(text("SELECT 1"))
+            log.info("DB is ready")
+            return e
+        except Exception:
+            if time.time() - start > timeout:
+                raise
+            log.info("Waiting for DB readiness")
+            time.sleep(0.5)
+
+def apply_fallback(engine):
+    log.info("Applying fallback idempotent schema")
+    with engine.connect() as c:
+        if engine.dialect.name == "sqlite":
+    sql = FALLBACK_SQL.replace("public.","")
+    for _stmt in [s.strip() for s in sql.split(";") if s.strip()]:
+        c.execute(text(_stmt))
+else:
+    c.execute(text(FALLBACK_SQL))
+    log.info("Fallback schema applied")
+
+def try_alembic_upgrade(project_root):
+    alembic_ini = project_root / "alembic.ini"
+    if alembic_ini.exists():
+        log.info("Alembic environment detected; running alembic upgrade head")
+        try:
+            subprocess.check_call([sys.executable, "-m", "alembic", "upgrade", "head"], cwd=str(project_root))
+            log.info("Alembic upgrade head completed")
+        except Exception as ex:
+            log.warning("Alembic upgrade failed: %s", ex)
+    else:
+        log.info("No Alembic environment detected")
+
+def create_materialized_views_with_retry(engine, attempts=3, delay=1.0):
+    for attempt in range(1, attempts + 1):
+        try:
+            from quant.engine.stages.materialize_dashboard import create_materialized_views
+            log.info("Creating materialized views attempt %d", attempt)
+            create_materialized_views(engine)
+            log.info("Materialized views created")
+            return
+        except Exception as ex:
+            log.exception("Materialize failed on attempt %d: %s", attempt, ex)
+            if attempt == attempts:
+                raise
+            time.sleep(delay)
+
+def preflight_check(engine):
+    log.info("Preflight OK")
+    return True
+
+def main(argv):
+    project_root = Path(__file__).resolve().parents[3]
+    engine = wait_for_db(DB_URL)
+    try_alembic_upgrade(project_root)
+    apply_fallback(engine)
+    preflight_check(engine)
+    create_materialized_views_with_retry(engine)
+    try:
+        from quant.engine.orchestrator import main as orchestrator_main
+        log.info("Running orchestrator main")
+        orchestrator_main()
+    except Exception as ex:
+        log.warning("Orchestrator not started or failed: %s", ex)
+    return 0
+
+if __name__ == "__main__":
+    try:
+        sys.exit(main(sys.argv[1:]))
+    except Exception as e:
+        log.exception("Launcher failed")
+        sys.exit(1)
+

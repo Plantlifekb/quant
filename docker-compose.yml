@@ -1,0 +1,36 @@
+version: "3.9"
+
+services:
+  orchestrator:
+    build:
+      context: .
+      dockerfile: Dockerfile.orchestrator
+    container_name: quant_orchestrator
+    restart: always
+    environment:
+      - PYTHONUNBUFFERED=1
+      - ENV=production
+      - DATABASE_URL=postgres://quant:quant@db:5432/quant
+    depends_on:
+      - db
+    networks:
+      - quant_net
+
+  db:
+    image: postgres:16
+    container_name: quant_db
+    restart: always
+    environment:
+      - POSTGRES_USER=quant
+      - POSTGRES_PASSWORD=quant
+      - POSTGRES_DB=quant
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - quant_net
+
+networks:
+  quant_net:
+
+volumes:
+  pgdata:

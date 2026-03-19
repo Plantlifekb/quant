@@ -1,0 +1,42 @@
+version: "3.9"
+
+services:
+  orchestrator:
+    container_name: orchestrator
+    build:
+      context: .
+      dockerfile: Dockerfile.orchestrator
+    image: orchestrator:latest
+    restart: always
+
+    env_file:
+      - .env
+
+    environment:
+      - PYTHONUNBUFFERED=1
+      - LOG_LEVEL=INFO
+      - ORCHESTRATOR_MODE=production
+
+    volumes:
+      - ./orchestrator:/app
+      - ./shared:/shared
+      - ./data:/data
+
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+    healthcheck:
+      test: ["CMD", "python", "healthcheck.py"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
+
+networks:
+  quant_net:
+    driver: bridge
+    name: quant_net
+    external: false

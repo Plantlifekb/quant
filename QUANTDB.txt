@@ -1,7 +1,6 @@
-      POSTGRES_DB: quantdb
-      POSTGRES_USER: quant
-      POSTGRES_PASSWORD: quantpass
-
-      POSTGRES_USER: quant
-      POSTGRES_PASSWORD: quant
-      POSTGRES_DB: quant
+Set-Location C:\Quant\src\quant
+$env:POSTGRES_HOST = "postgres"
+$env:POSTGRES_DB = "quant"
+$env:POSTGRES_USER = "quant"
+$env:POSTGRES_PASSWORD = "quant"
+$env:REDIS_HOST = "redis"

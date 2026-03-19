@@ -1,19 +1,20 @@
-# Ignore all Postgres internal data
-postgres/
-postgres/**
-
-# Ignore Python cache
+# Python
+.venv/
 __pycache__/
-**/__pycache__/
+*.pyc
 
-# Ignore virtual environments
-venv/
-.env/
+# Local data and DB
+pgdata/
+data/
+*.sqlite
+/docker-entrypoint-initdb.d/
 
-# Ignore OS junk
-.DS_Store
-Thumbs.db
+# Docker and build artifacts
+docker-compose.override.yml
+docker-compose.*.yml.bak
+*.bak
+*.log
 
-# Ignore editor/project files
+# IDE/editor
 .vscode/
 .idea/

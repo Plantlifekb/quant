@@ -1,0 +1,114 @@
+                         List of relations
+       Schema       |           Name           |    Type     | Owner
+--------------------+--------------------------+-------------+-------
+ information_schema | sql_features             | table       | quant
+ information_schema | sql_implementation_info  | table       | quant
+ information_schema | sql_parts                | table       | quant
+ information_schema | sql_sizing               | table       | quant
+ pg_catalog         | pg_aggregate             | table       | quant
+ pg_catalog         | pg_am                    | table       | quant
+ pg_catalog         | pg_amop                  | table       | quant
+ pg_catalog         | pg_amproc                | table       | quant
+ pg_catalog         | pg_attrdef               | table       | quant
+ pg_catalog         | pg_attribute             | table       | quant
+ pg_catalog         | pg_auth_members          | table       | quant
+ pg_catalog         | pg_authid                | table       | quant
+ pg_catalog         | pg_cast                  | table       | quant
+ pg_catalog         | pg_class                 | table       | quant
+ pg_catalog         | pg_collation             | table       | quant
+ pg_catalog         | pg_constraint            | table       | quant
+ pg_catalog         | pg_conversion            | table       | quant
+ pg_catalog         | pg_database              | table       | quant
+ pg_catalog         | pg_db_role_setting       | table       | quant
+ pg_catalog         | pg_default_acl           | table       | quant
+ pg_catalog         | pg_depend                | table       | quant
+ pg_catalog         | pg_description           | table       | quant
+ pg_catalog         | pg_enum                  | table       | quant
+ pg_catalog         | pg_event_trigger         | table       | quant
+ pg_catalog         | pg_extension             | table       | quant
+ pg_catalog         | pg_foreign_data_wrapper  | table       | quant
+ pg_catalog         | pg_foreign_server        | table       | quant
+ pg_catalog         | pg_foreign_table         | table       | quant
+ pg_catalog         | pg_index                 | table       | quant
+ pg_catalog         | pg_inherits              | table       | quant
+ pg_catalog         | pg_init_privs            | table       | quant
+ pg_catalog         | pg_language              | table       | quant
+ pg_catalog         | pg_largeobject           | table       | quant
+ pg_catalog         | pg_largeobject_metadata  | table       | quant
+ pg_catalog         | pg_namespace             | table       | quant
+ pg_catalog         | pg_opclass               | table       | quant
+ pg_catalog         | pg_operator              | table       | quant
+ pg_catalog         | pg_opfamily              | table       | quant
+ pg_catalog         | pg_parameter_acl         | table       | quant
+ pg_catalog         | pg_partitioned_table     | table       | quant
+ pg_catalog         | pg_policy                | table       | quant
+ pg_catalog         | pg_proc                  | table       | quant
+ pg_catalog         | pg_publication           | table       | quant
+ pg_catalog         | pg_publication_namespace | table       | quant
+ pg_catalog         | pg_publication_rel       | table       | quant
+ pg_catalog         | pg_range                 | table       | quant
+ pg_catalog         | pg_replication_origin    | table       | quant
+ pg_catalog         | pg_rewrite               | table       | quant
+ pg_catalog         | pg_seclabel              | table       | quant
+ pg_catalog         | pg_sequence              | table       | quant
+ pg_catalog         | pg_shdepend              | table       | quant
+ pg_catalog         | pg_shdescription         | table       | quant
+ pg_catalog         | pg_shseclabel            | table       | quant
+ pg_catalog         | pg_statistic             | table       | quant
+ pg_catalog         | pg_statistic_ext         | table       | quant
+ pg_catalog         | pg_statistic_ext_data    | table       | quant
+ pg_catalog         | pg_subscription          | table       | quant
+ pg_catalog         | pg_subscription_rel      | table       | quant
+ pg_catalog         | pg_tablespace            | table       | quant
+ pg_catalog         | pg_transform             | table       | quant
+ pg_catalog         | pg_trigger               | table       | quant
+ pg_catalog         | pg_ts_config             | table       | quant
+ pg_catalog         | pg_ts_config_map         | table       | quant
+ pg_catalog         | pg_ts_dict               | table       | quant
+ pg_catalog         | pg_ts_parser             | table       | quant
+ pg_catalog         | pg_ts_template           | table       | quant
+ pg_catalog         | pg_type                  | table       | quant
+ pg_catalog         | pg_user_mapping          | table       | quant
+ pg_toast           | pg_toast_1213            | TOAST table | quant
+ pg_toast           | pg_toast_1247            | TOAST table | quant
+ pg_toast           | pg_toast_1255            | TOAST table | quant
+ pg_toast           | pg_toast_1260            | TOAST table | quant
+ pg_toast           | pg_toast_1262            | TOAST table | quant
+ pg_toast           | pg_toast_13460           | TOAST table | quant
+ pg_toast           | pg_toast_13465           | TOAST table | quant
+ pg_toast           | pg_toast_13470           | TOAST table | quant
+ pg_toast           | pg_toast_13475           | TOAST table | quant
+ pg_toast           | pg_toast_1417            | TOAST table | quant
+ pg_toast           | pg_toast_1418            | TOAST table | quant
+ pg_toast           | pg_toast_2328            | TOAST table | quant
+ pg_toast           | pg_toast_2396            | TOAST table | quant
+ pg_toast           | pg_toast_2600            | TOAST table | quant
+ pg_toast           | pg_toast_2604            | TOAST table | quant
+ pg_toast           | pg_toast_2606            | TOAST table | quant
+ pg_toast           | pg_toast_2609            | TOAST table | quant
+ pg_toast           | pg_toast_2612            | TOAST table | quant
+ pg_toast           | pg_toast_2615            | TOAST table | quant
+ pg_toast           | pg_toast_2618            | TOAST table | quant
+ pg_toast           | pg_toast_2619            | TOAST table | quant
+ pg_toast           | pg_toast_2620            | TOAST table | quant
+ pg_toast           | pg_toast_2964            | TOAST table | quant
+ pg_toast           | pg_toast_3079            | TOAST table | quant
+ pg_toast           | pg_toast_3118            | TOAST table | quant
+ pg_toast           | pg_toast_3256            | TOAST table | quant
+ pg_toast           | pg_toast_3350            | TOAST table | quant
+ pg_toast           | pg_toast_3381            | TOAST table | quant
+ pg_toast           | pg_toast_3394            | TOAST table | quant
+ pg_toast           | pg_toast_3429            | TOAST table | quant
+ pg_toast           | pg_toast_3456            | TOAST table | quant
+ pg_toast           | pg_toast_3466            | TOAST table | quant
+ pg_toast           | pg_toast_3592            | TOAST table | quant
+ pg_toast           | pg_toast_3596            | TOAST table | quant
+ pg_toast           | pg_toast_3600            | TOAST table | quant
+ pg_toast           | pg_toast_6000            | TOAST table | quant
+ pg_toast           | pg_toast_6100            | TOAST table | quant
+ pg_toast           | pg_toast_6106            | TOAST table | quant
+ pg_toast           | pg_toast_6243            | TOAST table | quant
+ pg_toast           | pg_toast_826             | TOAST table | quant
+(108 rows)
+
+(END)
